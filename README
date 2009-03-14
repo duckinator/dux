@@ -1,0 +1,24 @@
+You MUST use comments in your code.
+ 
+Use K&R C. Always.
+See what Wikipedia has to say: The K&R style, so-called because it was used in Kernighan and Ritchie's book The C Programming Language, is commonly used in C. It is less common for Objective C, C++, C#, and others. It keeps the first opening brace on the same line as the control statement, indents the statements within the braces, and puts the closing brace on the same indentation level as the control statement (on a line of its own). Functions, however, are braced distinctly from statements; an opening function brace is placed on the line following the declaration, at the same indentation level as the declaration. This is because in the original C language, argument types needed to be declared on the subsequent line, whereas when no arguments were necessary, the opening brace would not appear in the same line with the function declaration.
+int main(int argc, char *argv[])
+{
+    ...
+    while (x == y) {
+        something();
+        somethingelse();
+        if (some_error)
+            do_correct();
+        else
+            continue_as_usual();
+    }
+    finalthing();
+    ...
+}
+ 
+Simplicity is beautiful.
+ 
+Use Intel ASM. Always.
+ 
+ 
