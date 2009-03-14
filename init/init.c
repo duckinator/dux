@@ -99,8 +99,7 @@ void prompt(char *prompt){
 }
 
 /* Main loop! */
-/*void kmain( void* mbd, unsigned int magic )*/
-void kmain(void)
+void kmain(void* mb_info)
 {
 	timer_phase(100); /* 100Hz timer */
 	timer_install();
@@ -111,6 +110,7 @@ void kmain(void)
 	__asm__ __volatile__ ("sti"); 
 	settextcolor(0xf, 0x1);
 	init_video();
+
 	puts("TEST!\n");
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));
