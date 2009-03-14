@@ -48,8 +48,6 @@ STACKSIZE equ 0x4000			; that's 16k.
 
 loader:
 	mov esp, stack+STACKSIZE	; set up the stack
-	;push eax			; pass Multiboot magic number
-	;push ebx			; pass Multiboot info structure
 
 	lgdt [gdt_desc]
 	jmp 0x08:.flush
@@ -64,6 +62,7 @@ loader:
 		jmp 0x08:gdt_return
 gdt_return:
 	call  idt_init			; initialize IDT
+	push ebx
 	call  kmain			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
