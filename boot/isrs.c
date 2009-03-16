@@ -14,7 +14,7 @@ char *exceptions[32] = {
 	"6 #UD Invalid Opcode (Undefined Opcode)",
 	"7 #NM Device Not Available (No Math Coprocessor)",
 	"8 #DF Double Fault",
-	"9		 Coprocessor Segment Overrun (reserved)",
+	"9   Coprocessor Segment Overrun (reserved)",
 	"10 #TS Invalid TSS",
 	"11 #NP Segment Not Present",
 	"12 #SS Stack-Segment Fault",
