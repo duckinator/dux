@@ -22,6 +22,6 @@ extern void timer_sleep();
 
 extern void panic();
 
-int printk(const char *fmt, ...);
+void printk(char *fmt, ...);
 
 #endif
