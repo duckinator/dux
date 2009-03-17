@@ -83,8 +83,9 @@ void keyboard_handler(struct regs *r)
 
 /* Sets up the keyboard by installing the keyboard handler
 *  into IRQ1 */
-void keyboard_install()
+unsigned int keyboard_install(void)
 {
 	/* Installs 'keyboard_handler' to IRQ1 */
 	irq_install_handler(1, keyboard_handler);
+	return 0;
 }

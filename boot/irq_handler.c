@@ -13,9 +13,10 @@ void *irq_routines[16] =
 };
 
 /* This installs a custom IRQ handler for the given IRQ */
-void irq_install_handler(int irq, void (*handler)(struct regs *r))
+unsigned int irq_install_handler(int irq, void (*handler)(struct regs *r))
 {
 	irq_routines[irq] = handler;
+	return 0;
 }
 
 /* This clears the handler for a given IRQ */
@@ -49,7 +50,7 @@ void irq_remap(void)
 /* We first remap the interrupt controllers, and then we install
 *  the appropriate ISRs to the correct entries in the IDT. This
 *  is just like installing the exception handlers */
-void irq_install()
+unsigned int irq_install(void)
 {
 	irq_remap();
 
@@ -69,6 +70,8 @@ void irq_install()
 	idt_set_entry(45, (unsigned)irq13, 0x08, 0x8E);
 	idt_set_entry(46, (unsigned)irq14, 0x08, 0x8E);
 	idt_set_entry(47, (unsigned)irq15, 0x08, 0x8E);
+	
+	return 0;
 }
 
 /* Each of the IRQ ISRs point to this function, rather than

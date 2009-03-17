@@ -47,7 +47,7 @@ void fault_handler(struct regs *r)
 	}
 }
 
-void isr_install()
+unsigned int isr_install(void)
 {
 	idt_set_entry(0, (unsigned)isr0, 0x08, 0x8E);
 	idt_set_entry(1, (unsigned)isr1, 0x08, 0x8E);
@@ -81,5 +81,5 @@ void isr_install()
 	idt_set_entry(29, (unsigned)isr29, 0x08, 0x8E);
 	idt_set_entry(30, (unsigned)isr30, 0x08, 0x8E);
 	idt_set_entry(31, (unsigned)isr31, 0x08, 0x8E);
-
+	return 0;
 }
