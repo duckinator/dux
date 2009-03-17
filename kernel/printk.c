@@ -28,7 +28,7 @@ void printk(char *fmt, ...)
 	char *p, *sval;
 	char cval;
 	int ival;
-	double dval;
+	//double dval; /* for %f */
 
 	va_start(ap, fmt);
 	for (p = fmt; *p; p++) {

@@ -8,6 +8,11 @@ extern unsigned int keyboard_install();
 extern void detect_floppy_drives();
 extern unsigned char floppy_read_cmd();
 
+static unsigned int enable_interrupts(void){
+	__asm__ __volatile__ ("sti");
+	return 0;
+}
+
 static void startitem(unsigned int (*func)(void), char *what)
 {
 	puts("Initializing ");
@@ -51,7 +56,7 @@ void kmain(void* mb_info)
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
 	startitem(keyboard_install, "keyboard");
-	__asm__ __volatile__ ("sti"); 
+	startitem(enable_interrupts, "interrupts");
 
 	puts("TEST!\n");
 	//detect_floppy_drives(); 
