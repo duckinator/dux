@@ -1,7 +1,7 @@
 #include <system.h>
 #include <descriptor_tables.h>
 
-extern void memset();
+//extern void memset();
 
 extern void gdt_flush(int);
 

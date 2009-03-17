@@ -16,9 +16,9 @@ struct regs {
 	unsigned int eip, cs, eflags, useresp, ss; 
 };
 
-extern void isr_install();
-extern void irq_install();
-extern void irq_install_handler();
+extern unsigned int isr_install(void);
+extern unsigned int irq_install(void);
+extern unsigned int irq_install_handler();
 
 extern void isr0();
 extern void isr1();

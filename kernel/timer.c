@@ -26,10 +26,11 @@ void timer_handler(struct regs *r)
 
 /* Sets up the system clock by installing the timer handler
 *  into IRQ0 */
-void timer_install()
+unsigned int timer_install(void)
 {
 	/* Installs 'timer_handler' to IRQ0 */
 	irq_install_handler(0, timer_handler);
+	return 0;
 }
 
 /* This will continuously loop until the given time has
