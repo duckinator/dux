@@ -1,6 +1,6 @@
 #include <isr.h>
 extern void puts();
-extern void init_video();
+//extern void init_video();
 
 void panic( char * text )
 {

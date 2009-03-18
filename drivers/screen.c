@@ -1,159 +1,158 @@
 #include <system.h>
-#include <string.h>
-
-/* These define our textpointer, our background and foreground
-  colors (attributes), and x and y cursor coordinates */
-unsigned short *textmemptr;
-int attrib = 0x0F;
-int csr_x = 0, csr_y = 0;
-
-/* Scrolls the screen */
-void scroll(void)
+ 
+unsigned short *vidmem = (unsigned short*) 0xb8000;
+ 
+unsigned int cursor_x;
+unsigned int cursor_y;
+ 
+unsigned int attribute = 0x0f;
+ 
+static void move_cursor()
 {
-	unsigned blank, temp;
-
-	/* A blank is defined as a space... we need to give it
-	*  backcolor too */
-	blank = 0x20 | (attrib << 8);
-
-	/* Row 25 is the end, this means we need to scroll up */
-	if(csr_y >= 25)
-	{
-		/* Move the current text chunk that makes up the screen
-		*  back in the buffer by a line */
-		temp = csr_y - 25 + 1;
-		memcpy ((void*) textmemptr, (void*) (textmemptr + temp * 80), (25 - temp) * 80 * 2);
-
-		/* Finally, we set the chunk of memory that occupies
-		*  the last line of text to our 'blank' character */
-		memsetw (textmemptr + (25 - temp) * 80, blank, 80);
-		csr_y = 25 - 1;
+	// Find the linear cursor position.
+	unsigned short position = cursor_y * 80 + cursor_x;
+ 
+	// Send the low cursor byte.
+	outportb(0x3d4, 0x0f);
+	outportb(0x3d5, position & 0xff);
+ 
+	// Send the high cursor byte.
+	outportb(0x3d4, 0x0e);
+	outportb(0x3d5, (position >> 8) & 0xff);
+}
+ 
+static void scroll()
+{
+	// Keep in mind that scroll does not move the hardware cursor.
+	if (cursor_y >= 25) {
+		unsigned short i;
+ 
+		// Move the last 24 lines up 1 line.
+		for (i = 0; i < 80*24; i++)
+			vidmem[i] = vidmem[i+80];
+ 
+		// Blank the last line.
+		for (i = 80*24; i < 80*25; i++)
+			vidmem[i] = 0x20 | attribute << 8;
+ 
+		// The cursor should be on the last line.
+		cursor_y = 24;
 	}
 }
-
-/* Updates the hardware cursor: the little blinking line
-*  on the screen under the last character pressed! */
-void move_csr(void)
+ 
+void monitor_set_attribute(unsigned int attr)
 {
-	unsigned temp;
-
-	/* The equation for finding the index in a linear
-	*  chunk of memory can be represented by:
-	*  Index = [(y * width) + x] */
-	temp = csr_y * 80 + csr_x;
-
-	/* This sends a command to indicies 14 and 15 in the
-	*  CRT Control Register of the VGA controller. These
-	*  are the high and low bytes of the index that show
-	*  where the hardware cursor is to be 'blinking'. To
-	*  learn more, you should look up some VGA specific
-	*  programming documents. A great start to graphics:
-	*  http://www.brackeen.com/home/vga */
-	outportb(0x3D4, 14);
-	outportb(0x3D5, temp >> 8);
-	outportb(0x3D4, 15);
-	outportb(0x3D5, temp);
+	attribute = attr;
 }
-
-/* Clears the screen */
-void cls()
+ 
+void monitor_clear()
 {
-	unsigned blank;
-	int i;
-
-	/* Again, we need the 'short' that will be used to
-	*  represent a space with color */
-	blank = 0x20 | (attrib << 8);
-
-	/* Sets the entire screen to spaces in our current
-	*  color */
-	for(i = 0; i < 25; i++)
-		memsetw (textmemptr + i * 80, blank, 80);
-
-	/* Update out virtual cursor, and then move the
-	*  hardware cursor */
-	csr_x = 0;
-	csr_y = 0;
-	move_csr();
+	// Sets the entire video memory to white on black spaces.
+	unsigned short i;
+	for (i = 0; i < 80*25; i++)
+		vidmem[i] = 0x20 | attribute << 8;
+ 
+	// Put the cursor in the upper left hand corner.
+	cursor_x = 0;
+	cursor_y = 0;
+	move_cursor();
 }
-
-/* Puts a single character on the screen */
-void putch(char c)
+ 
+void monitor_put_char(unsigned int c)
 {
-	unsigned short *where;
-	unsigned att = attrib << 8;
-
-	/* Handle a backspace, by moving the cursor back one space */
-	if(c == 0x08)
-	{
-		if(csr_x != 0) csr_x--;
+	// Put the character on the screen at the current cursor position with
+	// white on black attributes.
+ 
+	// Backspace
+	if (c == 0x08) {
+		cursor_x--;
 	}
-	/* Handles a tab by incrementing the cursor's x, but only
-	*  to a point that will make it divisible by 8 */
-	else if(c == 0x09)
-	{
-		csr_x = (csr_x + 8) & ~(8 - 1);
+	// Tab
+	else if (c == 0x09) {
+		cursor_x = (cursor_x + 8) & ~(8-1);
 	}
-	/* Handles a 'Carriage Return', which simply brings the
-	*  cursor back to the margin */
-	else if(c == '\r')
-	{
-		csr_x = 0;
+	// Carriage return
+	else if (c == '\r') {
+		cursor_x = 0;
 	}
-	/* We handle our newlines the way DOS and the BIOS do: we
-	*  treat it as if a 'CR' was also there, so we bring the
-	*  cursor to the margin and we increment the 'y' value */
-	else if(c == '\n')
-	{
-		csr_x = 0;
-		csr_y++;
+	// New line
+	else if (c == '\n') {
+		cursor_x = 0;
+		cursor_y++;
 	}
-	/* Any character greater than and including a space, is a
-	*  printable character. The equation for finding the index
-	*  in a linear chunk of memory can be represented by:
-	*  Index = [(y * width) + x] */
-	else if(c >= ' ')
-	{
-		where = textmemptr + (csr_y * 80 + csr_x);
-		*where = c | att;	/* Character AND attributes: color */
-		csr_x++;
+	// Space
+	else if (c == 0x20) {
+		vidmem[cursor_y * 80 + cursor_x] = 0x20 | attribute << 8;
+		cursor_x++;
 	}
-
-	/* If the cursor has reached the edge of the screen's width, we
-	*  insert a new line in there */
-	if(csr_x >= 80)
-	{
-		csr_x = 0;
-		csr_y++;
+	// Other character.
+	else if (c > 0x20) {
+		vidmem[cursor_y * 80 + cursor_x] = c | attribute << 8;
+		cursor_x++;
 	}
-
-	/* Scroll the screen if needed, and finally move the cursor */
+ 
+	// If the x cursor is past column 80, loop around to the next line.
+	if (cursor_x > 80) {
+		cursor_y++;
+		cursor_x = 0;
+	}
+ 
 	scroll();
-	move_csr();
+	move_cursor();
 }
 
-/* Uses the above routine to output a string... */
-void puts(char *text)
+void putch(unsigned int c)
 {
-	int i;
-	/* char *ctext = (char*) text; */
-	for (i = 0; i < strlen(text); i++)
-	{
-		putch(text[i]);
+	monitor_put_char(c);
+}
+
+void puts(char *str)
+{
+	while(*str)
+		putch(*str++);
+}
+
+void monitor_switch_pages(unsigned int a, unsigned int b)
+{
+	// There are no pages after 8 (7).
+	if ((a > 8) || (b > 8))
+		return;
+ 
+	// Pointers to video memory.
+	unsigned short *ap = (unsigned short*) 0xb8000 + (a * 4000);
+	unsigned short *bp = (unsigned short*) 0xb8000 + (b * 4000);
+ 
+	// Buffer to store ap.
+	unsigned short temp[4000];
+ 
+	// Switch the pages.
+	unsigned short i;
+	for (i = 0; i < 4000; i++) {
+		temp[i] = ap[i];
 	}
+	for (i = 0; i < 4000; i++) {
+		ap[i] = bp[i];
+	}
+	for (i = 0; i < 4000; i++) {
+		bp[i] = temp[i];
+	}
+ 
+	// Cursor handling after a page switch does not belong here.
 }
-
-/* Sets the forecolor and backcolor that we will use */
-void settextcolor(unsigned char forecolor, unsigned char backcolor)
+ 
+unsigned int monitor_get_cursor_x()
 {
-	/* Top 4 bytes are the background, bottom 4 bytes
-	*  are the foreground color */
-	attrib = (backcolor << 4) | (forecolor & 0x0F);
+	return cursor_x;
 }
-
-/* Sets our text-mode VGA pointer, then clears the screen for us */
-void init_video(void)
+ 
+unsigned int monitor_get_cursor_y()
 {
-	textmemptr = (unsigned short *)0xB8000;
-	cls();
+	return cursor_y;
+}
+ 
+void monitor_set_cursor(unsigned int x, unsigned int y)
+{
+	cursor_x = x;
+	cursor_y = y;
+	move_cursor();
 }

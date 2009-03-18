@@ -45,8 +45,7 @@ void prompt(char *prompt){
 /* Main loop! */
 void kmain(void* mb_info)
 {
-	settextcolor(0xf, 0x1);
-	init_video();
+	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	/*timer_install();
 	isr_install();
