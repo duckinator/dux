@@ -136,44 +136,42 @@ void keyboard_handler(struct regs *r)
 		
 		if(scancode == 42) shift_l = 1; // left shift pressed
 		if(scancode == 54) shift_r = 1; // right shift pressed
-		
-		if(scancode == 58 && capslock == 1){
-			capslock = 0; // caps lock disabled
-		} else {
-			capslock = 1; // caps lock enabled
+	
+		if(scancode == 58){
+			capslock = 1 ^ capslock;
 		}
 		
 		if(scancode == 59){
 			// F1 pressed
-			vt_visible = 1;
+			vt_visible = 0;
 		}
 		if(scancode == 60){
 			// F2 Pressed
-			vt_visible = 2;
+			vt_visible = 1;
 		}
 		if(scancode == 61){
 			// F3 pressed
-			vt_visible = 3;
+			vt_visible = 2;
 		}
 		if(scancode == 62){
 			// F4 pressed
-			vt_visible = 4;
+			vt_visible = 3;
 		}
 		if(scancode == 63){
 			// F5 pressed
-			vt_visible = 5;
+			vt_visible = 4;
 		}
 		if(scancode == 64){
 			// F6 pressed
-			vt_visible = 6;
+			vt_visible = 5;
 		}
 		if(scancode == 65){
 			// F7 pressed
-			vt_visible = 7;
+			vt_visible = 6;
 		}
 		if(scancode == 66){
 			// F8 pressed
-			vt_visible = 8;
+			vt_visible = 7;
 		}
 		if(scancode == 67){
 			// F9 pressed
@@ -191,11 +189,22 @@ void keyboard_handler(struct regs *r)
 			monitor_switch_pages(0, vt_visible);
 		}
 		
-		if((shift_l | shift_r | capslock) == 1){
-			putch(kbdus_shift[scancode]);
-		} else {
-			putch(kbdus[scancode]);
+		if ((scancode >= 2 && scancode <= 0x1c) ||
+				(scancode >= 0x1e && scancode <= 0x29) ||
+				(scancode >= 0x2b && scancode <= 0x35) ||
+				(scancode == 0x39)) {
+			if (scancode == 0x0e)
+				putch('\x08');
+			else
+				if((shift_l | shift_r | capslock) == 1){
+					putch(kbdus_shift[scancode]);
+				} else {
+					putch(kbdus[scancode]);
+				}
 		}
+
+		if (scancode == 0x01)
+			panic("user interrupt");
 		//printk("[%d]", scancode);
 	}
 }
