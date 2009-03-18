@@ -108,9 +108,9 @@ void keyboard_handler(struct regs *r)
 	*  set, that means that a key has just been released */
 	if (scancode & 0x80)
 	{
+		scancode -= 0x80;
 		/* You can use this one to see if the user released the
 		*  shift, alt, or control keys... */
-		puts("KEY RELEASED\n");
 		if(scancode == 29) ctrl = 0; // ctrl released
 		if(scancode == 56) alt = 0; // alt released
 		
@@ -191,7 +191,7 @@ void keyboard_handler(struct regs *r)
 			monitor_switch_pages(0, vt_visible);
 		}
 		
-		if( (shift_l == 1) || (shift_r == 1) || (capslock == 1) ){
+		if((shift_l | shift_r | capslock) == 1){
 			putch(kbdus_shift[scancode]);
 		} else {
 			putch(kbdus[scancode]);
