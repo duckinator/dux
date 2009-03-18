@@ -47,10 +47,6 @@ void kmain(void* mb_info)
 {
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
-	/*timer_install();
-	isr_install();
-	irq_install();
-	keyboard_install();*/
 	startitem(timer_install, "timer");
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
