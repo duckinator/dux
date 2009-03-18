@@ -38,6 +38,7 @@ void printk(char *fmt, ...)
 		}
 
 		switch(*++p) {
+			case 'i':
 			case 'd':
 				ival = va_arg(ap, int);
 				printn(ival, 10);
