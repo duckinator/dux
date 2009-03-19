@@ -38,6 +38,23 @@ void timer_phase(int hz)
     outportb(0x40, divisor >> 8);     /* Set high byte of divisor */
 }
 
+void run_command(int argc, char *argv[])
+{
+	unsigned int i;
+	char *reboots = "reboot";
+
+	for (i = 0; i < strlen(argv[0]); i++) {
+		if (*argv[0]++ == *reboots++) {
+			printk("%c", *reboots);
+		} else {
+			return;
+		}
+	}
+
+	outportb(0x60, 0xed);
+	outportb(0x60, 0x00);
+}
+
 void prompt() {
 	char buf[160];
 	int buf_len;
@@ -96,6 +113,8 @@ void prompt() {
 	j = 0;
 	num_spaces = 0;
 	memset(buf, 0x0, 160);
+
+	run_command(num_spaces, argv);
 }
 
 /* Main loop! */
