@@ -13,6 +13,10 @@ void *malloc(int size)
 	return NULL;
 }
 
+void free(void *ptr)
+{
+}
+
 void *memcpy(void *dest, void *src, unsigned int count)
 {
 	/* Add code here to copy 'count' bytes of data from 'src' to

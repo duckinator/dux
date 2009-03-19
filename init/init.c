@@ -1,10 +1,10 @@
 #include <system.h>
+#include <keyboard.h>
 
 extern unsigned int timer_install();
 extern unsigned int isr_install();
 extern unsigned int irq_install();
 extern unsigned int gdt_install();
-extern unsigned int keyboard_install();
 extern void detect_floppy_drives();
 extern unsigned char floppy_read_cmd();
 
@@ -45,6 +45,7 @@ void prompt(char *prompt){
 /* Main loop! */
 void kmain(void* mb_info)
 {
+	char c;
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	startitem(timer_install, "timer");
@@ -59,5 +60,8 @@ void kmain(void* mb_info)
 	outportb(0x60, 0xED);
 	/*outportb(0x60, 0x00);*/
 
-	for(;;) asm("hlt"); /* Until we get processes/threads/multitasking working... */
+	for(;;) {
+		if((c = keyboard_getchar()) != 0)
+			printk("%c", c);
+	}/* Until we get processes/threads/multitasking working... */
 }

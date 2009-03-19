@@ -1,18 +1,10 @@
 #include <system.h>
+#include <keyboard.h>
 #include <isr.h>
+#include <lb.h>
 
-int alt = 0; // Alt released
-int ctrl = 0; // Ctrl released
-int shift_l = 0; // Left Shift released
-int shift_r = 0; // Right Shift released
-int capslock = 0; // Caps lock off
-int vt_visible = 0; // VT 0 is visible
+static lb_t *first;
 
-/* KBDUS means US Keyboard Layout. This is a scancode table
-*  used to layout a standard US keyboard. I have left some
-*  comments in to give you an idea of what key is what, even
-*  though I set it's array index to 0. You can change that to
-*  whatever you want using a macro, if you wish! */
 unsigned char kbdus[128] =
 {
 	0,  27, '1', '2', '3', '4', '5', '6', '7', '8',		/* 9 */
@@ -95,125 +87,39 @@ unsigned char kbdus_shift[128] =
 	0,	/* All other keys are undefined */
 };
 
-/* Handles the keyboard interrupt */
 void keyboard_handler(struct regs *r)
 {
-	r=r;
-	unsigned char scancode;
+	char *s;
+	unsigned int scancode;
 
-	/* Read from the keyboard's data buffer */
 	scancode = inportb(0x60);
 
-	/* If the top bit of the byte we read from the keyboard is
-	*  set, that means that a key has just been released */
-	if (scancode & 0x80)
-	{
+	if (scancode & 0x80) { /* a key was released */
 		scancode -= 0x80;
-		/* You can use this one to see if the user released the
-		*  shift, alt, or control keys... */
-		if(scancode == 29) ctrl = 0; // ctrl released
-		if(scancode == 56) alt = 0; // alt released
-		
-		if(scancode == 42) shift_l = 0; // left shift released
-		if(scancode == 54) shift_r = 0; // right shift released
-	}
-	else
-	{
-		/* Here, a key was just pressed. Please note that if you
-		*  hold a key down, you will get repeated key press
-		*  interrupts. */
-
-		/* Just to show you how this works, we simply translate
-		*  the keyboard scancode into an ASCII value, and then
-		*  display it to the screen. You can get creative and
-		*  use some flags to see if a shift is pressed and use a
-		*  different layout, or you can add another 128 entries
-		*  to the above layout to correspond to 'shift' being
-		*  held. If shift is held using the larger lookup table,
-		*  you would add 128 to the scancode when you look for it */
-		if(scancode == 29) ctrl = 1; // ctrl pressed
-		if(scancode == 56) alt = 1; // alt pressed
-		
-		if(scancode == 42) shift_l = 1; // left shift pressed
-		if(scancode == 54) shift_r = 1; // right shift pressed
-	
-		if(scancode == 58){
-			capslock = 1 ^ capslock;
-		}
-		
-		if(scancode == 59){
-			// F1 pressed
-			vt_visible = 0;
-		}
-		if(scancode == 60){
-			// F2 Pressed
-			vt_visible = 1;
-		}
-		if(scancode == 61){
-			// F3 pressed
-			vt_visible = 2;
-		}
-		if(scancode == 62){
-			// F4 pressed
-			vt_visible = 3;
-		}
-		if(scancode == 63){
-			// F5 pressed
-			vt_visible = 4;
-		}
-		if(scancode == 64){
-			// F6 pressed
-			vt_visible = 5;
-		}
-		if(scancode == 65){
-			// F7 pressed
-			vt_visible = 6;
-		}
-		if(scancode == 66){
-			// F8 pressed
-			vt_visible = 7;
-		}
-		if(scancode == 67){
-			// F9 pressed
-		}
-		if(scancode == 68){
-			// F10 pressed
-		}
-		if(scancode == 87){
-			// F11 pressed
-		}
-		if(scancode == 88){
-			// F12 pressed
-		}
-		if(scancode >= 59 && scancode <= 66){
-			monitor_switch_pages(0, vt_visible);
-		}
-		
-		if ((scancode >= 2 && scancode <= 0x1c) ||
-				(scancode >= 0x1e && scancode <= 0x29) ||
-				(scancode >= 0x2b && scancode <= 0x35) ||
-				(scancode == 0x39)) {
-			if (scancode == 0x0e)
-				putch('\x08');
-			else
-				if((shift_l | shift_r | capslock) == 1){
-					putch(kbdus_shift[scancode]);
-				} else {
-					putch(kbdus[scancode]);
-				}
-		}
-
-		if ((ctrl | alt | (scancode == 83)) == 1)
-			panic("user interrupt");
-		//printk("[%d]", scancode);
+	} else { /* a key was pressed */
+		s = malloc(1);
+		*s = kbdus[scancode];
+		lb_add(first, 1, s);
 	}
 }
 
-/* Sets up the keyboard by installing the keyboard handler
-*  into IRQ1 */
+char keyboard_getchar()
+{
+	char c;
+
+	if (first->next != NULL) {
+		c = *(first->next->buf);
+		free(first->next->buf);
+		lb_del(first, first->next);
+	} else {
+		c = 0;
+	}
+	return c;
+}
+
 unsigned int keyboard_install(void)
 {
-	/* Installs 'keyboard_handler' to IRQ1 */
+	first = lb_init();
 	irq_install_handler(1, keyboard_handler);
 	return 0;
 }

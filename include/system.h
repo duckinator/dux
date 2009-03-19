@@ -7,6 +7,7 @@ extern void outportb(unsigned short _port, unsigned char data);
 extern unsigned char inportb(unsigned short _port);
 
 extern void *malloc(int size);
+extern void free(void*);
 extern void *memcpy(void *dest, void *src, unsigned int count);
 extern void *memset(void *dest, unsigned char val, unsigned int count);
 extern unsigned short *memsetw(unsigned short *dest, unsigned short val, unsigned int count);
@@ -26,5 +27,7 @@ extern void timer_sleep();
 extern void panic();
 
 void printk(char *fmt, ...);
+
+#define NULL 0
 
 #endif
