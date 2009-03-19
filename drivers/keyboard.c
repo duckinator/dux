@@ -203,7 +203,7 @@ void keyboard_handler(struct regs *r)
 				}
 		}
 
-		if (scancode == 0x01)
+		if ((ctrl | alt | (scancode == 83)) == 1)
 			panic("user interrupt");
 		//printk("[%d]", scancode);
 	}
