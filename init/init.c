@@ -38,14 +38,69 @@ void timer_phase(int hz)
     outportb(0x40, divisor >> 8);     /* Set high byte of divisor */
 }
 
-void prompt(char *prompt){
-	puts(prompt);
+void prompt() {
+	char buf[160];
+	int buf_len;
+	char c;
+	int i = 0, j = 0, num_spaces = 0;
+	char **argv;
+
+	printk(" > ");
+
+	while (1) {
+		if (c = keyboard_getchar()) {
+			if (c == 0x08) {
+				i--;
+				buf[i] = 0x0;
+			}
+			if (c >= ' ')
+				buf[i++] = c;
+			printk("%c", c);
+			if (c == '\n')
+				break;
+		}
+	}
+
+	buf_len = strlen(buf);
+
+	/* count the number of spaces */
+	for (i = 0; i < strlen(buf); i++)
+		if (buf[i] == ' ') {
+			num_spaces++;
+			while (buf[i] == ' ')
+				i++;
+		}
+
+	argv = malloc(sizeof(void*)*(num_spaces+2));
+
+	argv[j++] = buf;
+	/* count the number of spaces */
+	for (i = 0; i < buf_len; i++)
+		if (buf[i] == ' ') {
+			buf[i] = 0x0;
+			while (buf[i] == ' ') {
+				buf[i] = 0x0;
+				i++;
+			}
+			argv[j++] = &buf[i+1];
+		}
+
+	argv[j] = NULL;
+
+	printk("argc %d\n", num_spaces);
+	j = 0;
+	while (j <= num_spaces) {
+		printk("argv[%d] %s\n", j++, *argv++);
+	}
+
+	j = 0;
+	num_spaces = 0;
+	memset(buf, 0x0, 160);
 }
 
 /* Main loop! */
 void kmain(void* mb_info)
 {
-	char c;
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	startitem(timer_install, "timer");
@@ -54,14 +109,12 @@ void kmain(void* mb_info)
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
 
-	puts("TEST!\n");
+	while (1)
+		prompt();
+
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));
-	outportb(0x60, 0xED);
-	/*outportb(0x60, 0x00);*/
-
-	for(;;) {
-		if((c = keyboard_getchar()) != 0)
-			printk("%c", c);
-	}/* Until we get processes/threads/multitasking working... */
+	/* This reboots, I think.
+	 * outportb(0x60, 0xED);
+	 * outportb(0x60, 0x00);*/
 }
