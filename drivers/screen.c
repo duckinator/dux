@@ -66,6 +66,8 @@ void monitor_put_char(unsigned int c)
 	// Backspace
 	if (c == 0x08) {
 		cursor_x--;
+		monitor_put_char(' ');
+		cursor_x--;
 	}
 	// Tab
 	else if (c == 0x09) {
