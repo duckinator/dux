@@ -43,7 +43,7 @@ void run_command(int argc, char *argv[])
 	unsigned int i;
 	char *reboots = "reboot";
 
-	for (i = 0; i < strlen(argv[0]); i++) {
+	for (i = 0; i < (unsigned int)strlen(argv[0]); i++) {
 		if (*argv[0]++ == *reboots++) {
 			printk("%c", *reboots);
 		} else {
@@ -65,7 +65,7 @@ void prompt() {
 	printk(" > ");
 
 	while (1) {
-		if (c = keyboard_getchar()) {
+		if ((c = keyboard_getchar())) {
 			if (c == 0x08) {
 				i--;
 				buf[i] = 0x0;
