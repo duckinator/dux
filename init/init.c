@@ -106,11 +106,15 @@ void prompt() {
 
 	argv[j] = NULL;
 
+#ifdef DEBUG
+
 	printk("argc %d\n", num_spaces);
 	j = 0;
 	while (j <= num_spaces) {
 		printk("argv[%d] %s\n", j++, *argv++);
 	}
+
+#endif
 
 	j = 0;
 	num_spaces = 0;

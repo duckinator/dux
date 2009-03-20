@@ -4,11 +4,12 @@
 #include <lb.h>
 
 static lb_t *first;
+keyboard_status_t status;
 
 unsigned char kbdus[128] =
 {
 	0,  27, '1', '2', '3', '4', '5', '6', '7', '8',		/* 9 */
-	'9', '0', '-', '=', '\b',	/* Backspace */
+	'9', '0', '-', '=', '\x08',	/* Backspace */
 	'\t',				/* Tab */
 	'q', 'w', 'e', 'r',		/* 19 */
 	't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',		/* Enter key */
@@ -49,7 +50,7 @@ unsigned char kbdus[128] =
 unsigned char kbdus_shift[128] =
 {
 	0,  27, '!', '@', '#', '$', '%', '^', '&', '*',		/* 9 */
-	'(', ')', '_', '+', '\b',	/* Backspace */
+	'(', ')', '_', '+', '\x08',	/* Backspace */
 	'\t',				/* Tab */
 	'Q', 'W', 'E', 'R',		/* 19 */
 	'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n',		/* Enter key */
@@ -98,10 +99,43 @@ void keyboard_handler(struct regs *r)
 
 	if (scancode & 0x80) { /* a key was released */
 		scancode -= 0x80;
+		if (scancode == 29)
+			status.ctrl = 0;
+		if (scancode == 56)
+			status.alt = 0;
+
+		if (scancode == 42)
+			status.shift_l = 0;
+		if (scancode == 54)
+			status.shift_r = 0;
 	} else { /* a key was pressed */
-		s = malloc(1);
-		*s = kbdus[scancode];
-		lb_add(first, 1, s);
+		if (scancode == 29)
+			status.ctrl = 1;
+		if (scancode == 56)
+			status.alt = 1;
+
+		if (scancode == 42)
+			status.shift_l = 1;
+		if (scancode == 54)
+			status.shift_r = 1;
+
+		if (scancode == 58)
+			status.capslock = 1 ^ status.capslock;
+
+		if ((scancode >= 2 && scancode <= 0x1c) ||
+				(scancode >= 0x1e && scancode <= 0x29) ||
+				(scancode >= 0x2b && scancode <= 0x35) ||
+				(scancode == 0x39)) {
+			if ((status.shift_l | status.shift_r | status.capslock) == 1) {
+				s = malloc(1);
+				*s = kbdus_shift[scancode];
+				lb_add(first, 1, s);
+			} else {
+				s = malloc(1);
+				*s = kbdus[scancode];
+				lb_add(first, 1, s);
+			}
+		}
 	}
 }
 
