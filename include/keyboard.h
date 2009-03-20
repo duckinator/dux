@@ -13,5 +13,6 @@ typedef struct {
 
 unsigned int keyboard_install(void);
 char keyboard_getchar();
+keyboard_status_t keyboard_getstatus();
 
 #endif
