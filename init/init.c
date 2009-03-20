@@ -123,10 +123,23 @@ void prompt() {
 	run_command(num_spaces, argv);
 }
 
+struct mmap_buffer {
+	unsigned int size;
+	unsigned int base_addr_low;
+	unsigned int base_addr_high;
+	unsigned int length_low;
+	unsigned int length_high;
+	unsigned int type;
+};
+
 /* Main loop! */
-void kmain(void* mb_info)
+void kmain(unsigned int *mb_info)
 {
-	mb_info=mb_info;
+	unsigned int i = 0;
+	struct mmap_buffer *mmap;
+	unsigned long long base_addr;
+	unsigned long long length;
+	unsigned int type;
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	startitem(timer_install, "timer");
@@ -135,8 +148,21 @@ void kmain(void* mb_info)
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
 
-	while (1)
-		prompt();
+	if (*mb_info & 0x40) { /* mmem_* fields are valid */
+		mmap = (struct mmap_buffer*) mb_info[12];
+		while (mmap < mb_info[12] + mb_info[11]) {
+			base_addr = (mmap->base_addr_high << 32) + mmap->base_addr_low;
+			length = mmap->length_low;
+			printk("0x%lx - 0x%lx (%s)\n", base_addr, base_addr+length,
+					(mmap->type == 1) ? "available" : "unavailable");
+			mmap = (struct mmap_buffer*) ((unsigned int)mmap +
+					mmap->size + sizeof(unsigned int));
+			length = 0;
+			base_addr = 0;
+		}
+	}
+
+	while (1);
 
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));

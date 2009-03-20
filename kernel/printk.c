@@ -10,7 +10,7 @@
 #define va_copy(d,s)  __builtin_va_copy(d,s)
 typedef __builtin_va_list va_list;
 
-static void printn(int n, int base)
+static void printn(unsigned int n, unsigned int base)
 {
 	char *numbers = "0123456789abcdefghijklmnopqrstuvwxyz";
 	if (n < 0) {
@@ -27,7 +27,9 @@ void printk(char *fmt, ...)
 	va_list ap;
 	char *p, *sval;
 	char cval;
-	int ival;
+	unsigned int ival;
+	unsigned long long lval;
+	unsigned int process_long = 0;
 	//double dval; /* for %f */
 
 	va_start(ap, fmt);
@@ -37,14 +39,15 @@ void printk(char *fmt, ...)
 			continue;
 		}
 
+reset:
 		switch(*++p) {
 			case 'i':
 			case 'd':
-				ival = va_arg(ap, int);
+				ival = va_arg(ap, unsigned int);
 				printn(ival, 10);
 				break;
 			case 'c':
-				cval = va_arg(ap, int);
+				cval = va_arg(ap, unsigned int);
 				putch(cval);
 				break;
 			case 's':
@@ -53,8 +56,17 @@ void printk(char *fmt, ...)
 					putch(*sval++);
 				break;
 			case 'x':
-				ival = va_arg(ap, int);
-				printn(ival, 16);
+				if (process_long) {
+					lval = va_arg(ap, unsigned long long);
+					printn((unsigned int)lval, 16);
+				} else {
+					ival = va_arg(ap, unsigned int);
+					printn(ival, 16);
+				}
+				break;
+			case 'l':
+				process_long = 1;
+				goto reset;
 				break;
 			default:
 				putch(*p);
