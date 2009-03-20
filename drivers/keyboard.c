@@ -136,6 +136,9 @@ void keyboard_handler(struct regs *r)
 				lb_add(first, 1, s);
 			}
 		}
+
+		if (scancode == 83)
+			panic("secure attention sequence");
 	}
 }
 
