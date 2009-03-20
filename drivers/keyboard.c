@@ -153,6 +153,11 @@ char keyboard_getchar()
 	return c;
 }
 
+keyboard_status_t keyboard_getstatus()
+{
+	return status;
+}
+
 unsigned int keyboard_install(void)
 {
 	first = lb_init();
