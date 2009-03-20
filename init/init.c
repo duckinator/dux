@@ -128,8 +128,6 @@ void kmain(void* mb_info)
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
 
-	panic("bye");
-
 	while (1)
 		prompt();
 
