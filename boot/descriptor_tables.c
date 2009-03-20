@@ -17,7 +17,7 @@ idt_ptr_t	idt_ptr;
 // Lets us access our ASM functions from our C code.
 extern void tss_flush();
 // Internal function prototypes.
-static void write_tss(int num,int ss0,int esp0);
+//static void write_tss(int num,int ss0,int esp0);
 
 tss_entry_t tss_entry;
 
@@ -50,7 +50,7 @@ static void gdt_set_gate(int num, int base, int limit, int access, int gran)
 }
 
 // Initialise our task state segment structure.
-static void write_tss(int num, int ss0, int esp0)
+/*static void write_tss(int num, int ss0, int esp0)
 {
 	// Firstly, let's compute the base and limit of our entry into the GDT.
 	int base = (int) &tss_entry;
@@ -73,7 +73,7 @@ static void write_tss(int num, int ss0, int esp0)
 	// to switch to kernel mode from ring 3.
 	tss_entry.cs	= 0x0b;
 	tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x13;
-}
+}*/
 
 void set_kernel_stack(int stack)
 {

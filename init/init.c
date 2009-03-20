@@ -43,6 +43,8 @@ void run_command(int argc, char *argv[])
 	unsigned int i;
 	char *reboots = "reboot";
 
+	argc=argc;
+
 	for (i = 0; i < (unsigned int)strlen(argv[0]); i++) {
 		if (*argv[0]++ == *reboots++) {
 			printk("%c", *reboots);
@@ -120,6 +122,7 @@ void prompt() {
 /* Main loop! */
 void kmain(void* mb_info)
 {
+	mb_info=mb_info;
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	startitem(timer_install, "timer");

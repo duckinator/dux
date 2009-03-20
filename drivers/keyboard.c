@@ -89,8 +89,10 @@ unsigned char kbdus_shift[128] =
 
 void keyboard_handler(struct regs *r)
 {
-	char *s;
+	unsigned char *s;
 	unsigned int scancode;
+
+	r=r;
 
 	scancode = inportb(0x60);
 
