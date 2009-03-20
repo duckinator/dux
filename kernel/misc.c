@@ -15,6 +15,7 @@ void *malloc(int size)
 
 void free(void *ptr)
 {
+	ptr=ptr;
 }
 
 void *memcpy(void *dest, void *src, unsigned int count)
