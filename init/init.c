@@ -123,21 +123,11 @@ void prompt() {
 	run_command(num_spaces, argv);
 }
 
-struct mmap_buffer {
-	unsigned int size;
-	unsigned int base_addr_low;
-	unsigned int base_addr_high;
-	unsigned int length_low;
-	unsigned int length_high;
-	unsigned int type;
-};
-
 /* Main loop! */
 void kmain(unsigned int *mb_info)
 {
-	struct mmap_buffer *mmap;
-	unsigned long long base_addr;
-	unsigned long long length;
+	unsigned int i;
+	unsigned int *mod_addr;
 	monitor_clear();
 	timer_phase(100); /* 100Hz timer */
 	startitem(timer_install, "timer");
@@ -146,22 +136,18 @@ void kmain(unsigned int *mb_info)
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
 
-	if (*mb_info & 0x40) { /* mmem_* fields are valid */
-		mmap = (struct mmap_buffer*) mb_info[12];
-		while ((unsigned int) mmap < mb_info[12] + mb_info[11]) {
-			base_addr = ((unsigned long long) mmap->base_addr_high << 32)
-				+ mmap->base_addr_low;
-			length = mmap->length_low;
-			printk("0x%lx - 0x%lx (%s)\n", base_addr, base_addr+length,
-					(mmap->type == 1) ? "available" : "unavailable");
-			mmap = (struct mmap_buffer*) ((unsigned int)mmap +
-					mmap->size + sizeof(unsigned int));
-			length = 0;
-			base_addr = 0;
-		}
+	printk("mods_count: %d\n", mb_info[5]);
+	printk("mods_addr: 0x%x\n", mb_info[6]);
+
+	mod_addr = (unsigned int*) mb_info[6];
+	for (i = 0; i < mb_info[5]; i++) {
+		printk("Name: %s\n", mod_addr[2]);
+		printk("Location: 0x%x - 0x%x\n", mod_addr[0], mod_addr[1]);
+		printk("%s", mod_addr[0]);
+		mod_addr += sizeof(unsigned int)*4;
 	}
 
-	while (1);
+	panic("bye");
 
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));
