@@ -32,7 +32,7 @@ unsigned int mm_frame_find()
 	}
 
 	panic("could not find free frame");
-	/* no compiler, actually control does not reach end of non-void
+	/* no, compiler, actually control does not reach end of non-void
 	 * function because panic is going to stop the system, but just to
 	 * satisfy your needs, I'll add 7 extra bytes to the code */
 	return 0;
