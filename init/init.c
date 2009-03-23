@@ -136,6 +136,8 @@ void kmain(unsigned int *mb_info)
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
 
+	mm_detect_grub(mb_info);
+
 	printk("mods_count: %d\n", mb_info[5]);
 	printk("mods_addr: 0x%x\n", mb_info[6]);
 
