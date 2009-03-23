@@ -138,9 +138,6 @@ void kmain(unsigned int *mb_info)
 
 	mm_detect_grub(mb_info);
 
-	printk("mods_count: %d\n", mb_info[5]);
-	printk("mods_addr: 0x%x\n", mb_info[6]);
-
 	mod_addr = (unsigned int*) mb_info[6];
 	for (i = 0; i < mb_info[5]; i++) {
 		printk("Name: %s\n", mod_addr[2]);
@@ -149,7 +146,8 @@ void kmain(unsigned int *mb_info)
 		mod_addr += sizeof(unsigned int)*4;
 	}
 
-	panic("bye");
+	asm volatile ("cli");
+	asm volatile ("hlt");
 
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));
