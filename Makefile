@@ -18,6 +18,7 @@ OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall
 #drivers/floppy.o
 OBJS+=drivers/screen.o drivers/keyboard.o 
 OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o mm/frame.o mm/detect.o
+OBJS+=drivers/serial.o
 
 all: dux
 
