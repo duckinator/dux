@@ -17,7 +17,7 @@ OBJS=boot/loader.o boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/i
 OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall.o kernel/misc.o
 #drivers/floppy.o
 OBJS+=drivers/screen.o drivers/keyboard.o 
-OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o mm/frame.o
+OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o mm/frame.o mm/detect.o
 
 all: dux
 

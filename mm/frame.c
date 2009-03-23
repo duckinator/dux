@@ -1,3 +1,4 @@
+#include "frame.h"
 #include <system.h>
 
 static unsigned char table[0x100000];
