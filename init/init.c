@@ -138,13 +138,21 @@ void kmain(unsigned int *mb_info)
 
 	mm_detect_grub(mb_info);
 
-	mod_addr = (unsigned int*) mb_info[6];
+	init_serial();
+	i = read_serial();
+	write_serial('a');
+
+	printk("%c", i);
+	write_serial(i);
+
+/*	mod_addr = (unsigned int*) mb_info[6];
 	for (i = 0; i < mb_info[5]; i++) {
 		printk("Name: %s\n", mod_addr[2]);
 		printk("Location: 0x%x - 0x%x\n", mod_addr[0], mod_addr[1]);
 		printk("%s", mod_addr[0]);
 		mod_addr += sizeof(unsigned int)*4;
 	}
+	*/
 
 	asm volatile ("cli");
 	asm volatile ("hlt");
