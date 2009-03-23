@@ -1,5 +1,6 @@
 #include "detect.h"
 #include "frame.h"
+#include <system.h>
 
 void mm_detect_grub(multiboot_info_t *mb_info)
 {
