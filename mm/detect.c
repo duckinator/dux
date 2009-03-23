@@ -11,10 +11,10 @@ void mm_detect_grub(multiboot_info_t *mb_info)
 		while ((unsigned int) cur_mmap <
 				mb_info->mmap_addr + mb_info->mmap_length) {
 			printk("0x%x - 0x%x is type: 0x%x\n", cur_mmap->base_addr_low,
-					cur_mmap->length_low, cur_mmap->type);
+					cur_mmap->base_addr_low + cur_mmap->length_low,
+					cur_mmap->type);
 			if (cur_mmap->type != 1)
-				mm_detect_alloc(cur_mmap->base_addr_low,
-						cur_mmap->base_addr_low + cur_mmap->length_low);
+				mm_detect_alloc(cur_mmap->base_addr_low, cur_mmap->length_low);
 			cur_mmap = (memory_map_t*) ((unsigned int) cur_mmap +
 					cur_mmap->size + sizeof(unsigned int));
 		}
