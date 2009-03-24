@@ -105,7 +105,7 @@ void monitor_put_char(unsigned int c)
 
 void putch(unsigned int c)
 {
-	monitor_put_char(c);
+	consend(c);
 }
 
 void puts(char *str)

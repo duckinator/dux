@@ -18,10 +18,11 @@ void timer_handler(struct regs *r)
 
 	/* Every 18 clocks (approximately 1 second), we will
 	*  display a message on the screen */
-	/*if (timer_ticks % 18 == 0)
-	{
-		puts("One second has passed\n");
-	}*/
+
+	if (!(timer_ticks % 100)) {
+		/* Update the graphics every 0.1 seconds */
+		tui_update_hw();
+	}
 }
 
 /* Sets up the system clock by installing the timer handler
@@ -30,6 +31,7 @@ unsigned int timer_install(void)
 {
 	/* Installs 'timer_handler' to IRQ0 */
 	irq_install_handler(0, timer_handler);
+	timer_phase(1000);
 	return 0;
 }
 

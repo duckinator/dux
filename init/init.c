@@ -58,7 +58,7 @@ void prompt() {
 	printk(" > ");
 
 	while (1) {
-		if ((c = keyboard_getchar())) {
+		if ((c = conrecv())) {
 			if (c == 0x08) {
 				i--;
 				buf[i] = 0x0;
@@ -97,15 +97,11 @@ void prompt() {
 
 	argv[j] = NULL;
 
-#ifdef DEBUG
-
 	printk("argc %d\n", num_spaces);
 	j = 0;
 	while (j <= num_spaces) {
 		printk("argv[%d] %s\n", j++, *argv++);
 	}
-
-#endif
 
 	j = 0;
 	num_spaces = 0;
@@ -117,10 +113,8 @@ void prompt() {
 /* Main loop! */
 void kmain(unsigned int *mb_info)
 {
-	unsigned int i;
-	unsigned int *mod_addr;
-	monitor_clear();
-	timer_phase(100); /* 100Hz timer */
+	init_serial();
+	tui_init();
 	startitem(timer_install, "timer");
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
@@ -129,24 +123,10 @@ void kmain(unsigned int *mb_info)
 
 	mm_detect_grub(mb_info);
 
-	init_serial();
-	i = read_serial();
-	write_serial('a');
-
-	printk("%c", i);
-	write_serial(i);
-
-/*	mod_addr = (unsigned int*) mb_info[6];
-	for (i = 0; i < mb_info[5]; i++) {
-		printk("Name: %s\n", mod_addr[2]);
-		printk("Location: 0x%x - 0x%x\n", mod_addr[0], mod_addr[1]);
-		printk("%s", mod_addr[0]);
-		mod_addr += sizeof(unsigned int)*4;
+	while (1) {
+		asm volatile ("cli");
+		asm volatile ("hlt");
 	}
-	*/
-
-	asm volatile ("cli");
-	asm volatile ("hlt");
 
 	//detect_floppy_drives(); 
 	//putch(floppy_read_data(0x3f0));
