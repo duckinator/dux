@@ -1,7 +1,7 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
-void init_serial();
+void serial_init();
 int serial_received();
 char read_serial();
 int is_transmit_empty();
