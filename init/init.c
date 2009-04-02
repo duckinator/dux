@@ -117,7 +117,7 @@ void prompt() {
 /* Main loop! */
 void kmain(multiboot_info_t *mb_info)
 {
-	init_serial();
+	serial_serial();
 	tui_init();
 	startitem(timer_install, "timer");
 	startitem(isr_install, "ISRs");
