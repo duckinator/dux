@@ -1,5 +1,9 @@
 #include <system.h>
 #include <keyboard.h>
+#include <console.h>
+#include <serial.h>
+#include <tui.h>
+#include <detect.h>
 
 extern unsigned int timer_install();
 extern unsigned int isr_install();
@@ -111,7 +115,7 @@ void prompt() {
 }
 
 /* Main loop! */
-void kmain(unsigned int *mb_info)
+void kmain(multiboot_info_t *mb_info)
 {
 	init_serial();
 	tui_init();

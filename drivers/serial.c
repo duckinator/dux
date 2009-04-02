@@ -1,3 +1,4 @@
+#include <system.h>
 #define PORT 0x3f8
 
 void init_serial()

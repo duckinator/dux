@@ -4,8 +4,9 @@
 #include <keyboard.h>
 
 #define SERIAL
+#define TUI
 
-unsigned consend(unsigned char c)
+void consend(unsigned char c)
 {
 #ifdef TUI
 	tui_write_char(c);

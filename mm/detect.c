@@ -2,6 +2,22 @@
 #include "frame.h"
 #include <system.h>
 
+void mm_detect_alloc(unsigned int base_addr, unsigned int length)
+{
+	unsigned int i;
+	for (i = 0; i < length/0x1000; i++) {
+		mm_frame_alloc(base_addr+0x1000*i);
+	}
+}
+
+void mm_detect_free(unsigned int base_addr, unsigned int length)
+{
+	unsigned int i;
+	for (i = 0; i < length/0x1000; i++) {
+		mm_frame_free(base_addr+0x1000*i);
+	}
+}
+
 void mm_detect_grub(multiboot_info_t *mb_info)
 {
 	memory_map_t *cur_mmap = (memory_map_t*) mb_info->mmap_addr;
@@ -22,21 +38,5 @@ void mm_detect_grub(multiboot_info_t *mb_info)
 			cur_mmap = (memory_map_t*) ((unsigned int) cur_mmap +
 					cur_mmap->size + sizeof(unsigned int));
 		}
-	}
-}
-
-void mm_detect_alloc(unsigned int base_addr, unsigned int length)
-{
-	unsigned int i;
-	for (i = 0; i < length/0x1000; i++) {
-		mm_frame_alloc(base_addr+0x1000*i);
-	}
-}
-
-void mm_detect_free(unsigned int base_addr, unsigned int length)
-{
-	unsigned int i;
-	for (i = 0; i < length/0x1000; i++) {
-		mm_frame_free(base_addr+0x1000*i);
 	}
 }
