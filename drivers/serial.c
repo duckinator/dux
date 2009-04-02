@@ -1,7 +1,7 @@
 #include <system.h>
 #define PORT 0x3f8
 
-void init_serial()
+void serial_init()
 {
 	outportb(PORT+1, 0x00);
 	outportb(PORT+3, 0x80);
