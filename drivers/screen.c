@@ -1,4 +1,5 @@
 #include <system.h>
+#include <console.h>
  
 unsigned short *vidmem = (unsigned short*) 0xb8000;
  
