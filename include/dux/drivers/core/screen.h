@@ -14,6 +14,8 @@ void screen_hidecursor();
 void screen_showcursor(CursorStyle type);
 void screen_drawcursor(unsigned char x, unsigned char y);
 
+void screen_scroll(unsigned char *x, unsigned char *y);
 void screen_setattr(unsigned char attr, unsigned char cattr);
+Cursor screen_getattr();
 void screen_clear();
 void screen_init();
