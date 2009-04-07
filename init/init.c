@@ -32,7 +32,13 @@ static void startitem(unsigned int (*func)(void), char *what)
 
 /* Main loop! */
 void kmain()
-{
+{	
+	int i, j, k;
+	console_init();
+	for (k = 0; k <= 100000; k++) {
+	for (i = 'a'; i <= 'z'; i++) {
+		console_write(i);
+	}}
 	asm volatile ("cli");
 	asm volatile ("hlt");
 

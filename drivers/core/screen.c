@@ -61,10 +61,29 @@ void screen_drawcursor(unsigned char x, unsigned char y)
  * Misc
  */
 
+void screen_scroll(unsigned char *x, unsigned char *y)
+{
+	unsigned int i;
+
+	if (*y > 24) {
+		for (i = 0; i < 80*24; i++)
+			vidmem[i] = vidmem[i+80];
+
+		for (i = 80*24; i < 80*25; i++)
+			vidmem[i] = cs.attr << 8 | 0x20;
+		*y = 24;
+	}
+}
+
 void screen_setattr(unsigned char attr, unsigned char cattr)
 {
 	cs.attr = attr;
 	cs.cattr = cattr;
+}
+
+Cursor screen_getattr()
+{
+	return cs;
 }
 
 void screen_clear()
