@@ -28,16 +28,16 @@ static void startitem(unsigned int (*func)(void), char *what)
 }
 
 
-#include <dux/drivers/core/screen.h>
+#include <dux/drivers/core/console.h>
 
 /* Main loop! */
 void kmain()
 {	
-	int i, j, k;
+	int i, k;
 	console_init();
 	for (k = 0; k <= 100000; k++) {
 	for (i = 'a'; i <= 'z'; i++) {
-		console_write(i);
+		console_writeb(i);
 	}}
 	asm volatile ("cli");
 	asm volatile ("hlt");

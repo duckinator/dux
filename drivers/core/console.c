@@ -3,7 +3,7 @@
 
 static unsigned char x, y;
 
-void console_write(char c)
+void console_writeb(char c)
 {
 	if (c == 0x08) {
 		if (x > 0)
@@ -34,7 +34,7 @@ void console_write(char c)
 	screen_scroll(&x, &y);
 }
 
-char console_read()
+char console_readb()
 {
 	screen_showcursor(block);
 	screen_hidecursor();

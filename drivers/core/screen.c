@@ -72,6 +72,7 @@ void screen_scroll(unsigned char *x, unsigned char *y)
 		for (i = 80*24; i < 80*25; i++)
 			vidmem[i] = cs.attr << 8 | 0x20;
 		*y = 24;
+		*x = 0;
 	}
 }
 
