@@ -1,6 +1,5 @@
 #include <system.h>
 #include <isr.h>
-#include <tui.h>
 
 /* This will keep track of how many ticks that the system
 *  has been running for */
@@ -19,11 +18,6 @@ void timer_handler(struct regs *r)
 
 	/* Every 18 clocks (approximately 1 second), we will
 	*  display a message on the screen */
-
-	if (!(timer_ticks % 100)) {
-		/* Update the graphics every 0.1 seconds */
-		tui_update_hw();
-	}
 }
 
 void timer_phase(int hz)

@@ -1,16 +1,10 @@
 #include <system.h>
 #include <keyboard.h>
-#include <console.h>
-#include <serial.h>
-#include <tui.h>
-#include <detect.h>
 
 extern unsigned int timer_install();
 extern unsigned int isr_install();
 extern unsigned int irq_install();
 extern unsigned int gdt_install();
-extern void detect_floppy_drives();
-extern unsigned char floppy_read_cmd();
 
 static unsigned int enable_interrupts(void){
 	__asm__ __volatile__ ("sti");
@@ -114,18 +108,23 @@ void prompt() {
 	run_command(num_spaces, argv);
 }
 
+#include <dux/drivers/screen.h>
+
 /* Main loop! */
-void kmain(multiboot_info_t *mb_info)
+void kmain()
 {
-	serial_init();
-	tui_init();
+	screen_init();
+	screen_hidecursor();
+	screen_puts("hello world this is a very long string that will need another line to print because it is very long so that it will need multiple lines to print");
+
+	asm volatile ("cli");
+	asm volatile ("hlt");
+
 	startitem(timer_install, "timer");
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
 	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
-
-	mm_detect_grub(mb_info);
 
 	while (1) {
 		asm volatile ("cli");
