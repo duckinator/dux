@@ -15,10 +15,9 @@ CFLAGS=-m32 -Wall -Wextra -fno-builtin -fno-stack-protector -Iinclude -Idrivers 
 
 OBJS=boot/loader.o boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/irq_handler.o boot/gdt.o boot/isrs.o boot/idt.o boot/loadidt.o 
 OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall.o kernel/misc.o
-#drivers/floppy.o
-OBJS+=drivers/screen.o drivers/keyboard.o 
-OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o mm/frame.o mm/detect.o
-OBJS+=drivers/serial.o drivers/tui.o drivers/console.o
+OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o
+
+OBJS += drivers/ports.o drivers/screen.o
 
 all: dux
 
