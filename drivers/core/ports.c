@@ -1,4 +1,4 @@
-#include <dux/drivers/ports.h>
+#include <dux/drivers/core/ports.h>
 
 void outb(unsigned short port, unsigned char data)
 {

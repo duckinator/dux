@@ -28,7 +28,7 @@ static void startitem(unsigned int (*func)(void), char *what)
 }
 
 
-#include <dux/drivers/screen.h>
+#include <dux/drivers/core/screen.h>
 
 /* Main loop! */
 void kmain()
