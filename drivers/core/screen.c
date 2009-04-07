@@ -1,5 +1,5 @@
-#include <dux/drivers/ports.h>
-#include <dux/drivers/screen.h>
+#include <dux/drivers/core/ports.h>
+#include <dux/drivers/core/screen.h>
 
 static unsigned short *vidmem = (unsigned short*) 0xb8000;
 static CursorPos cp;
