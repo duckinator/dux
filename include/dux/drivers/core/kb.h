@@ -1,0 +1,2 @@
+void kb_init();
+

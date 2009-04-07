@@ -33,20 +33,15 @@ static void startitem(unsigned int (*func)(void), char *what)
 /* Main loop! */
 void kmain()
 {	
-	int i, k;
 	console_init();
-	for (k = 0; k <= 100000; k++) {
-	for (i = 'a'; i <= 'z'; i++) {
-		console_writeb(i);
-	}}
-	asm volatile ("cli");
-	asm volatile ("hlt");
 
-	startitem(timer_install, "timer");
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
-	startitem(keyboard_install, "keyboard");
 	startitem(enable_interrupts, "interrupts");
+
+	console_writeb('>');
+	while (1)
+		asm volatile ("hlt");
 
 	while (1) {
 		asm volatile ("cli");
