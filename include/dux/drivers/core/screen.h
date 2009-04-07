@@ -1,12 +1,10 @@
 typedef enum {none, block} CursorStyle;
 
 typedef struct {
-	unsigned char x;
-	unsigned char y;
 	unsigned char attr;
 	unsigned char cattr;
 	CursorStyle type;
-} CursorPos;
+} Cursor;
 
 void screen_writechar(unsigned char x, unsigned char y, unsigned char attr, char c);
 void screen_putchar(char c);
