@@ -1,15 +1,20 @@
 #include <dux/drivers/core/console.h>
 #include <dux/drivers/core/screen.h>
+#include <dux/drivers/core/kb.h>
 
 static unsigned char x, y;
 
 void console_writeb(char c)
 {
 	if (c == 0x08) {
-		if (x > 0)
-			screen_writechar(x-1, y, screen_getattr().attr, c);
-		else
-			screen_writechar(79, y-1, screen_getattr().attr, c);
+		if (x > 0) {
+			x--;
+			screen_writechar(x, y, screen_getattr().attr, ' ');
+		} else {
+			x = 79;
+			y--;
+			screen_writechar(x, y, screen_getattr().attr, ' ');
+		}
 	}
 	else if (c == 0x09) {
 		x = (x+8) & ~(8-1);
@@ -46,4 +51,6 @@ void console_init()
 	screen_init();
 	x = 0;
 	y = 0;
+
+	kb_init();
 }
