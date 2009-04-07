@@ -16,28 +16,6 @@ void screen_writechar(unsigned char x, unsigned char y, unsigned char attr, char
 	vidmem[pos] = attr << 8 | c;
 }
 
-void screen_putchar(char c)
-{
-	unsigned short pos = 80*cp.y+cp.x;
-
-	vidmem[pos] = cp.attr << 8 | c;
-
-	screen_drawcursor(cp.x, cp.y);
-
-	if (cp.x >= 79) {
-		cp.x = 0;
-		cp.y++;
-	} else {
-		cp.x++;
-	}
-}
-
-void screen_puts(char *s)
-{
-	while (*s)
-		screen_putchar(*s++);
-}
-
 /*
  * Software cursor
  */
@@ -54,7 +32,8 @@ void screen_showcursor(CursorStyle type)
 
 void screen_drawcursor(unsigned char x, unsigned char y)
 {
-	// Column 80 needs to be on column 80, the other columns need to be one column after the printed text.
+	// Column 80 needs to be on column 80, the other columns need to be one column after
+	// the printed text.
 	if (cp.type != none) {
 		if (x == 79) {
 			x = 0;
@@ -63,12 +42,16 @@ void screen_drawcursor(unsigned char x, unsigned char y)
 				case block:
 					vidmem[80*y+x] = cp.cattr << 8 | (vidmem[80*y+x] & 0xff);
 					break;
+				default:
+					break;
 			}
 		} else {
 			x = x+1;
 			switch (cp.type) {
 				case block:
 					vidmem[80*y+x] = cp.cattr << 8 | (vidmem[80*y+x] & 0xff);
+					break;
+				default:
 					break;
 			}
 		}

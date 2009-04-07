@@ -82,10 +82,12 @@ void outportb (unsigned short _port, unsigned char _data)
 
 void puts(char *s)
 {
+	s=s;
 }
 
 void putch(char c)
 {
+	c=c;
 }
 
 void keyboard_install()
