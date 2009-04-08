@@ -3,7 +3,9 @@
 
 #include <isr.h>
 
-unsigned char *buffer = 0x800000;
+unsigned char buf[0x1000];
+unsigned char *buffer;
+unsigned char *origbuffer;
 
 unsigned char kbdus[128] =
 {
@@ -57,7 +59,7 @@ char kb_read()
 {
 	char tmp;
 start:
-	if (buffer > 0x800000) {
+	if (buffer > origbuffer) {
 		tmp = *buffer--;
 		return tmp;
 	} else {
@@ -70,4 +72,8 @@ start:
 void kb_init()
 {
 	irq_install_handler(1, kb_irq_handler);
+	// The compiler is convinced that unsigned char[0x1000] is not an
+	// lvalue, so all these hacks are needed to compile.
+	buffer = buf;
+	origbuffer = buffer;
 }

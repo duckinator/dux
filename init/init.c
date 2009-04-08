@@ -1,47 +1,24 @@
 #include <system.h>
-#include <keyboard.h>
-
-extern unsigned int timer_install();
-extern unsigned int isr_install();
-extern unsigned int irq_install();
-extern unsigned int gdt_install();
-
-static unsigned int enable_interrupts(void){
-	__asm__ __volatile__ ("sti");
-	return 0;
-}
-
-static void startitem(unsigned int (*func)(void), char *what)
-{
-	puts("Initializing ");
-	puts(what);
-	puts("... ");
- 
-	switch (func()) {
-		case 0:
-			puts("Done\n");
-			return;
-		default:
-			puts("Failure\n");
-			while (1);
-	}
-}
-
+#include <isr.h>
 
 #include <dux/drivers/core/console.h>
 
 /* Main loop! */
 void kmain()
 {
+	// Start the console
 	console_init();
+	printk("Dux OS Kernel Starting...\n");
 
-	startitem(isr_install, "ISRs");
-	startitem(irq_install, "IRQs");
-	startitem(enable_interrupts, "interrupts");
+	// Enable interrupts
+	isr_install();
+	irq_install();
+	asm volatile ("sti");
 
-	console_write("hello world: ", 13);
+	// Let them eat cake.
+	printk("You may type now...\n");
 	while (1)
-	console_writeb(console_readb());
+		console_writeb(console_readb());
 
 	while (1) {
 		asm volatile ("cli");
