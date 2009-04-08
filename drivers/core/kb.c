@@ -61,6 +61,8 @@ start:
 		tmp = *buffer--;
 		return tmp;
 	} else {
+		// Goto is usually frowned upon, but it is truly the most
+		// understandable method here. We could also use a while loop.
 		goto start;
 	}
 }
