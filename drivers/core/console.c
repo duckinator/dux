@@ -39,11 +39,18 @@ void console_writeb(char c)
 	screen_scroll(&x, &y);
 }
 
+void console_write(char *buf, unsigned int count)
+{
+	unsigned int i;
+	for (i = 0; i < count; i++)
+		console_writeb(buf[i]);
+}
+
 char console_readb()
 {
-	screen_showcursor(block);
-	screen_hidecursor();
-	return 0x0;
+	char tmp;
+	tmp = kb_read();
+	return tmp;
 }
 
 void console_init()
