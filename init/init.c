@@ -32,16 +32,16 @@ static void startitem(unsigned int (*func)(void), char *what)
 
 /* Main loop! */
 void kmain()
-{	
+{
 	console_init();
 
 	startitem(isr_install, "ISRs");
 	startitem(irq_install, "IRQs");
 	startitem(enable_interrupts, "interrupts");
 
-	console_writeb('>');
+	console_write("hello world: ", 13);
 	while (1)
-		asm volatile ("hlt");
+	console_writeb(console_readb());
 
 	while (1) {
 		asm volatile ("cli");
