@@ -1,23 +1,3 @@
-void *NULL = 0x0;
-
-char *freebase = (char*) 0x400000; // 4 MB
-char *freeend = (char*) 0x500000; // 5 MB
-void *malloc(int size)
-{
-	if ((freebase + size) > freeend) {
-		return NULL;
-	} else {
-		freebase = freebase + size;
-		return freebase - size;
-	}
-	return NULL;
-}
-
-void free(void *ptr)
-{
-	ptr=ptr;
-}
-
 void *memcpy(void *dest, void *src, unsigned int count)
 {
 	/* Add code here to copy 'count' bytes of data from 'src' to
