@@ -63,12 +63,16 @@ void screen_drawcursor(unsigned char x, unsigned char y)
 				case block:
 					vidmem[80*y+x] = cp.cattr << 8 | (vidmem[80*y+x] & 0xff);
 					break;
+				default:
+					break;
 			}
 		} else {
 			x = x+1;
 			switch (cp.type) {
 				case block:
 					vidmem[80*y+x] = cp.cattr << 8 | (vidmem[80*y+x] & 0xff);
+					break;
+				default:
 					break;
 			}
 		}
