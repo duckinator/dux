@@ -78,7 +78,9 @@ unsigned int first_frame()
 	return 0;
 }
 
-
+/* alloc_frame(page, is_kernel, is_writable)
+ * Obtains a physical frame and allocates it to the page table given.
+ */
 unsigned int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
 {
 	unsigned int addr;
@@ -97,7 +99,9 @@ unsigned int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
 	return 0;
 }
 
-
+/* free_frame(page)
+ * Clears the allocation on the physical frame
+ */
 void free_frame(PageTableEntry *page)
 {
 	clear_frame(page->address<<12);
