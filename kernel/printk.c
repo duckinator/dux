@@ -1,5 +1,7 @@
 #include <system.h>
 
+#include <dux/drivers/core/console.h>
+
 #ifndef __GNUC__
 #error I want gcc!
 #endif
@@ -20,7 +22,7 @@ static void printn(unsigned int n, unsigned int base)
 //	}
 	if (n / base)
 		printn(n/base, base);
-	putch(numbers[n % base]);
+	console_writeb(numbers[n % base]);
 }
 
 void printk(char *fmt, ...)
@@ -36,7 +38,7 @@ void printk(char *fmt, ...)
 	va_start(ap, fmt);
 	for (p = fmt; *p; p++) {
 		if (*p != '%') {
-			putch(*p);
+			console_writeb(*p);
 			continue;
 		}
 
@@ -49,12 +51,12 @@ reset:
 				break;
 			case 'c':
 				cval = va_arg(ap, unsigned int);
-				putch(cval);
+				console_writeb(cval);
 				break;
 			case 's':
 				sval = va_arg(ap, char*);
 				while (*sval)
-					putch(*sval++);
+					console_writeb(*sval++);
 				break;
 			case 'x':
 				if (process_long) {
@@ -70,7 +72,7 @@ reset:
 				goto reset;
 				break;
 			default:
-				putch(*p);
+				console_writeb(*p);
 				break;
 		}
 	}

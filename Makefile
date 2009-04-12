@@ -17,7 +17,8 @@ OBJS=boot/loader.o boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/i
 OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall.o kernel/misc.o
 OBJS+=init/init.o kernel/lb.o kernel/stack_dump.o
 
-OBJS += drivers/ports.o drivers/screen.o
+OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
+drivers/core/kb.o
 
 all: dux
 
