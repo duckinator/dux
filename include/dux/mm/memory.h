@@ -1,7 +1,7 @@
 typedef struct {
 	unsigned int present : 1;
 	unsigned int readwrite : 1;
-	unsigned int usersupervisor : 1;
+	unsigned int user : 1;
 	unsigned int writethrough : 1;
 	unsigned int cachedisable : 1;
 	unsigned int accessed : 1;
@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
 	unsigned int present : 1;
 	unsigned int readwrite : 1;
-	unsigned int usersupervisor : 1;
+	unsigned int user : 1;
 	unsigned int writethrough : 1;
 	unsigned int cachedisable : 1;
 	unsigned int accessed : 1;

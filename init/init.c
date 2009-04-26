@@ -24,16 +24,9 @@ void kmain()
 		printk("Memory at 0x%x, is %s.\n", i, test_frame(i) ? "allocated" : "free");
 	}
 
-	PageTableEntry page1, page2, page3, page4;
-	alloc_frame(&page1, 1, 1);
-	printk("Allocated %x\n", page1.address<<12);
-	alloc_frame(&page2, 1, 1);
-	printk("Allocated %x\n", page2.address<<12);
-	alloc_frame(&page3, 1, 1);
-	printk("Allocated %x\n", page3.address<<12);
-	free_frame(&page1);
-	alloc_frame(&page4, 1, 1);
-	printk("Allocated %x\n", page4.address<<12);
+	int *pi = 0xc0000000;
+	*pi = 1;
+
 
 	// Let them eat cake.
 	printk("You may type now...\n");
