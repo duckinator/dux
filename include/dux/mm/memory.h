@@ -27,3 +27,6 @@ typedef struct {
 } PageDirEntry;
 
 #define MALLOC_ALIGN 1
+
+void init_mm();
+unsigned int test_frame(unsigned int addr);
