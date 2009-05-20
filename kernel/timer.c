@@ -15,9 +15,6 @@ void timer_handler(struct regs *r)
 	r=r;
 	/* Increment our 'tick count' */
 	timer_ticks++;
-
-	/* Every 18 clocks (approximately 1 second), we will
-	*  display a message on the screen */
 }
 
 void timer_phase(int hz)

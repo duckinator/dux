@@ -52,7 +52,11 @@ static void kb_irq_handler()
 {
 	unsigned int scancode = inb(0x60);
 
-	*++buffer = kbdus[scancode];
+	if(scancode & 0x80){
+		// Ignore break code
+	} else {
+		*++buffer = kbdus[scancode];
+	}
 }
 
 char kb_read()
