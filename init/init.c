@@ -24,12 +24,12 @@ void kmain()
 		printk("Memory at 0x%x, is %s.\n", i, test_frame(i) ? "allocated" : "free");
 	}
 
-	int *pi = 0xc0000000;
-	*pi = 1;
-
+	/*int *pi = 0xc0000000;
+	*pi = 1;*/
 
 	// Let them eat cake.
 	printk("You may type now...\n");
-	while (1)
+	while (1){
 		console_writeb(console_readb());
+	}
 }

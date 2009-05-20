@@ -1,4 +1,4 @@
-qemu -s -S -fda dux.img &
+qemu -s -S -fda image &
 echo "Run \`gdb dux\`"
 echo "In gdb:"
 echo "  \`target remote :1234\` to access qemu"
