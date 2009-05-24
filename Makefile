@@ -9,7 +9,7 @@ LD=ld
 
 ASFLAGS=-felf -gstabs
 LDFLAGS=-melf_i386 -Tlink.ld -Map dux.map -g
-CFLAGS=-m32 -Wall -Wextra -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -g -DDEBUG
+CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -g -DDEBUG
 
 -include config.mk
 
@@ -25,6 +25,9 @@ OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
 drivers/core/kb.o
 
 all: dux
+
+incbn: all
+	@python tools/incbn.py
 
 .s.o:
 	@echo "  AS      $@"
@@ -50,5 +53,5 @@ clean:
 	@echo "  CLEAN   image dux dux.map $(OBJS)"
 	@-rm image dux dux.map $(OBJS)
 
-.PHONY: all clean
+.PHONY: all clean incbn
 

@@ -2,10 +2,13 @@
 #include <dux/drivers/core/screen.h>
 #include <dux/drivers/core/kb.h>
 
+#include "keysym.h"
+
 static unsigned char x, y;
 
 void console_writeb(char c)
 {
+
 	if (c == 0x08) {
 		if (x > 0) {
 			x--;
@@ -50,7 +53,9 @@ char console_readb()
 {
 	char tmp;
 	tmp = kb_read();
-	return tmp;
+	if (tmp & 0x80)
+		return 0;
+	return keysym_us[tmp];
 }
 
 void console_init()

@@ -4,12 +4,15 @@
 #include <dux/drivers/core/console.h>
 #include <dux/mm/memory.h>
 
+#include <buildnum.h>
+
 /* Main loop! */
 void kmain()
 {
+	char c;
 	// Start the console
 	console_init();
-	printk("Dux OS Kernel Starting...\n");
+	printk("Dux OS Build %d\n", BUILDNUM);
 
 	// Enable interrupts
 	isr_install();
@@ -19,17 +22,11 @@ void kmain()
 	// Initialize memory.
 	init_mm();
 
-	int i;
-	for (i = 0; i < 0x1000000; i += 0x1000) {
-		printk("Memory at 0x%x, is %s.\n", i, test_frame(i) ? "allocated" : "free");
-	}
-
-	/*int *pi = 0xc0000000;
-	*pi = 1;*/
-
 	// Let them eat cake.
 	printk("You may type now...\n");
 	while (1){
-		console_writeb(console_readb());
+		c = console_readb();
+		if (c != 0)
+			console_writeb(c);
 	}
 }
