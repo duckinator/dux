@@ -4,12 +4,11 @@
 void stack_dump(void);
 void register_dump(void);
 
-void panic( char * text )
+void panic(char *text)
 {
-	/* init_video(); */
-	puts("\nPanic: ");
-	puts(text);
+	printk("\nPanic: %s", text);
 	stack_dump();
+	panic("Inside panic");
 	asm("cli");
 	asm("hlt");
 }
