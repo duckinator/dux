@@ -4,11 +4,20 @@
 void stack_dump(void);
 void register_dump(void);
 
+int in_panic = 0;
+
 void panic(char *text)
 {
+	if (in_panic) {
+		/* Something is causing a recursive panic, so
+		 * just kill the machine. */
+		asm volatile("cli");
+		asm volatile("hlt");
+	}
+	in_panic = 1;
+		
 	printk("\nPanic: %s", text);
 	stack_dump();
-	panic("Inside panic");
 	asm("cli");
 	asm("hlt");
 }
