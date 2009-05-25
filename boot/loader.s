@@ -47,8 +47,10 @@ gdt_desc:
 STACKSIZE equ 0x4000			; that's 16k.
 
 extern stop
+extern stack
 loader:
-	mov esp, stack+STACKSIZE	; set up the stack
+	mov esp, stacktop	; set up the stack
+	mov [stack], esp
 
 	; Make sure multiboot loaded us
 	cmp eax, 0x2badb002
@@ -70,7 +72,7 @@ loader:
 		mov fs, ax
 		mov gs, ax
 		mov ss, ax
-		mov esp, stack
+		mov esp, stacktop
 		jmp 0x08:gdt_return
 gdt_return:
 	call  idt_init			; initialize IDT
@@ -80,5 +82,5 @@ gdt_return:
 
 section .bss
 align 32
-stack:
 	resb STACKSIZE			; reserve 16k stack on a quadword boundary
+stacktop:
