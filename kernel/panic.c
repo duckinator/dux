@@ -32,6 +32,8 @@ void panic_dump_hex(unsigned int *stack)
 	}
 }
 
+void stop_dump_stack(void);
+
 #define va_start(v,l) __builtin_va_start(v,l)
 #define va_arg(v,l)   __builtin_va_arg(v,l)
 #define va_end(v)     __builtin_va_end(v)
@@ -96,12 +98,15 @@ void stop(int error, int argc, ...)
 
 	/* \x08 is backspace, so it doesn't have an extra ", " at the end. */
 	if (argc != 0)
-		printk("\x08\x08)\n");
+		printk("\x08\x08)\n\n");
 	else
-		printk(")\n");
+		printk(")\n\n");
 
 	va_end(ap);
 
+	printk("Stack Dump:\n\n");
+
+	stop_dump_stack();
 
 	asm volatile("cli");
 	asm volatile("hlt");
@@ -111,4 +116,23 @@ void assert_dowork(char *file, int line)
 {
 	printk("Asserton failed in %s:%d", file, line);
 	stop(0x01, 0x2, file, line);
+}
+
+struct stack_frame {
+	struct stack_frame *next;
+	void *addr;
+
+};
+
+unsigned int stack;
+void stop_dump_stack(void)
+{
+	struct stack_frame *frame;
+
+	asm volatile ("movl %%ebp, %0" : "=rm" (frame));
+
+	while ((unsigned int)frame < stack) {
+		printk("addr: 0x%x, frame: 0x%x\n", frame->addr, frame);
+		frame = frame->next;
+	}
 }
