@@ -22,7 +22,9 @@ extern void monitor_set_cursor(unsigned int x, unsigned int y);
 
 extern void timer_sleep();
 
-extern void panic();
+void panic(char*);
+void stop(int error, int argc, ...);
+#define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
 void printk(char *fmt, ...);
 

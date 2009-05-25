@@ -46,8 +46,20 @@ gdt_desc:
 ; reserve initial kernel stack space
 STACKSIZE equ 0x4000			; that's 16k.
 
+extern stop
 loader:
 	mov esp, stack+STACKSIZE	; set up the stack
+
+	; Make sure multiboot loaded us
+	cmp eax, 0x2badb002
+	je .ok
+	push eax
+	push 0x1
+	push 0x02
+	call stop
+	.ok:
+
+	push ebx
 
 	lgdt [gdt_desc]
 	jmp 0x08:.flush
@@ -62,7 +74,6 @@ loader:
 		jmp 0x08:gdt_return
 gdt_return:
 	call  idt_init			; initialize IDT
-	push ebx
 	call  kmain			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
