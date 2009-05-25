@@ -6,13 +6,15 @@
 
 #include <buildnum.h>
 
+
 /* Main loop! */
-void kmain()
+void kmain(void *mbd)
 {
+
 	char c;
 	// Start the console
 	console_init();
-	printk("Dux OS Build %d\n", BUILDNUM);
+	printk("Dux OS Build %d %d\n", BUILDNUM);
 
 	// Enable interrupts
 	isr_install();
