@@ -28,7 +28,9 @@ void kmain()
 		c = console_readb();
 		if (c != 0)
 			console_writeb(c);
-		if (c == 'p')
+		if (c == 'p') {
+			stop(0x10, 0x0);
 			panic("User initialized");
+		}
 	}
 }
