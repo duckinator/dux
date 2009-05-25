@@ -59,7 +59,7 @@ char *stop_getmsg(int error)
 		}
 	}
 
-	return stop_table[i+1];
+	return stop_table[index+1];
 }
 
 void stop(int error, int argc, ...)
