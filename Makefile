@@ -24,7 +24,7 @@ OBJS += kernel/mm.o
 OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
 drivers/core/kb.o
 
-all: dux
+all: iso
 
 incbn: all
 	@python tools/incbn.py
@@ -49,9 +49,21 @@ image: dux
 	@mv /tmp/dux.img ./image
 	@rmdir /tmp/dux
 
+iso: dux
+	mkdir -p isofiles/boot/grub
+	cp /boot/grub/stage2_eltorito ./isofiles/boot/grub
+	cp ./dux ./isofiles/boot/dux
+	touch ./isofiles/boot/grub/menu.lst
+	echo "default 0" >> ./isofiles/boot/grub/menu.lst
+	echo "timeout 0" >> ./isofiles/boot/grub/menu.lst
+	echo "title Dux" >> ./isofiles/boot/grub/menu.lst
+	echo "kernel /boot/dux" >> ./isofiles/boot/grub/menu.lst
+	genisoimage -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o Dux.iso isofiles
+	rm -r ./isofiles
+
 clean:
 	@echo "  CLEAN   image dux dux.map $(OBJS)"
 	@-rm image dux dux.map $(OBJS)
 
-.PHONY: all clean incbn
+.PHONY: all clean incbn iso
 
