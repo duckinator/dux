@@ -18,7 +18,7 @@ OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall
 OBJS+=init/init.o kernel/stack_dump.o
 
 # Memory
-OBJS += mm/memory.o
+OBJS += kernel/mm.o
 
 # Drivers
 OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \

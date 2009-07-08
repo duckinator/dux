@@ -21,10 +21,6 @@ void kmain(void *mbd)
 	irq_install();
 	asm volatile ("sti");
 
-	// Initialize memory.
-	init_mm();
-
-	// Let them eat cake.
 	printk("You may type now...\n");
 	while (1){
 		c = console_readb();
