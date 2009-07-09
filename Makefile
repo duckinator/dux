@@ -3,7 +3,7 @@
 #
 # 2008 Copyright © Martin Brandenburg
 
-AS=yasm
+AS=nasm
 CC=gcc
 LD=ld
 
@@ -37,9 +37,12 @@ incbn: all
 	@echo "  CC      $@"
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-dux: $(OBJS)
+hal/hal.lib:
+	(cd hal; make)
+
+dux: hal/hal.lib $(OBJS)
 	@echo "  LD      $@"
-	@$(LD) $(LDFLAGS) -o dux $(OBJS)
+	@$(LD) $(LDFLAGS) -o dux hal/hal.lib $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"
@@ -55,15 +58,17 @@ iso: dux
 	cp ./dux ./isofiles/boot/dux
 	touch ./isofiles/boot/grub/menu.lst
 	echo "default 0" >> ./isofiles/boot/grub/menu.lst
-	echo "timeout 0" >> ./isofiles/boot/grub/menu.lst
+	echo "timeout 1" >> ./isofiles/boot/grub/menu.lst
 	echo "title Dux" >> ./isofiles/boot/grub/menu.lst
 	echo "kernel /boot/dux" >> ./isofiles/boot/grub/menu.lst
+	echo "module /boot/dux" >> ./isofiles/boot/grub/menu.lst
 	genisoimage -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o Dux.iso isofiles
 	rm -r ./isofiles
 
 clean:
-	@echo "  CLEAN   image dux dux.map $(OBJS)"
-	@-rm image dux dux.map $(OBJS)
+	@echo "  CLEAN   image Dux.iso dux dux.map $(OBJS)"
+	@-rm image Dux.iso dux dux.map $(OBJS)
+	(cd hal; make clean)
 
 .PHONY: all clean incbn iso
 
