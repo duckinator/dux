@@ -22,9 +22,10 @@ void kmain(multiboot_t *mbd)
 	if (mbd->flags>>3&1) {
 		module = mbd->mods_addr;
 		while (i < mbd->mods_count) {
-			printk("mod_start: %x\n", module->mod_start);
+			printk("mod_start: %i\n", module->mod_start);
 			i++;
-			module = module + sizeof(mods_t);
+			//module = module + sizeof(mods_t);
+			module++;
 		}
 	}
 	// Enable interrupts
