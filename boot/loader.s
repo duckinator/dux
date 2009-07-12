@@ -76,6 +76,7 @@ loader:
 		jmp 0x08:gdt_return
 gdt_return:
 	call  idt_init			; initialize IDT
+	push ebx			; argument to kmain
 	call  kmain			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return

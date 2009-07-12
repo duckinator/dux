@@ -15,7 +15,6 @@ void kmain(multiboot_t *mbd)
 	// Start the console
 	console_init();
 	printk("Dux OS Build %d %d\n", BUILDNUM);
-	printk("%x\n", mbd->flags);
 
 	/* mbd->flags */
 	int i;
@@ -23,7 +22,7 @@ void kmain(multiboot_t *mbd)
 	if (mbd->flags>>3&1) {
 		module = mbd->mods_addr;
 		while (i < mbd->mods_count) {
-			printk("%x\n", module->mod_start);
+			printk("mod_start: %x\n", module->mod_start);
 			i++;
 			module = module + sizeof(mods_t);
 		}
