@@ -1,6 +1,7 @@
-SOURCES = $(shell find . -mindepth 1 -maxdepth 3 -name "*.c")
+SOURCES = $(shell find . -mindepth 1 -maxdepth 3 -name "*.c") $(shell find . -mindepth 1 -maxdepth 3 -name "*.s")
 TOBJECTS = $(SOURCES:.c=.o)
-OBJECTS = $(TOBJECTS:.asm=.o)
+#OBJECTS = $(TOBJECTS:.asm=.o)
+OBJECTS = $(TOBJECTS:.s=.o)
 
 CC = gcc
 LD = ld
@@ -18,7 +19,8 @@ hal.lib: $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -m32 -c -o $@ $<
 
-%.o: %.asm
+%.o: %.s
+#asm
 	$(AS) $(ASFLAGS) -felf32 -o $@ $<
 
 clean:

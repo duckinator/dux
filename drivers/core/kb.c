@@ -30,7 +30,7 @@ start:
 
 void kb_init()
 {
-	irq_install_handler(1, kb_irq_handler);
+	HalIrqHandler_Install(1, kb_irq_handler);
 	// The compiler is convinced that unsigned char[0x1000] is not an
 	// lvalue, so all these hacks are needed to compile.
 	buffer = buf;

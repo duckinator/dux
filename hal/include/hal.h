@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 
+void HalInit(void (*receiver)(uint32_t msg));
 void HalOutPort(uint16_t port, uint8_t data);
 uint8_t HalInPort(uint16_t port);
 

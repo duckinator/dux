@@ -1,6 +1,6 @@
-[GLOBAL gdt_flush]    ; Allows the C code to call gdt_flush().
+[GLOBAL HalGdtFlush]    ; Allows the C code to call HalGdtFlush().
 
-gdt_flush:
+HalGdtFlush:
    mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.
    lgdt [eax]        ; Load the new GDT pointer
 
@@ -14,8 +14,8 @@ gdt_flush:
 .flush:
    ret
 
-[GLOBAL tss_flush]	; Allows our C code to call tss_flush().
-tss_flush:
+[GLOBAL HallTssFlush]	; Allows our C code to call HallTssFlush().
+HallTssFlush:
 	mov ax, 0x2B	; Load the index of our TSS structure - The index is
 			; 0x28, as it is the 5th selector and each is 8 bytes
 			; long, but we set the bottom two bits (making 0x2B)

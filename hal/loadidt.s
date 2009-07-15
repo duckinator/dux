@@ -1,13 +1,13 @@
 [bits 32]
 
-[global load_idt]
+[global HalLoadIdt]
 
 ; the IDT descriptor to load
 [extern idtp]
 
 [section .text]
 
-load_idt:
+HalLoadIdt:
 	; load the IDT
 	lidt [idtp]
 
