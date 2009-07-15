@@ -14,9 +14,9 @@ void HalMonitorWriteDec(char *text){
 	printk("%i", text);
 }
 
-//DEFN_SYSCALL1(printk, 0, const char*);
-//DEFN_SYSCALL1(HalMonitorWriteHex, 1, const char*); // hex
-//DEFN_SYSCALL1(HalMonitorWriteDec, 2, const char*); // dec
+DEFN_SYSCALL1(printk, 0, const char*);
+DEFN_SYSCALL1(HalMonitorWriteHex, 1, const char*); // hex
+DEFN_SYSCALL1(HalMonitorWriteDec, 2, const char*); // dec
 
 static void HalSyscallHandler(registers_t *regs);
 
@@ -48,7 +48,7 @@ void HalSyscallHandler(registers_t *regs)
 	// push them all onto the stack in the correct order. The function will
 	// use all the parameters it wants, and we can pop them all back off afterwards.
 	int ret;
-	/*asm volatile (" \
+	asm volatile (" \
 		push %1; \
 		push %2; \
 		push %3; \
@@ -61,5 +61,5 @@ void HalSyscallHandler(registers_t *regs)
 		pop %%ebx; \
 		pop %%ebx; \
 	" : "=a" (ret) : "r" (regs->edi), "r" (regs->esi), "r" (regs->edx), "r" (regs->ecx), "r" (regs->ebx), "r" (location));
-	regs->eax = ret;*/
+	regs->eax = ret;
 }
