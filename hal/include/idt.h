@@ -1,7 +1,7 @@
 #ifndef IDT_H
 #define IDT_H
 
-struct idt_entry {
+struct HalIdtEntry {
 	unsigned short offset_lo;
 	unsigned short selector;
 	unsigned char zero;
@@ -10,7 +10,7 @@ struct idt_entry {
 } __attribute__((packed));
 
 
-struct idt_desc {
+struct HalIdtDesc {
 	unsigned short limit;
 	unsigned int base;
 } __attribute__((packed));

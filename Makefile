@@ -9,12 +9,14 @@ LD=ld
 
 ASFLAGS=-felf -gstabs
 LDFLAGS=-melf_i386 -Tlink.ld -Map dux.map -g
-CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -g -DDEBUG
+CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -Ihal/include -g -DDEBUG
 
 -include config.mk
 
-OBJS=boot/loader.o boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/irq_handler.o boot/gdt.o boot/isrs.o boot/idt.o boot/loadidt.o 
-OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall.o kernel/misc.o
+OBJS=boot/loader.o  boot/gdt.o
+# boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/irq_handler.o boot/isrs.o boot/idt.o boot/loadidt.o 
+OBJS+=kernel/panic.o kernel/printk.o kernel/task.o kernel/misc.o kernel/message_handler.o
+#  kernel/timer.o kernel/syscall.o
 OBJS+=init/init.o kernel/stack_dump.o
 
 # Memory

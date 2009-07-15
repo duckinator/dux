@@ -1,6 +1,6 @@
 global loader		; making entry point visible to linker
 extern kmain		; kmain is defined elsewhere
-extern idt_init		; idt_init is defined elsewhere
+extern HalIdtInit		; HalIdtInit is defined elsewhere
 
 ; setting up the Multiboot header - see GRUB docs for details
 MODULEALIGN equ  1<<0			; align loaded modules on page boundaries
@@ -75,7 +75,7 @@ loader:
 		mov esp, stacktop
 		jmp 0x08:gdt_return
 gdt_return:
-	call  idt_init			; initialize IDT
+	call  HalIdtInit			; initialize IDT
 	push ebx			; argument to kmain
 	call  kmain			; call kernel proper
 	cli				; stop interrupts
