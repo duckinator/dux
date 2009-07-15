@@ -5,6 +5,11 @@
 *  has been running for */
 int HalTimerTicks = 0;
 
+int HalGetTicks(void)
+{
+	return HalTimerTicks;
+}
+
 /* Handles the timer. In this case, it's very simple: We
 *  increment the 'timer_ticks' variable every time the
 *  timer fires. By default, the timer fires 18.222 times
