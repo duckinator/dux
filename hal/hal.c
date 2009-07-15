@@ -26,7 +26,7 @@ void HalInit(void (*receiver)(uint32_t msg))
 				HalBeep();
 				break;
 			case 't':
-				printk("\nTicks: %i", HalTimerTicks());
+				printk("\nTicks: %i", HalGetTicks());
 				break;
 			case 'h':
 				printk("\nHelp:\
