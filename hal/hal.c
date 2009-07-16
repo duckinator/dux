@@ -40,6 +40,7 @@ void HalInit(void (*receiver)(uint32_t msg))
 				printk("\nHelp:\
 	p: User initialized kernel panic\n\
 	b: HalBeep();\n\
+	t: Echo number of ticks since system start\n\
 	h: This help message\n\
 	Anything else is simply echoed\n");
 				break;
