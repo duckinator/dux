@@ -7,7 +7,7 @@ void HalInit(void (*receiver)(uint32_t msg))
 
 	// Start the console
 	console_init();
-	screen_setattr(0x80, 0x80);
+	screen_setattr(0x0a, 0x0a);
 	screen_clear();
 
 	printk("Dux OS Build %d %d\n", BUILDNUM);
@@ -34,7 +34,7 @@ void HalInit(void (*receiver)(uint32_t msg))
 				HalBeep();
 				break;
 			case 't':
-				printk("\nTicks: %i", HalGetTicks());
+				printk("\nTicks: %i\n", HalGetTicks());
 				break;
 			case 'h':
 				printk("\nHelp:\
