@@ -58,6 +58,13 @@ char console_readb()
 	return keysym_us[tmp];
 }
 
+void console_clear()
+{
+	x = 0;
+	y = 0;
+	screen_clear();
+}
+
 void console_init()
 {
 	screen_init();
