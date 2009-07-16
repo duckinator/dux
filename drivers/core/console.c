@@ -52,10 +52,21 @@ void console_write(char *buf, unsigned int count)
 char console_readb()
 {
 	char tmp;
+	int shift;
 	tmp = kb_read();
-	if (tmp & 0x80)
-		return 0;
-	return keysym_us[tmp];
+	if (!(tmp & 0x80))
+	{
+		if (kb_alt()){
+			
+		}
+		if (kb_shift())
+			return keysym_us_shift[tmp];
+		else
+			return keysym_us[tmp];
+	}
+	//if (tmp & 0x80)
+	return 0;
+	//return keysym_us[tmp];
 }
 
 void console_clear()
