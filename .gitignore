@@ -1,0 +1,6 @@
+*.o
+*.lib
+dux
+dux.map
+image
+Dux.iso
