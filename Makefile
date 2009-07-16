@@ -39,12 +39,15 @@ incbn: all
 	@echo "  CC      $@"
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-hal/hal.lib:
-	(cd hal; make)
+userland:
+	(cd userland; make)
 
-dux: hal/hal.lib $(OBJS)
+hal: userland
+	(cd hal; make)
+	
+dux: hal $(OBJS)
 	@echo "  LD      $@"
-	@$(LD) $(LDFLAGS) -o dux hal/hal.lib $(OBJS)
+	$(LD) $(LDFLAGS) -o dux hal/hal.lib userland/console.o $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"
@@ -71,6 +74,7 @@ clean:
 	@echo "  CLEAN   image Dux.iso dux dux.map $(OBJS)"
 	@-rm image Dux.iso dux dux.map $(OBJS)
 	(cd hal; make clean)
+	(cd userland; make clean)
 
-.PHONY: all clean incbn iso
+.PHONY: all clean userland hal incbn iso
 

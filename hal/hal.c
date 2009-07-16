@@ -3,7 +3,7 @@
 
 void HalInit(void (*receiver)(uint32_t msg))
 {
-	char c;
+	//char c;
 
 	// Start the console
 	console_init();
@@ -18,7 +18,10 @@ void HalInit(void (*receiver)(uint32_t msg))
 	HalTimerInstall();
 	asm volatile ("sti");
 	
-	printk("You may type now...\n");
+	user_console();
+	
+	//printk("You may type now...\n");
+	/*
 	char *input = "";
 	while (1){
 		c = console_readb();
@@ -44,8 +47,12 @@ void HalInit(void (*receiver)(uint32_t msg))
 	h: This help message\n\
 	Anything else is simply echoed\n");
 				break;
+			case 'c':
+				screen_clear();
+				break;
 			default:
 				break;
 		}
 	}
+	*/
 }
