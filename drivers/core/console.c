@@ -69,11 +69,7 @@ char console_readb()
 		
 		if (kb_ctrl())
 		{
-			if (keysym_us[tmp] == 'p')
-			{
-				stop(0x10, 0x0);
-				panic("User initialized");
-			}
+			
 		}
 		
 		if (kb_shift())

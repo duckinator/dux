@@ -22,6 +22,7 @@ void user_console()
 	{
 		index = 0;
 		input[0] = 0;
+		screen_setattr(0x0a, 0x0a);
 		printk("[");
 		screen_setattr(0x09, 0x09);
 		printk("Dux");
@@ -86,7 +87,22 @@ void user_console()
 				index++;
 				input[index] = 0;
 			}
-						
+			
+			if (kb_ctrl())
+			{
+				if (c == 'p')
+				{
+					stop(0x10, 0x0);
+					panic("User initialized");
+				}
+				if (c == 'c')
+				{
+					screen_setattr(0x0F, 0x0F);
+					printk("^C\n");
+					break;
+				}
+			}
+				
 			if (c != 0)
 				console_writeb(c);
 		}
