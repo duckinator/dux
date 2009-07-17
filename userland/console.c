@@ -64,6 +64,8 @@ void user_console()
 					stop(0x10, 0x0);
 					panic("User initialized");
 				}
+				else if( strcmp(input, "pong") == 0 )
+					pong();
 				else if( strcmp(input, "beep") == 0 )
 					HalBeep();
 				else if( strcmp(input, "ticks") == 0 )
@@ -72,11 +74,12 @@ void user_console()
 					console_clear();
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
-\tpanic (or ctrl-p): User initialized kernel panic\n\
-\tbeep: HalBeep();\n\
-\tticks: Echo number of ticks since system start\n\
-\tclear: Clear the screen\n\
-\thelp: This help message\n");
+\tpanic:\t(or ctrl-p) User initialized kernel panic\n\
+\tbeep:\tHalBeep();\n\
+\tticks:\tEcho number of ticks since system start\n\
+\tclear:\tClear the screen\n\
+\tpong:\tA nice, relaxing game of Pong\n\
+\thelp:\tThis help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
 				c = 0;
