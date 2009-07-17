@@ -5,5 +5,8 @@ char console_readb();
 void console_tab_start(char start);
 
 void console_init();
-
 void console_clear();
+
+unsigned int console_get_cursor_x(); 
+unsigned int console_get_cursor_y();
+void console_set_cursor(unsigned int x, unsigned int y);

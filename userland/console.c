@@ -72,6 +72,8 @@ void user_console()
 					printk("Ticks: %i\n\n", HalGetTicks());
 				else if( strcmp(input, "clear") == 0 )
 					console_clear();
+				else if( strcmp(input, "colors") == 0 )
+					color_chart();
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\
