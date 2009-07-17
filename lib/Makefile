@@ -26,4 +26,4 @@ lib.lib: $(OBJECTS)
 clean:
 	-rm *.o lib.lib
 
-.PHONY: all clean
+.PHONY: all lib.lib clean
