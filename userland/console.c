@@ -39,9 +39,15 @@ void user_console()
 			{
 				if (index > 0)
 					index--;
-				else
-					c = 0;
+				
+				c = 0;
 				input[index] = 0;
+				
+				printk("\x08\r[");
+				screen_setattr(0x09, 0x09);
+				printk("Dux");
+				screen_setattr(0x0a, 0x0a);
+				printk("]# %s", input);
 				
 			}
 			else if (c == '\n')
