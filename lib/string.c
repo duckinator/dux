@@ -36,19 +36,15 @@ char *strncat(char *s, char *ct, int n)
 
 int strcmp(char *cs, char *ct)
 {
-	register int cmp = 0;
 	do {
 		if (*cs == '\0' | *ct == '\0')
 			break;
-		if (*cs > *ct) {
-			cmp++;
-		} else if (*cs < *ct) {
-			cmp--;
-		} else {
-			cmp = 0;
-		}
+		if (*cs > *ct)
+			return 1;
+		else if (*cs < *ct)
+			return -1;
 	} while (*cs++, *ct++);
-	return cmp;
+	return 0;
 }
 
 int strncmp(char *cs, char *ct, int n)
