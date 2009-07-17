@@ -15,13 +15,17 @@ void user_console()
 	console_init();
 	screen_setattr(0x0a, 0x0a);
 	screen_clear();
-	printk("Dux OS terminal\n");
+	printk("Dux OS terminal\n\n");
 	
 	while (1)
 	{
 		index = 0;
 		input[0] = 0;
-		printk("\n[Dux]# ");
+		printk("[");
+		screen_setattr(0x09, 0x09);
+		printk("Dux");
+		screen_setattr(0x0a, 0x0a);
+		printk("]# ");
 		
 		while (1)
 		{
@@ -43,15 +47,18 @@ void user_console()
 			else if (c == '\n')
 			{
 				printk("\n");
-				if (input[0] == 'p' && input[1] == 'a' && input[2] == 'n' && input[3] == 'i' && input[4] == 'c' && input[5] == 0) {
-				//if( strcmp(input, "panic") ) {
+				if (input[0] == 0)
+				{}
+				else if (input[0] == 'p' && input[1] == 'a' && input[2] == 'n' && input[3] == 'i' && input[4] == 'c' && input[5] == 0)
+				//else if( strcmp(input, "panic") )
+				{
 					stop(0x10, 0x0);
 					panic("User initialized");
 				}
 				else if (input[0] == 'b' && input[1] == 'e' && input[2] == 'e' && input[3] == 'p' && input[4] == 0)
 					HalBeep();
 				else if (input[0] == 't' && input[1] == 'i' && input[2] == 'c' && input[3] == 'k' && input[4] == 's' && input[5] == 0)
-					printk("Ticks: %i", HalGetTicks());
+					printk("Ticks: %i\n\n", HalGetTicks());
 				else if (input[0] == 'c' && input[1] == 'l' && input[2] == 'e' && input[3] == 'a' && input[4] == 'r' && input[5] == 0)
 					console_clear();
 				else if (input[0] == 'h' && input[1] == 'e' && input[2] == 'l' && input[3] == 'p' && input[4] == 0)
@@ -60,10 +67,9 @@ void user_console()
 	beep: HalBeep();\n\
 	ticks: Echo number of ticks since system start\n\
 	clear: Clear the screen\n\
-	help: This help message\n\
-	Anything else is simply echoed");
+	help: This help message\n\n");
 				else
-					printk("No such command!", input);
+					printk("dux: no such command: %s\n", input);
 				c = 0;
 				break;
 			}
