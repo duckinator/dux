@@ -24,7 +24,6 @@ void kmain(multiboot_t *mbd)
 		while (i < mbd->mods_count) {
 			printk("mod_start: %i\n", module->mod_start);
 			i++;
-			//module = module + sizeof(mods_t);
 			module++;
 		}
 	}

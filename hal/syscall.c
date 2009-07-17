@@ -5,8 +5,6 @@
 #include <syscall.h>
 #include <isr.h>
 
-/* #include "monitor.h" */
-
 void HalMonitorWriteHex(char *text){
 	printk("%x", text); /* Todo: Figure out wtf "%x" should be */
 }

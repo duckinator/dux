@@ -1,11 +1,8 @@
 #include <descriptor_tables.h>
 
-//extern void memset();
-
 extern void HalGdtFlush(int);
 
 // Internal function prototypes.
-/*static void HalGdtInstall();*/
 static void HalGdt_SetGate(int num, int base, int limit, int access, int gran);
 
 HalGdtEntry_t gdt_entries[5];
