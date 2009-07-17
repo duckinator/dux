@@ -2,9 +2,9 @@
 #include <dux/drivers/core/screen.h>
 #include <dux/drivers/core/kb.h>
 
-#include "keysym.h"
+//#include "keysym.h"
 
-static unsigned char x, y, tab_start;
+static unsigned char cursor_x, cursor_y, tab_start;
 
 void console_tab_start(char start)
 {
@@ -15,36 +15,36 @@ void console_writeb(char c)
 {
 
 	if (c == 0x08) {
-		if (x > 0) {
-			x--;
-			screen_writechar(x, y, screen_getattr().attr, ' ');
+		if (cursor_x > 0) {
+			cursor_x--;
+			screen_writechar(cursor_x, cursor_y, screen_getattr().attr, ' ');
 		} else {
-			x = 79;
-			y--;
-			screen_writechar(x, y, screen_getattr().attr, ' ');
+			cursor_x = 79;
+			cursor_y--;
+			screen_writechar(cursor_x, cursor_y, screen_getattr().attr, ' ');
 		}
 	}
 	else if (c == 0x09) {
-		x = ((x + 8 - tab_start) & ~(8 - 1)) + tab_start;
+		cursor_x = ((cursor_x + 8 - tab_start) & ~(8 - 1)) + tab_start;
 	}
 	else if (c == '\r') {
-		x = 0;
+		cursor_x = 0;
 	}
 	else if (c == '\n') {
-		y++;
-		x = 0;
+		cursor_y++;
+		cursor_x = 0;
 	}
 	else if (c >= 0x20) {
-		screen_writechar(x, y, screen_getattr().attr, c);
-		x++;
+		screen_writechar(cursor_x, cursor_y, screen_getattr().attr, c);
+		cursor_x++;
 	}
 
-	if (x > 80) {
-		x = 0;
-		y++;
+	if (cursor_x > 80) {
+		cursor_x = 0;
+		cursor_y++;
 	}
 
-	screen_scroll(&x, &y);
+	screen_scroll(&cursor_x, &cursor_y);
 }
 
 void console_write(char *buf, unsigned int count)
@@ -56,11 +56,9 @@ void console_write(char *buf, unsigned int count)
 
 char console_readb()
 {
-	int tmp, shift;
-	
-	tmp = kb_read();
-	//printk("\n%i shift: %i alt: %i ctrl: %i... ", tmp, kb_shift(), kb_alt(), kb_ctrl());
-	if (!(tmp & 0x80))
+	int scancode = kb_read();
+	//printk("\n%i shift: %i alt: %i ctrl: %i... ", scancode, kb_shift(), kb_alt(), kb_ctrl());
+	if (!(scancode & 0x80))
 	{
 		if (kb_alt())
 		{
@@ -73,28 +71,44 @@ char console_readb()
 		}
 		
 		if (kb_shift())
-			return keysym_us_shift[tmp];
+			return kb_resolve_scancode_shift(scancode);
 		else
-			return keysym_us[tmp];
+			return kb_resolve_scancode(scancode);
 	}
-	//if (tmp & 0x80)
+	//if (scancode & 0x80)
 	return 0;
-	//return keysym_us[tmp];
 }
 
 void console_clear()
 {
-	x = 0;
-	y = 0;
+	cursor_x = 0;
+	cursor_y = 0;
 	screen_clear();
 }
 
 void console_init()
 {
 	screen_init();
-	x = 0;
-	y = 0;
+	cursor_x = 0;
+	cursor_y = 0;
 	tab_start = 0;
 
 	kb_init();
+}
+
+unsigned int console_get_cursor_x()
+{
+	return cursor_x;
+}
+ 
+unsigned int console_get_cursor_y()
+{
+	return cursor_y;
+}
+ 
+void console_set_cursor(unsigned int x, unsigned int y)
+{
+	cursor_x = x;
+	cursor_y = y;
+	//move_cursor();
 }

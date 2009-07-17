@@ -1,6 +1,8 @@
 #include <dux/drivers/core/ports.h>
 #include <dux/drivers/core/console.h>
 
+#include "keysym.h" // Scan codes
+
 #include <isr.h>
 
 unsigned char buf[0x1000];
@@ -12,6 +14,8 @@ int capslock = 0;
 int numlock = 0;
 int alt = 0;
 int ctrl = 0;
+
+int vt_visible = 0; // VT 0 is visible
 
 static void kb_irq_handler()
 {
@@ -45,45 +49,60 @@ int kb_ctrl()
 	return ctrl;
 }
 
+char kb_has_input()
+{
+	return buffer > origbuffer;
+}
+
 char kb_read()
 {
-	int tmp;
-start:
-	if (buffer > origbuffer) {
-			
-		tmp = *buffer-- & 0xFF;
-		//printk("\n'%x'\n", tmp);
-		
-		// Left shift
-		if (tmp == 0x2A)
-			shift_l = 1;
-		else if (tmp == 0xAA)
-			shift_l = 0;
-		
-		// Right shift
-		if (tmp == 0x36)
-			shift_r = 1;
-		else if (tmp == 0xB6)
-			shift_r = 0;
-		
-		// Alt
-		if (tmp == 0x38)
-			alt = 1;
-		else if (tmp == 0xB8)
-			alt = 0;
-		
-		// Control
-		if (tmp == 0x1D)
-			ctrl = 1;
-		else if (tmp == 0x9D)
-			ctrl = 0;
-			
-		return (char)tmp;
-	} else {
-		// Goto is usually frowned upon, but it is truly the most
-		// understandable method here. We could also use a while loop.
-		goto start;
+	int scancode;
+	
+	while (buffer <= origbuffer); // wait for input
+
+	scancode = *buffer-- & 0xFF;
+	//printk("\n'%x'\n", scancode);
+	
+	// Left shift
+	if (scancode == 0x2A)
+		shift_l = 1;
+	else if (scancode == 0xAA)
+		shift_l = 0;
+	
+	// Right shift
+	if (scancode == 0x36)
+		shift_r = 1;
+	else if (scancode == 0xB6)
+		shift_r = 0;
+	
+	// Alt
+	if (scancode == 0x38)
+		alt = 1;
+	else if (scancode == 0xB8)
+		alt = 0;
+	
+	// Control
+	if (scancode == 0x1D)
+		ctrl = 1;
+	else if (scancode == 0x9D)
+		ctrl = 0;
+	
+	if (ctrl && alt && (scancode == 0x53))
+	{ // Ctrl-Alt-Delete
+		stop(0x10, 0x0);
+		panic("User initialized");
 	}
+		
+	return (char)scancode;
+}
+
+char kb_resolve_scancode(int scancode)
+{
+	return keysym_us[scancode & 0x7F];
+}
+char kb_resolve_scancode_shift(int scancode)
+{
+	return keysym_us_shift[scancode & 0x7F];
 }
 
 void kb_init()

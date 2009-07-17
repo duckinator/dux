@@ -48,7 +48,7 @@ hal: userland
 	
 dux: hal $(OBJS)
 	@echo "  LD      $@"
-	$(LD) $(LDFLAGS) -o dux hal/hal.lib lib/lib.lib userland/console.o $(OBJS)
+	$(LD) $(LDFLAGS) -o dux hal/hal.lib lib/lib.lib userland/userland.lib $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"

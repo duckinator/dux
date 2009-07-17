@@ -2,8 +2,7 @@
 
 char *strcpy(char *s, char *ct)
 {
-	while (*s++ = *ct++)
-		;
+	while (*s++ = *ct++);
 	return s;
 }
 
@@ -17,10 +16,8 @@ char *strncpy(char *s, char *ct, int n)
 
 char *strcat(char *s, char *ct)
 {
-	while (*s++)
-		;
-	while (*s++ = *ct++)
-		;
+	while (*s++);
+	while (*s++ = *ct++);
 	return s;
 }
 
@@ -52,19 +49,14 @@ int strncmp(char *cs, char *ct, int n)
 	register int cmp = 0;
 	register int i = 0;
 	do {
-		if (i++ < n)
+		if (i++ < n || *cs == '\0' || *ct == '\0')
 			break;
-		if (*cs == '\0' | *ct == '\0')
-			break;
-		if (*cs > *ct) {
-			cmp++;
-		} else if (*cs < *ct) {
-			cmp--;
-		} else {
-			cmp = 0;
-		}
+		if (*cs > *ct)
+			return 1;
+		else if (*cs < *ct)
+			return -1;
 	} while (*cs++, *ct++);
-	return cmp;
+	return 0;
 }
 
 char *strchr(char *cs, char c)
