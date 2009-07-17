@@ -15,6 +15,7 @@ void user_console()
 	console_init();
 	screen_setattr(0x0a, 0x0a);
 	screen_clear();
+	console_tab_start(6);
 	printk("Dux OS terminal\n\n");
 	
 	while (1)

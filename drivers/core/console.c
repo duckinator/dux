@@ -4,7 +4,12 @@
 
 #include "keysym.h"
 
-static unsigned char x, y;
+static unsigned char x, y, tab_start;
+
+void console_tab_start(char start)
+{
+	tab_start = start;
+}
 
 void console_writeb(char c)
 {
@@ -20,7 +25,7 @@ void console_writeb(char c)
 		}
 	}
 	else if (c == 0x09) {
-		x = (x+8) & ~(8-1);
+		x = ((x + 8 - tab_start) & ~(8 - 1)) + tab_start;
 	}
 	else if (c == '\r') {
 		x = 0;
@@ -93,6 +98,7 @@ void console_init()
 	screen_init();
 	x = 0;
 	y = 0;
+	tab_start = 0;
 
 	kb_init();
 }
