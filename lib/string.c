@@ -37,11 +37,11 @@ char *strncat(char *s, char *ct, int n)
 int strcmp(char *cs, char *ct)
 {
 	do {
-		if (*cs == '\0' | *ct == '\0')
+		if (*cs == '\0' || *ct == '\0')
 			break;
 		if (*cs > *ct)
 			return 1;
-		else if (*cs < *ct)
+		if (*cs < *ct)
 			return -1;
 	} while (*cs++, *ct++);
 	return 0;
