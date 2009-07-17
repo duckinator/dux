@@ -81,6 +81,7 @@ void user_console()
 \tticks:\tEcho number of ticks since system start\n\
 \tclear:\tClear the screen\n\
 \tpong:\tA nice, relaxing game of Pong\n\
+\tcolors:\tDisplays a color chart (useful for picking colors)\n\
 \thelp:\tThis help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
