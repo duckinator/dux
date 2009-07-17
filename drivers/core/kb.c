@@ -11,6 +11,7 @@ int shift_r = 0;
 int capslock = 0;
 int numlock = 0;
 int alt = 0;
+int ctrl = 0;
 
 static void kb_irq_handler()
 {
@@ -21,8 +22,7 @@ static void kb_irq_handler()
 
 int kb_shift()
 {
-	if ( shift_l || shift_r )
-		return 1;
+	return shift_l || shift_r;
 }
 
 int kb_capslock()
@@ -40,27 +40,45 @@ int kb_alt()
 	return alt;
 }
 
+int kb_ctrl()
+{
+	return ctrl;
+}
+
 char kb_read()
 {
-	char tmp;
+	int tmp;
 start:
 	if (buffer > origbuffer) {
+			
+		tmp = *buffer-- & 0xFF;
+		//printk("\n'%x'\n", tmp);
 		
 		// Left shift
 		if (tmp == 0x2A)
 			shift_l = 1;
-		else if (tmp == 0xFFFFFFAA)
+		else if (tmp == 0xAA)
 			shift_l = 0;
 		
 		// Right shift
 		if (tmp == 0x36)
 			shift_r = 1;
-		else if (tmp == 0xFFFFFFB6)
+		else if (tmp == 0xB6)
 			shift_r = 0;
+		
+		// Alt
+		if (tmp == 0x38)
+			alt = 1;
+		else if (tmp == 0xB8)
+			alt = 0;
+		
+		// Control
+		if (tmp == 0x1D)
+			ctrl = 1;
+		else if (tmp == 0x9D)
+			ctrl = 0;
 			
-		//printk("\n'%x'\n", tmp);
-		tmp = *buffer--;
-		return tmp;
+		return (char)tmp;
 	} else {
 		// Goto is usually frowned upon, but it is truly the most
 		// understandable method here. We could also use a while loop.

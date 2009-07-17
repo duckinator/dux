@@ -23,7 +23,6 @@ unsigned char keysym_us[128] =
   0,  /* Up Arrow */
   0,  /* Page Up */
   '-',
- 
   0,  /* Left Arrow */
   0,
   0,  /* Right Arrow */
@@ -65,7 +64,6 @@ unsigned char keysym_us_shift[128] =
   0,  /* Up Arrow */
   0,  /* Page Up */
   '-',
- 
   0,  /* Left Arrow */
   0,
   0,  /* Right Arrow */

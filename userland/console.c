@@ -37,11 +37,11 @@ void user_console()
 			}
 			else if (c == 8)
 			{
-				input[index] = 0;
 				if (index > 0)
 					index--;
 				else
 					c = 0;
+				input[index] = 0;
 				
 			}
 			else if (c == '\n')
@@ -63,11 +63,11 @@ void user_console()
 					console_clear();
 				else if (input[0] == 'h' && input[1] == 'e' && input[2] == 'l' && input[3] == 'p' && input[4] == 0)
 									printk("Help:\
-	panic: User initialized kernel panic\n\
-	beep: HalBeep();\n\
-	ticks: Echo number of ticks since system start\n\
-	clear: Clear the screen\n\
-	help: This help message\n\n");
+\tpanic (or ctrl-p): User initialized kernel panic\n\
+\tbeep: HalBeep();\n\
+\tticks: Echo number of ticks since system start\n\
+\tclear: Clear the screen\n\
+\thelp: This help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
 				c = 0;
