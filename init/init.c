@@ -21,9 +21,8 @@ void kmain(multiboot_t *mbd)
 	struct mods_t *module;
 	if (mbd->flags>>3&1) {
 		module = (mods_t*)mbd->mods_addr;
-		while (i < mbd->mods_count) {
+		for (i = 0; i < mbd->mods_count; i++) {
 			printk("mod_start: %i\n", module->mod_start);
-			i++;
 			module++;
 		}
 	}
