@@ -71,7 +71,7 @@ void user_console()
 				else if( strcmp(input, "clear") == 0 )
 					console_clear();
 				else if( strcmp(input, "help") == 0 )
-						printk("Help:\
+					printk("Help:\
 \tpanic (or ctrl-p): User initialized kernel panic\n\
 \tbeep: HalBeep();\n\
 \tticks: Echo number of ticks since system start\n\
