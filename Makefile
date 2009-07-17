@@ -59,7 +59,7 @@ image: dux
 
 iso: dux
 	mkdir -p isofiles/boot/grub
-	cp /boot/grub/stage2_eltorito ./isofiles/boot/grub
+	cp ./tools/stage2_eltorito ./isofiles/boot/grub
 	cp ./dux ./isofiles/boot/dux
 	touch ./isofiles/boot/grub/menu.lst
 	echo "default 0" >> ./isofiles/boot/grub/menu.lst
