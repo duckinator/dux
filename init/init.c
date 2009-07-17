@@ -20,7 +20,7 @@ void kmain(multiboot_t *mbd)
 	int i;
 	struct mods_t *module;
 	if (mbd->flags>>3&1) {
-		module = mbd->mods_addr;
+		module = (mods_t*)mbd->mods_addr;
 		while (i < mbd->mods_count) {
 			printk("mod_start: %i\n", module->mod_start);
 			i++;
