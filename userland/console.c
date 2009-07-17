@@ -4,6 +4,8 @@
  * as opposed to the console driver (think 'VT' [virtual terminal] on Linux)
  */
 
+#include <string.h>
+
 void user_console()
 {
 	char c;
@@ -57,20 +59,19 @@ void user_console()
 				printk("\n");
 				if (input[0] == 0)
 				{}
-				else if (input[0] == 'p' && input[1] == 'a' && input[2] == 'n' && input[3] == 'i' && input[4] == 'c' && input[5] == 0)
-				//else if( strcmp(input, "panic") )
+				else if( strcmp(input, "panic") == 0 )
 				{
 					stop(0x10, 0x0);
 					panic("User initialized");
 				}
-				else if (input[0] == 'b' && input[1] == 'e' && input[2] == 'e' && input[3] == 'p' && input[4] == 0)
+				else if( strcmp(input, "beep") == 0 )
 					HalBeep();
-				else if (input[0] == 't' && input[1] == 'i' && input[2] == 'c' && input[3] == 'k' && input[4] == 's' && input[5] == 0)
+				else if( strcmp(input, "ticks") == 0 )
 					printk("Ticks: %i\n\n", HalGetTicks());
-				else if (input[0] == 'c' && input[1] == 'l' && input[2] == 'e' && input[3] == 'a' && input[4] == 'r' && input[5] == 0)
+				else if( strcmp(input, "clear") == 0 )
 					console_clear();
-				else if (input[0] == 'h' && input[1] == 'e' && input[2] == 'l' && input[3] == 'p' && input[4] == 0)
-									printk("Help:\
+				else if( strcmp(input, "help") == 0 )
+						printk("Help:\
 \tpanic (or ctrl-p): User initialized kernel panic\n\
 \tbeep: HalBeep();\n\
 \tticks: Echo number of ticks since system start\n\

@@ -80,6 +80,7 @@ char *strchr(char *cs, char c)
 	return NULL;
 }
 
+/* TODO: Figure out what n is
 char *strrchr(char *cs, char c)
 {
 	register int i = 0;
@@ -92,5 +93,6 @@ char *strrchr(char *cs, char c)
 	} while (*++cs);
 	return last;
 }
+*/
 
 /* Continue on page 250 of K&R, 2nd ed */

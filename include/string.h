@@ -8,3 +8,4 @@ void *memset(void *dest, unsigned char val, unsigned int count);
 unsigned short *memsetw(unsigned short *dest, unsigned short val, unsigned int count);
 int strlen(const char *str);
 
+int strcmp(char *cs, char *ct);

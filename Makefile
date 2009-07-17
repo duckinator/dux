@@ -39,15 +39,18 @@ incbn: all
 	@echo "  CC      $@"
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-userland:
+userland: lib
 	(cd userland; make)
+
+lib:
+	(cd lib; make)
 
 hal: userland
 	(cd hal; make)
 	
 dux: hal $(OBJS)
 	@echo "  LD      $@"
-	$(LD) $(LDFLAGS) -o dux hal/hal.lib userland/console.o $(OBJS)
+	$(LD) $(LDFLAGS) -o dux hal/hal.lib lib/lib.lib userland/console.o $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"
