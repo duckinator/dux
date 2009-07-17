@@ -56,8 +56,8 @@ loader:
 	cmp eax, 0x2badb002
 	je .ok
 	push eax
-	push 0x1
-	push 0x02
+	push dword 0x1
+	push dword 0x02
 	call stop
 	.ok:
 
