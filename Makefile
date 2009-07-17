@@ -79,5 +79,5 @@ clean:
 	(cd hal; make clean)
 	(cd userland; make clean)
 
-.PHONY: all clean userland hal incbn iso
+.PHONY: all clean lib userland hal incbn iso
 
