@@ -51,14 +51,26 @@ void console_write(char *buf, unsigned int count)
 
 char console_readb()
 {
-	char tmp;
-	int shift;
+	int tmp, shift;
+	
 	tmp = kb_read();
+	//printk("\n%i shift: %i alt: %i ctrl: %i... ", tmp, kb_shift(), kb_alt(), kb_ctrl());
 	if (!(tmp & 0x80))
 	{
-		if (kb_alt()){
+		if (kb_alt())
+		{
 			
 		}
+		
+		if (kb_ctrl())
+		{
+			if (keysym_us[tmp] == 'p')
+			{
+				stop(0x10, 0x0);
+				panic("User initialized");
+			}
+		}
+		
 		if (kb_shift())
 			return keysym_us_shift[tmp];
 		else
