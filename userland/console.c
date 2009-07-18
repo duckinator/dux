@@ -6,6 +6,8 @@
 
 #include <string.h>
 #include <dux/mm/memory.h>
+#include <dux/drivers/fdd.h>
+
 void user_console()
 {
 	char c;
@@ -71,15 +73,6 @@ void user_console()
 					console_clear();
 				else if( strcmp(input, "colors") == 0 )
 					color_chart();
-				else if( strcmp(input, "help") == 0 )
-					printk("Help:\
-\tpanic:\t(or ctrl-p) User initialized kernel panic\n\
-\tbeep:\tHalBeep();\n\
-\tticks:\tEcho number of ticks since system start\n\
-\tclear:\tClear the screen\n\
-\tpong:\tA nice, relaxing game of Pong\n\
-\tcolors:\tDisplays a color chart (useful for picking colors)\n\
-\thelp:\tThis help message\n");
 				else if (strcmp(input, "firstframe") == 0)
 				{
 					printk("%i\n", first_frame());
@@ -89,6 +82,20 @@ void user_console()
 					printk("Setting frame at %i\n", first_frame());
 					set_frame(first_frame());
 				}
+				else if (strcmp(input, "fddtest") == 0)
+					floppy_detect_drives();
+				else if( strcmp(input, "help") == 0 )
+					printk("Help:\
+\tpanic:\t(or ctrl-p) User initialized kernel panic\n\
+\tbeep:\tHalBeep();\n\
+\tticks:\tPrint number of ticks since system start\n\
+\tclear:\tClear the screen\n\
+\tpong:\tA nice, relaxing game of Pong\n\
+\tcolors:\tDisplays a color chart (useful for picking colors)\n\
+\tfirstframe:\tPrints address of the first free frame\n\
+\tallocframe:\tAllocates and prints the address of the first free frame\n\
+\tfddtest:\tTest the floppy disk drive driver\n\
+\thelp:\tThis help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
 				c = 0;
