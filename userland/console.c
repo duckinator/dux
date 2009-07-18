@@ -54,6 +54,9 @@ void user_console()
 			
 			if (scancode == 72 && history_selected > 0)
 			{
+				if (history_selected >= history_index)
+					strcpy(history + history_index, input);
+				
 				history_selected--;
 				for (; history[history_selected - 1] != 0; history_selected--);
 				
