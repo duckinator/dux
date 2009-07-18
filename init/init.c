@@ -12,6 +12,7 @@
 /* Main loop! */
 void kmain(multiboot_t *mbd)
 {
+	init_mm();
 	// Start the console
 	console_init();
 	printk("Dux OS Build %d %d\n", BUILDNUM);
