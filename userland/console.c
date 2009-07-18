@@ -86,7 +86,8 @@ void user_console()
 				{
 					FDD_Reset(FDD_BASE);
 					FDD_Detect();
-					printk("%s", FDD_ReadData(FDD_BASE));
+					//printk("%c", FDD_ReadData(FDD_BASE));
+					printk("%c", FDD_ReadTrack(FDD_BASE, 1));
 				}
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
