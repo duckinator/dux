@@ -1,4 +1,4 @@
-#include <stddef.h>
+#include <string.h>
 
 char *strcpy(char *s, char *ct)
 {
