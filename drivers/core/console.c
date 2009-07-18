@@ -71,13 +71,18 @@ char console_readb()
 			
 		}
 		
-		if (kb_shift())
-			return kb_resolve_scancode_shift(scancode);
-		else
-			return kb_resolve_scancode(scancode);
+		return console_resolve_scancode(scancode);
 	}
 	//if (scancode & 0x80)
 	return 0;
+}
+
+char console_resolve_scancode(int scancode)
+{
+	if (kb_shift())
+		return kb_resolve_scancode_shift(scancode);
+	else
+		return kb_resolve_scancode(scancode);
 }
 
 void console_clear()
