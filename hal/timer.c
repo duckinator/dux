@@ -42,3 +42,13 @@ void HalTimerSleep(int ticks)
 	eticks = HalTimerTicks + ticks;
 	while(HalTimerTicks < eticks);
 }
+
+void usleep(int milliseconds)
+{
+	HalTimerSleep(milliseconds * 10);
+}
+
+void sleep(int seconds)
+{
+	HalTimerSleep( (seconds * 1000) * 10);
+}
