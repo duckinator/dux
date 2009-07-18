@@ -85,11 +85,11 @@ void user_console()
 \thelp:\tThis help message\n");
 				else if (strcmp(input, "firstframe") == 0)
 				{
-					printk("%i", first_frame());
+					printk("%i\n", first_frame());
 				}
 				else if (strcmp(input, "allocframe") == 0)
 				{
-					printk("Setting frame at %i", first_frame());
+					printk("Setting frame at %i\n", first_frame());
 					set_frame(first_frame());
 				}
 				else
