@@ -68,19 +68,14 @@ char *strchr(char *cs, char c)
 	return NULL;
 }
 
-/* TODO: Figure out what n is
 char *strrchr(char *cs, char c)
 {
-	register int i = 0;
 	register char *last = NULL;
 	do {
-		if (i++ < n)
-			break;
 		if (*cs == c)
 			last = cs;
 	} while (*++cs);
 	return last;
 }
-*/
 
 /* Continue on page 250 of K&R, 2nd ed */
