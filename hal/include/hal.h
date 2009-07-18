@@ -10,4 +10,7 @@ uint8_t HalInPort(uint16_t port);
 
 void HalBeep(void);
 
+void usleep(int milliseconds);
+void sleep(int seconds);
+
 #endif /* end of include guard: HAL_UP0YTECP */

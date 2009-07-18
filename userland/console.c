@@ -83,7 +83,11 @@ void user_console()
 					set_frame(first_frame());
 				}
 				else if (strcmp(input, "fddtest") == 0)
-					floppy_detect_drives();
+				{
+					FDD_Reset(FDD_BASE);
+					FDD_Detect();
+					printk("%s", FDD_ReadData(FDD_BASE));
+				}
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\

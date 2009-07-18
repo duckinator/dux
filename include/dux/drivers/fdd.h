@@ -1,47 +1,57 @@
 #ifndef FDD_H
 #define FDD_H
-extern void detect_floppy_drives();
-extern unsigned char floppy_read_cmd();
+#include <stdint.h>
 
 // FDD_MOTOR_ON: Spin-up time for floppy drive, in milliseconds (300 recommended)
-#define FDD_MOTOR_ON 300
+#define FDD_SPINUP 500
 // FDD_MOTOR_OFF: Spin-down time for floppy drive, in milliseconds (2000 recommended [2 seconds])
-#define FDD_MOTOR_OFF 2000
+#define FDD_SPINDOWN 2000
 
+// standard base address of the primary floppy controller
+#define FDD_BASE 0x03f0
+
+// standard IRQ number for floppy controllers
+static const int floppy_irq = 6;
+
+// Used by floppy_dma_init and FDD_DoTrack to specify direction
+typedef enum {
+    floppy_dir_read = 1,
+    floppy_dir_write = 2
+} FloppyDir;
+
+// The registers of interest. There are more, but we only use these here.
 enum FloppyRegisters {
-	STATUS_REGISTER_A		= 0x3F0, // read-only
-	STATUS_REGISTER_B		= 0x3F1, // read-only
-	DIGITAL_OUTPUT_REGISTER  = 0x3F2,
-	TAPE_DRIVE_REGISTER	  = 0x3F3,
-	MAIN_STATUS_REGISTER	 = 0x3F4, // read-only
-	DATA_RATE_SELECT_REGISTER= 0x3F4, // write-only
-	DATA_FIFO				= 0x3F5,
-	DIGITAL_INPUT_REGISTER   = 0x3F7, // read-only
-	CONFIGURATION_CONTROL_REGISTER = 0x3F7, //write only
+   FLOPPY_DOR  = 2,  // digital output register
+   FLOPPY_MSR  = 4,  // master status register, read only
+   FLOPPY_FIFO = 5,  // data FIFO, in DMA operation for commands
+   FLOPPY_CCR  = 7   // configuration control register, write only
 };
 
+// The commands of interest. There are more, but we only use these here.
 enum FloppyCommands {
-	READ_TRACK = 2,
-	SPECIFY = 3,
-	SENSE_DRIVE_STATUS = 4,
-	WRITE_DATA = 5,
-	READ_DATA = 6,
-	RECALIBRATE = 7,
-	SENSE_INTERRUPT = 8,
-	WRITE_DELETED_DATA = 9,
-	READ_ID = 10,
-	READ_DELETED_DATA = 12,
-	FORMAT_TRACK = 13,
-	SEEK = 15,
-	VERSION = 16,
-	SCAN_EQUAL = 17,
-	PERPENDICULAR_MODE = 18,
-	CONFIGURE = 19,
-	VERIFY = 22,
-	SCAN_LOW_OR_EQUAL = 25,
-	SCAN_HIGH_OR_EQUAL = 29,
+   CMD_SPECIFY = 3,            // SPECIFY
+   CMD_WRITE_DATA = 5,         // WRITE DATA
+   CMD_READ_DATA = 6,          // READ DATA
+   CMD_RECALIBRATE = 7,        // RECALIBRATE
+   CMD_SENSE_INTERRUPT = 8,    // SENSE INTERRUPT
+   CMD_SEEK = 15,              // SEEK
 };
 
-void floppy_detect_drives();
-
+void FDD_install();
+void FDD_SetWaiting();
+void FDD_Waiting();
+void FDD_Detect();
+void FDD_WriteCommand(int base, char cmd);
+uint8_t FDD_ReadData(int base);
+void FDD_CheckInterrupt(int base, int *st0, int *cyl);
+void FDD_CheckInterrupt(int base, int *st0, int *cyl);
+int FDD_Calibrate(int base);
+int FDD_Reset(int base);
+void FDD_Motor(int base, int onoff);
+void FDD_MotorKill(int base);
+void FDD_Timer();
+static void FDD_DMA_Init(FloppyDir dir);
+int FDD_DoTrack(int base, unsigned cyl, FloppyDir dir);
+int FDD_ReadTrack(int base, unsigned cyl);
+int FDD_WriteTrack(int base, unsigned cyl);
 #endif

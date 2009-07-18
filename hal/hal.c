@@ -1,5 +1,6 @@
 #include <buildnum.h>
 #include <hal.h>
+#include <dux/drivers/fdd.h>
 
 void HalInit(void (*receiver)(uint32_t msg))
 {
@@ -8,6 +9,7 @@ void HalInit(void (*receiver)(uint32_t msg))
 	HalIsrInstall();
 	HalIrqInstall();
 	HalTimerInstall();
+	FDD_install();
 	asm volatile ("sti");
 
 	user_console();
