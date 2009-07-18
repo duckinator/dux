@@ -37,9 +37,9 @@ int strcmp(char *cs, char *ct)
 		if (*cs == 0 && *ct == 0)
 			return 0;
 		if (*cs > *ct)
-			return 1;
+			return *cs - *ct;
 		if (*cs < *ct)
-			return -1;
+			return *cs - *ct;
 	} while (*cs++, *ct++);
 	return 0;
 }
@@ -52,9 +52,9 @@ int strncmp(char *cs, char *ct, int n)
 		if (i++ < n || *cs == '\0' || *ct == '\0')
 			break;
 		if (*cs > *ct)
-			return 1;
+			return *cs - *ct;
 		else if (*cs < *ct)
-			return -1;
+			return *cs - *ct;
 	} while (*cs++, *ct++);
 	return 0;
 }
