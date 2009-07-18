@@ -1,0 +1,19 @@
+Directory layout/information:
+
+.
+boot/                  Bootloader and gdt
+docs/                  Documentation
+drivers/               Driver source
+hal/                   Hardware Access Layer
+includes/              Includes	
+kernel/                Kernel
+lib/                   Libraries
+mm/                    Memory management
+tools/                 Tools for creating floppy images, cd iso images, debugging, compiling, etc
+userland/              Userland programs (or what will eventually become them)
+DIRS                   Directory info (this file)             
+LICENSE                Licensing information
+Makefile               Dux's Makefile
+README                 Read this!
+debug.sh               Shell script to debug dux with gdb
+link.lk                Dux's linker script
