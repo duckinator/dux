@@ -22,7 +22,7 @@ OBJS += kernel/mm.o mm/memory.o
 
 # Drivers
 OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
-drivers/core/kb.o
+drivers/core/kb.o drivers/fdd.o
 
 all: iso
 

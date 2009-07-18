@@ -42,4 +42,6 @@ enum FloppyCommands {
 	SCAN_HIGH_OR_EQUAL = 29,
 };
 
+void floppy_detect_drives();
+
 #endif
