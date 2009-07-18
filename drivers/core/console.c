@@ -45,6 +45,7 @@ void console_writeb(char c)
 	}
 
 	screen_scroll(&cursor_x, &cursor_y);
+	update_cursor(cursor_y, cursor_x);
 }
 
 void console_write(char *buf, unsigned int count)
@@ -110,5 +111,5 @@ void console_set_cursor(unsigned int x, unsigned int y)
 {
 	cursor_x = x;
 	cursor_y = y;
-	//move_cursor();
+        //move_cursor();
 }
