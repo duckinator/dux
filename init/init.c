@@ -15,6 +15,8 @@ void kmain(multiboot_t *mbd)
 	init_mm();
 	// Start the console
 	console_init();
+	screen_setattr(0x0a, 0x0a);
+	screen_clear();
 	printk("Dux OS Build %d %d\n", BUILDNUM);
 
 	/* mbd->flags */
