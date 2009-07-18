@@ -14,11 +14,8 @@ void user_console()
 	char tmp[2000];
 	int tmp_index = 0;
 	
-	console_init();
-	screen_setattr(0x0a, 0x0a);
-	screen_clear();
+	printk("\nDux OS terminal\n\n");
 	console_tab_start(6);
-	printk("Dux OS terminal\n\n");
 	
 	while (1)
 	{
