@@ -14,7 +14,7 @@ CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -Ihal/inc
 -include config.mk
 
 OBJS=boot/loader.o  boot/gdt.o
-OBJS+=kernel/panic.o kernel/printk.o kernel/task.o kernel/misc.o kernel/message_handler.o
+OBJS+=kernel/panic.o kernel/printk.o kernel/task.o kernel/misc.o kernel/message_handler.o kernel/debug.o
 OBJS+=init/init.o kernel/stack_dump.o
 
 # Memory
