@@ -34,8 +34,8 @@ char *strncat(char *s, char *ct, int n)
 int strcmp(char *cs, char *ct)
 {
 	do {
-		if (*cs == '\0' || *ct == '\0')
-			break;
+		if (*cs == 0 && *ct == 0)
+			return 0;
 		if (*cs > *ct)
 			return 1;
 		if (*cs < *ct)
