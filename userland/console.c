@@ -5,7 +5,7 @@
  */
 
 #include <string.h>
-
+#include <dux/mm/memory.h>
 void user_console()
 {
 	char c;
@@ -83,6 +83,15 @@ void user_console()
 \tpong:\tA nice, relaxing game of Pong\n\
 \tcolors:\tDisplays a color chart (useful for picking colors)\n\
 \thelp:\tThis help message\n");
+				else if (strcmp(input, "firstframe") == 0)
+				{
+					printk("%i", first_frame());
+				}
+				else if (strcmp(input, "allocframe") == 0)
+				{
+					printk("Setting frame at %i", first_frame());
+					set_frame(first_frame());
+				}
 				else
 					printk("dux: no such command: %s\n", input);
 				c = 0;
