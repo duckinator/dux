@@ -4,7 +4,7 @@
 ramdisk *RD_new(void)
 {
   ramdisk *rd;
-  rd = kmalloc(sizeof(ramdisk), 0); /* obviously won't work until we have kmalloc */
+  rd = kmalloc(sizeof(ramdisk));
   return rd;
 }
 

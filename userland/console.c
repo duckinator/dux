@@ -7,6 +7,7 @@
 #include <string.h>
 #include <dux/mm/memory.h>
 #include <dux/drivers/fdd.h>
+#include <dux/drivers/ramdisk.h>
 #include <dux/drivers/core/kb.h>
 
 void print_prompt(input)
@@ -137,6 +138,20 @@ void user_console()
 					//printk("%c", FDD_ReadData(FDD_BASE));
 					printk("%c", FDD_ReadTrack(FDD_BASE, 1));
 				}
+                else if (strcmp(input, "ramdisktest") == 0) {
+                    char *test_data = "this is a test data!";
+
+                    ramdisk *rd = RD_new();
+                    RD_write_file(rd, 0, "test", "this is a test data!");
+
+                    char *data = RD_read_file(rd, 0);
+
+                    printk("Content of file: ");
+                    printk(data);
+                    printk("\nYou should have seen: ");
+                    printk(test_data);
+                    printk("\n");
+                }
 				else if (strcmp(input, "keycodes") == 0)
 				{
 					printk("Press any key to log info about it, and hit Ctrl-C to exit\n\n");
@@ -162,12 +177,12 @@ void user_console()
 \tbeep:\tHalBeep();\n\
 \tticks:\tPrint number of ticks since system start\n\
 \tclear:\tClear the screen\n\
-\tpong:\tA nice, relaxing game of Pong\n\
 \tcolors:\tDisplays a color chart (useful for picking colors)\n\
 \thistory:\tShows the recent console commands\n\
 \tfirstframe:\tPrints address of the first free frame\n\
 \tallocframe:\tAllocates and prints the address of the first free frame\n\
 \tfddtest:\tTest the floppy disk drive driver\n\
+\tramdisktest:\tTest the ram disk driver\n\
 \tkeycodes:\tDisplay keycodes and scancodes for pressed keys\n\
 \thelp:\tThis help message\n");
 				else
