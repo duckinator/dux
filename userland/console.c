@@ -20,53 +20,6 @@ void print_prompt(input)
 
 void user_console()
 {
-#if defined(__FreeBSD__)
-	char built_os[8] = "FreeBSD";
-#elif defined(__NetBSD__)
-	char built_os[7] = "NetBSD";
-#elif defined(__OpenBSD__)
-	char built_os[8] = "OpenBSD";
-#elif defined(BSD)
-	char built_os[4] = "BSD";
-#elif defined(__MACOSX__)
-	char built_os[9] = "Mac OS X";
-#elif defined(macintosh)
-	char built_os[10] = "Macintosh";
-#elif defined(linux) || defined(__linux) || defined(__linux__)
-	char built_os[6] = "Linux";
-#elif defined(__CYGWIN__ )
-	char built_os[7] = "CYGWin";
-#elif defined(WIN32) || defined(_WIN32)
-	char built_os[15] = "Windows 32-bit";
-#elif defined(_WIN64)
-	char built_os[15] = "Windows 64-bit";
-#elif defined(MSDOS)
-	char built_os[6] = "MS-DOS";
-#else
-	char built_os[8] = "Unknown";
-#endif
-
-#if defined(__i386__)
-	char built_platform[5] = "i386";
-#elif defined(__i486__)
-	char built_platform[5] = "i486";
-#elif defined(__i586__)
-	char built_platform[5] = "i586";
-#elif defined(__i686__)
-	char built_platform[5] = "i586";
-	
-#elif defined(__powerpc)
-	char built_platform[8] = "PowerPC";
-	
-#elif defined(__X86__)
-	char built_platform[4] = "x86";
-#elif defined(__x86_64__)
-	char built_platform[7] = "x86 64";
-	
-#else
-	char built_platform[1] = "";
-#endif
-	
 	char c;
 	char input[2000];
 	int index = 0;
@@ -76,7 +29,7 @@ void user_console()
 	int tmp = 0;
 	int scancode;
 	
-	printk("\nDux OS terminal\nBuilt on %s %s\n\n", built_os, built_platform);
+	printk("\nDux OS terminal\n\n");
 	console_tab_start(6);
 	
 	while (1)
