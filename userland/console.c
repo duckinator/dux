@@ -7,6 +7,7 @@
 #include <string.h>
 #include <dux/mm/memory.h>
 #include <dux/drivers/fdd.h>
+#include <dux/drivers/core/kb.h>
 
 void print_prompt(input)
 {
@@ -19,6 +20,53 @@ void print_prompt(input)
 
 void user_console()
 {
+#if defined(__FreeBSD__)
+	char built_os[8] = "FreeBSD";
+#elif defined(__NetBSD__)
+	char built_os[7] = "NetBSD";
+#elif defined(__OpenBSD__)
+	char built_os[8] = "OpenBSD";
+#elif defined(BSD)
+	char built_os[4] = "BSD";
+#elif defined(__MACOSX__)
+	char built_os[9] = "Mac OS X";
+#elif defined(macintosh)
+	char built_os[10] = "Macintosh";
+#elif defined(linux) || defined(__linux) || defined(__linux__)
+	char built_os[6] = "Linux";
+#elif defined(__CYGWIN__ )
+	char built_os[7] = "CYGWin";
+#elif defined(WIN32) || defined(_WIN32)
+	char built_os[15] = "Windows 32-bit";
+#elif defined(_WIN64)
+	char built_os[15] = "Windows 64-bit";
+#elif defined(MSDOS)
+	char built_os[6] = "MS-DOS";
+#else
+	char built_os[8] = "Unknown";
+#endif
+
+#if defined(__i386__)
+	char built_platform[5] = "i386";
+#elif defined(__i486__)
+	char built_platform[5] = "i486";
+#elif defined(__i586__)
+	char built_platform[5] = "i586";
+#elif defined(__i686__)
+	char built_platform[5] = "i586";
+	
+#elif defined(__powerpc)
+	char built_platform[8] = "PowerPC";
+	
+#elif defined(__X86__)
+	char built_platform[4] = "x86";
+#elif defined(__x86_64__)
+	char built_platform[7] = "x86 64";
+	
+#else
+	char built_platform[1] = "";
+#endif
+	
 	char c;
 	char input[2000];
 	int index = 0;
@@ -28,7 +76,7 @@ void user_console()
 	int tmp = 0;
 	int scancode;
 	
-	printk("\nDux OS terminal\n\n");
+	printk("\nDux OS terminal\nBuilt on %s %s\n\n", built_os, built_platform);
 	console_tab_start(6);
 	
 	while (1)
@@ -136,6 +184,25 @@ void user_console()
 					//printk("%c", FDD_ReadData(FDD_BASE));
 					printk("%c", FDD_ReadTrack(FDD_BASE, 1));
 				}
+				else if (strcmp(input, "keycodes") == 0)
+				{
+					printk("Press any key to log info about it, and hit Ctrl-C to exit\n\n");
+					
+					while (1)
+					{
+						scancode = kb_read();
+						c = console_resolve_scancode(scancode);
+						
+						if (kb_ctrl() && c == 'c')
+						{
+							printk("Byebye. (caught Ctrl-C)\n");
+							break;
+						}
+						
+						if ( !(scancode & 0x80) )
+							printk("scancode: %i\tcharactor: %s\tshift: %i\talt: %i\tctrl: %i\n", scancode, c, kb_shift(), kb_alt(), kb_ctrl());
+					}
+				}
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\
@@ -148,6 +215,7 @@ void user_console()
 \tfirstframe:\tPrints address of the first free frame\n\
 \tallocframe:\tAllocates and prints the address of the first free frame\n\
 \tfddtest:\tTest the floppy disk drive driver\n\
+\tkeycodes:\tDisplay keycodes and scancodes for pressed keys\n\
 \thelp:\tThis help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
