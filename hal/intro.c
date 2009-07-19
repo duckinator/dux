@@ -2,7 +2,10 @@
 #include <system.h>
 #include <buildnum.h>
 
-#define INTRO_DELAY 5
+#include <dux/drivers/core/screen.h>
+#include <dux/drivers/core/console.h>
+
+#define INTRO_DELAY 3
 
 void dux_intro()
 {
@@ -15,32 +18,26 @@ void dux_intro()
 		"    ####     ####   ## ##   \n"
 	};
 	
-	int i,n,column;
+	int row, column;
+	unsigned char attr = screen_getattr().attr;
+	char chr;
+	
 	console_clear();
-	for ( i = 5; i >= 0; i-- ){ // Line
-		for ( column = 29; column > 0; column-- ) {
-			if(strcmp(lines[i][column], " ") == 0) continue;
+	for ( row = 5; row >= 0; row-- )
+	{
+		for ( column = 29; column > 0; column-- )
+		{
+			
+			chr = lines[row][column];
+			if (chr == ' ' || chr == '\n')
+				continue;
 
-			console_clear();
-			for ( n = 0; n < i; n++ ) printk("\n");
-
-			for ( n = 0; n < column; n++ ) printk(" ");
-			for ( n = column; n < 30; n++) printk("%c", lines[i][n]);
-			for ( n = (i+1); n <= 6; n++ ) printk("%s", lines[n]);
+			screen_writechar(column, row, attr, chr);
 			usleep(INTRO_DELAY);
+			
 		}
 	}
 
-/*
-	printk("\
-    ####                    \n\
-    ## ##                   \n\
-    ##  ##                  \n\
-    ##  ##  ##  ##  ## ##   \n\
-    ## ##   ##  ##   ##	    \n\
-    ####     ####   ## ##   \n\
-");
-*/
-	printk("\n\nDux OS Build %d %d\n", BUILDNUM);
+	printk("\n\n\n\n\n\n\nDux OS Build %d %d\n", BUILDNUM);
 
 }
