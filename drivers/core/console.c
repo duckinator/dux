@@ -61,6 +61,8 @@ char console_readb()
 void console_init()
 {
 	screen_init();
+	screen_setattr(0x1f, 0x1f);
+	screen_clear();
 	x = 0;
 	y = 0;
 
