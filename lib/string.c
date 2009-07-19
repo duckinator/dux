@@ -59,7 +59,7 @@ int strncmp(char *cs, char *ct, int n)
 	return 0;
 }
 
-char *strchr(char *cs, char c)
+char *strchr(char *cs, int c)
 {
 	do {
 		if (*cs == c)
@@ -68,7 +68,7 @@ char *strchr(char *cs, char c)
 	return NULL;
 }
 
-char *strrchr(char *cs, char c)
+char *strrchr(char *cs, int c)
 {
 	register char *last = NULL;
 	do {

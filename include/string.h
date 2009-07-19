@@ -16,8 +16,8 @@ char *strncat(char *s, char *ct, int n);
 int strcmp(char *cs, char *ct);
 int strncmp(char *cs, char *ct, int n);
 
-char *strchr(char *cs, char c);
-char *strrchr(char *cs, char c);
+char *strchr(char *cs, int c);
+char *strrchr(char *cs, int c);
 
 #endif /* end of include guard: __STRING_H */
 

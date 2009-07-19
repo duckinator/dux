@@ -39,7 +39,7 @@ void console_writeb(char c)
 		cursor_x++;
 	}
 
-	if (cursor_x > 80) {
+	if (cursor_x > 79) {
 		cursor_x = 0;
 		cursor_y++;
 	}
