@@ -2,7 +2,7 @@
 #include <system.h>
 #include <buildnum.h>
 
-#define INTRO_DELAY 10
+#define INTRO_DELAY 5
 
 void dux_intro()
 {
@@ -30,8 +30,6 @@ void dux_intro()
 			usleep(INTRO_DELAY);
 		}
 	}
-	
-	sleep(10);
 
 /*
 	printk("\
@@ -43,6 +41,6 @@ void dux_intro()
     ####     ####   ## ##   \n\
 ");
 */
-	printk("\n\nDux OS Build %d %d\n\n", BUILDNUM);
+	printk("\n\nDux OS Build %d %d\n", BUILDNUM);
 
 }
