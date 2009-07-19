@@ -10,7 +10,6 @@
 /* Main loop! */
 void kmain(multiboot_t *mbd)
 {
-
 	char c;
 	// Start the console
 	console_init();
@@ -20,7 +19,7 @@ void kmain(multiboot_t *mbd)
 	int i;
 	struct mods_t *module;
 	if (mbd->flags>>3&1) {
-		module = mbd->mods_addr;
+		module = (struct mods_t*) mbd->mods_addr;
 		while (i < mbd->mods_count) {
 			printk("mod_start: %i\n", module->mod_start);
 			i++;
@@ -38,11 +37,9 @@ void kmain(multiboot_t *mbd)
 		c = console_readb();
 		if (c != 0)
 			console_writeb(c);
-#if 0
 		if (c == 'p') {
 			stop(0x10, 0x0);
 			panic("User initialized");
 		}
-#endif
 	}
 }
