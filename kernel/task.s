@@ -8,13 +8,13 @@ switch_to_user_mode:
 	mov ax, gs
 	
 	mov esp, eax
-	push 0x23 ;pushl 0x23
+	push dword 0x23 ;pushl 0x23
 	push eax ;pushl eax
 	pushf
 	pop eax
 	or eax, 0x200
 	push eax
-	push 0x1B ;pushl 0x1B
-	push 0x1f
+	push dword 0x1B ;pushl 0x1B
+	push dword 0x1f
 	iret
 ;1:

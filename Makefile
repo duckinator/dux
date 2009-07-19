@@ -9,20 +9,20 @@ LD=ld
 
 ASFLAGS=-felf -gstabs
 LDFLAGS=-melf_i386 -Tlink.ld -Map dux.map -g
-CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -g -DDEBUG
+CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -Ihal/include -g -DDEBUG
 
 -include config.mk
 
-OBJS=boot/loader.o boot/exceptions.o boot/descriptor_tables.o boot/irqs.o boot/irq_handler.o boot/gdt.o boot/isrs.o boot/idt.o boot/loadidt.o 
-OBJS+=kernel/panic.o kernel/timer.o kernel/printk.o kernel/task.o kernel/syscall.o kernel/misc.o
+OBJS=boot/loader.o  boot/gdt.o
+OBJS+=kernel/panic.o kernel/printk.o kernel/task.o kernel/misc.o kernel/message_handler.o kernel/debug.o
 OBJS+=init/init.o kernel/stack_dump.o
 
 # Memory
-OBJS += kernel/mm.o
+OBJS += kernel/mm.o mm/memory.o
 
 # Drivers
 OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
-drivers/core/kb.o
+drivers/core/kb.o drivers/fdd.o drivers/ramdisk.o
 
 all: iso
 
@@ -37,12 +37,19 @@ incbn: all
 	@echo "  CC      $@"
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
-hal/hal.lib:
-	(cd hal; make)
+userland: lib
+	(cd userland; make)
 
-dux: hal/hal.lib $(OBJS)
+lib:
+	perl tools/write_headers.pl > include/build_info.h
+	(cd lib; make)
+
+hal: userland
+	(cd hal; make)
+	
+dux: hal $(OBJS)
 	@echo "  LD      $@"
-	@$(LD) $(LDFLAGS) -o dux hal/hal.lib $(OBJS)
+	$(LD) $(LDFLAGS) -o dux hal/hal.lib lib/lib.lib userland/userland.lib $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"
@@ -54,7 +61,7 @@ image: dux
 
 iso: dux
 	mkdir -p isofiles/boot/grub
-	cp /boot/grub/stage2_eltorito ./isofiles/boot/grub
+	cp ./tools/stage2_eltorito ./isofiles/boot/grub
 	cp ./dux ./isofiles/boot/dux
 	touch ./isofiles/boot/grub/menu.lst
 	echo "default 0" >> ./isofiles/boot/grub/menu.lst
@@ -69,6 +76,7 @@ clean:
 	@echo "  CLEAN   image Dux.iso dux dux.map $(OBJS)"
 	@-rm image Dux.iso dux dux.map $(OBJS)
 	(cd hal; make clean)
+	(cd userland; make clean)
 
-.PHONY: all clean incbn iso
+.PHONY: all clean lib userland hal incbn iso
 

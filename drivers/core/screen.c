@@ -99,8 +99,8 @@ void screen_init()
 {
 	// Hide cursor.
 	// I'll handle the cursor myself, thankyouverymuch.
-	outb(0x3d4, 0x0a);
-	outb(0x3d5, 1 << 5);
+	//outb(0x3d4, 0x0a);
+	//outb(0x3d5, 1 << 5);
 
 	// Clear cursor structures.
 	cs.attr = 0x80;
@@ -108,4 +108,16 @@ void screen_init()
 	cs.type = block;
 
 	screen_clear();
+	screen_showcursor(block);
 }
+ void update_cursor(int row, int col)
+ {
+    unsigned short position=(row*80) + col;
+ 
+    // cursor LOW port to vga INDEX register
+    outb(0x3D4, 0x0F);
+    outb(0x3D5, (unsigned char)(position&0xFF));
+    // cursor HIGH port to vga INDEX register
+    outb(0x3D4, 0x0E);
+    outb(0x3D5, (unsigned char )((position>>8)&0xFF));
+ }
