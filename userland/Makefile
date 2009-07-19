@@ -11,10 +11,11 @@ CFLAGS = -Iinclude -I../include
 LDFLAGS = 
 ASFLAGS =
 
-all: hal.lib
+all: userland.lib
 
-hal.lib: $(OBJECTS)
+userland.lib: $(OBJECTS)
 	$(LD) $(LDFLAGS) -melf_i386 -r -o $@ $(OBJECTS)
+	#@echo -n
 
 %.o: %.c
 	$(CC) $(CFLAGS) -m32 -c -o $@ $<
@@ -24,6 +25,6 @@ hal.lib: $(OBJECTS)
 	$(AS) $(ASFLAGS) -felf32 -o $@ $<
 
 clean:
-	-rm *.o hal.lib
+	-rm *.o userland.lib
 
-.PHONY: all clean
+.PHONY: all userland.lib clean

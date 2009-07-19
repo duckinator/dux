@@ -1,11 +1,11 @@
 #include <idt.h>
 
-extern void load_idt();
+extern void HalLoadIdt();
 
-struct idt_entry idt[256];
-struct idt_desc idtp;
+struct HalIdtEntry idt[256];
+struct HalIdtDesc idtp;
 
-void idt_init()
+void HalIdtInit()
 {
 	// make a descriptor
 	idtp.base = (unsigned int) &idt;
@@ -17,10 +17,10 @@ void idt_init()
 		*((unsigned char *) idt + i) = 0;
 
 	// use an assembly helper function to load the IDT
-	load_idt();
+	HalLoadIdt();
 }
 
-void idt_set_entry(unsigned char n, unsigned int offset, unsigned short selector, unsigned char type)
+void HalIdtSetEntry(unsigned char n, unsigned int offset, unsigned short selector, unsigned char type)
 {
 	idt[n].offset_lo = offset & 0xFFFF;
 	idt[n].selector = selector;

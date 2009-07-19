@@ -1,9 +1,8 @@
-#include <stddef.h>
+#include <string.h>
 
 char *strcpy(char *s, char *ct)
 {
-	while (*s++ = *ct++)
-		;
+	while (*s++ = *ct++);
 	return s;
 }
 
@@ -17,10 +16,8 @@ char *strncpy(char *s, char *ct, int n)
 
 char *strcat(char *s, char *ct)
 {
-	while (*s++)
-		;
-	while (*s++ = *ct++)
-		;
+	while (*s++);
+	while (*s++ = *ct++);
 	return s;
 }
 
@@ -36,19 +33,15 @@ char *strncat(char *s, char *ct, int n)
 
 int strcmp(char *cs, char *ct)
 {
-	register int cmp = 0;
 	do {
-		if (*cs == '\0' | *ct == '\0')
-			break;
-		if (*cs > *ct) {
-			cmp++;
-		} else if (*cs < *ct) {
-			cmp--;
-		} else {
-			cmp = 0;
-		}
+		if (*cs == 0 && *ct == 0)
+			return 0;
+		if (*cs > *ct)
+			return *cs - *ct;
+		if (*cs < *ct)
+			return *cs - *ct;
 	} while (*cs++, *ct++);
-	return cmp;
+	return 0;
 }
 
 int strncmp(char *cs, char *ct, int n)
@@ -56,22 +49,17 @@ int strncmp(char *cs, char *ct, int n)
 	register int cmp = 0;
 	register int i = 0;
 	do {
-		if (i++ < n)
+		if (i++ < n || *cs == '\0' || *ct == '\0')
 			break;
-		if (*cs == '\0' | *ct == '\0')
-			break;
-		if (*cs > *ct) {
-			cmp++;
-		} else if (*cs < *ct) {
-			cmp--;
-		} else {
-			cmp = 0;
-		}
+		if (*cs > *ct)
+			return *cs - *ct;
+		else if (*cs < *ct)
+			return *cs - *ct;
 	} while (*cs++, *ct++);
-	return cmp;
+	return 0;
 }
 
-char *strchr(char *cs, char c)
+char *strchr(char *cs, int c)
 {
 	do {
 		if (*cs == c)
@@ -80,13 +68,10 @@ char *strchr(char *cs, char c)
 	return NULL;
 }
 
-char *strrchr(char *cs, char c)
+char *strrchr(char *cs, int c)
 {
-	register int i = 0;
 	register char *last = NULL;
 	do {
-		if (i++ < n)
-			break;
 		if (*cs == c)
 			last = cs;
 	} while (*++cs);

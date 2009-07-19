@@ -15,11 +15,6 @@ typedef __builtin_va_list va_list;
 static void printn(unsigned int n, unsigned int base)
 {
 	char *numbers = "0123456789abcdefghijklmnopqrstuvwxyz";
-	// always false
-//	if (n < 0) {
-//		putch('-');
-//		n = -n;
-//	}
 	if (n / base)
 		printn(n/base, base);
 	console_writeb(numbers[n % base]);
