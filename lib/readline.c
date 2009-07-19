@@ -83,12 +83,12 @@ char* readline(const char *prompt)
 	start_x = console_get_cursor_x();
 	start_y = console_get_cursor_y();
 	
-	static char* input;
+	static char input[1000];
 	static int index = 0;
 	
-	static char* history;
+	static char history[2000];
 	static int history_index = 0;
-	static int history_selected = -1;
+	static int history_selected = 0;
 	
 	int scancode;
 	char chr;
@@ -114,7 +114,8 @@ char* readline(const char *prompt)
 				strcpy(history + history_index, input);
 			
 			history_selected--;
-			for (; history[history_selected - 1] != 0; history_selected--);
+			while (history_selected > 0 && history[history_selected - 1] != 0)
+				history_selected--;
 			
 			strcpy(input, history + history_selected);
 			index = strlen(input);
@@ -192,6 +193,25 @@ char* readline(const char *prompt)
 		
 		else
 		{ // Char, add to string
+			if (kb_ctrl())
+			{
+				if (chr == 'p')
+				{
+					stop(0x10, 0x0);
+					panic("User initialized");
+				}
+				
+				else if (chr == 'c')
+				{
+					update_cursor(start_y, start_x);
+					printk(input);
+					screen_setattr(0x0F, 0x0F);
+					printk("^C\n");
+					input[0] = 0;
+					break;
+				}
+			}
+			
 			if (index == strlen(input))
 			{
 				input[index] = chr;
@@ -205,21 +225,6 @@ char* readline(const char *prompt)
 				
 				input[index] = chr;
 				index++;
-			}
-		}
-		
-		if (kb_ctrl())
-		{
-			if (chr == 'p')
-			{
-				stop(0x10, 0x0);
-				panic("User initialized");
-			}
-			if (chr == 'c')
-			{
-				screen_setattr(0x0F, 0x0F);
-				printk("^C\n");
-				break;
 			}
 		}
 		
