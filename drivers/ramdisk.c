@@ -1,10 +1,22 @@
-#include <ramdisk.h>
+#include <dux/drivers/ramdisk.h>
 #include <dux/mm/memory.h>
 
-ramdisk *new_ramdisk(void)
+ramdisk *RD_new(void)
 {
   ramdisk *rd;
-  rd = kmalloc_int(sizeof(ramdisk), 0);
+  rd = kmalloc(sizeof(ramdisk), 0); /* obviously won't work until we have kmalloc */
   return rd;
 }
 
+void RD_write_file(ramdisk *rd, int index, char *name, char *data)
+{
+
+  strncpy(rd->files[index].name, name, 8);
+  strncpy(rd->files[index].data, data, 152);
+}
+
+char *RD_read_file(ramdisk *rd, int index)
+{
+  char *data;
+  strncpy(data, rd->files[index].data, 152);
+}
