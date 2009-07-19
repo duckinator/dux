@@ -10,6 +10,7 @@
 void dux_intro()
 {
 	screen_hidecursor();
+	screen_setattr(0x09, 0x09);
 
 	char lines[6][30] = {
 		"    ####                    ",
@@ -25,11 +26,11 @@ void dux_intro()
 	char chr;
 	
 	console_clear();
+	console_set_cursor(0, 0);
 	for ( row = 5; row >= 0; row-- )
 	{
 		for ( column = 29; column > 0; column-- )
 		{
-			
 			chr = lines[row][column];
 			if (chr == ' ')
 				continue;
@@ -48,6 +49,7 @@ void dux_intro()
 		}
 		console_set_cursor(25, i + 6);
 		printk("                            ");
+		console_set_cursor(0, 0);
 		usleep(10);
 	}
 	
@@ -58,10 +60,12 @@ void dux_intro()
 			console_set_cursor(i, row);
 			printk(lines[row]);
 		}
+		console_set_cursor(0, 0);
 		usleep(5);
 	}
 
-	printk("\n\nDux OS Build %d %d\n", BUILDNUM);
+	screen_setattr(0x0a, 0x0a);
+	printk("\n\n\n\n\n\n\n\nDux OS Build %d %d\n", BUILDNUM);
 	
 	screen_showcursor(block);
 }
