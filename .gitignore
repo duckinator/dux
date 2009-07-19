@@ -5,3 +5,4 @@ dux.map
 image
 Dux.iso
 .*.swp
+include/build_info.h

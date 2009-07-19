@@ -41,6 +41,7 @@ userland: lib
 	(cd userland; make)
 
 lib:
+	perl tools/write_headers.pl > include/build_info.h
 	(cd lib; make)
 
 hal: userland
