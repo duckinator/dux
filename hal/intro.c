@@ -9,16 +9,18 @@
 
 void dux_intro()
 {
+	screen_hidecursor();
+
 	char lines[6][30] = {
-		"    ####                    \n",
-		"    ## ##                   \n",
-		"    ##  ##                  \n",
-		"    ##  ##  ##  ##  ## ##   \n",
-		"    ## ##   ##  ##   ##     \n",
-		"    ####     ####   ## ##   \n"
+		"    ####                    ",
+		"    ## ##                   ",
+		"    ##  ##                  ",
+		"    ##  ##  ##  ##  ## ##   ",
+		"    ## ##   ##  ##   ##     ",
+		"    ####     ####   ## ##   "
 	};
 	
-	int row, column;
+	int row, column, i;
 	unsigned char attr = screen_getattr().attr;
 	char chr;
 	
@@ -29,15 +31,37 @@ void dux_intro()
 		{
 			
 			chr = lines[row][column];
-			if (chr == ' ' || chr == '\n')
+			if (chr == ' ')
 				continue;
 
-			screen_writechar(column, row, attr, chr);
+			screen_writechar(25 + column, 9 + row, attr, chr);
 			usleep(INTRO_DELAY);
-			
 		}
 	}
+	
+	for ( i = 9; i >= 0; i-- )
+	{
+		for ( row = 0; row < 6; row++ )
+		{
+			console_set_cursor(25, i + row);
+			printk(lines[row]);
+		}
+		console_set_cursor(25, i + 6);
+		printk("                            ");
+		usleep(10);
+	}
+	
+	for ( i = 25; i >= 0; i-- )
+	{
+		for ( row = 0; row < 6; row++ )
+		{
+			console_set_cursor(i, row);
+			printk(lines[row]);
+		}
+		usleep(5);
+	}
 
-	printk("\n\n\n\n\n\n\nDux OS Build %d %d\n", BUILDNUM);
-
+	printk("\n\nDux OS Build %d %d\n", BUILDNUM);
+	
+	screen_showcursor(block);
 }
