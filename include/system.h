@@ -21,6 +21,8 @@ extern unsigned int monitor_get_cursor_y();
 extern void monitor_set_cursor(unsigned int x, unsigned int y);
 
 extern void HalTimerSleep();
+extern void sleep();
+extern void usleep();
 
 void panic(char*);
 void stop(int error, int argc, ...);
