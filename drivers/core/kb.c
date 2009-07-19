@@ -56,12 +56,17 @@ char kb_has_input()
 
 char kb_read()
 {
-	int scancode;
+	int scancode, i;
 	
 	while (buffer <= origbuffer); // wait for input
 
-	scancode = *buffer-- & 0xFF;
-	//printk("\n'%x'\n", scancode);
+	scancode = *origbuffer & 0xFF;
+	//printk("\n0x%x\n", scancode);
+	
+	for (i = 0; i < (buffer - origbuffer); i++)
+		origbuffer[i] = origbuffer[i + 1];
+	
+	buffer--;	
 	
 	// Left shift
 	if (scancode == 0x2A)
