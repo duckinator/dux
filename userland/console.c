@@ -7,6 +7,7 @@
 #include <string.h>
 #include <dux/mm/memory.h>
 #include <dux/drivers/fdd.h>
+#include <dux/drivers/core/kb.h>
 
 void print_prompt(input)
 {
@@ -136,6 +137,25 @@ void user_console()
 					//printk("%c", FDD_ReadData(FDD_BASE));
 					printk("%c", FDD_ReadTrack(FDD_BASE, 1));
 				}
+				else if (strcmp(input, "keycodes") == 0)
+				{
+					printk("Press any key to log info about it, and hit Ctrl-C to exit\n\n");
+					
+					while (1)
+					{
+						scancode = kb_read();
+						c = console_resolve_scancode(scancode);
+						
+						if (kb_ctrl() && c == 'c')
+						{
+							printk("Byebye. (caught Ctrl-C)\n");
+							break;
+						}
+						
+						if ( !(scancode & 0x80) )
+							printk("scancode: %i\tcharactor: %s\tshift: %i\talt: %i\tctrl: %i\n", scancode, c, kb_shift(), kb_alt(), kb_ctrl());
+					}
+				}
 				else if( strcmp(input, "help") == 0 )
 					printk("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\
@@ -148,6 +168,7 @@ void user_console()
 \tfirstframe:\tPrints address of the first free frame\n\
 \tallocframe:\tAllocates and prints the address of the first free frame\n\
 \tfddtest:\tTest the floppy disk drive driver\n\
+\tkeycodes:\tDisplay keycodes and scancodes for pressed keys\n\
 \thelp:\tThis help message\n");
 				else
 					printk("dux: no such command: %s\n", input);
