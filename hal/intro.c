@@ -48,6 +48,13 @@ void dux_intro()
 		}
 	}
 	
+	for ( row = 0; row < 6; row++ )
+	{
+		console_set_cursor(25, 9 + row);
+		printk(lines[row]);
+	}
+	usleep(150);
+	
 	for ( i = 9; i >= 0; i-- )
 	{
 		for ( row = 0; row < 6; row++ )
