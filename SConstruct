@@ -21,6 +21,6 @@ env = debug
 
 Export('env', 'arch')
 
-SConscript('src/userland/SConscript')
+
 SConscript('src/kernel/SConscript',  duplicate=0)
 
