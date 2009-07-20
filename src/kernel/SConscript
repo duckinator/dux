@@ -1,0 +1,14 @@
+Import('env', 'arch')
+
+sources = Split('''
+	
+''')
+
+o = SConscript('arch/%s/SConscript' % arch)
+sources.append(o)
+
+env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld'])
+env.Append(CCFLAGS=['-I', 'include/arch/%s' % arch])
+env.Append(CCFLAGS=['-I', 'include'])
+
+env.Program('kernel', sources)
