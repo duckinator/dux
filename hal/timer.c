@@ -1,8 +1,6 @@
 #include <hal.h>
 #include <isr.h>
 
-#define TICKS_PER_SEC 1000
-
 /* This will keep track of how many ticks that the system
 *  has been running for */
 int HalTimerTicks = 0;
@@ -34,7 +32,7 @@ void HalTimerPhase(int hz)
 void HalTimerInstall(void)
 {
 	HalIrqHandler_Install(0, HalTimerHandler);
-	HalTimerPhase(TICKS_PER_SEC);
+	HalTimerPhase(1000);
 }
 
 void HalTimerSleep(int ticks)
@@ -47,10 +45,10 @@ void HalTimerSleep(int ticks)
 
 void usleep(int milliseconds)
 {
-	HalTimerSleep(milliseconds/1000)*TICKS_PER_SEC);
+	HalTimerSleep(milliseconds);
 }
 
 void sleep(int seconds)
 {
-	HalTimerSleep(seconds*TICKS_PER_SEC);
+	HalTimerSleep(seconds*1000);
 }
