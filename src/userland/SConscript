@@ -8,5 +8,6 @@ sources = Split('''
          console.c
          pong.c
 ''')
-
-env.Library('userland',sources)
+lib = ['userland']
+env.Library(lib,sources)
+Return('lib')

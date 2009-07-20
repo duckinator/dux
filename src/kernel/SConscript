@@ -14,12 +14,15 @@ Export('env')
 
 libs = [''] #empty list of libs
 paths = ['.']
+#SConscript('src/userland/SConscript')
 #['lib','mm','hal','arch','boot','drivers','init']:
-for subdir in ['lib','mm','drivers','boot','init','hal']:
+for subdir in ['boot','drivers','mm','lib','#src/userland','hal','init']:
     lib = SConscript('%s/SConscript' % subdir)
     print lib
-    libs.append(lib)
-    paths.append(subdir)
+    env.Append(LIBS=['lib'])
+    env.Append(CPPPATH=['subdir'])
+    #libs.append(lib)
+    #paths.append(subdir)
    # env.Append(LIBS=lib)
 
 paths.append('#src/userland/')
@@ -29,4 +32,4 @@ env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld', '-Map', 'src/kernel/kernel.sym
 env.Append(CCFLAGS=['-I', 'include/arch/%s' % arch])
 
 
-env.Program('kernel', [sources,Glob('*.c'),Glob('*.s')], LIBS=libs, LIBPATH=paths)
+env.Program('kernel', [sources,Glob('*.c'),Glob('*.s')])
