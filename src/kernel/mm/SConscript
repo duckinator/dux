@@ -1,0 +1,5 @@
+Import('env','arch')
+
+lib = ['mm']
+env.Library(lib,Glob('*.c'))
+Return('lib')

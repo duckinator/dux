@@ -1,0 +1,5 @@
+Import('env','arch')
+
+lib = ['boot']
+env.Library(lib,Glob('*.s'))
+Return('lib')

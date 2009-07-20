@@ -1,0 +1,5 @@
+Import('env','arch')
+
+lib = ['drivers']
+env.Library(lib,[Glob('*.c'),Glob('core/*.c')])
+Return('lib')

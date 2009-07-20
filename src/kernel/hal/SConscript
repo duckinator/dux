@@ -1,0 +1,5 @@
+Import('env','arch')
+
+lib = ['hal']
+env.Library(lib,[Glob('*.s'),Glob('*.c')])
+Return('lib')

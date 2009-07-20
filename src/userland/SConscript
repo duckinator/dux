@@ -1,0 +1,10 @@
+#Sconscript for userland
+Import('env', 'arch')
+
+sources = Split('''
+         colorchart.c
+         console.c
+         pong.c
+''')
+
+env.Library('userland',sources)
