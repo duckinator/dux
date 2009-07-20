@@ -1,7 +1,7 @@
 Import('env', 'arch')
 
 sources = Split('''
-	
+	init/init.c
 ''')
 
 o = SConscript('arch/%s/SConscript' % arch)
