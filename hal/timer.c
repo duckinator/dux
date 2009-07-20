@@ -31,7 +31,7 @@ void HalTimerPhase(int hz)
 
 void HalTimerInstall(void)
 {
-	HalIrqHandler_Install (0, HalTimerHandler);
+	HalIrqHandler_Install(0, HalTimerHandler);
 	HalTimerPhase(1000);
 }
 
@@ -45,10 +45,10 @@ void HalTimerSleep(int ticks)
 
 void usleep(int milliseconds)
 {
-	HalTimerSleep(milliseconds * 10);
+	HalTimerSleep(milliseconds);
 }
 
 void sleep(int seconds)
 {
-	HalTimerSleep( (seconds * 1000) * 10);
+	HalTimerSleep((seconds * 1000));
 }
