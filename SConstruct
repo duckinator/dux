@@ -2,7 +2,8 @@ arch = 'x86'
 
 default = Environment(
 	CC='gcc',
-	CCFLAGS=['-I', 'include', '-nostdinc', '-m32'],
+	CCFLAGS=['-nostdinc', '-m32'],
+        CPPPATH = ['#include','#include-MAKE'],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
@@ -18,4 +19,6 @@ env = debug
 
 Export('env', 'arch')
 
-SConscript('src/kernel/SConscript', variant_dir='obj/kernel', duplicate=0)
+user_lib = SConscript('src/userland/SConscript')
+SConscript('src/kernel/SConscript',  duplicate=0)
+

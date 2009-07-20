@@ -7,7 +7,22 @@ sources = Split('''
 o = SConscript('arch/%s/SConscript' % arch)
 sources.append(o)
 
+env.Append(CPPPATH=['#src/kernel/hal/include/'])
+Export('env')
+
+libs = [''] #empty list of libs
+paths = ['.']
+#['lib','mm','hal','arch','boot','drivers','init']:
+for subdir in ['lib','mm','drivers','boot','init','hal']:
+    lib = SConscript('%s/SConscript' % subdir)
+    print lib
+    libs.append(lib)
+    paths.append(subdir)
+   # env.Append(LIBS=lib)
+
+
 env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld'])
 env.Append(CCFLAGS=['-I', 'include/arch/%s' % arch])
 
-env.Program('kernel', sources)
+
+env.Program('kernel', sources, LIBS=libs, LIBPATH=paths)

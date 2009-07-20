@@ -1,0 +1,9 @@
+Import('env','arch')
+
+sources = [
+        'readline.c',
+         'string.c'
+]
+lib = [ 'c' ]
+env.Library('c',sources)
+Return('lib')
