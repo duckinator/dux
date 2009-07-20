@@ -9,7 +9,7 @@ LD=ld
 
 ASFLAGS=-felf -gstabs
 LDFLAGS=-melf_i386 -Tlink.ld -Map dux.map -g
-CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude -Idrivers -Imm -Ihal/include -g -DDEBUG
+CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude-MAKE -Idrivers -Imm -Ihal/include -g -DDEBUG
 
 -include config.mk
 
