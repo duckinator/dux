@@ -8,6 +8,7 @@
 #include <readline.h>
 
 #include <dux/mm/memory.h>
+#include <dux/shutdown.h>
 #include <dux/drivers/fdd.h>
 #include <dux/drivers/ramdisk.h>
 #include <dux/drivers/core/kb.h>
@@ -110,6 +111,7 @@ void user_console()
 		else if( strcmp(input, "help") == 0 )
 			printk("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\
+\tshutdown:\t Shutdown the system\n\
 \tbeep:\tHalBeep();\n\
 \tticks:\tPrint number of ticks since system start\n\
 \tclear:\tClear the screen\n\
@@ -121,7 +123,9 @@ void user_console()
 \tramdisktest:\tTest the ram disk driver\n\
 \tkeycodes:\tDisplay keycodes and scancodes for pressed keys\n\
 \thelp:\tThis help message\n");
-		else
+		else if (strcmp(input, "shutdown") == 0) {
+			DuxShutdown();
+		} else
 			printk("dux: no such command: %s\n", input);
 
 	}

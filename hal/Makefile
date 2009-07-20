@@ -7,7 +7,7 @@ CC = gcc
 LD = ld
 AS = nasm
 
-CFLAGS = -Iinclude -I../include
+CFLAGS = -Iinclude -I../include-MAKE
 LDFLAGS = 
 ASFLAGS =
 
