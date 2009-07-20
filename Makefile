@@ -9,25 +9,29 @@ LD=ld
 
 ASFLAGS=-felf -gstabs
 LDFLAGS=-melf_i386 -Tlink.ld -Map dux.map -g
-CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude-MAKE -Idrivers -Imm -Ihal/include -g -DDEBUG -nostdinc
+CFLAGS=-m32 -fno-builtin -fno-stack-protector -Iinclude/arch/x86 -Iinclude-MAKE -Isrc/kernel/drivers -Isrc/kernel/mm -Isrc/kernel/hal/include -g -DDEBUG -nostdinc
 
 -include config.mk
 
-OBJS=boot/loader.o  boot/gdt.o
-OBJS+=kernel/panic.o kernel/printk.o kernel/task.o kernel/misc.o kernel/message_handler.o kernel/debug.o kernel/shutdown.o
-OBJS+=init/init.o kernel/stack_dump.o
+OBJS=src/kernel/arch/x86/boot.o  src/kernel/boot/gdt.o
+OBJS+=src/kernel/panic.o src/kernel/printk.o src/kernel/task.o src/kernel/misc.o src/kernel/message_handler.o src/kernel/debug.o src/kernel/shutdown.o
+OBJS+=src/kernel/init/init.o src/kernel/stack_dump.o
 
 # Memory
-OBJS += kernel/mm.o mm/memory.o
+OBJS += src/kernel/mm.o src/kernel/mm/memory.o
 
 # Drivers
-OBJS += drivers/core/ports.o drivers/core/screen.o drivers/core/console.o \
-drivers/core/kb.o drivers/fdd.o drivers/ramdisk.o
+OBJS += src/kernel/drivers/core/ports.o src/kernel/drivers/core/screen.o src/kernel/drivers/core/console.o \
+src/kernel/drivers/core/kb.o src/kernel/drivers/fdd.o src/kernel/drivers/ramdisk.o
 
 all: iso
 
 incbn: all
 	@python tools/incbn.py
+
+%.o: %.asm
+	@echo "  AS      $@"
+	@$(AS) $(ASFLAGS) -o $@ $<
 
 .s.o:
 	@echo "  AS      $@"
@@ -38,18 +42,18 @@ incbn: all
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 userland: lib
-	(cd userland; make)
+	(cd src/userland; make)
 
 lib:
 	perl tools/write_headers.pl > include/build_info.h
-	(cd lib; make)
+	(cd src/kernel/lib; make)
 
 hal: userland
-	(cd hal; make)
+	(cd src/kernel/hal; make)
 	
 dux: hal $(OBJS)
 	@echo "  LD      $@"
-	$(LD) $(LDFLAGS) -o dux hal/hal.lib lib/lib.lib userland/userland.lib $(OBJS)
+	$(LD) $(LDFLAGS) -o dux src/kernel/hal/hal.lib src/kernel/lib/lib.lib src/userland/userland.lib $(OBJS)
 
 image: dux
 	@echo "  IMAGE   image"

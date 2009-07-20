@@ -4,7 +4,7 @@ SECTIONS{
     . = 0x00100000;
 
     .text :{
-		boot/loader.o
+		src/kernel/arch/x86/boot.o
         *(.text)
     }
 
