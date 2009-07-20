@@ -2,7 +2,7 @@ arch = 'x86'
 
 default = Environment(
 	CC='gcc',
-	CCFLAGS=['-Iinclude/', '-nostdinc', '-m32'],
+	CCFLAGS=['-I', 'include', '-nostdinc', '-m32'],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
