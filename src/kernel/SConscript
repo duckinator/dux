@@ -16,7 +16,7 @@ libs = [''] #empty list of libs
 paths = ['.']
 #SConscript('src/userland/SConscript')
 #['lib','mm','hal','arch','boot','drivers','init']:
-for subdir in ['boot','drivers','mm','lib','#src/userland','hal','init']:
+for subdir in ['boot','misc','drivers','mm','lib','#src/userland','hal','init']:
     lib = SConscript('%s/SConscript' % subdir)
     print lib
     env.Append(LIBS=['lib'])

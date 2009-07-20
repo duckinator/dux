@@ -1,0 +1,7 @@
+# vim: syntax=python
+
+Import('env','arch')
+
+lib = ['misc']
+env.Library(lib,[Glob('*.s'),Glob('*.c')])
+Return('lib')
