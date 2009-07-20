@@ -22,3 +22,6 @@ include/build_info.h
 
 #ignore logs
 *.log
+
+#ignore scons database file:
+.sconsign.dblite
