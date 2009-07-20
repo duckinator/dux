@@ -8,3 +8,4 @@
         echo "kernel /boot/dux" >> ./isofiles/boot/grub/menu.lst
         echo "module /boot/dux" >> ./isofiles/boot/grub/menu.lst
         genisoimage -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o Dux.iso isofiles
+	rm -r isofiles/
