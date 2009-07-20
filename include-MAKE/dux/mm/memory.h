@@ -1,3 +1,7 @@
+#ifndef MEMORY_WCZWHBJM
+
+#define MEMORY_WCZWHBJM
+
 typedef struct {
 	unsigned int present : 1;
 	unsigned int readwrite : 1;
@@ -34,3 +38,6 @@ unsigned int kmalloc_int(unsigned int size, unsigned int flags);
 
 void init_mm();
 unsigned int test_frame(unsigned int addr);
+
+#endif /* end of include guard: MEMORY_WCZWHBJM */
+

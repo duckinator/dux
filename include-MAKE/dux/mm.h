@@ -24,4 +24,9 @@ struct MMPage {
 	uint32_t frame : 20;
 };
 
+struct MMPageDir {
+	struct MMPage tables[1024];
+	uint32_t physical;
+};
+
 #endif /* end of include guard: MM_DVWOFTDE */
