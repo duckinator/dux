@@ -1,6 +1,8 @@
 #ignore the result of any builds
 *.o
 *.lib
+*.a
+*.so
 
 #ignore executables and images (binary stuff)
 dux
