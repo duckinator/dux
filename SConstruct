@@ -19,6 +19,6 @@ env = debug
 
 Export('env', 'arch')
 
-user_lib = SConscript('src/userland/SConscript')
+SConscript('src/userland/SConscript')
 SConscript('src/kernel/SConscript',  duplicate=0)
 

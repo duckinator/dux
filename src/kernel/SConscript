@@ -20,9 +20,11 @@ for subdir in ['lib','mm','drivers','boot','init','hal']:
     paths.append(subdir)
    # env.Append(LIBS=lib)
 
+paths.append('#src/userland/')
+libs.append('userland')
 
 env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld'])
 env.Append(CCFLAGS=['-I', 'include/arch/%s' % arch])
 
 
-env.Program('kernel', sources, LIBS=libs, LIBPATH=paths)
+env.Program('kernel', [sources,Glob('*.c'),Glob('*.s')], LIBS=libs, LIBPATH=paths)
