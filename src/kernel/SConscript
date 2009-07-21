@@ -23,7 +23,7 @@ for subdir in ['lib','mm','drivers','boot','init','hal']:
 paths.append('#src/userland/')
 libs.append('userland')
 
-env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld'])
+env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld', '-Map', 'src/kernel/kernel.sym'])
 env.Append(CCFLAGS=['-I', 'include/arch/%s' % arch])
 
 
