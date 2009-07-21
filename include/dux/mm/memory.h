@@ -34,7 +34,7 @@ typedef struct {
 
 #define kmalloc(n) kmalloc_int((n), 0)
 
-unsigned int kmalloc_int(unsigned int size, unsigned int flags);
+void *kmalloc_int(unsigned int size, unsigned int flags);
 
 void init_mm();
 unsigned int test_frame(unsigned int addr);
