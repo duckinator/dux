@@ -1,9 +1,13 @@
 # vim: syntax=python
 
+import os
+
 arch = ARGUMENTS.get('arch', 'x86')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
 strict = ARGUMENTS.get('strict', 'yes')
+
+iso = Builder(action='./makeiso.sh')
 
 env = Environment(
 	CC='gcc',
@@ -11,7 +15,8 @@ env = Environment(
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
-	LINKFLAGS=['-melf_i386', '-nostdlib']
+	LINKFLAGS=['-melf_i386', '-nostdlib'],
+	BUILDERS={'Iso': iso}
 )
 
 if buildtype == 'debug':
@@ -27,3 +32,5 @@ Export('env', 'arch', 'buildtype')
 
 SConscript('user/SConscript')
 SConscript('krnl/SConscript')
+
+env.Iso('Dux.iso', 'krnl/krnl')
