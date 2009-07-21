@@ -20,10 +20,10 @@ static void printn(unsigned int n, unsigned int base)
 	console_writeb(numbers[n % base]);
 }
 
-void printk(char *fmt, ...)
+void printk(const char *fmt, ...)
 {
 	va_list ap;
-	char *p, *sval;
+	const char *p, *sval;
 	char cval;
 	unsigned int ival;
 	unsigned long long lval;
