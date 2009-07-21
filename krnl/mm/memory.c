@@ -10,7 +10,7 @@ unsigned int placement = 0;
  * Simple placement based allocator. This allocates off the end of the kernel.
  * Potential bugs: This has no bound, and does not check with the final heap allocator
  */
-unsigned int kmalloc_int(unsigned int size, unsigned int flags)
+void *kmalloc_int(unsigned int size, unsigned int flags)
 {
 	unsigned int tmp;
 
