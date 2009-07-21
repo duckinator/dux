@@ -18,8 +18,8 @@ paths = ['.'] #include in path
 for subdir in ['boot','misc','drivers','mm','lib','#src/userland','hal']:
     lib = SConscript('%s/SConscript' % subdir)
     print lib
-    env.Append(LIBS=['lib'])
-    env.Append(CPPPATH=['subdir'])
+    env.Append(LIBS=[lib])
+    env.Append(LIBPATH=[subdir])
     
 
 env.Append(LINKFLAGS=['-T', 'src/kernel/link.ld', '-Map', 'src/kernel/kernel.sym'])
