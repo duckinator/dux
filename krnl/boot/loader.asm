@@ -47,10 +47,8 @@ gdt_desc:
 STACKSIZE equ 0x4000			; that's 16k.
 
 extern stop
-extern stack
 loader:
 	mov esp, stacktop	; set up the stack
-	mov [stack], esp
 
 	; Make sure multiboot loaded us
 	cmp eax, 0x2badb002
