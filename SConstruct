@@ -3,6 +3,7 @@
 arch = ARGUMENTS.get('arch', 'x86')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
+strict = ARGUMENTS.get('strict', 'no')
 
 env = Environment(
 	CC='gcc',
@@ -18,6 +19,9 @@ if buildtype == 'debug':
 
 if ansi == 'yes':
 	env.Append(CCFLAGS=['-ansi'])
+
+if strict == 'yes':
+	env.Append(CCFLAGS=['-Werror'])
 
 Export('env', 'arch', 'buildtype')
 
