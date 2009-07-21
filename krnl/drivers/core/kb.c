@@ -94,8 +94,7 @@ char kb_read()
 	
 	if (ctrl && alt && (scancode == 0x53))
 	{ // Ctrl-Alt-Delete
-		stop(0x10, 0x0);
-		panic("User initialized");
+		stop(0x11, 0x0);
 	}
 		
 	return (char)scancode;
