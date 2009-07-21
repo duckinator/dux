@@ -1,7 +1,0 @@
-# vim: syntax=python
-
-Import('env','arch')
-
-lib = ['init']
-env.Library(lib,Glob('*.c'))
-Return('lib')

@@ -1,26 +1,25 @@
 # vim: syntax=python
 
-arch = 'x86'
+arch = ARGUMENTS.get('arch', 'x86')
+buildtype = ARGUMENTS.get('buildtype', 'debug')
+ansi = ARGUMENTS.get('ansi', 'no')
 
-default = Environment(
+env = Environment(
 	CC='gcc',
-	CCFLAGS=['-nostdinc', '-m32'],
-        CPPPATH = ['#include','#include-MAKE'],
+	CCFLAGS=['-nostdinc', '-m32', '-I', 'include', '-I', 'include/arch/%s' % arch],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
 	LINKFLAGS=['-melf_i386', '-nostdlib']
 )
 
-debug = default.Clone()
-debug.Append(CCFLAGS=['-g'])
-debug.Append(ASFLAGS=['-gstabs'])
-debug.Append(LINKFLAGS=['-g'])
+if buildtype == 'debug':
+	env.Append(CCFLAGS=['-g'], LINKFLAGS=['-g'])
 
-env = debug
+if ansi == 'yes':
+	env.Append(CCFLAGS=['-ansi'])
 
-Export('env', 'arch')
+Export('env', 'arch', 'buildtype')
 
-
-SConscript('src/kernel/SConscript',  duplicate=0)
-
+SConscript('user/SConscript')
+SConscript('krnl/SConscript')

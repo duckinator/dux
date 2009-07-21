@@ -1,7 +1,0 @@
-# vim: syntax=python
-
-arch_sources = Split('''
-	arch/x86/boot.asm
-''')
-
-Return('arch_sources')
