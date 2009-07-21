@@ -3,7 +3,7 @@
 arch = ARGUMENTS.get('arch', 'x86')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
-strict = ARGUMENTS.get('strict', 'no')
+strict = ARGUMENTS.get('strict', 'yes')
 
 env = Environment(
 	CC='gcc',
