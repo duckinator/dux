@@ -8,8 +8,8 @@ sources = [
 	'pong.c',
 ]
 
-kernel = env.Clone()
-kernel.Append(LINKFLAGS=['-Map', 'user/user.map'])
+user = env.Clone()
+user.Append(LINKFLAGS=['-Map', 'user/user.map'])
 
 if arch == 'x86':
 	sources += [
@@ -18,4 +18,4 @@ if arch == 'x86':
 sources += [
 ]
 
-kernel.Library('user', sources)
+user.Library('user', sources)
