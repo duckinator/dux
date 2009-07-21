@@ -1,3 +1,5 @@
+# vim: syntax=python
+
 Import('env','arch')
 
 lib = ['drivers']
