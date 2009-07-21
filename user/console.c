@@ -7,6 +7,8 @@
 #include <string.h>
 #include <readline.h>
 
+#include <krnl/stop.h>
+
 #include <dux/mm/memory.h>
 #include <dux/shutdown.h>
 #include <dux/drivers/fdd.h>
@@ -35,8 +37,7 @@ void user_console()
 		{} // Empty
 		else if( strcmp(input, "panic") == 0 )
 		{
-			stop(0x10, 0x0);
-			panic("User initialized");
+			KrnlEasyStop(STOP_UNKNOWN);
 		}
 		else if( strcmp(input, "pong") == 0 )
 			pong();

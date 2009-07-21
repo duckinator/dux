@@ -33,6 +33,7 @@ sources += [
 	'./init/init.c',
 	'./misc/mm.c',
 	'./misc/shutdown.c',
+	'./misc/stop.c',
 	'./misc/debug.c',
 	'./misc/message_handler.c',
 	'./misc/panic.c',
