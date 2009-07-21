@@ -6,7 +6,7 @@ global _halt
 global _stacksize
 global _stack
 
-extern init
+extern kmain
 
 MBOOT_MAGIC equ 0x1badb002
 MBOOT_FLAGS equ 1<<0 | 1<<1
@@ -27,7 +27,7 @@ _start:
 	xor ebp, ebp
 	mov esp, _stack+STACKSIZE
 
-	jmp init
+	jmp kmain
 
 _halt:
 	cli
