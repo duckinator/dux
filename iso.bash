@@ -1,3 +1,5 @@
+#!/bin/sh
+
         mkdir -p isofiles/boot/grub
         cp ./tools/stage2_eltorito ./isofiles/boot/grub
         cp ./src/kernel/kernel ./isofiles/boot/dux
