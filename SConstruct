@@ -15,7 +15,7 @@ env = Environment(
 )
 
 if buildtype == 'debug':
-	env.Append(CCFLAGS=['-g'], LINKFLAGS=['-g'])
+	env.Append(CCFLAGS=['-g', '-DDEBUG'], LINKFLAGS=['-g'])
 
 if ansi == 'yes':
 	env.Append(CCFLAGS=['-ansi'])
