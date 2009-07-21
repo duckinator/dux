@@ -12,9 +12,10 @@
 #define va_copy(d,s)  __builtin_va_copy(d,s)
 typedef __builtin_va_list va_list;
 
+static const char *numbers = "0123456789abcdefghijklmnopqrstuvwxyz";
+
 static void printn(unsigned int n, unsigned int base)
 {
-	char *numbers = "0123456789abcdefghijklmnopqrstuvwxyz";
 	if (n / base)
 		printn(n/base, base);
 	console_writeb(numbers[n % base]);
