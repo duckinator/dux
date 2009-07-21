@@ -51,7 +51,6 @@ sources += [
 	'./hal/irq_handler.c',
 	'./boot/gdt.asm',
 	'./misc/task.asm',
-	'./misc/stack_dump.asm',
 	'./hal/exceptions.asm',
 	'./hal/irqs.asm',
 	'./hal/loadidt.asm',
