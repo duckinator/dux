@@ -26,3 +26,6 @@ include/build_info.h
 
 #ignore scons database file:
 .sconsign.dblite
+
+#ignore ctags
+tags
