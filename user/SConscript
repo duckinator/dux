@@ -1,0 +1,21 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype')
+
+sources = [
+	'colorchart.c',
+	'console.c',
+	'pong.c',
+]
+
+kernel = env.Clone()
+kernel.Append(LINKFLAGS=['-Map', 'user/user.map'])
+
+if arch == 'x86':
+	sources += [
+	]
+
+sources += [
+]
+
+kernel.Library('user', sources)

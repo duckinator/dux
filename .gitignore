@@ -3,11 +3,10 @@
 *.lib
 *.a
 *.so
+*.map
 
 #ignore executables and images (binary stuff)
-dux
-dux.map
-image
+krnl
 Dux.iso
 
 #ignore emacs files
@@ -27,6 +26,3 @@ include/build_info.h
 
 #ignore scons database file:
 .sconsign.dblite
-
-# src/kernel/kernel.sym
-src/kernel/kernel.sym

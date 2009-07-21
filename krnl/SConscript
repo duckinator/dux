@@ -1,0 +1,55 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype')
+
+sources = []
+
+kernel = env.Clone()
+kernel.Append(LINKFLAGS=['-Map', 'krnl/krnl.map'])
+
+kernel.Append(LIBPATH=['#user'])
+kernel.Append(LIBS=['user'])
+
+if arch == 'x86':
+	sources += [
+	]
+	kernel.Append(LINKFLAGS=['-T', 'krnl/arch/x86/link.ld'])
+
+sources += [
+	'./boot/loader.asm',
+	'./mm/memory.c',
+	'./drivers/fdd.c',
+	'./drivers/ramdisk.c',
+	'./drivers/core/screen.c',
+	'./drivers/core/kb.c',
+	'./drivers/core/ports.c',
+	'./drivers/core/console.c',
+	'./lib/readline.c',
+	'./lib/string.c',
+	'./init/init.c',
+	'./misc/mm.c',
+	'./misc/shutdown.c',
+	'./misc/debug.c',
+	'./misc/message_handler.c',
+	'./misc/panic.c',
+	'./misc/misc.c',
+	'./misc/printk.c',
+	'./hal/isrs.c',
+	'./hal/syscall.c',
+	'./hal/beep.c',
+	'./hal/idt.c',
+	'./hal/port.c',
+	'./hal/timer.c',
+	'./hal/descriptor_tables.c',
+	'./hal/intro.c',
+	'./hal/hal.c',
+	'./hal/irq_handler.c',
+	'./boot/gdt.asm',
+	'./misc/task.asm',
+	'./misc/stack_dump.asm',
+	'./hal/exceptions.asm',
+	'./hal/irqs.asm',
+	'./hal/loadidt.asm',
+]
+
+kernel.Program('krnl', sources)
