@@ -42,10 +42,11 @@ typedef __builtin_va_list va_list;
 
 char *stop_msg = "A problem has been detected and Dux has been shut down to prevent damage\nto your computer.\n\n";
 
-char *stop_table[7] = {
+char *stop_table[9] = {
 	(char*)0x01, "ASSERTION_FAILED",
 	(char*)0x02, "NO_MULTIBOOT",
 	(char*)0x10, "USER_INITIALIZED",
+	(char*)0x11, "DUX_SECURITY",
 	(char*)0x0
 };
 
