@@ -30,7 +30,7 @@ void panic(char*);
 void stop(int error, int argc, ...);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
-void printk(char *fmt, ...);
+void printk(const char *fmt, ...);
 
 #define NULL 0
 
