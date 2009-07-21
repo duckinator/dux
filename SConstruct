@@ -11,7 +11,7 @@ env = Environment(
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
-	LINKFLAGS=['-melf_i386', '-nostartfiles', '-nostdlib']
+	LINKFLAGS=['-melf_i386', '-nostdlib']
 )
 
 if buildtype == 'debug':
