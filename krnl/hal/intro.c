@@ -91,6 +91,7 @@ void dux_intro()
 
 	screen_setattr(0x0a, 0x0a);
 //	printk("\n\n\n\n\n\n\n\nDux OS Build %d\nbuilt %s on %s (%s)\n", BUILDNUM, __DUX_BUILT_DATE__, __DUX_BUILT_NAME__, __DUX_BUILT_OS__);
+	printk("\n\n\n\n\n\n\n\nDux OS");
 	
 	screen_showcursor(block);
 }
