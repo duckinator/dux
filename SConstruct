@@ -7,11 +7,11 @@ strict = ARGUMENTS.get('strict', 'no')
 
 env = Environment(
 	CC='gcc',
-	CCFLAGS=['-nostdinc', '-m32', '-I', 'include', '-I', 'include/arch/%s' % arch],
+	CCFLAGS=['-m32', '-nostdinc', '-ffreestanding', '-I', 'include', '-I', 'include/arch/%s' % arch],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
-	LINKFLAGS=['-melf_i386', '-nostdlib']
+	LINKFLAGS=['-melf_i386', '-nostartfiles', '-nostdlib']
 )
 
 if buildtype == 'debug':
