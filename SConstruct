@@ -1,3 +1,5 @@
+# vim: syntax=python
+
 arch = 'x86'
 
 default = Environment(
