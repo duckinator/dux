@@ -12,6 +12,8 @@ kernel.Append(LIBS=['user'])
 
 if arch == 'x86':
 	sources += [
+		'./arch/x86/interrupts.c',
+		'./arch/x86/port.c',
 	]
 	kernel.Append(LINKFLAGS=['-T', 'krnl/arch/x86/link.ld'])
 
