@@ -13,6 +13,9 @@ fi
 
 if [ ! -e '/usr/bin/genisoimage' ]
 then
+	echo "FIX YOUR OWN OS!"
+	echo "THIS IS NOT OUR RESPONSIBILITY"
+	echo "THIS WILL BE REMOVED 21 AUG 2009"
 	isocmd="mkisofs"
 fi
 
