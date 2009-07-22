@@ -29,3 +29,6 @@ include/build_info.h
 
 #ignore ctags
 tags
+
+#ignore isofs
+isofs
