@@ -5,6 +5,8 @@
 # THIS WILL BE REMOVED 21 AUG 2009
 isocmd="genisoimage"
 
+mkdir -p isofs/boot/grub
+
 if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]
 then
 	if [ -e /boot/grub/stage2_eltorito ]
@@ -25,7 +27,6 @@ then
 	isocmd="mkisofs"
 fi
 
-mkdir -p isofs/boot/grub
 mkdir -p isofs/System
 cp krnl/krnl isofs/System/
 touch isofs/boot/grub/menu.lst
