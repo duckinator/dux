@@ -9,7 +9,7 @@ if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]
 then
 	if [ -e /boot/grub/stage2_eltorito ]
 	then
-		echo 'Can\' find stage2_eltorito in ./isofs/boot/grub, copying from /boot/grub/'
+		echo "Can't find stage2_eltorito in ./isofs/boot/grub, copying from /boot/grub/"
 		cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 	else
 		echo 'You need to locate stage2_eltorito and put it in ./isofs/boot/grub'
