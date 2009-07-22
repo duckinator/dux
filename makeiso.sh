@@ -29,6 +29,7 @@ fi
 
 mkdir -p isofs/System
 cp krnl/krnl isofs/System/
+rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
 echo "default 0" > isofs/boot/grub/menu.lst
 echo "timeout 1" >> isofs/boot/grub/menu.lst
