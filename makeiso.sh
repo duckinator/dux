@@ -30,7 +30,7 @@ fi
 mkdir -p isofs/System
 cp krnl/krnl isofs/System/
 touch isofs/boot/grub/menu.lst
-echo "default 0" >> isofs/boot/grub/menu.lst
+echo "default 0" > isofs/boot/grub/menu.lst
 echo "timeout 1" >> isofs/boot/grub/menu.lst
 echo "title Dux" >> isofs/boot/grub/menu.lst
 echo "kernel /System/krnl" >> isofs/boot/grub/menu.lst
