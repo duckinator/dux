@@ -19,4 +19,5 @@ char *RD_read_file(ramdisk *rd, int index)
 {
   char *data;
   strncpy(data, rd->files[index].data, 152);
+  return data;
 }
