@@ -27,7 +27,7 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 	// Return the address of allocation and increment the next placement address to whatever.
 	tmp = placement;
 	placement += size;
-	return (void*) placement;
+	return (void*) tmp;
 }
 
 static unsigned int *frames;
