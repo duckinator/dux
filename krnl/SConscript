@@ -7,9 +7,6 @@ sources = []
 kernel = env.Clone()
 kernel.Append(LINKFLAGS=['-Map', 'krnl/krnl.map'])
 
-kernel.Append(LIBPATH=['#user'])
-kernel.Append(LIBS=['user'])
-
 if arch == 'x86':
 	sources += [
 		'./arch/x86/display.c',
@@ -31,6 +28,7 @@ sources += [
 	'./lib/readline.c',
 	'./lib/string.c',
 	'./init/init.c',
+	'./init/elfloader.c',
 	'./misc/mm.c',
 	'./misc/shutdown.c',
 	'./misc/stop.c',

@@ -8,10 +8,8 @@ void HalInit(void (*receiver)(uint32_t msg))
 	HalIsrInstall();
 	HalIrqInstall();
 	HalTimerInstall();
+	HalInitializeSyscalls();
 	FDD_install();
 	asm volatile ("sti");
 	dux_intro();
-
-	user_console();
-
 }

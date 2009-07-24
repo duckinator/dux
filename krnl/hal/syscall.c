@@ -1,22 +1,27 @@
 // syscall.c -- Defines the implementation of a system call system.
 // Written for JamesM's kernel development tutorials.
 
+#include <stdint.h>
 #include <system.h>
 #include <syscall.h>
 #include <isr.h>
 
-void HalMonitorWriteHex(char *text){
-	printk("%x", text); /* Todo: Figure out wtf "%x" should be */
-}
-void HalMonitorWriteDec(char *text){
-	printk("%i", text);
+void HalMonitorWriteStr(char *text){
+	printk("%s", text);
 }
 
-DEFN_SYSCALL1(printk, 0, const char*);
-DEFN_SYSCALL1(HalMonitorWriteHex, 1, const char*); // hex
-DEFN_SYSCALL1(HalMonitorWriteDec, 2, const char*); // dec
+void HalMonitorWriteHex(uint32_t text){
+	printk("%x", text);
+}
+void HalMonitorWriteDec(uint32_t text){
+	printk("%d", text);
+}
 
-static void HalSyscallHandler(registers_t *regs);
+DEFN_SYSCALL1(HalMonitorWriteStr, 0, const char*);
+DEFN_SYSCALL1(HalMonitorWriteHex, 1, const uint32_t); // hex
+DEFN_SYSCALL1(HalMonitorWriteDec, 2, const uint32_t); // dec
+
+/*static*/ void HalSyscallHandler(struct regs *regs);
 
 static void *syscalls[3] =
 {
@@ -26,13 +31,14 @@ static void *syscalls[3] =
 };
 int num_syscalls = 3;
 
+extern void HalIsrSyscall(void);
 void HalInitializeSyscalls()
 {
 	// Register our syscall handler.
-	//HalIrqHandler_Install (0x80, &HalSyscallHandler);
+	HalIdtSetEntry(0x80, (unsigned)HalIsrSyscall, 0x08, 0x8E);
 }
 
-void HalSyscallHandler(registers_t *regs)
+void HalSyscallHandler(struct regs *regs)
 {
 	// Firstly, check if the requested syscall number is valid.
 	// The syscall number is found in EAX.
