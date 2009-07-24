@@ -38,8 +38,12 @@ char *exceptions[32] = {
 	"30 - Intel reserved. Do not use.",
 	"31 - Intel reserved. Do not use."
 };
+extern void HalSyscallHandler(struct regs *r);
 void HalFaultHandler(struct regs *r)
 {
+	if (r->int_no == 0xffffff80) {
+		HalSyscallHandler(r);
+	}
 	if(r->int_no == 3){
 		puts("hai from HalFaultHandler()!\n");
 	} else if(r->int_no < 32){

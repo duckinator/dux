@@ -33,4 +33,4 @@ Export('env', 'arch', 'buildtype')
 SConscript('user/SConscript')
 SConscript('krnl/SConscript')
 
-env.Iso('Dux.iso', 'krnl/krnl')
+env.Iso('Dux.iso', ['krnl/krnl', 'user/user'])

@@ -32,6 +32,7 @@
 [global HalIsr29]
 [global HalIsr30]
 [global HalIsr31]
+[global HalIsrSyscall]
 
 [extern HalFaultHandler]
  
@@ -224,6 +225,13 @@ HalIsr31:
 	push byte 0
 	push byte 31
 	jmp HalIsrCommon
+
+HalIsrSyscall:
+	cli
+	push byte 0
+	push byte 0x80
+	jmp HalIsrCommon
+
 
 HalIsrCommon:
 	; Push everything to the stack, then call a global fault handler.

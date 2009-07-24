@@ -3,19 +3,20 @@
 Import('env', 'arch', 'buildtype')
 
 sources = [
-	'colorchart.c',
-	'console.c',
-	'pong.c',
 ]
 
 user = env.Clone()
-user.Append(LINKFLAGS=['-Map', 'user/user.map'])
+user.Append(LINKFLAGS=['-Map', 'user/user.map', '-Ttext', '0x200000'])
 
 if arch == 'x86':
 	sources += [
 	]
 
 sources += [
+	'user.c',
+#	'colorchart.c',
+#	'console.c',
+#	'pong.c',
 ]
 
-user.Library('user', sources)
+user.Program('user', sources)

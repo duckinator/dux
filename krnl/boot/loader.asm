@@ -50,17 +50,6 @@ extern stop
 loader:
 	mov esp, stacktop	; set up the stack
 
-	; Make sure multiboot loaded us
-	cmp eax, 0x2badb002
-	je .ok
-	push eax
-	push dword 0x1
-	push dword 0x02
-	call stop
-	.ok:
-
-	push ebx
-
 	lgdt [gdt_desc]
 	jmp 0x08:.flush
 	.flush:
@@ -75,6 +64,7 @@ loader:
 gdt_return:
 	call  HalIdtInit			; initialize IDT
 	push ebx			; argument to kmain
+	push 0x2badb002
 	call  kmain			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
