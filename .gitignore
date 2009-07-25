@@ -6,7 +6,8 @@
 *.map
 
 #ignore executables and images (binary stuff)
-krnl
+krnl/krnl
+user/user
 Dux.iso
 
 #ignore emacs files
