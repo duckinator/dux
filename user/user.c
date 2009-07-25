@@ -1,6 +1,6 @@
 void _start(void)
 {
-	const char **argv = {
+	const char *argv[1] = {
 		"user"
 	};
 	main(1, argv);
