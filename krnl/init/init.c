@@ -11,18 +11,22 @@
 
 #include <multiboot.h>
 
+#define VERSION "0.0.2"
+
 /* Main loop! */
 void kmain(uint32_t magic, multiboot_info_t *mbd)
 {
 	void *userland = NULL;
-	// Start the console
-	console_init();
-	screen_setattr(0x0a, 0x0a);
-	screen_clear();
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
 		KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
 	}
+
+	// Init the Hal
+	HalInit((*MessageReceiver));
+
+	ArchDisplayInit();
+	ArchDisplayString("Dux Operating System Version " VERSION "\n");
 
 	/* mbd->flags */
 	int i;
@@ -30,19 +34,23 @@ void kmain(uint32_t magic, multiboot_info_t *mbd)
 	if (mbd->flags>>3&1) {
 		module = (module_t*)mbd->mods_addr;
 		for (i = 0; i < mbd->mods_count; i++, module++) {
-			printk("\nModule name: %s\n", module->string);
+			printka("\nModule name: %s\n", module->string);
 			if (strcmp(module->string, "/System/userland") >= 0){
 				userland = (void*) module->mod_start;
-				printk("\nUserland: %x\n", userland);
+				printka("\nUserland: %x\n", userland);
 			}
 		}
 	}
-	
-	// Init the Hal
-	HalInit((*MessageReceiver));
+
+	if (dux_intro) {
+		dux_intro();
+	}
+
+	/* Initialize the console for user mode. */
+	/* Can't we take this out someday... */
+	console_init();
 
 	/* Initialize pseudo-user mode */
-	//user_console();
 	if (userland != NULL)
 		LoadUserland(userland);
 	else {
