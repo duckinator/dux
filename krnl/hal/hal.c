@@ -11,5 +11,4 @@ void HalInit(void (*receiver)(uint32_t msg))
 	HalInitializeSyscalls();
 	FDD_install();
 	asm volatile ("sti");
-	dux_intro();
 }

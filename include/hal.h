@@ -13,4 +13,6 @@ void HalBeep(void);
 void usleep(int milliseconds);
 void sleep(int seconds);
 
+void dux_intro(void);
+
 #endif /* end of include guard: HAL_UP0YTECP */

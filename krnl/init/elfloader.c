@@ -52,3 +52,12 @@ void LoadUserland(void *userland)
 	start();
 }
 
+void LoadExe(void *exe)
+{
+	void (*start)(void);
+
+	start = LoadElfExe(exe);
+	start();
+}
+
+
