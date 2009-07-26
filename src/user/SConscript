@@ -9,7 +9,7 @@ user = env.Clone()
 user.Append(LINKFLAGS=['-Ttext', '0x200000'])
 
 user.Append(LIBPATH=['#src/lib/krnllib'])
-user.Append(LIBS=['krnllib'])
+user.Append(LIBS=[File('#src/lib/krnllib/krnllib.lib')])
 
 if arch == 'x86':
 	sources += [

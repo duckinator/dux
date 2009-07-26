@@ -13,7 +13,7 @@ if arch == 'x86':
 sources += [
 ]
 
-distreq += ['src/lib/krnllib/krnllib.shl']
+distreq += ['src/lib/krnllib/krnllib.lib']
 
 kernel.StaticLibrary('krnllib', sources)
 
