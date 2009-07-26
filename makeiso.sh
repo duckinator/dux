@@ -30,13 +30,16 @@ then
 fi
 
 mkdir -p isofs/System
-cp krnl/krnl isofs/System/
-cp user/user isofs/System/userland
+
+cp src/krnl/krnl.exe isofs/System/
+cp src/user/user.exe isofs/System/userland
+cp src/lib/krnllib/krnllib.shl isofs/System/
+
 rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
 echo "default 0" > isofs/boot/grub/menu.lst
 echo "timeout 1" >> isofs/boot/grub/menu.lst
 echo "title Dux" >> isofs/boot/grub/menu.lst
-echo "kernel /System/krnl" >> isofs/boot/grub/menu.lst
+echo "kernel /System/krnl.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland" >> isofs/boot/grub/menu.lst
 $isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o Dux.iso isofs
