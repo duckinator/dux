@@ -16,6 +16,3 @@ sources += [
 distreq += ['src/lib/krnllib/krnllib.lib']
 
 kernel.StaticLibrary('krnllib', sources)
-
-import os
-os.system("ln -s krnllib.shl libkrnllib.a")
