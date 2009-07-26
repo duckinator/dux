@@ -1,11 +1,10 @@
 # vim: syntax=python
 
-Import('env', 'arch', 'buildtype')
+Import('env', 'arch', 'buildtype', 'distreq')
 
 sources = []
 
 kernel = env.Clone()
-kernel.Append(LINKFLAGS=['-Map', 'krnl/krnl.map'])
 
 if arch == 'x86':
 	sources += [
@@ -14,7 +13,7 @@ if arch == 'x86':
 		'./arch/x86/port.c',
 		'./arch/x86/shutdown.c',
 	]
-	kernel.Append(LINKFLAGS=['-T', 'krnl/arch/x86/link.ld'])
+	kernel.Append(LINKFLAGS=['-T', 'src/krnl/arch/x86/link.ld'])
 
 sources += [
 	'./boot/loader.asm',
@@ -53,5 +52,7 @@ sources += [
 	'./hal/irqs.asm',
 	'./hal/loadidt.asm',
 ]
+
+distreq += ['src/krnl/krnl.exe']
 
 kernel.Program('krnl', sources)

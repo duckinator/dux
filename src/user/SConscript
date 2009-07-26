@@ -1,0 +1,27 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+sources = [
+]
+
+user = env.Clone()
+user.Append(LINKFLAGS=['-Ttext', '0x200000'])
+
+user.Append(LIBPATH=['#src/lib/krnllib'])
+user.Append(LIBS=['krnllib'])
+
+if arch == 'x86':
+	sources += [
+	]
+
+sources += [
+	'user.c',
+#	'colorchart.c',
+#	'console.c',
+#	'pong.c',
+]
+
+distreq += ['src/user/user.exe']
+
+user.Program('user', sources)

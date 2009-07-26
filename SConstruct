@@ -9,7 +9,19 @@ strict = ARGUMENTS.get('strict', 'yes')
 
 iso = Builder(action='./makeiso.sh')
 
+distreq = []
+
 env = Environment(
+	OBJPREFIX='',
+	OBJSUFFIX='.o',
+	SHOBJPREFIX='',
+	SHOBJSUFFIX='.sho',
+	PROGPREFIX='',
+	PROGSUFFIX='.exe',
+	LIBPREFIX='',
+	LIBSUFFIX='.lib',
+	SHLIBPREFIX='',
+	SHLIBSUFFIX='.shl',
 	CC='gcc',
 	CCFLAGS=['-m32', '-nostdinc', '-ffreestanding', '-I', 'include', '-I', 'include/arch/%s' % arch],
 	AS='nasm',
@@ -28,9 +40,8 @@ if ansi == 'yes':
 if strict == 'yes':
 	env.Append(CCFLAGS=['-Werror'])
 
-Export('env', 'arch', 'buildtype')
+Export('env', 'arch', 'buildtype', 'distreq')
 
-SConscript('user/SConscript')
-SConscript('krnl/SConscript')
+SConscript('src/SConscript')
 
-env.Iso('Dux.iso', ['krnl/krnl', 'user/user'])
+env.Iso('Dux.iso', distreq)

@@ -1,0 +1,5 @@
+# vim: syntax=python
+
+SConscript('user/SConscript')
+SConscript('krnl/SConscript')
+SConscript('lib/SConscript')
