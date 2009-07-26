@@ -33,7 +33,7 @@ mkdir -p isofs/System
 
 cp src/krnl/krnl.exe isofs/System/
 cp src/user/user.exe isofs/System/userland
-cp src/lib/krnllib/krnllib.shl isofs/System/
+cp src/lib/krnllib/krnllib.lib isofs/System/
 
 rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
