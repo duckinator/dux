@@ -11,7 +11,7 @@
 
 #include <multiboot.h>
 
-#define VERSION "0.0.2"
+#include <buildid.h>
 
 /* Main loop! */
 void kmain(uint32_t magic, multiboot_info_t *mbd)
@@ -26,7 +26,7 @@ void kmain(uint32_t magic, multiboot_info_t *mbd)
 	HalInit((*MessageReceiver));
 
 	ArchDisplayInit();
-	ArchDisplayString("Dux Operating System Version " VERSION "\n");
+	ArchDisplayString("Dux Operating System Version %s" SCM_REV "\n");
 
 	/* mbd->flags */
 	int i;
