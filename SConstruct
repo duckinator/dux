@@ -2,6 +2,8 @@
 
 import os
 
+os.system("python ./tools/buildid.py > ./include/buildid.h")
+
 arch = ARGUMENTS.get('arch', 'x86')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
