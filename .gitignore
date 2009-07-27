@@ -6,8 +6,8 @@
 *.map
 
 #ignore executables and images (binary stuff)
-krnl/krnl
-user/user
+krnl/krnl.exe
+user/user.exe
 Dux.iso
 
 #ignore emacs files
@@ -36,3 +36,6 @@ isofs
 
 #ignore local Makefiles
 Makefile
+
+#ignore buildid
+include/buildid.h
