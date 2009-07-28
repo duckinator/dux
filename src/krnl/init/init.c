@@ -13,6 +13,8 @@
 
 #include <buildid.h>
 
+#include <dux/krnl/core.h>
+
 /* Main loop! */
 void kmain(uint32_t magic, multiboot_info_t *mbd)
 {
@@ -21,6 +23,8 @@ void kmain(uint32_t magic, multiboot_info_t *mbd)
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
 		KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
 	}
+
+	CoLowerIpl(IPL_PASSIVE);
 
 	// Init the Hal
 	HalInit((*MessageReceiver));
