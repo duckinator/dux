@@ -51,6 +51,7 @@ sources += [
 	'./hal/exceptions.asm',
 	'./hal/irqs.asm',
 	'./hal/loadidt.asm',
+	'./core/ipl.c',
 ]
 
 distreq += ['src/krnl/krnl.exe']

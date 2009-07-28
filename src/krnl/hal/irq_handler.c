@@ -1,3 +1,5 @@
+#include <dux/krnl/core.h>
+
 #include <isr.h>
 
 extern void puts(char *s);
@@ -85,8 +87,11 @@ unsigned int HalIrqInstall(void)
 *  an EOI, you won't raise any more IRQs */
 void HalIrqHandler(struct regs *r)
 {
+	IPL OldIpl;
 	/* This is a blank function pointer */
 	void (*handler)(struct regs *r);
+
+	CoRaiseIpl(IPL_HWINTERRUPT, &OldIpl);
 
 	/* Find out if we have a custom handler to run for this
 	*  IRQ, and then finally, run it */
@@ -102,4 +107,6 @@ void HalIrqHandler(struct regs *r)
 		HalOutPort(0xA0, 0x20);
 	}
 	HalOutPort(0x20, 0x20);
+
+	CoLowerIpl(OldIpl);
 }
