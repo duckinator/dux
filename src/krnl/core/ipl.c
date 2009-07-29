@@ -9,11 +9,11 @@ static IPL m_ipl = IPL_UNINITIALIZED;
 
 void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl)
 {
-	if (NewIpl >= m_ipl) {
+	if (m_ipl <= NewIpl) {
 		*OldIpl = m_ipl;
 		m_ipl = NewIpl;
 	} else {
-		KrnlEasyStop(STOP_IPL_NOT_GREATER_OR_EQUAL);
+		KrnlEasyStop(STOP_IPL_NOT_LESS_OR_EQUAL);
 	}
 }
 
