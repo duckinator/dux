@@ -146,7 +146,7 @@ void init_mm()
 	PageTableEntry* page_table;
 	
 	// Memory is assumed to be 16 MB.
-	frames = (unsigned int*) kmalloc_int(END_MEMORY/0x1000, NULL);
+	frames = (unsigned int*) kmalloc_int(END_MEMORY/0x1000, 0);
 	memset(frames, 0, END_MEMORY/0x1000/8);
 
 	// Create page directory
