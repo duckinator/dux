@@ -50,6 +50,12 @@ void kmain(uint32_t magic, multiboot_info_t *mbd)
 		dux_intro();
 	}
 
+	ArchDisplayInit();
+	ArchDisplayClear();
+	printf("hello world? %x\n", 0x4874);
+
+	while (1);
+
 	/* Initialize the console for user mode. */
 	/* Can't we take this out someday... */
 	console_init();
