@@ -1,13 +1,13 @@
 #include <dux/krnl/core.h>
 
-static int m_printn(char *str, size_t size, int curLength, int upper,
-		int base, int n);
+static int m_printn(IN char *str, IN size_t size, IN int curLength,
+		IN int upper, IN int base, IN int n);
 
 static const char *m_lowerNumbers = "0123456789abcdefghijklmnopqrstuvwxyz";
 static const char *m_upperNumbers = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-static int m_printn(char *str, size_t size, int curLength, int upper,
-		int base, int n)
+static int m_printn(IN char *str, IN size_t size, IN int curLength,
+		IN int upper, IN int base, IN int n)
 {
 	int dividend = n;
 	int divisor = base;
@@ -68,7 +68,7 @@ static int m_printn(char *str, size_t size, int curLength, int upper,
 	return curLength;
 }
 
-int snprintf(char *str, size_t size, const char *format, ...)
+int snprintf(IN char *str, IN size_t size, IN const char *format, ...)
 {
 	va_list args;
 	int i;
@@ -79,7 +79,7 @@ int snprintf(char *str, size_t size, const char *format, ...)
 	return i;
 }
 
-int sprintf(char *str, const char *format, ...)
+int sprintf(IN char *str, IN const char *format, ...)
 {
 	va_list args;
 	int i;
@@ -95,7 +95,7 @@ int sprintf(char *str, const char *format, ...)
 	return i;
 }
 
-int printf(const char *format, ...)
+int printf(IN const char *format, ...)
 {
 	/* TODO: Use real memory management here. */
 #if 0
@@ -129,7 +129,8 @@ int printf(const char *format, ...)
 	return i;
 }
 
-int vsnprintf(char *str, size_t size, const char *format, va_list args)
+int vsnprintf(IN char *str, IN size_t size, IN const char *format,
+		IN va_list args)
 {
 	int len = 0;
 	const char *p;

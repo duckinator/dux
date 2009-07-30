@@ -1,16 +1,7 @@
 #include <system.h>
 
 #include <dux/drivers/core/console.h>
-
-#ifndef __GNUC__
-#error I want gcc!
-#endif
-
-#define va_start(v,l) __builtin_va_start(v,l)
-#define va_arg(v,l)   __builtin_va_arg(v,l)
-#define va_end(v)     __builtin_va_end(v)
-#define va_copy(d,s)  __builtin_va_copy(d,s)
-typedef __builtin_va_list va_list;
+#include <dux/krnl/core.h>
 
 static const char *numbers = "0123456789abcdefghijklmnopqrstuvwxyz";
 
@@ -21,7 +12,7 @@ static void printn(unsigned int n, unsigned int base)
 	console_writeb(numbers[n % base]);
 }
 
-void printk(const char *fmt, ...)
+DEPRECIATED void printk(const char *fmt, ...)
 {
 	va_list ap;
 	const char *p, *sval;

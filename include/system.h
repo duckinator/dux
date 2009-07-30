@@ -4,6 +4,7 @@
 /* kernel/misc.c */
 
 #include <dux/mm/memory.h>
+#include <dux/krnl/core.h>
 
 extern void outportb(unsigned short _port, unsigned char data);
 extern unsigned char inportb(unsigned short _port);
@@ -30,6 +31,6 @@ void panic(char*);
 void stop(int error, int argc, ...);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
-void printk(const char *fmt, ...);
+DEPRECIATED void printk(const char *fmt, ...);
 
 #endif
