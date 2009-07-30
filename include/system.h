@@ -32,6 +32,4 @@ void stop(int error, int argc, ...);
 
 void printk(const char *fmt, ...);
 
-#define NULL 0
-
 #endif
