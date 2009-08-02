@@ -6,14 +6,14 @@ sources = []
 
 kernel = env.Clone()
 
-if arch == 'x86':
+if arch == 'i386':
 	sources += [
-		'./arch/x86/display.c',
-		'./arch/x86/interrupts.c',
-		'./arch/x86/port.c',
-		'./arch/x86/shutdown.c',
+		'./arch/i386/display.c',
+		'./arch/i386/interrupts.c',
+		'./arch/i386/port.c',
+		'./arch/i386/shutdown.c',
 	]
-	kernel.Append(LINKFLAGS=['-T', 'src/krnl/arch/x86/link.ld'])
+	kernel.Append(LINKFLAGS=['-T', 'src/krnl/arch/i386/link.ld'])
 
 sources += [
 	'./boot/loader.asm',
