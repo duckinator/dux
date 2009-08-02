@@ -25,7 +25,7 @@ env = Environment(
 	SHLIBPREFIX='',
 	SHLIBSUFFIX='.shl',
 	CC='gcc',
-	CCFLAGS=['-m32', '-nostdinc', '-ffreestanding', '-I', 'include', '-I', 'include/arch/%s' % arch, '-DARCH=\'"%s"\'' % arch],
+	CCFLAGS=['-m32', '-nostdinc', '-ffreestanding', '-I', 'include', '-I', 'include/arch/%s' % arch, '-DARCH=\'"%s"\'' % arch, '-D%s' % arch.upper()],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='ld',
