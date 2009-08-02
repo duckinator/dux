@@ -1,4 +1,3 @@
-#include <hal.h>
 #include <arch/interrupts.h>
 #include <arch/port.h>
 
@@ -14,10 +13,10 @@ void ArchEnableInterrupts(void)
 
 void ArchDisableNMI(void)
 {
-	HalOutPort(0x70, HalInPort(0x70)|0x80);
+	ArchOutPort(0x70, ArchInPort(0x70)|0x80);
 }
 
 void ArchEnableNMI(void)
 {
-	HalOutPort(0x70, HalInPort(0x70)&0x7f);
+	ArchOutPort(0x70, ArchInPort(0x70)&0x7f);
 }
