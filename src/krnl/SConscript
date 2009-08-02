@@ -52,6 +52,7 @@ sources += [
 	'./hal/irqs.asm',
 	'./hal/loadidt.asm',
 	'./core/ipl.c',
+	'./core/shutdown.c',
 	'./core/text.c',
 ]
 

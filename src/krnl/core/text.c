@@ -1,4 +1,4 @@
-#include <dux/krnl/core.h>
+#include <dux/krnl.h>
 #include <arch/display.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')

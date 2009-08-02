@@ -3,7 +3,6 @@
 
 void HalInit(void (*receiver)(uint32_t msg))
 {
-	
 	// Enable interrupts
 	HalIsrInstall();
 	HalIrqInstall();
