@@ -4,7 +4,7 @@ import os
 
 os.system("python ./tools/buildid.py > ./include/buildid.h")
 
-arch = ARGUMENTS.get('arch', 'x86')
+arch = ARGUMENTS.get('arch', 'i386')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
 strict = ARGUMENTS.get('strict', 'yes')
