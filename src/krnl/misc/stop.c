@@ -21,9 +21,7 @@ void KrnlStop(uint32_t error, uint32_t arg1, uint32_t arg2, uint32_t arg3, uint3
 
 	ArchDisplayString("An error has occured and Dux has been shutdown to prevent damage.\n\n");
 
-	/* TODO: Make this go through a string formatter. */
-	ArchDisplayString("STOP: %x (%x, %x, %x, %x)\n");
-	printka("STOP: %x (%x, %x, %x, %x)\n",
+	printf("STOP: %#x (%#x, %#x, %#x, %#x)\n",
 			error, arg1, arg2, arg3, arg4);
 
 #ifdef DEBUG
