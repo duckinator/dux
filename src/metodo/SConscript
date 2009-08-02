@@ -1,0 +1,21 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+sources = []
+
+metodo = env.Clone()
+
+SConscript('hal/%s/SConscript' % arch)
+metodo.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
+
+Export('sources', 'metodo')
+SConscript('boot/%s/SConscript' % arch)
+
+sources += [
+	'init/init.c',
+]
+
+distreq += ['src/metodo/metodo.exe']
+
+metodo.Program('metodo', sources)
