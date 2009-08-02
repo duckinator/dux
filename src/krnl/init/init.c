@@ -6,8 +6,6 @@ void kmain(void)
 {
 	CoLowerIpl(IPL_PASSIVE);
 
-	HalInit(NULL);
-
 	ArchDisplayInit();
 	printf("Dux Operating System Version 0.0.3\n");
 	printf("Built from Git revision %s (%s/%s)\n\n", SCM_REV,

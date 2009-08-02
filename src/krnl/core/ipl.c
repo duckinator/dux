@@ -3,7 +3,6 @@
 #include <arch/interrupts.h>
 
 #include <dux/krnl.h>
-#include <krnl/stop.h>
 
 static IPL m_ipl = IPL_UNINITIALIZED;
 
@@ -13,17 +12,16 @@ void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl)
 		*OldIpl = m_ipl;
 		m_ipl = NewIpl;
 	} else {
-		KrnlEasyStop(STOP_IPL_NOT_LESS_OR_EQUAL);
+		/* TODO: Implement some kind of error system. Unresolvable. Somehow stop. */
+		CoShutdown(SD_WAIT);
 	}
 }
 
 void CoLowerIpl(IN IPL NewIpl)
 {
-	ArchDisableInterrupts();
 	/* You can always lower IPL, even if lowering results in IPL
 	 * being higher. This has no chance of causing problems. */
 	m_ipl = NewIpl;
-	ArchEnableInterrupts();
 }
 
 IPL CoGetIpl(void)
