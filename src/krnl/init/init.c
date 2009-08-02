@@ -52,7 +52,7 @@ void kmain(uint32_t magic, multiboot_info_t *mbd)
 
 	ArchDisplayInit();
 	ArchDisplayClear();
-	printf("hello world? %x\n", 0x4874);
+	printf("hello world? %#x\nwe have printf\n", 0xbeef);
 
 	while (1);
 
