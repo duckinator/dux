@@ -11,5 +11,7 @@ void ArchDisplayChar(char c);
 void ArchDisplayString(char *s);
 void ArchDisplaySpot(uint8_t s, uint8_t row, uint8_t col);
 void ArchDisplayInit(void);
+void ArchDisplayUnInit(void);
+int ArchDisplayIsInit(void);
 
 #endif /* end of include guard: DISPLAY_B4NZ5MOB */

@@ -4,7 +4,7 @@
 /* kernel/misc.c */
 
 #include <dux/mm/memory.h>
-#include <dux/krnl/core.h>
+#include <dux/krnl.h>
 
 extern void outportb(unsigned short _port, unsigned char data);
 extern unsigned char inportb(unsigned short _port);

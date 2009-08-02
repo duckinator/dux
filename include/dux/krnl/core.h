@@ -2,18 +2,6 @@
 
 #define CORE_DY5608B7
 
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdint.h>
-
-/* Declare function pseudo modifiers. */
-#define DEPRECIATED
-/* Declare function argument pseudo modifiers. */
-#define IN
-#define OUT
-#define OPTIONAL
-#define NOTHING
-
 /* Interrupt Priority Level */
 typedef uint8_t IPL, *PIPL;
 
@@ -25,6 +13,13 @@ typedef uint8_t IPL, *PIPL;
 void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl);
 void CoLowerIpl(IN IPL NewIpl);
 IPL CoGetIpl(void);
+
+/* Shutdown */
+#define SD_REBOOT 1
+#define SD_OFF 2
+#define SD_WAIT 3
+
+void CoShutdown(int mode);
 
 /* Text Formatting */
 #define TF_ALTERNATE 1

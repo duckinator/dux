@@ -11,6 +11,7 @@
 
 static uint16_t *VideoMemory;
 
+static uint8_t disp_init = 0;
 static uint8_t attr;
 static uint8_t col;
 static uint8_t row;
@@ -100,5 +101,16 @@ void ArchDisplayInit(void)
 	attr = 0x1f;
 	escape = 0;
 	escape_attr = 0;
+	disp_init = 1;
 	ArchDisplayClear();
+}
+
+void ArchDisplayUnInit(void)
+{
+	disp_init = 0;
+}
+
+int ArchDisplayIsInit(void)
+{
+	return (int) disp_init ? 1 : 0;
 }

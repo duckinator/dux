@@ -2,7 +2,7 @@
 
 #include <arch/interrupts.h>
 
-#include <dux/krnl/core.h>
+#include <dux/krnl.h>
 #include <krnl/stop.h>
 
 static IPL m_ipl = IPL_UNINITIALIZED;

@@ -1,4 +1,4 @@
-#include <dux/krnl/core.h>
+#include <dux/krnl.h>
 
 #include <isr.h>
 

@@ -49,6 +49,8 @@ STACKSIZE equ 0x4000			; that's 16k.
 extern stop
 loader:
 	mov esp, stacktop	; set up the stack
+	cmp eax, 0x2badb002
+	jne gdt_return.halt
 
 	lgdt [gdt_desc]
 	jmp 0x08:.flush
@@ -63,9 +65,8 @@ loader:
 		jmp 0x08:gdt_return
 gdt_return:
 	call  HalIdtInit			; initialize IDT
-	push ebx			; argument to kmain
-	push 0x2badb002
 	call  kmain			; call kernel proper
+	.halt:
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
 
