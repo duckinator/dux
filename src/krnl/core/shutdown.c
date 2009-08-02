@@ -20,7 +20,7 @@ void CoShutdown(int mode)
 		ArchShutdown();
 		break;
 	case SD_REBOOT:
-		printf("Rebooting is unimplemented.\n");
+		ArchReboot();
 		while (1)
 			;
 		break;
