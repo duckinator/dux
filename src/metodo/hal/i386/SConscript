@@ -5,7 +5,9 @@ Import('env', 'arch', 'buildtype', 'distreq')
 hal = env.Clone()
 
 sources = [
-	'hal.c'
+	'hal.c',
+	'gdt.asm',
+	'ports.c',
 ]
 
 distreq += ['src/metodo/hal/i386/hal.lib']
