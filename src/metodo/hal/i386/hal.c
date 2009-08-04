@@ -3,5 +3,5 @@
 void HalInit(void)
 {
 	HalInitGDT();
-	/* The hal. */
+	HalInitIDT();
 }

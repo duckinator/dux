@@ -14,6 +14,7 @@ SConscript('boot/%s/SConscript' % arch)
 
 sources += [
 	'init/init.c',
+	'lib/zeromemory.c',
 ]
 
 distreq += ['src/metodo/metodo.exe']
