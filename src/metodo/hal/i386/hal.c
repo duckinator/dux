@@ -4,4 +4,5 @@ void HalInit(void)
 {
 	HalInitGDT();
 	HalInitIDT();
+	HalLoadIDT();
 }
