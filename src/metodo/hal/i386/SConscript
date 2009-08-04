@@ -5,8 +5,9 @@ Import('env', 'arch', 'buildtype', 'distreq')
 hal = env.Clone()
 
 sources = [
-	'hal.c',
 	'gdt.asm',
+	'hal.c',
+	'idt.c',
 	'ports.c',
 ]
 
