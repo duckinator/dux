@@ -1,3 +1,3 @@
 #!/bin/sh
 
-grep -Hnri TODO `find -name '*.c'`
+grep -Hnr 'TODO|FIXME' `find -name '*.c'`
