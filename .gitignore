@@ -1,13 +1,11 @@
-#ignore the result of any builds
+# Ignore the result of any builds.
 *.o
+*.sho
+*.exe
 *.lib
-*.a
-*.so
-*.map
+*.shl
 
-#ignore executables and images (binary stuff)
-krnl/krnl.exe
-user/user.exe
+# Ignore the ISO
 Dux.iso
 
 #ignore emacs files
@@ -18,9 +16,6 @@ Dux.iso
 #ignore vim files
 .*.swp
 *~
-
-#ignoring because it is generated locally
-include/build_info.h
 
 #ignore logs
 *.log
