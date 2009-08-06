@@ -15,6 +15,7 @@
 /* Define pseudo function modifiers. */
 #define DEPRECIATED
 
+#include <metodo/hal/display.h>
 #include <metodo/hal/hal.h>
 #if I386
 #include <metodo/hal/i386.h>
