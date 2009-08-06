@@ -5,6 +5,7 @@ Import('env', 'arch', 'buildtype', 'distreq')
 hal = env.Clone()
 
 sources = [
+	'exceptions.asm',
 	'gdt.asm',
 	'hal.c',
 	'idt.c',

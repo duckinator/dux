@@ -11,5 +11,7 @@ void InInitKernel(void)
 	HalInit();
 
 	while (i < 80)
-		vidmem[i++] = 0x1f << 8 | *str++;
+		vidmem[i] = 0x1f << 8 | str[i++];
+
+	asm volatile ("int $0");
 }
