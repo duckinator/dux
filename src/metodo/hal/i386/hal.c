@@ -1,7 +1,5 @@
 #include <metodo/metodo.h>
 
-#define HALSETIDT(n) HalSetIDTGate(n, (uint32_t) isrn, 0x8, 0, 0, IDT_INTR32);
-
 void HalInit(void)
 {
 	PIDTG idt;
