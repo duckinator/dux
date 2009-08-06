@@ -13,4 +13,6 @@ void InInitKernel(void)
 /*	while (i < 80)
 		vidmem[i++] = 0x1f << 8 | *str++;*/
 	HalDisplayString(str);
+
+	asm volatile ("int $0");
 }
