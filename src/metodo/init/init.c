@@ -10,6 +10,7 @@ void InInitKernel(void)
 
 	HalInit();
 
-	while (i < 80)
-		vidmem[i++] = 0x1f << 8 | *str++;
+/*	while (i < 80)
+		vidmem[i++] = 0x1f << 8 | *str++;*/
+	HalDisplayString(str);
 }

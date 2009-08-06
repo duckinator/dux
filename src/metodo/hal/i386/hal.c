@@ -3,6 +3,7 @@
 void HalInit(void)
 {
 	HalInitGDT();
+	HalInitDisplay();
 	HalInitIDT();
 	HalLoadIDT();
 }
