@@ -13,6 +13,7 @@ Export('sources', 'metodo')
 SConscript('boot/%s/SConscript' % arch)
 
 sources += [
+	'core/exception.c',
 	'init/init.c',
 	'lib/zeromemory.c',
 ]

@@ -1,6 +1,7 @@
 bits 32
 
 global _start
+global _halt
 
 extern InInitKernel
 

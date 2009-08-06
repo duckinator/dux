@@ -21,5 +21,6 @@
 #endif
 
 #include <metodo/init.h>
+#include <metodo/core.h>
 
 #endif /* end of include guard: METODO_IIXETUDY */
