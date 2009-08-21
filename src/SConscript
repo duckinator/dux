@@ -1,7 +1,7 @@
 # vim: syntax=python
 
 #SConscript('user/SConscript')
-SConscript('krnl/SConscript')
+#SConscript('krnl/SConscript')
 #SConscript('lib/SConscript')
 
 SConscript('metodo/SConscript')

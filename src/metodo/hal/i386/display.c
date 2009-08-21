@@ -1,6 +1,4 @@
 #include <metodo/metodo.h>
-//#include <arch/display.h>
-//#include <stdint.h>
 
 #define COLS (80)
 #define ROWS (25)

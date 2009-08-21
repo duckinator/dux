@@ -11,6 +11,7 @@ sources = [
 	'idt.c',
 	'ports.c',
 	'display.c',
+	'interrupts.c',
 ]
 
 distreq += ['src/metodo/hal/i386/hal.lib']
