@@ -63,4 +63,11 @@ void HalSetIDTGate(IN size_t n, IN uint32_t offset, IN uint16_t selector, IN uin
 inline void HalOutPort(uint16_t port, uint8_t val);
 inline uint8_t HalInPort(uint16_t port);
 
+/* Interrupts */
+void HalDisableInterrupts(void);
+void HalEnableInterrupts(void);
+
+void HalDisableNMI(void);
+void HalEnableNMI(void);
+ 
 #endif /* end of include guard: I386_TBY8VD0E */

@@ -1,0 +1,12 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+hal = env.Clone()
+
+sources = [
+	'exception.c',
+	'ipl.c',
+	'shutdown.c',
+	'text.c',
+]
