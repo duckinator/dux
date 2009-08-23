@@ -32,8 +32,7 @@ fi
 mkdir -p isofs/System
 
 cp src/metodo/metodo.exe isofs/System/
-cp src/krnl/krnl.exe isofs/System/
-cp src/user/user.exe isofs/System/userland
+cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
 
 rm isofs/boot/grub/menu.lst
@@ -42,7 +41,8 @@ echo "default 0" > isofs/boot/grub/menu.lst
 echo "timeout 1" >> isofs/boot/grub/menu.lst
 echo "title Metodo Dux" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
-echo "title Standard Dux" >> isofs/boot/grub/menu.lst
-echo "kernel /System/krnl.exe" >> isofs/boot/grub/menu.lst
-echo "module /System/userland" >> isofs/boot/grub/menu.lst
+# Uncomment the following 3 lines when we have the userland in place
+#echo "title Metodo Dux with Userland" >> isofs/boot/grub/menu.lst
+#echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
+#echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
 $isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o Dux.iso isofs
