@@ -2,8 +2,8 @@
 
 void CoShutdown(int mode)
 {
-	if (!HalDisplayIsInit()) {
-		HalDisplayInit();
+	if (!HalIsDisplayOn()) {
+		HalInitDisplay();
 	}
 
 	HalDisplayString("Shutting down.\n");

@@ -12,6 +12,7 @@ sources = [
 	'ports.c',
 	'display.c',
 	'interrupts.c',
+	'shutdown.c',
 ]
 
 distreq += ['src/metodo/hal/i386/hal.lib']
