@@ -1,12 +1,10 @@
 # vim: syntax=python
-
 Import('env', 'arch', 'buildtype', 'distreq')
+Import('sources', 'metodo')
 
-hal = env.Clone()
-
-sources = [
-	'exception.c',
-	'ipl.c',
-	'shutdown.c',
-	'text.c',
+sources += [
+	'core/text.c',
+	'core/exception.c',
+#	'core/ipl.c',
+#	'core/shutdown.c',
 ]
