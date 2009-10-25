@@ -11,9 +11,10 @@ metodo.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
 
 Export('sources', 'metodo')
 SConscript('boot/%s/SConscript' % arch)
+SConscript('core/SConscript')
 
 sources += [
-	'core/exception.c',
+#	'core/exception.c',
 	'init/init.c',
 	'lib/zeromemory.c',
 ]

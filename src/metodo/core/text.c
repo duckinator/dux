@@ -129,7 +129,7 @@ int printf(IN const char *fmt, ...)
 	va_end(args);
 
 	while (str[i])
-		ArchDisplayChar(str[i++]);
+		HalDisplayChar(str[i++]);
 
 #if 0
 	free(str);
@@ -184,7 +184,7 @@ int vprintf(IN const char *fmt, va_list ap)
 	len = vsnprintf(str, 1024, fmt, ap);
 
 	while (str[i])
-		ArchDisplayChar(str[i++]);
+		HalDisplayChar(str[i++]);
 
 #if 0
 	free(str);

@@ -29,7 +29,7 @@ void CoShutdown(int mode);
 #define TF_SIGN 16
 #define TF_SMALL 32
 #define TF_PLUS 64
-/*
+
 int m_printn(OUT char *str, IN int maxlen, IN int len, IN int n,
 		IN int base, IN int size, IN int flags, IN int precision);
 int printf(IN const char *fmt, ...);
@@ -38,6 +38,6 @@ int snprintf(OUT char *str, IN size_t size, IN const char *fmt, ...);
 int vprintf(IN const char *fmt, va_list ap);
 int vsprintf(OUT char *str, IN const char *fmt, va_list ap);
 int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
-		IN va_list ap);*/
+		IN va_list ap);
 
 #endif /* end of include guard: CORE_DY5608B7 */
