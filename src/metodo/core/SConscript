@@ -5,6 +5,6 @@ Import('sources', 'metodo')
 sources += [
 	'core/text.c',
 	'core/exception.c',
-#	'core/ipl.c',
-#	'core/shutdown.c',
+	'core/shutdown.c',
+	'core/ipl.c',
 ]

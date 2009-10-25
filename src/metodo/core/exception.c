@@ -12,6 +12,5 @@ void CoException(int ss, int gs, int fs, int es, int ds)
 		es,
 		ds);
 
-	while (1)
-		;
+	CoShutdown(SD_WAIT);
 }
