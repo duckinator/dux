@@ -95,7 +95,7 @@ void pong()
 					if (kb_ctrl() && sym == 'c')
 					{
 						console_clear();
-						printk("Caught interrupt.\n\n");
+						printf("Caught interrupt.\n\n");
 						return;
 					}
 				}

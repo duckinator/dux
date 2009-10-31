@@ -19,17 +19,17 @@ void user_console()
 {
 	char* input;
 	
-	printk("\nDux OS terminal\n\n");
+	printf("\nDux OS terminal\n\n");
 	//console_tab_start(6);
 	
 	while (1)
 	{
 		screen_setattr(0x0a, 0x0a);
-		printk("[");
+		printf("[");
 		screen_setattr(0x09, 0x09);
-		printk("Dux");
+		printf("Dux");
 		screen_setattr(0x0a, 0x0a);
-		printk("]# ");
+		printf("]# ");
 		
 		input = readline("");
 
@@ -44,7 +44,7 @@ void user_console()
 		else if( strcmp(input, "beep") == 0 )
 			HalBeep();
 		else if( strcmp(input, "ticks") == 0 )
-			printk("Ticks: %i\n\n", HalGetTicks());
+			printf("Ticks: %i\n\n", HalGetTicks());
 		else if( strcmp(input, "clear") == 0 )
 			console_clear();
 		else if( strcmp(input, "colors") == 0 )
@@ -53,24 +53,24 @@ void user_console()
 		{
 			for (tmp = 0; tmp < history_index; tmp += strlen(history + tmp) + 1)
 			{
-				printk("%i %i: %s\n", tmp, strlen(history + tmp), history + tmp);
+				printf("%i %i: %s\n", tmp, strlen(history + tmp), history + tmp);
 			}
 		}*/
 		else if (strcmp(input, "firstframe") == 0)
 		{
-			printk("%i\n", first_frame());
+			printf("%i\n", first_frame());
 		}
 		else if (strcmp(input, "allocframe") == 0)
 		{
-			printk("Setting frame at %i\n", first_frame());
+			printf("Setting frame at %i\n", first_frame());
 			set_frame(first_frame());
 		}
 		else if (strcmp(input, "fddtest") == 0)
 		{
 			FDD_Reset(FDD_BASE);
 			FDD_Detect();
-			//printk("%c", FDD_ReadData(FDD_BASE));
-			printk("%c", FDD_ReadTrack(FDD_BASE, 1));
+			//printf("%c", FDD_ReadData(FDD_BASE));
+			printf("%c", FDD_ReadTrack(FDD_BASE, 1));
 		}
 		else if (strcmp(input, "ramdisktest") == 0)
 		{
@@ -81,15 +81,15 @@ void user_console()
 
 			char *data = RD_read_file(rd, 0);
 
-			printk("Content of file: ");
-			printk(data);
-			printk("\nYou should have seen: ");
-			printk(test_data);
-			printk("\n");
+			printf("Content of file: ");
+			printf(data);
+			printf("\nYou should have seen: ");
+			printf(test_data);
+			printf("\n");
 		}
 		else if (strcmp(input, "keycodes") == 0)
 		{
-			printk("Press any key to log info about it, and hit Ctrl-C to exit\n\n");
+			printf("Press any key to log info about it, and hit Ctrl-C to exit\n\n");
 			
 			int scancode;
 			char c;
@@ -101,16 +101,16 @@ void user_console()
 				
 				if (kb_ctrl() && c == 'c')
 				{
-					printk("Byebye. (caught Ctrl-C)\n");
+					printf("Byebye. (caught Ctrl-C)\n");
 					break;
 				}
 				
 				if ( !(scancode & 0x80) )
-					printk("scancode: %i\tcharactor: %s\tshift: %i\talt: %i\tctrl: %i\n", scancode, c, kb_shift(), kb_alt(), kb_ctrl());
+					printf("scancode: %i\tcharactor: %s\tshift: %i\talt: %i\tctrl: %i\n", scancode, c, kb_shift(), kb_alt(), kb_ctrl());
 			}
 		}
 		else if( strcmp(input, "help") == 0 )
-			printk("Help:\
+			printf("Help:\
 \tpanic:\t(or ctrl-p) User initialized kernel panic\n\
 \tshutdown:\t Shutdown the system\n\
 \tbeep:\tHalBeep();\n\
@@ -127,7 +127,7 @@ void user_console()
 		else if (strcmp(input, "shutdown") == 0) {
 			DuxShutdown();
 		} else
-			printk("dux: no such command: %s\n", input);
+			printf("dux: no such command: %s\n", input);
 
 	}
 }
