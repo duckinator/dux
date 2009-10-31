@@ -1,55 +1,68 @@
 bits 32
 
-global isr0
+;global isr0
 
 extern CoException
-extern HalFaultHandler
+extern HalIsrHandler
+extern HalIrqHandler
 
-%macro ISR_PROTECT_BEGIN 1
+%macro HANDLER_COMMON 1
+Hal%1Common:
+	pusha
+	push ds
+	push es
+	push fs
+	push gs
+	mov ax, 0x10
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov eax, esp
+	push eax
+	mov eax, Hal%1Handler
+	call eax
+	pop eax
+	pop gs
+	pop fs
+	pop es
+	pop ds
+	popa
+	add esp, 8
+	iret
+%endmacro
+
+; ISRs!
+
+%macro ISR_COMMON 1
+global HalIsr%1
+HalIsr%1:
 	cli
 	push byte 0
 	push byte %1
+	jmp HalIsrCommon
+	iret
 %endmacro
 
 %macro ISR_ABORT 1
-global isr%1
-isr%1:
-	ISR_PROTECT_BEGIN %1
-	jmp IsrCommon
-	iret
+	ISR_COMMON %1
 %endmacro
 
 %macro ISR_FAULT 1
-global isr%1
-isr%1:
-	ISR_PROTECT_BEGIN %1
-	jmp IsrCommon
-	iret
+	ISR_COMMON %1
 %endmacro
 
 %macro ISR_INTR 1
-global isr%1
-isr%1:
-	ISR_PROTECT_BEGIN %1
-	jmp IsrCommon
-	iret
+	ISR_COMMON %1
 %endmacro
 
 %macro ISR_RESV 1
-global isr%1
-isr%1:
-	ISR_PROTECT_BEGIN %1
-	jmp IsrCommon
-	iret
+	ISR_COMMON %1
 	iret
 %endmacro
 
 %macro ISR_TRAP 1
-global isr%1
-isr%1:
-	ISR_PROTECT_BEGIN %1
-	jmp IsrCommon
-	iret
+	ISR_COMMON %1
 	iret
 %endmacro
 
@@ -88,28 +101,35 @@ ISR_RESV 29
 ISR_RESV 30
 ISR_RESV 31
 
-IsrCommon:
-	; Push everything to the stack, then call a global fault handler.
-	pusha
-	push ds
-	push es
-	push fs
-	push gs
-	mov ax, 0x10 
-	mov ds, ax
-	mov es, ax
-	mov fs, ax
-	mov gs, ax
-	mov eax, esp
-	push eax
-	mov eax, HalFaultHandler
-	call eax ; Special! Preserves eip!
-	pop eax
-	pop gs
-	pop fs
-	pop es
-	pop ds
-	popa
-	add esp, 8
+HANDLER_COMMON Isr
+
+; IRQs!
+
+%macro IRQ_COMMON 2
+global HalIrq%1
+HalIrq%1:
+	cli
+	push byte 0
+	push byte %2
+	jmp HalIrqCommon
 	iret
- 
+%endmacro
+
+IRQ_COMMON 0,  32
+IRQ_COMMON 1,  33
+IRQ_COMMON 2,  34
+IRQ_COMMON 3,  35
+IRQ_COMMON 4,  36
+IRQ_COMMON 5,  37
+IRQ_COMMON 6,  38
+IRQ_COMMON 7,  39
+IRQ_COMMON 8,  40
+IRQ_COMMON 9,  41
+IRQ_COMMON 10, 42
+IRQ_COMMON 11, 43
+IRQ_COMMON 12, 44
+IRQ_COMMON 13, 45
+IRQ_COMMON 14, 46
+IRQ_COMMON 15, 47
+
+HANDLER_COMMON Irq
