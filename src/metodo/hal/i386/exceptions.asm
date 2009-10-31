@@ -3,67 +3,43 @@ bits 32
 global isr0
 
 extern CoException
+extern HalFaultHandler
 
-%macro ISR_PROTECT_BEGIN 0
-	pushad
-
-	push ds
-	push es
-	push fs
-	push gs
-	push ss
-
-	mov eax, 0x10
-	mov ds, eax
-	mov es, eax
-	mov fs, eax
-	mov gs, eax
-	mov ss, eax
-%endmacro
-
-%macro ISR_PROTECT_END 0
-	pop ss
-	pop gs
-	pop fs
-	pop es
-	pop ds
-
-	popad
+%macro ISR_PROTECT_BEGIN 1
+	cli
+	push byte 0
+	push byte %1
 %endmacro
 
 %macro ISR_ABORT 1
 global isr%1
 isr%1:
-	ISR_PROTECT_BEGIN
-	call CoException
-	ISR_PROTECT_END
+	ISR_PROTECT_BEGIN %1
+	jmp IsrCommon
 	iret
 %endmacro
 
 %macro ISR_FAULT 1
 global isr%1
 isr%1:
-	ISR_PROTECT_BEGIN
-	call CoException
-	ISR_PROTECT_END
+	ISR_PROTECT_BEGIN %1
+	jmp IsrCommon
 	iret
 %endmacro
 
 %macro ISR_INTR 1
 global isr%1
 isr%1:
-	ISR_PROTECT_BEGIN
-	call CoException
-	ISR_PROTECT_END
+	ISR_PROTECT_BEGIN %1
+	jmp IsrCommon
 	iret
 %endmacro
 
 %macro ISR_RESV 1
 global isr%1
 isr%1:
-	ISR_PROTECT_BEGIN
-	call CoException
-	ISR_PROTECT_END
+	ISR_PROTECT_BEGIN %1
+	jmp IsrCommon
 	iret
 	iret
 %endmacro
@@ -71,9 +47,8 @@ isr%1:
 %macro ISR_TRAP 1
 global isr%1
 isr%1:
-	ISR_PROTECT_BEGIN
-	call CoException
-	ISR_PROTECT_END
+	ISR_PROTECT_BEGIN %1
+	jmp IsrCommon
 	iret
 	iret
 %endmacro
@@ -112,3 +87,29 @@ ISR_RESV 28
 ISR_RESV 29
 ISR_RESV 30
 ISR_RESV 31
+
+IsrCommon:
+	; Push everything to the stack, then call a global fault handler.
+	pusha
+	push ds
+	push es
+	push fs
+	push gs
+	mov ax, 0x10 
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov eax, esp
+	push eax
+	mov eax, HalFaultHandler
+	call eax ; Special! Preserves eip!
+	pop eax
+	pop gs
+	pop fs
+	pop es
+	pop ds
+	popa
+	add esp, 8
+	iret
+ 

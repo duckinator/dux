@@ -9,8 +9,6 @@ void InInitKernel(void)
 	HalInit();
 
 	HalDisplayString(str);
-	CoShutdown(SD_OFF);
 	
-	// It should never get here
-	asm volatile ("int $0");
+	asm volatile ("int $01");
 }

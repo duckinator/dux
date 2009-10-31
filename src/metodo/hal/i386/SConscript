@@ -9,6 +9,7 @@ sources = [
 	'gdt.asm',
 	'hal.c',
 	'idt.c',
+	'isrs.c',
 	'ports.c',
 	'display.c',
 	'interrupts.c',

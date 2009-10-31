@@ -3,7 +3,5 @@ Import('env', 'arch', 'buildtype', 'distreq')
 Import('sources', 'metodo')
 
 sources += [
-	'core/text.c',
-	'core/shutdown.c',
-	'core/ipl.c',
+	'misc/panic.c',
 ]
