@@ -10,6 +10,7 @@ sources = [
 	'hal.c',
 	'idt.c',
 	'isrs.c',
+	'irqs.c',
 	'ports.c',
 	'display.c',
 	'interrupts.c',

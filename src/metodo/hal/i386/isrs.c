@@ -40,7 +40,7 @@ char *HalExceptions[32] = {
 	"31 - Intel reserved. Do not use."
 };
 //extern void HalSyscallHandler(struct regs *r);
-void HalFaultHandler(struct regs *r)
+void HalIsrHandler(struct regs *r)
 {
 	// No syscalls yet, but this looks useful ;D
 	/*if (r->int_no == 0xffffff80) {
@@ -55,36 +55,36 @@ void HalFaultHandler(struct regs *r)
 
 void HalIsrInstall(void)
 {
-	HalSetIDTGate(0, (uint32_t) isr0, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(1, (uint32_t) isr1, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(2, (uint32_t) isr2, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(3, (uint32_t) isr3, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(4, (uint32_t) isr4, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(5, (uint32_t) isr5, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(6, (uint32_t) isr6, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(7, (uint32_t) isr7, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(8, (uint32_t) isr8, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(9, (uint32_t) isr9, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(10, (uint32_t) isr10, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(11, (uint32_t) isr11, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(12, (uint32_t) isr12, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(13, (uint32_t) isr13, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(14, (uint32_t) isr14, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(15, (uint32_t) isr15, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(16, (uint32_t) isr16, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(17, (uint32_t) isr17, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(18, (uint32_t) isr18, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(19, (uint32_t) isr19, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(20, (uint32_t) isr20, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(21, (uint32_t) isr21, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(22, (uint32_t) isr22, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(23, (uint32_t) isr23, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(24, (uint32_t) isr24, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(25, (uint32_t) isr25, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(26, (uint32_t) isr26, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(27, (uint32_t) isr27, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(28, (uint32_t) isr28, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(29, (uint32_t) isr29, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(30, (uint32_t) isr30, 0x8, 0, 0, IDT_INTR32);
-	HalSetIDTGate(31, (uint32_t) isr31, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(0, (uint32_t) HalIsr0, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(1, (uint32_t) HalIsr1, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(2, (uint32_t) HalIsr2, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(3, (uint32_t) HalIsr3, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(4, (uint32_t) HalIsr4, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(5, (uint32_t) HalIsr5, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(6, (uint32_t) HalIsr6, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(7, (uint32_t) HalIsr7, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(8, (uint32_t) HalIsr8, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(9, (uint32_t) HalIsr9, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(10, (uint32_t) HalIsr10, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(11, (uint32_t) HalIsr11, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(12, (uint32_t) HalIsr12, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(13, (uint32_t) HalIsr13, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(14, (uint32_t) HalIsr14, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(15, (uint32_t) HalIsr15, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(16, (uint32_t) HalIsr16, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(17, (uint32_t) HalIsr17, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(18, (uint32_t) HalIsr18, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(19, (uint32_t) HalIsr19, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(20, (uint32_t) HalIsr20, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(21, (uint32_t) HalIsr21, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(22, (uint32_t) HalIsr22, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(23, (uint32_t) HalIsr23, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(24, (uint32_t) HalIsr24, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(25, (uint32_t) HalIsr25, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(26, (uint32_t) HalIsr26, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(27, (uint32_t) HalIsr27, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(28, (uint32_t) HalIsr28, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(29, (uint32_t) HalIsr29, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(30, (uint32_t) HalIsr30, 0x8, 0, 0, IDT_INTR32);
+	HalSetIDTGate(31, (uint32_t) HalIsr31, 0x8, 0, 0, IDT_INTR32);
 }
