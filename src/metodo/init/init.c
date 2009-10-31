@@ -10,5 +10,5 @@ void InInitKernel(void)
 
 	HalDisplayString(str);
 	
-	asm volatile ("int $01");
+	asm volatile ("int $0");
 }
