@@ -8,4 +8,7 @@ void HalInit(void)
 	HalInitDisplay();
 	HalInitIDT();
 	HalIsrInstall();
+	HalIrqInstall();
+	HalKeyboardInit();
+	asm volatile ("sti");
 }

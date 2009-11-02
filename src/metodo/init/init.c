@@ -10,5 +10,7 @@ void InInitKernel(void)
 
 	HalDisplayString(str);
 	
-	asm volatile ("int $0");
+	HalKeyboardTest();
+	
+	//asm volatile ("int $0");
 }
