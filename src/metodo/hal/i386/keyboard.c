@@ -3,7 +3,7 @@
 #include <metodo/hal/i386.h>
 #include <metodo/hal/isr.h>
 #include <metodo/hal/keyboard/keyboard.h>
- 
+
 unsigned char buf[0x1000];
 unsigned char *buffer;
 unsigned char *origbuffer;
@@ -11,99 +11,187 @@ int shift_l = 0;
 int shift_r = 0;
 int capslock = 0;
 int numlock = 0;
-int alt = 0;
-int ctrl = 0;
- 
+int alt_l = 0;
+int alt_r = 0;
+int ctrl_l = 0;
+int ctrl_r = 0;
+int escaped = 0;
+
 int vt_visible = 0; // VT 0 is visible
- 
+
 void HalKeyboardHandler(struct regs *r)
 {
-	//printf("In HalKeyboardHandler()\n");
 	unsigned int scancode = HalInPort(0x60);
- 
+
 	*++buffer = scancode;
 }
- 
+
+void HalKeyboardLeds(uint8_t status){
+ 	uint8_t tmp;
+ 	while((HalInPort(0x64)&2)!=0){} //loop until zero
+ 	HalOutPort(0x60,0xED);
+
+ 	while((HalInPort(0x64)&2)!=0){} //loop until zero
+ 	HalOutPort(0x60,status);
+ }
+
+int HalKeyboardShift_l()
+{
+	return shift_l;
+}
+
+int HalKeyboardShift_r()
+{
+	return shift_r;
+}
+
 int HalKeyboardShift()
 {
 	return shift_l || shift_r;
 }
- 
+
 int HalKeyboardCapslock()
 {
 	return capslock;
 }
- 
+
 int HalKeyboardNumlock()
 {
 	return numlock;
 }
- 
+
+int HalKeyboardAlt_l()
+{
+	return alt_l;
+}
+
+int HalKeyboardAlt_r()
+{
+	return alt_r;
+}
+
 int HalKeyboardAlt()
 {
-	return alt;
+	return alt_l || alt_r;
 }
- 
+
+int HalKeyboardCtrl_l()
+{
+	return ctrl_l;
+}
+
+int HalKeyboardCtrl_r()
+{
+	return ctrl_r;
+}
+
 int HalKeyboardCtrl()
 {
-	return ctrl;
+	return ctrl_l || ctrl_r;
 }
- 
+
 char HalKeyboardHasInput()
 {
 	return buffer > origbuffer;
 }
- 
-char HalKeyboardRead()
+
+HalKeyInfo HalKeyboardRead()
 {
+	HalKeyInfo keyinfo = {0};
 	int scancode;
- 
+
 	while (buffer <= origbuffer); // wait for input
- 
+
 	scancode = *buffer-- & 0xFF;
-	//printk("\n'%x'\n", scancode);
- 
+
 	// Left shift
 	if (scancode == 0x2A)
 		shift_l = 1;
 	else if (scancode == 0xAA)
 		shift_l = 0;
- 
+
 	// Right shift
 	if (scancode == 0x36)
 		shift_r = 1;
 	else if (scancode == 0xB6)
 		shift_r = 0;
- 
+
 	// Alt
-	if (scancode == 0x38)
-		alt = 1;
-	else if (scancode == 0xB8)
-		alt = 0;
- 
+	if (scancode == 0x38) {
+		if ( escaped ) {
+			alt_r = 1;
+		} else {
+			alt_l = 1;
+		}
+	} else if (scancode == 0xB8) {
+		if ( escaped ) {
+			alt_r = 0;
+		} else {
+			alt_l = 0;
+		}
+	}
+
 	// Control
-	if (scancode == 0x1D)
-		ctrl = 1;
-	else if (scancode == 0x9D)
-		ctrl = 0;
- 
-	if (ctrl && alt && (scancode == 0x53))
+	if (scancode == 0x1D) {
+		if ( escaped ) {
+			ctrl_r = 1;
+		} else {
+			ctrl_l = 1;
+		}
+	} else if (scancode == 0x9D) {
+		if ( escaped ) {
+			ctrl_r = 0;
+		} else {
+			ctrl_l = 0;
+		}
+	}
+
+	if ( escaped ) {
+		escaped = 0;
+	} else if ( scancode == 0xe0 ) {
+		escaped = 1;
+	}
+
+	if (HalKeyboardCtrl() && HalKeyboardAlt() && (scancode == 0x53))
 	{ // Ctrl-Alt-Delete
 		panic("User initialized");
 	}
- 
-	return (char)scancode;
+	
+	if ( scancode & 0x80 ) {
+		// Released ("Break" code)
+		keyinfo.action = 0;
+	} else {
+		// Pressed ("Make" code)
+		keyinfo.action = 1;
+	}
+	
+	keyinfo.scancode = scancode;
+	keyinfo.key = (char)scancode;
+	return keyinfo;
 }
- 
-char HalKeyboardResolveScancode(int scancode)
+
+HalKeyInfo HalKeyboardResolveScancode(HalKeyInfo keyinfo)
 {
-	return keysym_us[scancode & 0x7F];
+	keyinfo.key = keysym_us[keyinfo.scancode & 0x7F];
+	return keyinfo;
 }
-char HalKeyboardResolveScancode_shift(int scancode)
+HalKeyInfo HalKeyboardResolveScancode_shift(HalKeyInfo keyinfo)
 {
-	return keysym_us_shift[scancode & 0x7F];
+	keyinfo.key = keysym_us_shift[keyinfo.scancode & 0x7F];
+	return keyinfo;
 }
- 
+
+HalKeyInfo HalKeyboardReadLetter()
+{
+	HalKeyInfo keyinfo = {0};
+	if(shift_l || shift_r) {
+		keyinfo = HalKeyboardResolveScancode_shift(HalKeyboardRead());
+	} else {
+		keyinfo = HalKeyboardResolveScancode(HalKeyboardRead());
+	}
+	return keyinfo;
+}
+
 void HalKeyboardInit()
 {
 	HalIrqHandler_Install(1, (void*)HalKeyboardHandler);
@@ -115,10 +203,15 @@ void HalKeyboardInit()
 
 void HalKeyboardTest()
 {
+	HalKeyInfo keyinfo;
 	printf("Initiating keyboard test...\n");
-	while(1) {
+	while(1)
+	{
 		if ( HalKeyboardHasInput() ) {
-			printf("\nHalKeyboardRead(): '%s'\n", HalKeyboardRead());
+			keyinfo = HalKeyboardReadLetter();
+			if ( keyinfo.action == 0 ) {
+				printf("%c", keyinfo.key);
+			}
 		}
 	}
 }

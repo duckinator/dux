@@ -8,21 +8,21 @@ void *irq_routines[16] =
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0
 };
- 
+
 /* This installs a custom IRQ handler for the given IRQ */
 void HalIrqHandler_Install(int irq, void (*handler)(struct regs *r))
 {
 	printf("Installing IRQ Handler #%i\n", irq);
 	irq_routines[irq] = handler;
 }
- 
+
 /* This clears the handler for a given IRQ */
 void HalIrqHandler_Uninstall(int irq)
 {
 	printf("Uninstalling IRQ Handler #%i\n", irq);
 	irq_routines[irq] = 0;
 }
- 
+
 /* Normally, IRQs 0 to 7 are mapped to entries 8 to 15. This
 *  is a problem in protected mode, because IDT entry 8 is a
 *  Double Fault! Without remapping, every time HalIrq0 fires,
@@ -84,7 +84,7 @@ void HalIrqHandler(struct regs *r)
 {
 	/* This is a blank function pointer */
 	void (*handler)(struct regs *r);
- 
+
 	/* Find out if we have a custom handler to run for this
 	*  IRQ, and then finally, run it */
 	handler = irq_routines[r->int_no - 32];

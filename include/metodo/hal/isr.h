@@ -1,6 +1,6 @@
 #ifndef HalIsr_H
 #define HalIsr_H
- 
+
 typedef struct registers
 {
    int ds;                  // Data segment selector
@@ -8,14 +8,14 @@ typedef struct registers
    int int_no, err_code;    // Interrupt number and error code (if applicable)
    int eip, cs, eflags, useresp, ss; // Pushed by the processor automatically.
 } registers_t;
- 
+
 struct regs {
 	unsigned int gs, fs, es, ds;
 	unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
 	unsigned int int_no, err_code;
 	unsigned int eip, cs, eflags, useresp, ss; 
 };
- 
+
 extern void HalIsrInstall(void);
 extern void HalIsrHandler(struct regs *r);
 extern void HalIrqInstall(void);
@@ -55,7 +55,7 @@ extern void HalIsr28();
 extern void HalIsr29();
 extern void HalIsr30();
 extern void HalIsr31();
- 
+
 /* These are own isrs that point to our special IRQ handler
 *  instead of the regular 'HalFaultHandler' function */
 extern void HalIrq0();
@@ -74,5 +74,5 @@ extern void HalIrq12();
 extern void HalIrq13();
 extern void HalIrq14();
 extern void HalIrq15();
- 
+
 #endif
