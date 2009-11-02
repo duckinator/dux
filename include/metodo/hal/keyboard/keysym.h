@@ -40,7 +40,7 @@ unsigned char keysym_us[128] =
   0,  /* F12 Key */
   0,  /* All other keys are undefined */
 };
- 
+
  
 unsigned char keysym_us_shift[128] =
 {

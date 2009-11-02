@@ -6,6 +6,14 @@ extern CoException
 extern HalIsrHandler
 extern HalIrqHandler
 
+global HalIsrSyscall
+HalIsrSyscall:
+	cli
+	push byte 0
+	push byte 0x80
+	jmp HalIsrCommon
+	iret
+
 %macro HANDLER_COMMON 1
 Hal%1Common:
 	pusha

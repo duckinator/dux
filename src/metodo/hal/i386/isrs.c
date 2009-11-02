@@ -1,8 +1,5 @@
 #include <metodo/metodo.h>
-#include <metodo/hal/isr.h>
-/*extern void panic();
-extern void puts();
-extern void HalIdtSetEntry();*/
+
 /* handle interupts */
 int isr_t = 0;
 char *HalExceptions[32] = {
@@ -39,15 +36,13 @@ char *HalExceptions[32] = {
 	"30 - Intel reserved. Do not use.",
 	"31 - Intel reserved. Do not use."
 };
-//extern void HalSyscallHandler(struct regs *r);
+
 void HalIsrHandler(struct regs *r)
 {
-	// No syscalls yet, but this looks useful ;D
-	/*if (r->int_no == 0xffffff80) {
+	if (r->int_no == 0xffffff80) {
 		HalSyscallHandler(r);
-	}*/
-	if(r->int_no == 3){
-		printf("hai from HalFaultHandler()!\n");
+	} else if(r->int_no == 3){
+		printf("Hit a breakpoint (In HalFaultHandler())\n");
 	} else if(r->int_no < 32){
 		panic(HalExceptions[r->int_no]);
 	}

@@ -26,4 +26,10 @@
 
 #include <metodo/misc.h>
 
+#include <metodo/hal/isr.h>
+
+#include <metodo/hal/timer/timer.h>
+
+#include <metodo/hal/syscall.h>
+
 #endif /* end of include guard: METODO_IIXETUDY */

@@ -8,6 +8,7 @@ sources = [
 	'exceptions.asm',
 	'gdt.asm',
 	'hal.c',
+	'syscall.c',
 	'idt.c',
 	'isrs.c',
 	'irqs.c',

@@ -11,11 +11,7 @@ void InInitKernel(void)
 	HalDisplayString(str);
 	
 	HalKeyboardInit();
-	while(1)
-	{
-		char character = HalKeyboardResolveScancode(HalKeyboardRead());
-		printf("%c", character);
-	}
+	HalKeyboardTest();
 	
 	//asm volatile ("int $0");
 }
