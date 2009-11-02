@@ -10,7 +10,12 @@ void InInitKernel(void)
 
 	HalDisplayString(str);
 	
-	HalKeyboardTest();
+	HalKeyboardInit();
+	while(1)
+	{
+		char character = HalKeyboardResolveScancode(HalKeyboardRead());
+		printf("%c", character);
+	}
 	
 	//asm volatile ("int $0");
 }

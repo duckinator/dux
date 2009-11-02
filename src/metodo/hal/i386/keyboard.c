@@ -18,7 +18,7 @@ int vt_visible = 0; // VT 0 is visible
  
 void HalKeyboardHandler(struct regs *r)
 {
-	printf("In HalKeyboardHandler()\n");
+	//printf("In HalKeyboardHandler()\n");
 	unsigned int scancode = HalInPort(0x60);
  
 	*++buffer = scancode;
