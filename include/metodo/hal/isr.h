@@ -20,7 +20,9 @@ extern void HalIsrInstall(void);
 extern void HalIsrHandler(struct regs *r);
 extern void HalIrqInstall(void);
 extern void HalIrqHandler(struct regs *r);
- 
+extern void HalIrqHandler_Install(int irq, void (*handler)(struct regs *r));
+extern void HalIrqHandler_Uninstall(int irq);
+
 extern void HalIsr0();
 extern void HalIsr1();
 extern void HalIsr2();

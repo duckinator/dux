@@ -4,7 +4,7 @@
 extern void puts();
 extern void HalIdtSetEntry();*/
 /* handle interupts */
- 
+int isr_t = 0;
 char *HalExceptions[32] = {
 	"0 #DE Divide Error",
 	"1 #DB RESERVED",
