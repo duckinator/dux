@@ -8,7 +8,7 @@ unsigned int ticks = 0;
 
 void HalTimerHandler(struct regs *r)
 {
-	printf("Ticks: %i", ticks);
+	//printf("Ticks: %i", ticks);
 	//Increment ticks
 	ticks++;
 }
