@@ -10,5 +10,6 @@ void HalInit(void)
 	HalIsrInstall();
 	HalIrqInstall();
 	HalKeyboardInit();
+	HalTimerInit();
 	asm volatile ("sti");
 }
