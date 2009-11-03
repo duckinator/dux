@@ -5,4 +5,5 @@ Import('sources', 'metodo')
 sources += [
 	'misc/panic.c',
 	'misc/misc.c',
+	'misc/stop.c'
 ]
