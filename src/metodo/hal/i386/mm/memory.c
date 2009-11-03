@@ -55,7 +55,7 @@ void clear_frame(unsigned int addr)
 
 /* test_frame(addr)
  * Returns 0 if a frame is free or anything else if a frame is not free. It
- * will not cause data loss is frames is not large enough, but will produce
+ * will not cause data loss if frame is not large enough, but will produce
  * erratic results.
  */
 unsigned int test_frame(unsigned int addr)

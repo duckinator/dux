@@ -1,8 +1,10 @@
 #include <metodo/metodo.h>
 
+// TODO: Figure out why HalBreak() causes a crash, and remove the panic()
 void HalBreak(void)
 {
-	__asm__ __volatile__ ("int $0x3");
+	panic("3 #BP Breakpoint");
+	__asm__ __volatile__ ("int $3");
 }
 
 void HalShutdown(void)

@@ -5,15 +5,28 @@
 #include <system.h>
 #include <metodo/metodo.h>
 
-void HalMonitorWriteStr(char *text){
+void HalSyscallShutdown(void)
+{
+	CoShutdown(SD_OFF);
+}
+
+void HalSyscallReboot(void)
+{
+	CoShutdown(SD_REBOOT);
+}
+
+void HalMonitorWriteStr(char *text)
+{
 	printf("%s", text);
 }
 
-void HalMonitorWriteHex(uint32_t text){
+void HalMonitorWriteHex(uint32_t text)
+{
 	printf("%x", text);
 }
 
-void HalMonitorWriteDec(uint32_t text){
+void HalMonitorWriteDec(uint32_t text)
+{
 	printf("%d", text);
 }
 
@@ -21,13 +34,15 @@ DEFN_SYSCALL1(HalMonitorWriteStr, 0, const char*);
 DEFN_SYSCALL1(HalMonitorWriteHex, 1, const uint32_t); // hex
 DEFN_SYSCALL1(HalMonitorWriteDec, 2, const uint32_t); // dec
 
-static void *syscalls[3] =
+static void *syscalls[5] =
 {
 	&HalMonitorWriteStr,
 	&HalMonitorWriteHex,
 	&HalMonitorWriteDec,
+	&HalSyscallShutdown,
+	&HalSyscallReboot
 };
-int num_syscalls = 3;
+int num_syscalls = 5;
 
 void HalInitializeSyscalls()
 {
