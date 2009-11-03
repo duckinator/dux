@@ -1,7 +1,9 @@
+#include <lib/krnllib.h>
+
 void _start(void)
 {
-	puts ("Ohi");
-	shutdown();
+	clear_screen();
+	puts("Hi from userland");
 	const char *argv[1] = {
 		"user"
 	};
@@ -12,20 +14,7 @@ void _start(void)
 
 int main(int argc, char const* argv[])
 {
-	/*
-	__asm__ __volatile__ (" \
-			mov $1, %%eax; \
-			mov $1024, %%ebx; \
-			int $0x80; \
-			" : : : "eax");
-
-	char *a = "a";
-	__asm__ __volatile__ (" \
-			mov $0, %%eax; \
-			mov %0, %%ebx; \
-			int $0x80; \
-			" : : "m" (a) : "eax", "ebx");
-	*/
+	clear_screen();
 	puthex(1024);
 	puts("\n");
 	putdec(1024);

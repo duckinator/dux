@@ -10,7 +10,9 @@ global HalIsrSyscall
 HalIsrSyscall:
 	cli
 	push byte 0
-	push byte 0x80
+	; The following was `push byte 0x80`, but that caused a warning
+	; TODO: Check if `push 0x80` is right or not
+	push 0x80
 	jmp HalIsrCommon
 	iret
 
