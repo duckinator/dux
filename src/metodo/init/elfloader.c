@@ -31,9 +31,6 @@ void *LoadElfExe(void *exe)
 		return NULL;
  
 	phdr = (Elf32_Phdr*) ((uint32_t) exe + (uint32_t) ehdr->e_phoff);
-
-	printf("Shutting down to evade a bug in LoadElfExe()\n");
-	HalShutdown();
  
 	for (i = 0; i < ehdr->e_phnum; i++, phdr++) {
 		if (phdr->p_type == PT_LOAD) {
@@ -52,6 +49,7 @@ void LoadUserland(void *userland)
 	void (*start)(void);
  
 	start = LoadElfExe(userland);
+	printf("Userland: %x\n", &userland);
 	start();
 }
  

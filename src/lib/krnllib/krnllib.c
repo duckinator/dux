@@ -12,7 +12,7 @@ void puts ( char *str )
 			" : : "m" (str) : "eax", "ebx");
 }
 
-void puthex( uint32_t num )
+void puthex ( uint32_t num )
 {
 	__asm__ __volatile__ (" \
 			mov $1, %%eax; \
@@ -21,7 +21,7 @@ void puthex( uint32_t num )
 			" : : "m" (num) : "eax", "ebx");
 }
 
-void putdec( uint32_t num )
+void putdec ( uint32_t num )
 {
 	__asm__ __volatile__ (" \
 			mov $2, %%eax; \
@@ -39,6 +39,14 @@ void shutdown ()
 }
 
 void reboot ()
+{
+	__asm__ __volatile__ (" \
+			mov $4, %%eax; \
+			int $0x80; \
+			" : : : "eax");
+}
+
+void clear_screen ()
 {
 	__asm__ __volatile__ (" \
 			mov $4, %%eax; \

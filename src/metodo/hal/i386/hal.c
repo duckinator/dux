@@ -27,6 +27,7 @@ void HalInit(void)
 	StartInitializer("ISRs", &HalIsrInstall);
 	StartInitializer("IRQs", &HalIrqInstall);
 	StartInitializer("system timer", &HalTimerInit);
+	StartInitializer("syscalls", &HalInitializeSyscalls);
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	

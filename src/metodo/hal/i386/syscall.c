@@ -5,44 +5,48 @@
 #include <system.h>
 #include <metodo/metodo.h>
 
-void HalSyscallShutdown(void)
+void ULShutdown(void)
 {
 	CoShutdown(SD_OFF);
 }
 
-void HalSyscallReboot(void)
+void ULReboot(void)
 {
 	CoShutdown(SD_REBOOT);
 }
 
-void HalMonitorWriteStr(char *text)
+void ULMonitorWriteStr(char *text)
 {
 	printf("%s", text);
 }
 
-void HalMonitorWriteHex(uint32_t text)
+void ULMonitorWriteHex(uint32_t text)
 {
 	printf("%x", text);
 }
 
-void HalMonitorWriteDec(uint32_t text)
+void ULMonitorWriteDec(uint32_t text)
 {
 	printf("%d", text);
 }
 
-DEFN_SYSCALL1(HalMonitorWriteStr, 0, const char*);
-DEFN_SYSCALL1(HalMonitorWriteHex, 1, const uint32_t); // hex
-DEFN_SYSCALL1(HalMonitorWriteDec, 2, const uint32_t); // dec
+DEFN_SYSCALL1(ULMonitorWriteStr, 0, const char*);
+DEFN_SYSCALL1(ULMonitorWriteHex, 1, const uint32_t); // hex
+DEFN_SYSCALL1(ULMonitorWriteDec, 2, const uint32_t); // dec
+DEFN_SYSCALL0(ULShutdown,        3);
+DEFN_SYSCALL0(ULReboot,          4);
+DEFN_SYSCALL0(HalDisplayClear,   5);
 
-static void *syscalls[5] =
+static void *syscalls[6] =
 {
-	&HalMonitorWriteStr,
-	&HalMonitorWriteHex,
-	&HalMonitorWriteDec,
-	&HalSyscallShutdown,
-	&HalSyscallReboot
+	&ULMonitorWriteStr,
+	&ULMonitorWriteHex,
+	&ULMonitorWriteDec,
+	&ULShutdown,
+	&ULReboot,
+	&HalDisplayClear
 };
-int num_syscalls = 5;
+int num_syscalls = 6;
 
 void HalInitializeSyscalls()
 {
