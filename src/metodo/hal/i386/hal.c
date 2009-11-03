@@ -1,4 +1,12 @@
 #include <metodo/metodo.h>
+#include <buildid.h>
+ 
+void StartInitializer(char *name, void (*func)())
+{
+	printf("Initializing %s...", name);
+	func();
+	printf("Done.\n");
+}
 
 void HalInit(void)
 {
@@ -6,10 +14,23 @@ void HalInit(void)
 
 	HalInitGDT();
 	HalInitDisplay();
-	HalInitIDT();
+	
+	printf("Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n\n");
+	/*HalInitIDT();
 	HalIsrInstall();
 	HalIrqInstall();
 	HalKeyboardInit();
 	HalTimerInit();
+	init_mm();*/
+	
+	StartInitializer("IDT", &HalInitIDT);
+	StartInitializer("ISRs", &HalIsrInstall);
+	StartInitializer("IRQs", &HalIrqInstall);
+	StartInitializer("system timer", &HalTimerInit);
+	StartInitializer("memory management", &init_mm);
+	StartInitializer("keyboard", &HalKeyboardInit);
+	
+	printf("Enabling interrupts...");
 	asm volatile ("sti");
+	printf("Done.\n");
 }

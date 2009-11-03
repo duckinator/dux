@@ -67,4 +67,7 @@ DECL_SYSCALL1(HalMonitorWrite, const char*)
 DECL_SYSCALL1(MonitorWriteHex, const char*)
 DECL_SYSCALL1(MonitorWriteDec, const char*) 
 
+void HalSyscallShutdown(void);
+void HalSyscallReboot(void);
+
 #endif

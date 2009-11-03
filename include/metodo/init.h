@@ -2,6 +2,8 @@
 
 #define INIT_8MJWAGGR
 
-void (InInitKernel)(void);
+#include <multiboot.h>
+
+void InInitKernel(uint32_t magic, multiboot_info_t *mbd);
 
 #endif /* end of include guard: INIT_8MJWAGGR */

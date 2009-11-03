@@ -29,3 +29,19 @@ void putdec( uint32_t num )
 			int $0x80; \
 			" : : "m" (num) : "eax", "ebx");
 }
+
+void shutdown ()
+{
+	__asm__ __volatile__ (" \
+			mov $3, %%eax; \
+			int $0x80; \
+			" : : : "eax");
+}
+
+void reboot ()
+{
+	__asm__ __volatile__ (" \
+			mov $4, %%eax; \
+			int $0x80; \
+			" : : : "eax");
+}

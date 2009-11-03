@@ -18,6 +18,7 @@ sources += [
 	'init/init.c',
 	'init/elfloader.c',
 	'lib/zeromemory.c',
+	'lib/string.c'
 ]
 
 distreq += ['src/metodo/metodo.exe']

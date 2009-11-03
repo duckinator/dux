@@ -1,5 +1,7 @@
 void _start(void)
 {
+	puts ("Ohi");
+	shutdown();
 	const char *argv[1] = {
 		"user"
 	};

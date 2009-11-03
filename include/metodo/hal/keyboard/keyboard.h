@@ -1,8 +1,6 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include <metodo/hal/keyboard/keysym.h>
-
 #define SCROLL_LED 1
 #define NUM_LED 2
 #define CAPSLOCK_LED 4

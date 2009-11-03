@@ -1,8 +1,5 @@
-#include <metodo/hal/hal.h>
 #include <metodo/metodo.h>
-#include <metodo/hal/i386.h>
-#include <metodo/hal/isr.h>
-#include <metodo/hal/keyboard/keyboard.h>
+#include <metodo/hal/keyboard/keysym.h>
 
 unsigned char buf[0x1000];
 unsigned char *buffer;
