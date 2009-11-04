@@ -70,6 +70,4 @@ DECL_SYSCALL0(ULShutdown)
 DECL_SYSCALL0(ULReboot)
 DECL_SYSCALL0(HalDisplayClear)
 
-void HalSyscallDebug();
-
 #endif
