@@ -9,4 +9,5 @@ void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col);
 void HalInitDisplay(void);
 void HalDisableDisplay(void);
 int HalIsDisplayOn(void);
+void HalDisplayHideCursor();
 #endif
