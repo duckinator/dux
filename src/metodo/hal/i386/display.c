@@ -84,6 +84,12 @@ void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 		col++;
 }
 
+void HalDisplayHideCursor()
+{
+	HalOutPort(0x3d4, 0x0a);
+	HalOutPort(0x3d5, 1 << 5);
+}
+
 void HalInitDisplay(void)
 {
 	VideoMemory = (uint16_t*) VIDEO_MEMORY;
@@ -93,6 +99,7 @@ void HalInitDisplay(void)
 	escape = 0;
 	escape_attr = 0;
 	disp_init = 1;
+	HalDisplayHideCursor();
 	HalDisplayClear();
 }
 

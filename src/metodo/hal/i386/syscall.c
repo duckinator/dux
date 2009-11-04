@@ -57,6 +57,9 @@ void HalInitializeSyscalls()
 
 void HalSyscallHandler(struct regs *r)
 {
+	printf("Dux's syscall handler! MUST EVADE!\n");
+	return;
+	printf("In HalSyscallHandler()\n");
 	// Firstly, check if the requested syscall number is valid.
 	// The syscall number is found in EAX.
 	if (r->eax >= num_syscalls)
@@ -83,4 +86,5 @@ void HalSyscallHandler(struct regs *r)
 		pop %%ebx; \
 	" : "=a" (ret) : "r" (r->edi), "r" (r->esi), "r" (r->edx), "r" (r->ecx), "r" (r->ebx), "r" (location));
 	r->eax = ret;
+	printf("Leaving HalSyscallHandler()\n");
 }

@@ -39,7 +39,7 @@ char *HalExceptions[32] = {
 
 void HalIsrHandler(struct regs *r)
 {
-	if (r->int_no == 0xffffff80) {
+	if (r->int_no == 0x80) {
 		HalSyscallHandler(r);
 	} else if(r->int_no == 3) {
 		// TODO: Handle breakpoints
