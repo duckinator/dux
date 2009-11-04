@@ -11,6 +11,15 @@
 #define FS_SYMLINK     0x06
 #define FS_MOUNTPOINT  0x08 // Is the file an active mountpoint?
 
+struct fs_node;
+
+typedef uint32_t (*read_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
+typedef uint32_t (*write_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
+typedef void (*open_type_t)(struct fs_node*,uint32_t,uint32_t);
+typedef void (*close_type_t)(struct fs_node*);
+typedef struct dirent * (*readdir_type_t)(struct fs_node*,uint32_t);
+typedef struct fs_node * (*finddir_type_t)(struct fs_node*,char *name);
+
 struct dirent // One of these is returned by the readdir call, according to POSIX.
 {
   char name[128]; // Filename.
@@ -31,13 +40,6 @@ typedef struct fs_node
    finddir_type_t finddir;
    struct fs_node *ptr; // Used by mountpoints and symlinks.
 } fs_node_t;
-
-typedef uint32_t (*read_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
-typedef uint32_t (*write_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
-typedef void (*open_type_t)(struct fs_node*);
-typedef void (*close_type_t)(struct fs_node*);
-typedef struct dirent * (*readdir_type_t)(struct fs_node*,uint32_t);
-typedef struct fs_node * (*finddir_type_t)(struct fs_node*,char *name);
 
 extern fs_node_t *fs_root; // The root of the filesystem.
 
