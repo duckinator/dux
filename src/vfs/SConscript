@@ -1,0 +1,20 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+sources = [
+]
+
+vfs = env.Clone()
+vfs.Append(LINKFLAGS=['-Ttext', '0x200000'])
+
+vfs.Append(LIBPATH=['#src/vfs/vfs'])
+vfs.Append(LIBS=[File('#src/vfs/vfs.lib')])
+
+sources += [
+	'vfs/vfs.c',
+]
+
+distreq += ['src/vfs/vfs.lib']
+
+vfs.Program('vfs', sources)
