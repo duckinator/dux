@@ -49,7 +49,7 @@ void reboot ()
 void clear_screen ()
 {
 	__asm__ __volatile__ (" \
-			mov $4, %%eax; \
+			mov $5, %%eax; \
 			int $0x80; \
 			" : : : "eax");
 }
