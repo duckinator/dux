@@ -10,4 +10,5 @@ void HalInitDisplay(void);
 void HalDisableDisplay(void);
 int HalIsDisplayOn(void);
 void HalDisplayHideCursor();
+void HalDisplayCursorPosition(int _row, int _col);
 #endif

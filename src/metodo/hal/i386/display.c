@@ -25,6 +25,7 @@ void HalDisplaySetAttr(uint8_t lattr)
 void HalDisplayClear(void)
 {
 	int i;
+	HalDisplayCursorPosition(0, 0);
 	for (i = 0; i < COLS*ROWS; i++)
 		VideoMemory[i] = CLEAR;
 }
@@ -80,14 +81,20 @@ void HalDisplayString(char *s)
 
 void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 {
-		PUTSPOT(s);
-		col++;
+	PUTSPOT(s);
+	col++;
 }
 
 void HalDisplayHideCursor()
 {
 	HalOutPort(0x3d4, 0x0a);
 	HalOutPort(0x3d5, 1 << 5);
+}
+
+void HalDisplayCursorPosition(int _row, int _col)
+{
+	col = _col;
+	row = _row;
 }
 
 void HalInitDisplay(void)
