@@ -23,6 +23,12 @@ typedef struct fs_node
    uint32_t type;       // Includes the node type. See #defines above.
    uint32_t inode;       // This is device-specific - provides a way for a filesystem to identify files.
    uint32_t length;      // Size of the file, in bytes.
+   read_type_t read;
+   write_type_t write;
+   open_type_t open;
+   close_type_t close;
+   readdir_type_t readdir;
+   finddir_type_t finddir;
    struct fs_node *ptr; // Used by mountpoints and symlinks.
 } fs_node_t;
 
