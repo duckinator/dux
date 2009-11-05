@@ -1,5 +1,5 @@
 #ifndef INITRD_H
-#define INITRD_
+#define INITRD_H
 #include <stdint.h>
 #include <vfs/vfs.h>
 
