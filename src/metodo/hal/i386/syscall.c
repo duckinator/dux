@@ -30,23 +30,29 @@ void ULMonitorWriteDec(uint32_t text)
 	printf("%d", text);
 }
 
+void malloc(unsigned int size, unsigned int flags)
+{
+	kmalloc_int(size, flags);
+}
+
 DEFN_SYSCALL1(ULMonitorWriteStr, 0, const char*);
 DEFN_SYSCALL1(ULMonitorWriteHex, 1, const uint32_t); // hex
 DEFN_SYSCALL1(ULMonitorWriteDec, 2, const uint32_t); // dec
 DEFN_SYSCALL0(ULShutdown,        3);
 DEFN_SYSCALL0(ULReboot,          4);
 DEFN_SYSCALL0(HalDisplayClear,   5);
-
-static void *syscalls[6] =
+DEFN_SYSCALL2(malloc, 6, unsigned int, unsigned int);
+static void *syscalls[7] =
 {
 	&ULMonitorWriteStr,
 	&ULMonitorWriteHex,
 	&ULMonitorWriteDec,
 	&ULShutdown,
 	&ULReboot,
-	&HalDisplayClear
+	&HalDisplayClear,
+	&malloc
 };
-int num_syscalls = 6;
+int num_syscalls = 7;
 
 void HalInitializeSyscalls()
 {

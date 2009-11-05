@@ -69,5 +69,6 @@ DECL_SYSCALL1(ULMonitorWriteDec, const uint32_t)
 DECL_SYSCALL0(ULShutdown)
 DECL_SYSCALL0(ULReboot)
 DECL_SYSCALL0(HalDisplayClear)
+DECL_SYSCALL2(malloc, unsigned int, unsigned int)
 
 #endif
