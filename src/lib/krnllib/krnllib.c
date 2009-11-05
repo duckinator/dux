@@ -60,5 +60,13 @@ void malloc (unsigned int size, unsigned int flags)
                         mov $6, %%eax; \
                         int $0x80; \
                         " : :  "m" (size), "m" (flags) : "eax", "ebx", "ecx");
+
+
+	__asm__ __volatile__ (" \
+			mov $6, %%eax; \
+			mov %0, %%ebx; \
+			mov %1, %%ecx; \
+			int $0x80; \
+			" : : "m" (size), "m" (flags) : "eax", "ebx", "ecx");
 }
 
