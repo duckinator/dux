@@ -3,5 +3,6 @@
 SConscript('user/SConscript')
 SConscript('lib/SConscript')
 SConscript('vfs/SConscript')
+SConscript('initrd/SConscript')
 
 SConscript('metodo/SConscript')

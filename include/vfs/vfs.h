@@ -13,7 +13,7 @@
 
 struct fs_node;
 
-typedef uint32_t (*read_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
+typedef uint32_t (*read_type_t)(struct fs_node*,uint32_t,uint32_t,char*);
 typedef uint32_t (*write_type_t)(struct fs_node*,uint32_t,uint32_t,uint8_t*);
 typedef void (*open_type_t)(struct fs_node*,uint32_t,uint32_t);
 typedef void (*close_type_t)(struct fs_node*);
@@ -32,6 +32,7 @@ typedef struct fs_node
    uint32_t type;       // Includes the node type. See #defines above.
    uint32_t inode;       // This is device-specific - provides a way for a filesystem to identify files.
    uint32_t length;      // Size of the file, in bytes.
+   uint32_t flags;
    read_type_t read;
    write_type_t write;
    open_type_t open;

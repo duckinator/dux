@@ -8,6 +8,8 @@ metodo = env.Clone()
 
 SConscript('hal/%s/SConscript' % arch)
 metodo.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
+metodo.Append(LIBS=[File('#src/vfs/vfs.lib')])
+metodo.Append(LIBS=[File('#src/initrd/initrd.lib')])
 
 Export('sources', 'metodo')
 SConscript('boot/%s/SConscript' % arch)

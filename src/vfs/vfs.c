@@ -20,7 +20,7 @@ uint32_t write_fs(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buff
 void open_fs(fs_node_t *node, uint8_t read, uint8_t write)
 {
 	if (node->open != 0 && node->type != FS_DIRECTORY)
-		node->open(node, read, write);
+		return node->open(node, read, write);
 	else
 		return;
 }
@@ -28,17 +28,23 @@ void open_fs(fs_node_t *node, uint8_t read, uint8_t write)
 void close_fs(fs_node_t *node)
 {
 	if(node->close != 0 && node->type != FS_DIRECTORY)
-		node->close(node);
+		return node->close(node);
 	else 
 		return;
 }
  
 struct dirent *readdir_fs(fs_node_t *node, uint32_t index)
 {
- 
+	if(node->readdir != 0 && node->type == FS_DIRECTORY)
+	       return node->readdir(node, index);
+	else
+		return;	
 }
  
 fs_node_t *finddir_fs(fs_node_t *node, char *name)
 {
- 
+	if(node->finddir != 0 && node->type == FS_DIRECTORY)
+	       return node->finddir(node, name);
+	else
+		return;	
 }
