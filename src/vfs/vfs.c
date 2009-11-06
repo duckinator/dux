@@ -1,5 +1,6 @@
 #include <vfs/vfs.h>
- 
+#include <system.h> 
+
 fs_node_t *fs_root = 0;
  
 uint32_t read_fs(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer)
@@ -35,15 +36,15 @@ void close_fs(fs_node_t *node)
  
 struct dirent *readdir_fs(fs_node_t *node, uint32_t index)
 {
-	if(node->readdir != 0 && node->type == FS_DIRECTORY)
+	if(node->readdir != 0)
 	       return node->readdir(node, index);
 	else
-		return;	
+		return;
 }
  
 fs_node_t *finddir_fs(fs_node_t *node, char *name)
 {
-	if(node->finddir != 0 && node->type == FS_DIRECTORY)
+	if(node->finddir != 0)
 	       return node->finddir(node, name);
 	else
 		return;	
