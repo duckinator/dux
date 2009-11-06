@@ -43,7 +43,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
 			}
 		}
 	}
-
+	char *panicmsg;
 	printf("Beginning memory management test:\n");
 	printf("First free frame:  %i\n", first_frame());
 	printf("Allocating frame at %i\n", first_frame());
