@@ -40,7 +40,6 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
 				ramdisk = (void*) module->mod_start;
 				printf("\nFound fs_root at: 0x %x\n\n", ramdisk);
 				fs_root = initialise_initrd((uint32_t)module->mod_start);
-				panic("Initialised ramdisk!");
 			}
 		}
 	}

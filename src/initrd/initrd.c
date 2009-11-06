@@ -58,6 +58,7 @@ static fs_node_t *initrd_finddir(fs_node_t  *node,  char *name)
 fs_node_t *initialise_initrd(uint32_t location)
 {
 	initrd_header = (InitRd_Header_t *)location;
+	initrd_header->filecount = 2;
 	file_headers = (InitRd_File_Header_t *) (location+sizeof(InitRd_File_Header_t));
 	initrd_root = (fs_node_t *)malloc(sizeof(fs_node_t));
 	//strcpy(initrd_root->name, "INITRD");
