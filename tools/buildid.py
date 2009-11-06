@@ -6,4 +6,4 @@ p = subprocess.Popen('git show | head -n1 | cut -b8-', shell=True, stdout=subpro
 rev = p.stdout.readline().replace('\n', '')
 p.stdout.close()
 
-print('#define SCM_REV "{0}"'.format(rev))
+print('#define SCM_REV "%s"' % rev)
