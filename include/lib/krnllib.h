@@ -3,6 +3,13 @@
 
 #include <stdint.h>
 
+#define IN
+#define OUT
+#define OPTIONAL
+#define NOTHING
+
+
+
 void puts ( char *str );
 void puthex ( uint32_t num );
 void putdec ( uint32_t num );

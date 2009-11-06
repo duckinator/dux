@@ -11,7 +11,8 @@ if arch == 'x86':
 	]
 
 sources += [
-	'./krnllib.c'
+	'./krnllib.c',
+	'./text.c'
 ]
 
 distreq += ['src/lib/krnllib/krnllib.lib']
