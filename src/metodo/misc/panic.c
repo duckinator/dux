@@ -42,7 +42,7 @@ void panic(char *text)
 	HalInitDisplay();
 	HalDisplaySetAttr(0x4f);
 	HalDisplayClear();
-	printf("\n*** UDUDD ****\n%s\n\n", text);
+	printf("\n**** UDUDD ***\n%s\n\n", text);
 	stack_dump();
 	asm("cli");
 	asm("hlt");
