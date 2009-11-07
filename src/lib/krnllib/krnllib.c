@@ -54,19 +54,16 @@ void clear_screen ()
 			" : : : "eax");
 }
 
-void malloc (unsigned int size, unsigned int flags)
+void *malloc (unsigned int size, unsigned int flags)
 {
-        __asm__ __volatile__ (" \
-                        mov $6, %%eax; \
-                        int $0x80; \
-                        " : :  "m" (size), "m" (flags) : "eax", "ebx", "ecx");
-
-
+	void *rval;
 	__asm__ __volatile__ (" \
 			mov $6, %%eax; \
 			mov %0, %%ebx; \
 			mov %1, %%ecx; \
 			int $0x80; \
-			" : : "m" (size), "m" (flags) : "eax", "ebx", "ecx");
+			mov %%eax, %2; \
+			" : "=m" (rval) : "m" (size), "m" (flags) : "eax", "ebx", "ecx");
+	return rval;
 }
 
