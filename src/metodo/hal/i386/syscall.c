@@ -30,9 +30,9 @@ void ULMonitorWriteDec(uint32_t text)
 	printf("%d", text);
 }
 
-void malloc(unsigned int size, unsigned int flags)
+void *malloc(unsigned int size, unsigned int flags)
 {
-	kmalloc_int(size, flags);
+	return kmalloc_int(size, flags);
 }
 
 DEFN_SYSCALL1(ULMonitorWriteStr, 0, const char*);

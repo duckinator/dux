@@ -90,16 +90,15 @@ fs_node_t *initialise_initrd(uint32_t location)
 	{
 		file_headers[i].offset += location;
 		//strcpy(root_nodes[i].name, file_headers[i].name);
-	       	root_nodes[i].length = file_headers[i].size;
-	       	root_nodes[i].inode = i;
-	       	root_nodes[i].flags = FS_FILE;
-	       	root_nodes[i].read = &initrd_read;
-	       	root_nodes[i].write = 0;
-	       	root_nodes[i].readdir = 0;
-	       	root_nodes[i].finddir = 0;
-	       	root_nodes[i].open = 0;
-	       	root_nodes[i].close = 0;
-
+		root_nodes[i].length = file_headers[i].size;
+		root_nodes[i].inode = i;
+		root_nodes[i].flags = FS_FILE;
+		root_nodes[i].read = &initrd_read;
+		root_nodes[i].write = 0;
+		root_nodes[i].readdir = 0;
+		root_nodes[i].finddir = 0;
+		root_nodes[i].open = 0;
+		root_nodes[i].close = 0;
 	}
 	return initrd_root;
 }
