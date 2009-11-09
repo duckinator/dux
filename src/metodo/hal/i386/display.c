@@ -50,7 +50,7 @@ void HalDisplayChar(char c)
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
 		Display = DisplayDeviceList[i];
 		/* don't call NULL function pointers... */
-		if (Display->DisplayChar);
+		if (Display->DisplayChar)
 			Display->DisplayChar(c);
 	}
 }
