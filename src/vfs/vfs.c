@@ -39,7 +39,7 @@ struct dirent *readdir_fs(fs_node_t *node, uint32_t index)
 	if(node->readdir != 0)
 	       return node->readdir(node, index);
 	else
-		return;
+		return NULL;
 }
  
 fs_node_t *finddir_fs(fs_node_t *node, char *name)
@@ -47,5 +47,5 @@ fs_node_t *finddir_fs(fs_node_t *node, char *name)
 	if(node->finddir != 0)
 	       return node->finddir(node, name);
 	else
-		return;	
+		return NULL;	
 }

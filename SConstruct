@@ -14,6 +14,7 @@ iso = Builder(action='./makeiso.sh')
 distreq = []
 
 env = Environment(
+	ENV = {'PATH' : os.environ['PATH']},
 	OBJPREFIX='',
 	OBJSUFFIX='.o',
 	SHOBJPREFIX='',
@@ -24,23 +25,17 @@ env = Environment(
 	LIBSUFFIX='.lib',
 	SHLIBPREFIX='',
 	SHLIBSUFFIX='.shl',
-	CC='gcc',
-	CCFLAGS=['-march=pentium', '-O0', '-m32', '-nostdinc', '-fno-stack-protector', '-ffreestanding', '-I', 'include', '-I', 'include/arch/%s' % arch, '-DARCH=\'"%s"\'' % arch, '-D%s' % arch.upper()],
+	CC='i386-dux-pcc',
+	CCFLAGS=['-nostdinc', '-g', '-I', 'include', '-I', 'include/arch/%s' % arch, '-D', '%s' % arch.upper()],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
-	LINK='ld',
-	LINKFLAGS=['-melf_i386', '-nostdlib'],
+	LINK='i386-dux-ld',
+	LINKFLAGS=['-nostdlib'],
 	BUILDERS={'Iso': iso}
 )
 
 if buildtype == 'debug':
-	env.Append(CCFLAGS=['-g', '-DDEBUG'], LINKFLAGS=['-g'])
-
-if ansi == 'yes':
-	env.Append(CCFLAGS=['-ansi'])
-
-if strict == 'yes':
-	env.Append(CCFLAGS=['-Werror'])
+	env.Append(CCFLAGS=['-g', '-D', 'DEBUG'], LINKFLAGS=['-g'])
 
 Export('env', 'arch', 'buildtype', 'distreq')
 
