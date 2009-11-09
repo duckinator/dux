@@ -22,7 +22,7 @@ $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz:
 	(cd $(DOWNLOADS); wget ftp://pcc.ludd.ltu.se/pub/pcc/pcc-$(PCC_VERSION).tgz)
 
 $(DOWNLOADS)/binutils-dux.patch:
-	(cd $(DOWNLOADS); wget https://gist.github.com/raw/229374/a3cf5f477f4c62cd4b7234d6ee51c3f77694cd7b/binutils-dux.patch)
+	(cd $(DOWNLOADS); wget http://gist.github.com/raw/229374/a3cf5f477f4c62cd4b7234d6ee51c3f77694cd7b/binutils-dux.patch)
 
 $(DOWNLOADS)/pcc-dux.patch:
 	(cd $(DOWNLOADS); wget http://gist.github.com/raw/228548/7c846de52862fe5e360278619d69a17ad164370a/pcc-dux.patch)
