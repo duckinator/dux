@@ -17,59 +17,40 @@ static uint8_t row;
 static uint8_t escape;
 static uint8_t escape_attr;
 
+extern struct DisplayDevice VgaDisplayDevice;
+
+struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice };
+
+#define NUM_DISPLAY_DEVICES ( (sizeof(DisplayDeviceList) / sizeof(DisplayDeviceList[0])) )
+
 void HalDisplaySetAttr(uint8_t lattr)
 {
-	attr = lattr;
 }
 
 void HalDisplayClear(void)
 {
 	int i;
-	HalDisplayCursorPosition(0, 0);
-	for (i = 0; i < COLS*ROWS; i++)
-		VideoMemory[i] = CLEAR;
-}
-
-void HalDisplayScroll(void)
-{
-	int i;
-	if (row >= ROWS) {
-		for (i = 0; i < COLS*(ROWS-1); i++) {
-			VideoMemory[i] = VideoMemory[i + COLS];
-		}
-		for (COLS*(ROWS-1); i < COLS*ROWS; i++) {
-			VideoMemory[i] = CLEAR;
-		}
-		row = ROWS-1;
-		col = 0;
+	struct DisplayDevice *Display;
+	
+	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
+		Display = DisplayDeviceList[i];
+		/* don't call NULL function pointers... */
+		if (Display->DisplayClear)
+			Display->DisplayClear();
 	}
 }
 
 void HalDisplayChar(char c)
 {
-	if (c == 0x08) {
-		/* Backspace */
-		col--;
-		PUTSPOT(' ');
-	} else if (c == '\t') {
-		/* Tab */
-		col = ((col + 8 - 8) & ~(8 - 1)) + 8;
-	} else if (c == '\r') {
-		col = 0;
-	} else if (c == '\n') {
-		col = 0;
-		row++;
-	} else if (c >= ' ') {
-		/* Printable */
-		PUTSPOT(c);
-		col++;
+	int i;
+	struct DisplayDevice *Display;
+	
+	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
+		Display = DisplayDeviceList[i];
+		/* don't call NULL function pointers... */
+		if (Display->DisplayChar);
+			Display->DisplayChar(c);
 	}
-
-	if (col >= COLS) {
-		col = 0;
-		row++;
-	}
-	HalDisplayScroll();
 }
 
 void HalDisplayString(char *s)
@@ -81,41 +62,33 @@ void HalDisplayString(char *s)
 
 void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 {
-	PUTSPOT(s);
-	col++;
 }
 
 void HalDisplayHideCursor()
 {
-	HalOutPort(0x3d4, 0x0a);
-	HalOutPort(0x3d5, 1 << 5);
 }
 
 void HalDisplayCursorPosition(int _row, int _col)
 {
-	col = _col;
-	row = _row;
 }
 
 void HalInitDisplay(void)
 {
-	VideoMemory = (uint16_t*) VIDEO_MEMORY;
-	col = 0;
-	row = 0;
-	attr = 0x1f;
-	escape = 0;
-	escape_attr = 0;
-	disp_init = 1;
-	HalDisplayHideCursor();
-	HalDisplayClear();
+	int i;
+	struct DisplayDevice *Display;
+	
+	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
+		Display = DisplayDeviceList[i];
+		/* don't call NULL function pointers... */
+		if (Display->Init)
+			Display->Init();
+	}
 }
 
 void HalDisableDisplay(void)
 {
-	disp_init = 0;
 }
 
 int HalIsDisplayOn(void)
 {
-	return (int) disp_init ? 1 : 0;
 }

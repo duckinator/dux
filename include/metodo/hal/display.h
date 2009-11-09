@@ -1,5 +1,13 @@
 #ifndef DISPLAY_OLOJ4A8Q
 #define DISPLAY_OLOJ4A8Q
+
+struct DisplayDevice {
+	void (*Init) ();
+	void (*DisplayChar) (char c);
+	void (*DisplayClear) ();
+	
+};
+
 void HalDisplaySetAttr(uint8_t lattr);
 void HalDisplayClear(void);
 void HalDisplayScroll(void);
