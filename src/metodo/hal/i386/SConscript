@@ -19,7 +19,8 @@ sources = [
 	'keyboard.c',
 	'timer.c',
 	'mm/memory.c',
-	'vga.c'
+	'vga.c',
+	'serial.c'
 ]
 
 distreq += ['src/metodo/hal/i386/hal.lib']

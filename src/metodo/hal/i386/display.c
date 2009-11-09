@@ -18,8 +18,10 @@ static uint8_t escape;
 static uint8_t escape_attr;
 
 extern struct DisplayDevice VgaDisplayDevice;
+extern struct DisplayDevice UartDisplayDevice;
 
-struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice };
+struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice,
+					      &UartDisplayDevice };
 
 #define NUM_DISPLAY_DEVICES ( (sizeof(DisplayDeviceList) / sizeof(DisplayDeviceList[0])) )
 
