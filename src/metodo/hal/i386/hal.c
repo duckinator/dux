@@ -15,7 +15,8 @@ void HalInit(void)
 	HalInitGDT();
 	HalInitDisplay();
 	
-	printf("Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n\n");
+	printf("Metodo " __DATE__ " " __TIME__ " " SCM_REV "\n\n");
+
 	/*HalInitIDT();
 	HalIsrInstall();
 	HalIrqInstall();
