@@ -29,8 +29,5 @@ tags
 #ignore isofs
 isofs
 
-#ignore local Makefiles
-Makefile
-
 #ignore buildid
 include/buildid.h
