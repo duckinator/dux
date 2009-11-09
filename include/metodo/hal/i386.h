@@ -60,8 +60,12 @@ void HalInitIDT(void);
 void HalSetIDTGate(IN size_t n, IN uint32_t offset, IN uint16_t selector, IN uint8_t priv, IN uint8_t sys, IN uint8_t gatetype);
 
 /* Ports */
-inline void HalOutPort(uint16_t port, uint8_t val);
-inline uint8_t HalInPort(uint16_t port);
+void HalOutPort(uint16_t port, uint8_t val);
+uint8_t HalInPort(uint16_t port);
+void HalOutPortWord(uint16_t port, uint16_t val);
+uint16_t HalInPortWord(uint16_t port);
+void HalOutPortLong(uint16_t port, uint32_t val);
+uint32_t HalInPortLong(uint16_t port);
 
 /* Interrupts */
 void HalDisableInterrupts(void);
