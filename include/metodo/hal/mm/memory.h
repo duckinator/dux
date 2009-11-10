@@ -13,7 +13,7 @@ typedef struct {
 	unsigned int attributeindex : 1;
 	unsigned int global : 1;
 	unsigned int reserved : 3;
-	unsigned int address : 19;
+	unsigned int address : 20;
 } PageTableEntry;
 
 typedef struct {
@@ -27,7 +27,7 @@ typedef struct {
 	unsigned int pagesize : 1;
 	unsigned int global : 1;
 	unsigned int reserved : 3;
-	unsigned int address : 19;
+	unsigned int address : 20;
 } PageDirEntry;
 
 #define MALLOC_ALIGN 1
