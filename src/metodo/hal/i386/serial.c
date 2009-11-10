@@ -32,6 +32,13 @@ enum UART_Registers {
 
 void UartSend(char c)
 {
+	if (c == '\n')
+		UartSend_int('\r');
+	UartSend_int(c);
+}
+
+static void UartSend_int(char c)
+{
 	/* wait until UART is ready to send */
 	while ((HalInPort(UART_BASE_REGISTER + LineStatus) & THRE) == 0);
 
