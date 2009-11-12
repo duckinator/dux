@@ -1,30 +1,25 @@
 #include <metodo/metodo.h>
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
-int m_printn(OUT char *str, IN int maxlen, IN int len, IN int n,
+int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 		IN int base, IN int size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
 	char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int i = 0;
+	signed int signed_n = (signed int) n;
 
 	/* Preprocess the flags. */
 
 	if (flags & TF_SMALL)
 		digits = "0123456789abcdefghijklmnopqrstuvwxyz";
 
-	if (flags & TF_SIGN)
-		if (n < 0) {
-			sign = '-';
-			n = -n;
-		} else if (n >= 0) {
-			if (flags & TF_SIGN)
-				sign = '+';
-			if (flags & TF_SIGN
-			    && flags & TF_SPACE
-			    && ~(flags & TF_PLUS))
-				sign = ' ';
-		}
+	if (!(flags & TF_UNSIGNED) && signed_n < 0) {
+		sign = '-';
+		n = -signed_n;
+	} else if (flags & TF_EXP_SIGN) {
+		sign = '+';
+	}
 
 	if (sign)
 		size--;
@@ -71,7 +66,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN int n,
 		}
 
 	if (sign)
-		*str++ = sign;
+		str[len++] = sign;
 
 	/* Write any zeros to satisfy the precision. */ 
 	while (i < precision--)
@@ -239,7 +234,7 @@ reset:
 			flags |= TF_SPACE;
 			goto reset;
 		case '+':
-			flags |= TF_SIGN;
+			flags |= TF_EXP_SIGN;
 			goto reset;
 		}
 
