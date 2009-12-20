@@ -34,7 +34,7 @@ mkdir -p isofs/System
 cp src/metodo/metodo.exe isofs/System/
 cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
-cp tools/initrd.img isofs/System/
+cp tools/initrd/initrd.img isofs/System/
 
 rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
