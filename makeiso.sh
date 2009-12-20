@@ -39,11 +39,16 @@ cp tools/initrd.img isofs/System/
 rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
 echo "default 0" > isofs/boot/grub/menu.lst
-echo "timeout 1" >> isofs/boot/grub/menu.lst
+echo "timeout 3" >> isofs/boot/grub/menu.lst
+# metodo
 echo "title Metodo Dux" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
-# Uncomment the following 3 lines when we have the userland in place
+# metodo + userland
 echo "title Metodo Dux with Userland" >> isofs/boot/grub/menu.lst
+echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
+echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
+# metodo + userland + initrd
+echo "title Metodo Dux with Userland and initrd" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/initrd.img" >> isofs/boot/grub/menu.lst
