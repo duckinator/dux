@@ -31,3 +31,6 @@ isofs
 
 #ignore buildid
 include/buildid.h
+
+#ignore make_initrd executable
+tools/make_initrd
