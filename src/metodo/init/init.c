@@ -39,7 +39,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
 			}
 			if(strcmp((char*)(module->string), "/System/initrd.img") == 0){
 				ramdisk = (void*) module->mod_start;
-				printf("\nFound fs_root at: 0x %x\n\n", ramdisk);
+				printf("\nFound fs_root at: 0x%x\n\n", ramdisk);
 				fs_root = initialise_initrd((uint32_t)module->mod_start);
 			}
 		}
@@ -57,23 +57,27 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
   	struct dirent *node = 0;
   	while ( (node = readdir_fs(fs_root, i)) != 0)
   	{
-  		printf("Found file: %s\n", node->name);
-  		fs_node_t *fsnode = finddir_fs(fs_root, node->name);
+      if ( strlen(node->name) == 0) {
+        printf("Why did I find an empty filename?\n");
+      } else {
+    		printf("Found file: %s\n", node->name);
+    		fs_node_t *fsnode = finddir_fs(fs_root, node->name);
 
-  		if((fsnode->flags&0x7) == FS_DIRECTORY)
-  			printf("\tIt's a directory!\n");
-		  else
-  		{
-  			printf("\tContents: ");
-  			char *buf;
-  			uint32_t size = read_fs(fsnode, 0, 512, buf);
-  			printf("%s\n", buf);
+    		if((fsnode->flags&0x7) == FS_DIRECTORY)
+    			printf("\tIt's a directory!\n");
+  		  else
+    		{
+    			printf("\tContents: ");
+    			char *buf;
+    			uint32_t size = read_fs(fsnode, 0, 512, buf);
+    			printf("%s\n", buf);
+    		}
   		}
   		i++;
   	}
   	printf("fs_root test over\n");
   }
-			//ohi	
+
 	/* Initialize pseudo-user mode */
 /*	printf("Loading userland...\n");
 	if (userland != NULL)
