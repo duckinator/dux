@@ -33,4 +33,4 @@ isofs
 include/buildid.h
 
 #ignore make_initrd executable
-tools/make_initrd
+tools/initrd/make_initrd
