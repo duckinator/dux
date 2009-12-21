@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <metodo/hal/hal.h>
 
 #define COLS (80)
 #define ROWS (25)

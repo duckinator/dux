@@ -23,5 +23,6 @@ void HalBreak(void);
 void HalShutdown(void);
 void HalReboot(void);
 int HalIsDisplayOn(void);
+void HalDisplayChar(char c);
 
 #endif /* end of include guard: HAL_VP4F7OUG */

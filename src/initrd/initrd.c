@@ -36,7 +36,7 @@ static struct dirent *initrd_readdir(fs_node_t *node, uint32_t index)
 
 	if (index-1 >= nroot_nodes)
 		return 0;
-	//strcpy(dirent.name, root_nodes[index-1].name);
+	strcpy(dirent.name, root_nodes[index-1].name);
 	dirent.name[strlen(root_nodes[index-1].name)] = 0; //Null terminate.
 	dirent.ino = root_nodes[index-1].inode;
 	return &dirent;
