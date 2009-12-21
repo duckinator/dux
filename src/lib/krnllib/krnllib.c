@@ -2,14 +2,22 @@
 
 #include <stdint.h>
 
-void puts ( char *str )
+
+void putc ( char c )
 {
-	// Call syscall 0 (printk) with str as the arg
+	// Call syscall 0 (HalDisplayChar) with c as the arg
 	__asm__ __volatile__ (" \
 			mov $0, %%eax; \
 			mov %0, %%ebx; \
 			int $0x80; \
-			" : : "m" (str) : "eax", "ebx");
+			" : : "m" (c) : "eax", "ebx");
+}
+
+void puts ( char *s )
+{
+	do {
+		putc(*s);
+	} while (*s++);
 }
 
 void puthex ( uint32_t num )
