@@ -34,3 +34,6 @@ include/buildid.h
 
 #ignore make_initrd executable
 tools/initrd/make_initrd
+
+#ignore initrd.img
+tools/initrd/initrd.img
