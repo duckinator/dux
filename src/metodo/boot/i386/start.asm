@@ -26,7 +26,7 @@ gdt_code:
 	dw 0         ; first 16 bits of base address
 	db 0         ; next 8 bits of base address
 	db 10011010b ; code segment, readable, nonconforming
-	db 11001111b ; ganular, last 3 bits of segment limiter
+	db 11001111b ; ganular, last 4 bits of segment limiter
 	db 0         ; final 8 bits of base address
  
 gdt_data:
@@ -36,7 +36,23 @@ gdt_data:
 	db 10010010b	; data segment, writable, extends downwards
 	db 11001111b	; big
 	db 0		; final 8 bits of base address
- 
+
+gdt_user_code:   ; user mode code segment
+    dw 0xFFFF
+    dw 0
+    db 0
+    db 11111010b
+    db 11001111b
+    db 0
+
+gdt_user_data:   ; user mode data segment
+    dw 0xFFFF
+    dw 0
+    db 0
+    db 11110010b
+    db 11001111b
+    db 0
+
 gdt_end:
  
 gdt_desc:
