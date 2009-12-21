@@ -32,7 +32,6 @@ void ULMonitorWriteDec(uint32_t text)
 
 void *malloc(unsigned int size, unsigned int flags)
 {
-     return printf("malloccalled");
 	return kmalloc_int(size, flags);
 }
 
