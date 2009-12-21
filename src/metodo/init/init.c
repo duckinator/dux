@@ -85,4 +85,5 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
 		LoadUserland(userland);
 	else
 		KrnlEasyStop(STOP_NO_USERLAND);
-	while(1);}
+	while(1);
+}
