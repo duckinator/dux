@@ -13,6 +13,7 @@ unsigned int placement = 0;
  */
 void *kmalloc_int(unsigned int size, unsigned int flags)
 {
+     printf("kmalloc_int called\n");
 	unsigned int tmp;
 
 	// Initialize if needed.

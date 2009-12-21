@@ -16,10 +16,10 @@ pre:
 	touch pre
 
 $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2:
-	(cd $(DOWNLOADS); wget http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
+	(cd $(DOWNLOADS); wget http://localhost/binutils-2.20.tar.bz2)
 
 $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz:
-	(cd $(DOWNLOADS); wget ftp://pcc.ludd.ltu.se/pub/pcc/pcc-$(PCC_VERSION).tgz)
+	(cd $(DOWNLOADS); wget http://pcc.ludd.ltu.se/ftp/pub/pcc/pcc-$(PCC_VERSION).tgz)
 
 $(DOWNLOADS)/binutils-dux.patch:
 	(cd $(DOWNLOADS); wget http://gist.github.com/raw/229374/a3cf5f477f4c62cd4b7234d6ee51c3f77694cd7b/binutils-dux.patch)

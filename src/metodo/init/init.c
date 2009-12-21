@@ -35,12 +35,13 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
 			if (strcmp((char*)(module->string), "/System/userland") >= 0){
 				userland = (void*) module->mod_start;
 				printf("\nUserland located at: 0x%x\n\n", userland);
-				asm("hlt");
+				//asm("hlt");
 			}
 			if(strcmp((char*)(module->string), "/System/initrd.img") == 0){
 				ramdisk = (void*) module->mod_start;
 				printf("\nFound fs_root at: 0x%x\n\n", ramdisk);
-				fs_root = initialise_initrd((uint32_t)module->mod_start);
+			fs_root = initialise_initrd((uint32_t)module->mod_start);
+                printf ("fs_root = 0x%x\n\n", fs_root);
 			}
 		}
 	}
@@ -59,7 +60,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
   	{
       if ( strlen(node->name) == 0) {
         printf("Why did I find an empty filename?\n");
-      } else {
+      } else if (node->ino == 5) { printf("Something is going terribly wrong\n");} else {
     		printf("Found file: %s\n", node->name);
     		fs_node_t *fsnode = finddir_fs(fs_root, node->name);
 
@@ -79,9 +80,9 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
   }
 
 	/* Initialize pseudo-user mode */
-/*	printf("Loading userland...\n");
+	printf("Loading userland...\n");
 	if (userland != NULL)
 		LoadUserland(userland);
 	else
-		KrnlEasyStop(STOP_NO_USERLAND);*/
+		KrnlEasyStop(STOP_NO_USERLAND);
 	while(1);}

@@ -1,4 +1,5 @@
 #include <lib/krnllib.h>
+#include <system.h>
 
 void _start(void)
 {
@@ -14,6 +15,7 @@ void _start(void)
 
 int main(int argc, char const* argv[])
 {
+     shutdown();
 	clear_screen();
 	puthex(1024);
 	puts("\n");
