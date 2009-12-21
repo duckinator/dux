@@ -28,7 +28,7 @@ static struct dirent *initrd_readdir(fs_node_t *node, uint32_t index)
 {
 	if(node == initrd_root && index == 0)
 	{
-		//strcpy(dirent.name, "dev");
+		strcpy(dirent.name, "dev");
 		dirent.name[3] = 0;
 		dirent.ino = 0;
 		return &dirent;
@@ -61,7 +61,7 @@ fs_node_t *initialise_initrd(uint32_t location)
 	initrd_header->filecount = 2;
 	file_headers = (InitRd_File_Header_t *) (location+sizeof(InitRd_File_Header_t));
 	initrd_root = (fs_node_t *)malloc(sizeof(fs_node_t));
-	//strcpy(initrd_root->name, "INITRD");
+	strcpy(initrd_root->name, "INITRD");
 	initrd_root->inode = initrd_root->length = 0;
    	initrd_root->flags = FS_DIRECTORY;
    	initrd_root->read = 0;
@@ -73,7 +73,7 @@ fs_node_t *initialise_initrd(uint32_t location)
 	initrd_root->ptr = 0;
 
 	initrd_dev = (fs_node_t*)malloc(sizeof(fs_node_t));
-   	//strcpy(initrd_dev->name, "dev");
+   	strcpy(initrd_dev->name, "dev");
    	initrd_dev->inode = initrd_dev->length = 0;
    	initrd_dev->flags = FS_DIRECTORY;
    	initrd_dev->read = 0;
@@ -89,7 +89,7 @@ fs_node_t *initialise_initrd(uint32_t location)
 	for (i = 0; i < initrd_header->filecount; i++)
 	{
 		file_headers[i].offset += location;
-		//strcpy(root_nodes[i].name, file_headers[i].name);
+		strcpy(root_nodes[i].name, file_headers[i].name);
 		root_nodes[i].length = file_headers[i].size;
 		root_nodes[i].inode = i;
 		root_nodes[i].flags = FS_FILE;

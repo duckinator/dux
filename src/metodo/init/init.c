@@ -60,7 +60,8 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
   	{
       if ( strlen(node->name) == 0) {
         printf("Why did I find an empty filename?\n");
-      } else if (node->ino == 5) { printf("Something is going terribly wrong\n");} else {
+      } 
+      else {
     		printf("Found file: %s\n", node->name);
     		fs_node_t *fsnode = finddir_fs(fs_root, node->name);
 
