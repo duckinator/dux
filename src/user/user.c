@@ -3,6 +3,7 @@
 
 void _start(void)
 {
+	clear_screen();
 	const char *argv[1] = {
 		"user"
 	};
@@ -13,11 +14,6 @@ void _start(void)
 
 int main(int argc, char const* argv[])
 {
-	clear_screen();
-	puthex(1024);
-	puts("\n");
-	putdec(1024);
-	puts("\n");
-	puts("ohi");
+	printf("Hi!\n%x\n%i", 1024, 1024);
 	return 0;
 }

@@ -9,7 +9,7 @@
 #define NOTHING
 
 
-
+void putc ( char c );
 void puts ( char *str );
 void puthex ( uint32_t num );
 void putdec ( uint32_t num );

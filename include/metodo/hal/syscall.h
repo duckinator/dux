@@ -63,7 +63,7 @@ int HalSyscall_##fn(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) \
  return a; \
 }
 
-DECL_SYSCALL1(ULMonitorWrite, const char*)
+DECL_SYSCALL1(ULMonitorWriteChar, const char c)
 DECL_SYSCALL1(ULMonitorWriteHex, const uint32_t)
 DECL_SYSCALL1(ULMonitorWriteDec, const uint32_t) 
 DECL_SYSCALL0(ULShutdown)

@@ -15,9 +15,9 @@ void ULReboot(void)
 	CoShutdown(SD_REBOOT);
 }
 
-void ULMonitorWriteStr(char *text)
+void ULMonitorWriteChar(char c)
 {
-	printf("%s", text);
+	printf("%c", c);
 }
 
 void ULMonitorWriteHex(uint32_t text)
@@ -36,7 +36,7 @@ void *malloc(unsigned int size, unsigned int flags)
 	return kmalloc_int(size, flags);
 }
 
-DEFN_SYSCALL1(ULMonitorWriteStr, 0, const char*);
+DEFN_SYSCALL1(ULMonitorWriteChar, 0, const char);
 DEFN_SYSCALL1(ULMonitorWriteHex, 1, const uint32_t); // hex
 DEFN_SYSCALL1(ULMonitorWriteDec, 2, const uint32_t); // dec
 DEFN_SYSCALL0(ULShutdown,        3);
@@ -45,7 +45,7 @@ DEFN_SYSCALL0(HalDisplayClear,   5);
 DEFN_SYSCALL2(malloc, 6, unsigned int, unsigned int);
 static void *syscalls[7] =
 {
-	&ULMonitorWriteStr,
+	&ULMonitorWriteChar,
 	&ULMonitorWriteHex,
 	&ULMonitorWriteDec,
 	&ULShutdown,
