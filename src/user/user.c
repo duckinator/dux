@@ -13,7 +13,10 @@ void _start(void)
 
 int main(int argc, char const* argv[])
 {
-	clear_screen();
+     clear_screen();
+     puts("So yes. Hi.\n");
+     malloc(30,1);
+
 	puthex(1024);
 	puts("\n");
 	putdec(1024);
