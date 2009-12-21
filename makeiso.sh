@@ -52,4 +52,5 @@ echo "title Metodo Dux with Userland and initrd" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/initrd.img" >> isofs/boot/grub/menu.lst
-$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o Dux.iso isofs
+mkdir -p iso
+$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o iso/Dux.iso isofs

@@ -42,4 +42,4 @@ Export('env', 'arch', 'buildtype', 'distreq')
 
 SConscript('src/SConscript')
 
-env.Iso('Dux.iso', distreq)
+env.Iso('iso/Dux.iso', distreq)
