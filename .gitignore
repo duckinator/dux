@@ -37,3 +37,19 @@ tools/initrd/make_initrd
 
 #ignore initrd.img
 tools/initrd/initrd.img
+tools/cross/binutils-2.20/
+tools/cross/binutils-build/
+tools/cross/binutils/
+tools/cross/pcc-091107/
+tools/cross/pcc-build/
+
+src/metodo/init/cscope.out
+tools/cross/binutils
+tools/cross/downloads/binutils-2.20.tar.bz2
+tools/cross/downloads/binutils-dux.patch
+tools/cross/downloads/pcc-091107.tgz
+tools/cross/downloads/pcc-dux.patch
+tools/cross/pcc
+tools/cross/pre
+/cscope.files
+/cscope.out
