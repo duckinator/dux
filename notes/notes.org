@@ -32,7 +32,7 @@ spaces.
 First thing that needs done is setting up grub. [fn:1] Dux loads
 directly, no _grub_ chain loading. [fn:2] Because dux is multiboot
 complient [fn:3]the very first bit of asm after declaring a few external
-functions is the multiboot header. 
+functions is the multiboot header.
 
 *** Multiboot complience
     Multiboot complience means including an additional header within the
@@ -41,6 +41,8 @@ functions is the multiboot header.
     required [[magic field][magic]], flags, and checksum. [fn:5] Flags is 32 bits used to
     indicate requirements to the bootloader.[fn:4] Read up on the rest.
 
+*** ASM Refresher
+    20 basic instruction classes explained in [[http://maven.smith.edu/~thiebaut/ArtOfAssembly/CH03/CH03-3.html#HEADING3-37][Art of Assembly language]]
 
 * Terms
   - <<<longword>>> :: 32 bit aligned
@@ -62,3 +64,4 @@ functions is the multiboot header.
 [fn:5] checksum's against the other two required flags 
 =-(MAGIC + FLAGS)=
 
+*ni
