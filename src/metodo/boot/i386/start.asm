@@ -1,6 +1,6 @@
 global _start		; making entry point visible to linker
-extern InInitKernel		; InInitKernel is defined elsewhere
-extern HalInitIDT		; HalIdtInit is defined elsewhere
+extern InInitKernel	; Defined in init/init.c
+extern HalInitIDT	; Defined in hal/i386/idt.c
  
 ; setting up the Multiboot header - see GRUB docs for details
 MODULEALIGN equ  1<<0			; align loaded modules on page boundaries
@@ -15,7 +15,7 @@ MultiBootHeader:
 	dd MAGIC
 	dd FLAGS
 	dd CHECKSUM
- 
+
 gdt:
  
 gdt_null:
