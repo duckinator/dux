@@ -1,4 +1,4 @@
-
+#+LINK: grub http://www.gnu.org/software/grub/manual/html_node/
 
 First file to look at:
 
@@ -26,3 +26,39 @@ Make sure your indention is set to use tabs for C mode instead of
 spaces.
 
  : (add-hook 'c-mode-hook (lambda () (setq indent-tabs-mode t)))
+
+
+* start.asm
+First thing that needs done is setting up grub. [fn:1] Dux loads
+directly, no _grub_ chain loading. [fn:2] Because dux is multiboot
+complient [fn:3]the very first bit of asm after declaring a few external
+functions is the multiboot header. 
+
+*** Multiboot complience
+    Multiboot complience means including an additional header within the
+    _first_ 8192 bytes of the OS image that is longword aligned. The
+    header layout is specified at [[http://www.gnu.org/software/grub/manual/multiboot/multiboot.html#Header-layout][header layout]]. Three of the fields are
+    required [[magic field][magic]], flags, and checksum. [fn:5] Flags is 32 bits used to
+    indicate requirements to the bootloader.[fn:4] Read up on the rest.
+
+
+* Terms
+  - <<<longword>>> :: 32 bit aligned
+  - <<<magic field>>> :: 0x1BADB002 used to identify the multiboot
+       header. This is offset 0.
+
+
+* Footnotes
+
+[fn:1] Grub docs at http://www.fifi.org/doc/grub-doc/html/grub.html#SEC_Top
+
+[fn:2] Multi-boot according to duckinator is described in 
+[[http://www.gnu.org/software/grub/manual/html_node/Loading-an-operating-system-directly.html][Loading-an-operating-system-directly]].
+
+[fn:3] [[http://www.gnu.org/software/grub/manual/multiboot/multiboot.html][Multiboot specifiction]]
+
+[fn:4] Dux asks for =MODULEALIGN | MEMINFO=
+
+[fn:5] checksum's against the other two required flags 
+=-(MAGIC + FLAGS)=
+
