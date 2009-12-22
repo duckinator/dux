@@ -1,0 +1,92 @@
+                         First file to look at:
+                         ======================
+
+Author:  <james@lappy>
+Date: 2009-12-22 03:50:45 Local time zone must be set--see zic manual page
+
+
+
+<duckinator> nixeagle: src/metodo/init/init.c
+
+
+Table of Contents
+=================
+1 Build 
+2 Emacs 
+3 start.asm 
+    3.1 Multiboot complience 
+4 Terms 
+
+
+1 Build 
+~~~~~~~~
+make cross compiler
+ cd tools/cross;make;cd -
+
+run kernel
+ cd ../../;scons;./run.sh
+
+Don't forget to read [http://wiki.github.com/RockerMONO/dux/compiling]
+
+ export  ~/duxcc:~/duxcc/bin:~/duxincludes
+
+Export these to your path, using zsh the command is:
+ path=( ~/duxcc ~/duxcc/bin ~/duxincludes $path)
+Be sure to put this in your ~/.zshenv
+
+
+2 Emacs 
+~~~~~~~~
+Make sure your indention is set to use tabs for C mode instead of
+spaces.
+
+ (add-hook 'c-mode-hook (lambda () (setq indent-tabs-mode t)))
+
+
+3 start.asm 
+~~~~~~~~~~~~
+First thing that needs done is setting up grub. [1] Dux loads
+directly, no _grub_ chain loading. [2] Because dux is multiboot
+complient [3]the very first bit of asm after declaring a few external
+functions is the multiboot header. 
+
+3.1 Multiboot complience 
+=========================
+    Multiboot complience means including an additional header within the
+    _first_ 8192 bytes of the OS image that is [longword] aligned. The
+    header layout is specified at [header layout]. Three of the fields are
+    required [magic], flags, and checksum. [4] Flags is 32 bits used to
+    indicate requirements to the bootloader.[5] Read up on the rest.
+
+
+
+    [header layout]: http://www.gnu.org/software/grub/manual/multiboot/multiboot.html#Header-layout
+    [magic]: magic field
+
+4 Terms 
+~~~~~~~~
+  longword: 32 bit aligned
+  magic field: 0x1BADB002 used to identify the multiboot
+       header. This is offset 0.
+
+
+
+
+
+[1] Grub docs at [http://www.fifi.org/doc/grub-doc/html/grub.html#SEC\_Top]
+
+[2] Multi-boot according to duckinator is described in 
+[Loading-an-operating-system-directly].
+
+[3] [Multiboot specifiction]
+
+[4] checksum's against the other two required flags 
+`-(MAGIC + FLAGS)'
+
+[5] Dux asks for `MODULEALIGN | MEMINFO'
+
+
+[http://www.fifi.org/doc/grub-doc/html/grub.html#SEC\_Top]: http://www.fifi.org/doc/grub-doc/html/grub.html#SEC_Top
+[Loading-an-operating-system-directly]: http://www.gnu.org/software/grub/manual/html_node/Loading-an-operating-system-directly.html
+[Multiboot specifiction]: http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+
