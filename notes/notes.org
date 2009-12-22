@@ -28,6 +28,17 @@ spaces.
  : (add-hook 'c-mode-hook (lambda () (setq indent-tabs-mode t)))
 
 
+* Debug
+*** Howto use GDB and bochs
+    Thanks to scott for the following bochs instructions. Not 100%
+    positive this works with dux yet.
+
+    1. compile bochs with --enable-gdb-stub
+    2. In bochsrc add:
+    : gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0
+    3. in gdb
+    : target remote :1234
+
 * start.asm
 First thing that needs done is setting up grub. [fn:1] Dux loads
 directly, no _grub_ chain loading. [fn:2] Because dux is multiboot
