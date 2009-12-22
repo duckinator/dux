@@ -16,7 +16,7 @@ pre:
 	touch pre
 
 $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2:
-	(cd $(DOWNLOADS); wget http://localhost/binutils-2.20.tar.bz2)
+	(cd $(DOWNLOADS); wget http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
 
 $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz:
 	(cd $(DOWNLOADS); wget http://pcc.ludd.ltu.se/ftp/pub/pcc/pcc-$(PCC_VERSION).tgz)
