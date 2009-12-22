@@ -1,0 +1,28 @@
+
+
+First file to look at:
+
+<duckinator> nixeagle: src/metodo/init/init.c
+
+
+* Build
+make cross compiler
+ : cd tools/cross;make;cd -
+
+run kernel
+ : cd ../../;scons;./run.sh
+
+Don't forget to read http://wiki.github.com/RockerMONO/dux/compiling
+
+ : export  ~/duxcc:~/duxcc/bin:~/duxincludes
+
+Export these to your path, using zsh the command is:
+ : path=( ~/duxcc ~/duxcc/bin ~/duxincludes $path)
+Be sure to put this in your ~/.zshenv
+
+
+* Emacs
+Make sure your indention is set to use tabs for C mode instead of
+spaces.
+
+ : (add-hook 'c-mode-hook (lambda () (setq indent-tabs-mode t)))
