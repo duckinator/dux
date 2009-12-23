@@ -61,6 +61,10 @@ functions is the multiboot header.
        header. This is offset 0.
 
 
+
+* notes
+Memory upper bound:
+  :  mbd->mem_upper*1024
 * Footnotes
 
 [fn:1] Grub docs at http://www.fifi.org/doc/grub-doc/html/grub.html#SEC_Top
