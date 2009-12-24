@@ -3,6 +3,8 @@
 #include <metodo/metodo.h>
 #include <metodo/stop.h>
 
+#include <metodo/hal/mm/memory.h>
+
 #include <multiboot.h>
 
 #include <buildid.h>
@@ -10,12 +12,14 @@
 #include <initrd/initrd.h>
 #include <string.h>
 
-void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
+void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
 	void *ramdisk = NULL;
 	fs_node_t *fs_root;
 	//char *str = "Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n";
+
+	*mbd = *multiboot;
 
 	HalInit();
 	//HalDisplayString(str);
@@ -80,11 +84,18 @@ void InInitKernel(uint32_t magic, multiboot_info_t *mbd)
   	printf("fs_root test over\n");
   }
 
+	printf("end_memory: %i (0x%x)\n", end_memory, end_memory);
+
+	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);
+
 	/* Initialize pseudo-user mode */
-	printf("Loading userland...\n");
-	if (userland != NULL)
+	if (userland != NULL) {
+		printf("Loading userland...\n");
 		LoadUserland(userland);
-	else
-		KrnlEasyStop(STOP_NO_USERLAND);
+		printf("Why yes, that is a black hole that flew out of userland...\n");
+	}	else {
+		printf("Interesting, no userland");
+		//KrnlEasyStop(STOP_NO_USERLAND);
+	}
 	while(1);
 }
