@@ -19,6 +19,7 @@ SConscript('misc/SConscript')
 sources += [
 	'init/init.c',
 	'init/elfloader.c',
+	'init/tests.c',
 	'lib/zeromemory.c',
 	'lib/string.c'
 ]
