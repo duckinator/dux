@@ -3,6 +3,8 @@
 #include <metodo/hal/mm/memory.h>
 #include <metodo/misc.h>
 
+extern int printf(IN const char *fmt, ...);
+
 extern unsigned int end;
 unsigned int placement = 0;
 
