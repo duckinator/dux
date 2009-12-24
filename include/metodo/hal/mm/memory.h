@@ -39,4 +39,6 @@ void *kmalloc_int(unsigned int size, unsigned int flags);
 void init_mm();
 unsigned int test_frame(unsigned int addr);
 
+unsigned int end_memory;
+
 #endif /* end of include guard: MEMORY_WCZWHBJM */

@@ -1,8 +1,7 @@
 #include <system.h>
+#include <metodo/metodo.h>
 #include <metodo/hal/mm/memory.h>
 #include <metodo/misc.h>
-
-#define END_MEMORY 0x1000000
 
 extern unsigned int end;
 unsigned int placement = 0;
@@ -68,7 +67,7 @@ unsigned int first_frame()
 {
 	unsigned int i;
 
-	for (i = 0; i < END_MEMORY; i+=0x1000) {
+	for (i = 0; i < end_memory; i+=0x1000) {
 		if (!test_frame(i)) {
 			return i;
 		}
@@ -145,11 +144,13 @@ void idmap_page_table(PageTableEntry* page_table, unsigned int address)
 void init_mm()
 {
 	PageTableEntry* page_table;
+
+	end_memory = mbd->mem_upper*1024;
 	
 	// Memory is assumed to be 16 MB.
-	// TODO: Double check if kmalloc_int(END_MEMORY/0x1000, NULL) is correct. Assumed it's not at the moment
-	frames = (unsigned int*) kmalloc_int(END_MEMORY/0x1000, 0);
-	memset(frames, 0, END_MEMORY/0x1000/8);
+	// TODO: Double check if kmalloc_int(end_memory/0x1000, NULL) is correct. Assumed it's not at the moment
+	frames = (unsigned int*) kmalloc_int(end_memory/0x1000, 0);
+	memset(frames, 0, end_memory/0x1000/8);
 
 	// Create page directory
 	cur_page_directory = (PageDirEntry*) kmalloc_int(sizeof(PageDirEntry)*1024, MALLOC_ALIGN);
@@ -172,3 +173,4 @@ void init_mm()
 	cr0 |= 0x80000000;
 	asm volatile("mov %0, %%cr0":: "b"(cr0));
 }
+

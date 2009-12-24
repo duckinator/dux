@@ -22,4 +22,8 @@
 
 #include <metodo/misc.h>
 
+#include <multiboot.h>
+
+multiboot_info_t *mbd;
+
 #endif /* end of include guard: METODO_IIXETUDY */
