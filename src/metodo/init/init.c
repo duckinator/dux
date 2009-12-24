@@ -19,9 +19,12 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	fs_node_t *fs_root;
 	//char *str = "Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n";
 
+	HalInit();
+
 	*mbd = *multiboot;
 
-	HalInit();
+	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);	
+
 	//HalDisplayString(str);
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
@@ -86,7 +89,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 
 	printf("end_memory: %i (0x%x)\n", end_memory, end_memory);
 
-	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);
+	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);	
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
