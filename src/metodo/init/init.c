@@ -19,11 +19,41 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	fs_node_t *fs_root;
 	//char *str = "Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n";
 
-	HalInit();
-
 	*mbd = *multiboot;
 
-	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);	
+	HalInit();
+
+	int bytes = mbd->mem_upper*1024;
+	char *ext;
+	int last;
+	int exp = 0;
+	while(1) {
+		if ( bytes >= 1 ) {
+			exp += 3;
+			last = bytes;
+			bytes /= 1024;
+		} else {
+			bytes = last;
+			exp -= 3;
+			break;
+		}
+	}
+
+	switch(exp) {
+	case 0:
+		ext = " bytes";
+		break;
+	case 3:
+		ext = "KB";
+		break;
+	case 6:
+		ext = "MB";
+		break;
+	case 9:
+		ext = "GB";
+		break;
+	}
+	printf("We have %d%s of RAM\n", bytes, ext);
 
 	//HalDisplayString(str);
 
@@ -52,7 +82,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 			}
 		}
 	}
-	char *panicmsg;
+
 	printf("Beginning memory management test:\n");
 	printf("First free frame:  %i\n", first_frame());
 	printf("Allocating frame at %i\n", first_frame());
@@ -67,7 +97,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
   	{
       if ( strlen(node->name) == 0) {
         printf("Why did I find an empty filename?\n");
-      } 
+      }
       else {
     		printf("Found file: %s\n", node->name);
     		fs_node_t *fsnode = finddir_fs(fs_root, node->name);
@@ -86,10 +116,6 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
   	}
   	printf("fs_root test over\n");
   }
-
-	printf("end_memory: %i (0x%x)\n", end_memory, end_memory);
-
-	printf("mbd: %x; multiboot: %x\n", *mbd, *multiboot);	
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
