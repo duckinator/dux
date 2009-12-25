@@ -1,0 +1,17 @@
+Basic idea for the kernel design:
+
+16 bit bootloader
+       |
+  32bit check
+    /      \
+no 32bit   32bit
+   |          \
+16bit PC     32bit or higher PC, load portion for 32bit *and up*
+               |
+             64bit check
+             /         \
+          no 64bit    64bit
+             |            \
+         32bit PC        64bit (or higher) PC
+
+This could (theoretically) be used for any number of bits that x86 supports (128bit?)
