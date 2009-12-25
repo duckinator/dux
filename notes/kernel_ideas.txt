@@ -15,3 +15,16 @@ no 32bit   32bit
          32bit PC        64bit (or higher) PC
 
 This could (theoretically) be used for any number of bits that x86 supports (128bit?)
+
+
+List of registers from http://en.wikipedia.org/wiki/X86 and scott's brain (May not contain all of them):
+16bit registers: AX, BX, CX, DX, CS, DS, SS, ES, SP, BP, SI, DI, IP, AH, AL, BH, BL, CH, CL, DH, DL, IP, FLAGS
+32bit registers: 16bit registers + EAX, EBX, ECX, EDX, EFLAGS
+64bit registers: 32bibt registers + RAX, RBX, RCX, RDX, RFLAGS, RIP, R8, R9, R10, R11, R12, R13, R14, R15
+
+
+Steps:
+1) We assume 16bit to start with
+2) Check for EAX - if it exists, it is *at least* 32bit
+3) Check for RAX - if it exists, it is *at least* 64bit
+4) Go with the highest available (16bit if no EAX, 32bit if EAX but not RAX) and load that version of the kernel
