@@ -3,8 +3,6 @@
 #include <metodo/hal/mm/memory.h>
 #include <metodo/misc.h>
 
-extern int printf(IN const char *fmt, ...);
-
 extern unsigned int end;
 unsigned int placement = 0;
 
@@ -18,10 +16,13 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 
 	// Initialize if needed.
 	if (placement == 0)
-		placement = end;
+		placement = &end;
 
 	// Align on a page if needed.
-	if ((flags & MALLOC_ALIGN) && (placement & 0xfffff000)) {
+/* The following line was this, but meteger said to invert the bitmask in the check:
+ *	if ((flags & MALLOC_ALIGN) && (placement & 0xfffff000)) {
+*/
+	if ((flags & MALLOC_ALIGN) && (placement & 0x0fff)) {
 		placement &= 0xfffff000;
 		placement += 0x1000;
 	}
