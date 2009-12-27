@@ -54,6 +54,22 @@ gdt_data:
 	db 11001111b
 	db 0x0
 
+gdt_user_code:
+	dw 0xffff
+	dw 0x0
+	db 0x0
+	db 11111010b
+	db 11001111b
+	db 0x0
+
+gdt_user_data:
+	dw 0xffff
+	dw 0x0
+	db 0x0
+	db 11110010b
+	db 11001111b
+	db 0x0
+
 gdt_end:
 
 gdt_desc:
