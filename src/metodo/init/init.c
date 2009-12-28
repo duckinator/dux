@@ -19,13 +19,10 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
 	void *ramdisk = NULL;
-	//char *str = "Metodo " __DATE__ " " __TIME__ " " ARCH " " SCM_REV "\n";
 
 	*mbd = *multiboot;
 
 	HalInit();
-
-	//HalDisplayString(str);
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
 		KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
@@ -54,7 +51,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 
 
 	printf("userland: 0x%x\nramdisk: 0x%x\n", userland, ramdisk);
-	//SystemTests(&ramdisk);
+	SystemTests(&ramdisk);
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {

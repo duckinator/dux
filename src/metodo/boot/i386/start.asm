@@ -65,20 +65,6 @@ STACKSIZE equ 0x4000			; that's 16k.
 extern stop
 _start:
 	mov esp, stacktop	; set up the stack
- 
-	lgdt [gdt_desc]
-	jmp 0x08:.flush
-	.flush:
-		mov ax, 0x10
-		mov ds, ax
-		mov es, ax
-		mov fs, ax
-		mov gs, ax
-		mov ss, ax
-		mov esp, stacktop
-		jmp 0x08:gdt_return
-gdt_return:
-	call  HalInitIDT			; initialize IDT
 	push ebx			; argument to kmain
 	push 0x2badb002
 	call  InInitKernel			; call kernel proper
