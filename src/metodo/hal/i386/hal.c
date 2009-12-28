@@ -17,13 +17,6 @@ void HalInit(void)
 	
 	printf("Metodo " __DATE__ " " __TIME__ " " SCM_REV "\n\n");
 
-	/*HalInitIDT();
-	HalIsrInstall();
-	HalIrqInstall();
-	HalKeyboardInit();
-	HalTimerInit();
-	init_mm();*/
-
 	StartInitializer("IDT", &HalInitIDT);
 	StartInitializer("ISRs", &HalIsrInstall);
 	StartInitializer("IRQs", &HalIrqInstall);
