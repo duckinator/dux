@@ -2,7 +2,7 @@
 
 import os
 
-os.system("python ./tools/buildid.py > ./include/buildid.h")
+os.system("./tools/buildid.sh > ./include/buildid.h")
 os.system("cd ./tools/initrd/ && make && cd -")
 
 arch = ARGUMENTS.get('arch', 'i386')
