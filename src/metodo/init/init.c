@@ -58,7 +58,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		printf("Loading userland...\n");
 		LoadUserland(userland);
 		printf("Why yes, that is a black hole that flew out of userland...\n");
-	}	else {
+	} else {
 		printf("No userland\n");
 		BochsBreak();
 		//KrnlEasyStop(STOP_NO_USERLAND);
