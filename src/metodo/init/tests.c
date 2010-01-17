@@ -1,10 +1,19 @@
 #include <metodo/tests.h>
 
+extern unsigned int start;
+extern unsigned int end;
+
 void SystemTests(void *ramdisk)
 {
 	MemorySizeTest();
 	MMTest();
 	RamdiskTest(ramdisk);
+	KernelSizeTest();
+}
+
+void KernelSizeTest()
+{
+	printf("Kernel size is approximately %i bytes (start: 0x%08x, end: 0x%08x)\n", &end-&start, &start, &end);
 }
 
 void MemorySizeTest()

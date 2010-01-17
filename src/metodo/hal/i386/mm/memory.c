@@ -14,6 +14,8 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 {
 	unsigned int tmp;
 
+	printf("\n\n&end: %i\n\n", &end);
+
 	// Initialize if needed.
 	if (placement == 0)
 		placement = &end;
