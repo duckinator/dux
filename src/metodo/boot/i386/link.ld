@@ -2,6 +2,7 @@ ENTRY(_start)
 
 SECTIONS {
 	. = 0x100000;
+	start = .;
 
 	.text : ALIGN (0x1000) {
 		*(.mboot)
