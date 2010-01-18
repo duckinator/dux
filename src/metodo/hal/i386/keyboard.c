@@ -101,6 +101,15 @@ HalKeyInfo HalKeyboardRead()
 
 	scancode = *buffer-- & 0xFF;
 
+	// Caps lock
+	if (scancode == 0xBA) {
+		if ( capslock ) {
+			capslock = 0;
+		} else {
+			capslock = 1;
+		}
+	}
+
 	// Left shift
 	if (scancode == 0x2A)
 		shift_l = 1;
@@ -181,10 +190,11 @@ HalKeyInfo HalKeyboardResolveScancode_shift(HalKeyInfo keyinfo)
 HalKeyInfo HalKeyboardReadLetter()
 {
 	HalKeyInfo keyinfo = {0};
+	keyinfo = HalKeyboardRead();
 	if(shift_l || shift_r) {
-		keyinfo = HalKeyboardResolveScancode_shift(HalKeyboardRead());
+		keyinfo = HalKeyboardResolveScancode_shift(keyinfo);
 	} else {
-		keyinfo = HalKeyboardResolveScancode(HalKeyboardRead());
+		keyinfo = HalKeyboardResolveScancode(keyinfo);
 	}
 	return keyinfo;
 }

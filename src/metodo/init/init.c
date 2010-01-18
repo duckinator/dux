@@ -60,7 +60,8 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		printf("Why yes, that is a black hole that flew out of userland...\n");
 	} else {
 		printf("No userland\n");
-		BochsBreak();
+		HalKeyboardTest();
+		//BochsBreak();
 		//KrnlEasyStop(STOP_NO_USERLAND);
 	}
 	while(1);
