@@ -23,7 +23,7 @@ void HalInit(void)
 	StartInitializer("system timer", &HalTimerInit);
 	StartInitializer("syscalls", &HalInitializeSyscalls);
 	StartInitializer("memory management", &init_mm);
-	StartInitializer("keyboard", &HalKeyboardInit);	
+	StartInitializer("keyboard", &HalKeyboardInit);
 	
 	printf("Enabling interrupts...");
 	asm volatile ("sti");
