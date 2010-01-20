@@ -15,6 +15,7 @@ Export('sources', 'metodo')
 SConscript('boot/%s/SConscript' % arch)
 SConscript('core/SConscript')
 SConscript('misc/SConscript')
+SConscript('colpa/SConscript')
 
 sources += [
 	'init/init.c',
