@@ -35,3 +35,8 @@ uint32_t HalInPortLong(uint16_t port)
 	__asm volatile("inl %1, %0" : "=a" (val) : "d" (port));
 	return val;
 }
+
+static inline void HalIOWait(void)
+{
+	__asm volatile ("jmp 1f;1:jmp 1f;1:");
+}
