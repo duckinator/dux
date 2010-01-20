@@ -16,16 +16,16 @@ pre:
 	touch pre
 
 $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2:
-	(cd $(DOWNLOADS); wget http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
+	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
 
 $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz:
-	(cd $(DOWNLOADS); wget http://pcc.ludd.ltu.se/ftp/pub/pcc/pcc-$(PCC_VERSION).tgz)
+	(cd $(DOWNLOADS); curl -O http://pcc.ludd.ltu.se/ftp/pub/pcc/pcc-$(PCC_VERSION).tgz)
 
 $(DOWNLOADS)/binutils-dux.patch:
-	(cd $(DOWNLOADS); wget http://gist.github.com/raw/229374/a3cf5f477f4c62cd4b7234d6ee51c3f77694cd7b/binutils-dux.patch)
+	(cd $(DOWNLOADS); curl -O http://gist.github.com/raw/229374/a3cf5f477f4c62cd4b7234d6ee51c3f77694cd7b/binutils-dux.patch)
 
 $(DOWNLOADS)/pcc-dux.patch:
-	(cd $(DOWNLOADS); wget http://gist.github.com/raw/228548/7c846de52862fe5e360278619d69a17ad164370a/pcc-dux.patch)
+	(cd $(DOWNLOADS); curl -O http://gist.github.com/raw/228548/7c846de52862fe5e360278619d69a17ad164370a/pcc-dux.patch)
 
 binutils: $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2 $(DOWNLOADS)/binutils-dux.patch
 	tar xjf $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
