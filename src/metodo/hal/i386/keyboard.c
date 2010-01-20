@@ -217,23 +217,7 @@ void HalKeyboardTest()
 		if ( HalKeyboardHasInput() ) {
 			keyinfo = HalKeyboardReadLetter();
 			if ( keyinfo.action == 0 ) {
-				/*
-				 * TODO: Figure out what make/break code to use for pause/break
-				 * So, pause/break outputs 4 keycodes - no clue which is which.
-				 * 0xe1 (make)
-				 * 0xe1 (make)
-				 * 0xc5 (make)
-				 * 0x9d (make)
-				 * 0x45 (break)
-				 * 0x1d (break)
-				 * In no apparent order
-				 * 
-				 */
-				if ( keyinfo.scancode == 0xc5 ) {
-					HalBreak();
-				} else {
-					printf("%c", keyinfo.key);
-				}
+				printf("%c", keyinfo.key);
 			}
 		}
 	}

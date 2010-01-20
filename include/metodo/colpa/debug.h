@@ -1,7 +1,9 @@
-#ifndef __DEBUG_H
-#define __DEBUG_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
-/* debug.c */
+#include <system.h>
+#include <metodo/metodo.h>
+#include <metodo/hal/keyboard/keyboard.h>
 
 typedef enum {
   NONE,
@@ -10,11 +12,14 @@ typedef enum {
 	MEMORY,
 	CONSOLE
 } debug_type;
-
-debug_type DEBUG_MODE = NONE;
+ 
+static debug_type DEBUG_MODE = NONE;
 
 void dprint(const char *msg, debug_type type);
 void set_debug_mode(debug_type type);
 debug_type get_debug_mode(void);
+
+void KernDebug();
+
 
 #endif

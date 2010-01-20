@@ -15,6 +15,8 @@
 
 #include <metodo/bochs.h>
 
+#include <metodo/colpa/debug.h>
+
 void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
@@ -60,7 +62,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		printf("Why yes, that is a black hole that flew out of userland...\n");
 	} else {
 		printf("No userland\n");
-		HalKeyboardTest();
+		KernDebug();
 		//BochsBreak();
 		//KrnlEasyStop(STOP_NO_USERLAND);
 	}
