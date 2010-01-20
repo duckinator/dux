@@ -46,20 +46,11 @@ void KernDebug()
           case 0x9c:
             printf("\n>> ");
             break;
-          // Pause/break
-          case 0xc5:
-            HalBreak();
-            break;
           // Otherwise
           default:
             printf("%c", keyinfo.key);
             break;
         }
-				/*if ( keyinfo.scancode == 0xc5 ) {
-					HalBreak();
-				} else {
-					printf("%c", keyinfo.key);
-				}*/
 			}
 		}
 	}
