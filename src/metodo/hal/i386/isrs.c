@@ -43,7 +43,8 @@ void HalIsrHandler(struct regs *r)
 		HalSyscallHandler(r);
 	} else if(r->int_no == 3) {
 		// TODO: Handle breakpoints
-		panic(HalExceptions[3]);
+		//panic(HalExceptions[3]);
+		KernDebug();
 	} else if(r->int_no < 32){
 		panic(HalExceptions[r->int_no]);
 	}
