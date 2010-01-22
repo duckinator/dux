@@ -16,6 +16,6 @@ typedef struct
 	uint32_t size;
 } InitRd_File_Header_t;
 
-fs_node_t *initialise_initrd(uint32_t location);
+fs_node_t *initialize_initrd(uint32_t location);
 
 #endif
