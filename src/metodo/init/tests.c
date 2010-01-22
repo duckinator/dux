@@ -63,11 +63,14 @@ void MMTest()
 
 void RamdiskTest(void *ramdisk)
 {
+	char *buf = {0};
+	int i;
+	uint32_t size;
+	fs_node_t *fs_root = {0};
+
 	if (ramdisk != NULL) {
 		printf("Beginning ramdisk/fs_root test:\n");
-		int i;
-		fs_node_t *fs_root;
-		fs_root = initialise_initrd((uint32_t)ramdisk);
+		fs_root = initialize_initrd((uint32_t)ramdisk);
 		printf ("\tfs_root = 0x%x\n\n", fs_root);
 
 		printf("\tListing contents of initrd:\n");
@@ -84,8 +87,7 @@ void RamdiskTest(void *ramdisk)
 					printf("\t\t\tIt's a directory!\n");
 				} else {
 					printf("\t\tContents: ");
-					char *buf;
-					uint32_t size = read_fs(fsnode, 0, 512, buf);
+					//size = read_fs(fsnode, 0, 512, buf);
 					printf("%s\n", buf);
 				}
 			}
