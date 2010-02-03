@@ -1,4 +1,5 @@
 global _start		; making entry point visible to linker
+global _stacktop
 extern InInitKernel	; Defined in init/init.c
 extern HalInitIDT	; Defined in hal/i386/idt.c
  
@@ -64,7 +65,7 @@ STACKSIZE equ 0x4000			; that's 16k.
  
 extern stop
 _start:
-	mov esp, stacktop	; set up the stack
+	mov esp, _stacktop	; set up the stack
 	push ebx			; argument to kmain
 	push 0x2badb002
 	call  InInitKernel			; call kernel proper
@@ -74,4 +75,4 @@ _start:
 section .bss
 align 32
 	resb STACKSIZE			; reserve 16k stack on a quadword boundary
-stacktop:
+_stacktop:
