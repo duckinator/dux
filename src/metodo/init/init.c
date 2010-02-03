@@ -58,6 +58,7 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
 		printf("Loading userland...\n");
+		HalSwitchToUserMode();
 		LoadUserland(userland);
 		printf("Why yes, that is a black hole that flew out of userland...\n");
 	} else {
