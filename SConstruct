@@ -9,6 +9,8 @@ arch = ARGUMENTS.get('arch', 'i386')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
 strict = ARGUMENTS.get('strict', 'yes')
+compiler = ARGUMENTS.get('compiler', 'i386-elf-pcc')
+linker = ARGUMENTS.get('linker', 'i386-elf-ld')
 
 iso = Builder(action='./makeiso.sh')
 
@@ -26,12 +28,14 @@ env = Environment(
 	LIBSUFFIX='.lib',
 	SHLIBPREFIX='',
 	SHLIBSUFFIX='.shl',
-	CC='i386-dux-pcc',
+	CC='%s' % (compiler),
 	CCFLAGS=['-nostdinc', '-g', '-I', 'include', '-I', 'include/arch/%s' % arch, '-D', '%s' % arch.upper()],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
-	LINK='i386-dux-ld',
+	LINK='%s' % (linker),
 	LINKFLAGS=['-nostdlib'],
+	AR='i386-elf-ar',
+	RANLIB='i386-elf-ranlib',
 	BUILDERS={'Iso': iso}
 )
 
