@@ -1,45 +1,47 @@
-BINUTILS_VERSION=2.20
-PCC_VERSION=091107
+BINUTILS_VERSION=2.19.1
+GCC_VERSION=4.4.0
 TARGET=i386-elf
 PREFIX=$(HOME)/duxcc
 DOWNLOADS=downloads
-INCDIR=$(HOME)/duxincludes
-LIBDIR=$(HOME)/duxlibs
+BINDIR=$(PREFIX)/bin
+INCDIR=$(PREFIX)/includes
+LIBDIR=$(PREFIX)/libs
 
-all: pre binutils pcc
+all: pre binutils gcc
 
 pre:
 	mkdir -p $(DOWNLOADS)
+	mkdir -p $(PREFIX)
+	mkdir -p $(BINDIR)
 	mkdir -p $(INCDIR)
 	mkdir -p $(LIBDIR)
-	mkdir -p $(PREFIX)
 	touch pre
 
 $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2:
 	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
 
-$(DOWNLOADS)/pcc-$(PCC_VERSION).tgz:
-	(cd $(DOWNLOADS); curl -O http://pcc.ludd.ltu.se/ftp/pub/pcc/pcc-$(PCC_VERSION).tgz)
+$(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz:
+	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-core-$(GCC_VERSION).tar.gz)
 
 binutils: $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
 	tar xjf $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
-	mkdir binutils-build
+	mkdir -p binutils-build
 	(cd binutils-build; ../binutils-$(BINUTILS_VERSION)/configure --target=$(TARGET) --prefix=$(PREFIX) --disable-nls)
 	(cd binutils-build; make all install)
 	touch binutils
 
-pcc: $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz
-	tar xzf $(DOWNLOADS)/pcc-$(PCC_VERSION).tgz
-	mkdir pcc-build
-	(cd pcc-build; ../pcc-091107/configure --target=$(TARGET) --prefix=$(PREFIX) --with-incdir=$(INCDIR) --with-libdir=$(LIBDIR))
-	(cd pcc-build; make && make install)
-	touch pcc
+gcc: $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz
+	tar xzf $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz
+	mkdir -p gcc-build
+	(cd gcc-build; ../gcc-$(GCC_VERSION)/configure --target=$(TARGET) --prefix=$(PREFIX) --with-incdir=$(INCDIR) --with-libdir=$(LIBDIR) --enable-languages=c --disable-nls)
+	(cd gcc-build; PATH=$(PATH):$(PREFIX)/$(TARGET)/bin make all-gcc && make install-gcc)
+	touch gcc
 
 clean:
-	-rm pre binutils pcc
-	-rm -rf binutils-build pcc-build
+	-rm pre binutils gcc
+	-rm -rf binutils-build gcc-build
 	-rm -rf binutils-$(BINUTILS_VERSION)
-	-rm -rf pcc-$(PCC_VERSION)
+	-rm -rf gcc-core-$(GCC_VERSION)
 
 .PHONY: all clean
 

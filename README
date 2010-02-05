@@ -5,3 +5,7 @@ About the naming:
   Dux - the operating system as a whole - this name was a suggestion from duckinator's friend
   metodo - the kernel - "method"/"approach" in Italian (and also in Esperanto, but this was learned later)
   colpa - the debugger - "fault" in Italian
+
+The cross compiler is GCC version 4.4.0 and Binutils 2.19.1, as those are known to work on cygwin, linux, and mac.
+To create the cross compiler:
+cd tools/cross;make
