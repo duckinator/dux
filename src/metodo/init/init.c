@@ -9,8 +9,6 @@
 #include <multiboot.h>
 
 #include <buildid.h>
-#include <vfs/vfs.h>
-#include <initrd/initrd.h>
 #include <string.h>
 
 #include <metodo/bochs.h>
@@ -20,7 +18,6 @@
 void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
-	void *ramdisk = NULL;
 
 	*mbd = *multiboot;
 
@@ -44,16 +41,11 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 				userland = (void*) module->mod_start;
 				printf("\nUserland located at: 0x%x\n\n", userland);
 			}
-			if(strcmp((char*)(module->string), "/System/initrd.img") == 0){
-				ramdisk = (void*) module->mod_start;
-				printf("\nFound fs_root at: 0x%x\n\n", ramdisk);
-			}
 		}
 	}
 
-
-	printf("userland: 0x%x\nramdisk: 0x%x\n", userland, ramdisk);
-	SystemTests(ramdisk);
+	printf("userland: 0x%x\n", userland);
+	SystemTests();
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
