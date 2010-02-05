@@ -8,12 +8,11 @@ void _start(void)
 		"user"
 	};
 	main(1, argv);
-	while (1)
-		;
+	return;
 }
 
 int main(int argc, char const* argv[])
 {
-	printf("Hi!\n%x\n%i", 1024, 1024);
+	printf("Hi!\n%x\n%i\n", 1024, 1024);
 	return 0;
 }

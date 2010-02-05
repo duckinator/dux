@@ -13,6 +13,7 @@ void HalShutdown(void)
 	}
 }
 
+// TODO: Fix HalReboot(), it causes a SIMD Floating Point Exception
 void HalReboot(void)
 {
 	unsigned char good = 0x02;
