@@ -3,11 +3,10 @@
 extern unsigned int start;
 extern unsigned int end;
 
-void SystemTests(void *ramdisk)
+void SystemTests()
 {
 	MemorySizeTest();
 	MMTest();
-	RamdiskTest(ramdisk);
 	KernelSizeTest();
 }
 
@@ -59,42 +58,4 @@ void MMTest()
 	set_frame(first_frame(), 1, 1);
 	printf("\tFirst free frame is now %i\n", first_frame());
 	printf("Finished memory management test\n\n");
-}
-
-void RamdiskTest(void *ramdisk)
-{
-	char *buf = {0};
-	int i;
-	uint32_t size;
-	fs_node_t *fs_root = {0};
-
-	if (ramdisk != NULL) {
-		printf("Beginning ramdisk/fs_root test:\n");
-		fs_root = initialize_initrd((uint32_t)ramdisk);
-		printf ("\tfs_root = 0x%x\n\n", fs_root);
-
-		printf("\tListing contents of initrd:\n");
-		i = 0;
-		struct dirent *node = 0;
-		while ( (node = readdir_fs(fs_root, i)) != 0) {
-			if ( strlen(node->name) == 0) {
-				printf("\t\tWhy did I find an empty filename?\n");
-			} else {
-				printf("\t\tFound file: %s\n", node->name);
-				fs_node_t *fsnode = finddir_fs(fs_root, node->name);
-
-				printf("fs_root->flags&0x7: 0x%02x\n", fs_root->flags&0x7);
-    		if((fsnode->flags&0x7) == FS_DIRECTORY) {
-					printf("\t\t\tIt's a directory!\n");
-				} else {
-					printf("fsnode->flags&0x7: 0x%02x", fsnode->flags&0x7);
-					printf("\t\tContents: ");
-					//size = read_fs(fsnode, 0, 512, buf);
-					printf("%s\n", buf);
-				}
-			}
-			i++;
-		}
-		printf("Finished ramdisk/fs_root test\n\n");
-	}
 }

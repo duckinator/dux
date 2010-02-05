@@ -34,7 +34,6 @@ mkdir -p isofs/System
 cp src/metodo/metodo.exe isofs/System/
 cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
-cp tools/initrd/initrd.img isofs/System/
 
 rm isofs/boot/grub/menu.lst
 touch isofs/boot/grub/menu.lst
@@ -47,14 +46,5 @@ echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "title Metodo Dux with Userland" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
-# metodo + initrd
-echo "title Metodo Dux with Initrd" >> isofs/boot/grub/menu.lst
-echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
-echo "module /System/initrd.img" >> isofs/boot/grub/menu.lst
-# metodo + userland + initrd
-echo "title Metodo Dux with Userland and initrd" >> isofs/boot/grub/menu.lst
-echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
-echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
-echo "module /System/initrd.img" >> isofs/boot/grub/menu.lst
 mkdir -p iso
 $isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o iso/Dux.iso isofs

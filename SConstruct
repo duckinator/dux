@@ -3,7 +3,6 @@
 import os
 
 os.system("./tools/buildid.sh > ./include/buildid.h")
-os.system("cd ./tools/initrd/ && make && cd -")
 
 arch = ARGUMENTS.get('arch', 'i386')
 buildtype = ARGUMENTS.get('buildtype', 'debug')

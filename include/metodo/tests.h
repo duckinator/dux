@@ -3,7 +3,6 @@
 
 #include <metodo/metodo.h>
 #include <vfs/vfs.h>
-#include <initrd/initrd.h>
 #include <string.h>
 
 void SystemTests();
