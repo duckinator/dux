@@ -33,8 +33,6 @@ cp src/metodo/metodo.exe isofs/System/
 cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
 
-rm isofs/boot/grub/menu.lst
-touch isofs/boot/grub/menu.lst
 echo "default 1" > isofs/boot/grub/menu.lst
 echo "timeout 3" >> isofs/boot/grub/menu.lst
 # metodo
