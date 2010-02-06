@@ -2,7 +2,8 @@
 
 isocmd="genisoimage"
 
-if [ ! -e '/usr/bin/genisoimage' ]; then
+which genisoimage
+if [ $? -ne 0 ]; then
 	isocmd="mkisofs"
 fi
 
@@ -44,4 +45,5 @@ echo "title Metodo Dux with Userland" >> isofs/boot/grub/menu.lst
 echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
 mkdir -p iso
-$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o iso/Dux.iso isofs
+
+$isocmd -R -b boot/grub/stage2_eltorito --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs

@@ -1,5 +1,5 @@
-BINUTILS_VERSION=2.19.1
-GCC_VERSION=4.4.0
+BINUTILS_VERSION=2.18
+GCC_VERSION=4.2.4
 TARGET=i386-elf
 PREFIX=$(HOME)/duxcc
 DOWNLOADS=downloads
@@ -20,8 +20,8 @@ pre:
 $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2:
 	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.bz2)
 
-$(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz:
-	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-core-$(GCC_VERSION).tar.gz)
+$(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2:
+	(cd $(DOWNLOADS); curl -O http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-core-$(GCC_VERSION).tar.bz2)
 
 binutils: $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
 	tar xjf $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
@@ -30,10 +30,10 @@ binutils: $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
 	(cd binutils-build; make all install)
 	touch binutils
 
-gcc: $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz
-	tar xzf $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.gz
+gcc: $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2
+	tar xzf $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2
 	mkdir -p gcc-build
-	(cd gcc-build; ../gcc-$(GCC_VERSION)/configure --target=$(TARGET) --prefix=$(PREFIX) --with-incdir=$(INCDIR) --with-libdir=$(LIBDIR) --enable-languages=c --disable-nls)
+	(cd gcc-build; ../gcc-$(GCC_VERSION)/configure --target=$(TARGET) --prefix=$(PREFIX) --with-incdir=$(INCDIR) --with-libdir=$(LIBDIR) --enable-languages=c --disable-nls --without-headers)
 	(cd gcc-build; PATH=$(PATH):$(PREFIX)/$(TARGET)/bin make all-gcc && make install-gcc)
 	touch gcc
 
