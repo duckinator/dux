@@ -67,7 +67,7 @@ extern stop
 _start:
 	mov esp, _stacktop	; set up the stack
 	push ebx			; argument to kmain
-	push 0x2badb002
+	push dword 0x2badb002
 	call  InInitKernel			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
