@@ -54,7 +54,6 @@ void panic_dump_hex(unsigned int *stack)
 	printf("\nStack Contents\n");
 	while ((unsigned int) stack < ((orig_stack+0x1000) & ~(0x1000-1))) {
 		printf("0x%x: 0x%x\n", stack, *stack);
-		// TODO: Check if this is the proper method
 		if ( *stack == 0x0 )
 			break;
 		stack++;
