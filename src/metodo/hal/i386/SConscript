@@ -22,7 +22,8 @@ sources = [
 	'timer.c',
 	'mm/memory.c',
 	'vga.c',
-	'serial.c'
+	'serial.c',
+	'scheduler.c'
 ]
 
 distreq += ['src/metodo/hal/i386/hal.lib']
