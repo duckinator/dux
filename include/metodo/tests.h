@@ -8,5 +8,6 @@
 void SystemTests();
 void MemorySizeTest();
 void MMTest();
+void KernelSizeTest();
 
 #endif
