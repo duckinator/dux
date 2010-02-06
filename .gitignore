@@ -50,5 +50,6 @@ tools/cross/downloads/gcc-core-4.4.0.tar.gz
 tools/cross/binutils
 tools/cross/gcc
 tools/cross/pre
+tools/cross/downloads/
 /cscope.files
 /cscope.out

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-grep -Hnr 'TODO|FIXME' `find -name '*.c'`
+grep -EHnr 'TODO|FIXME' src

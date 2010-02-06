@@ -6,4 +6,5 @@ sources += [
 	'core/text.c',
 	'core/shutdown.c',
 	'core/ipl.c',
+	'core/scheduler.c'
 ]

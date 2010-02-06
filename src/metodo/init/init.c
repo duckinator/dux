@@ -53,8 +53,6 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		HalSwitchToUserMode();
 		LoadUserland(userland);
 		printf("\nWhy yes, that is a black hole that flew out of userland...\n(Userland exited unexpectedly)\n");
-		HalEnableInterrupts();
-		KernDebug();
 	} else {
 		printf("No userland\n");
 		HalBreak();
