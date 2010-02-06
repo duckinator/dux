@@ -1,5 +1,4 @@
-
-#include <metodo/metodo.h>
+#include <metodo/hal/vga.h>
 
 #define COLS (80)
 #define ROWS (25)

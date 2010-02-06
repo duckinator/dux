@@ -31,7 +31,7 @@ int UartInit()
 }
 
 struct DisplayDevice UartDisplayDevice = {
-	.Init		= UartInit,
-	.DisplayChar	= UartSend,
+	.Init		= (void*)UartInit,
+	.DisplayChar	= (void*)UartSend,
 	.DisplayClear	= NULL,	/* nothing, for now */
 };

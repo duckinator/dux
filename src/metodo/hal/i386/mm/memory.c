@@ -16,7 +16,7 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 
 	// Initialize if needed.
 	if (placement == 0)
-		placement = &end;
+		placement = end;
 
 	// Align on a page if needed.
 /* The following line was this, but meteger said to invert the bitmask in the check:
