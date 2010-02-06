@@ -1,32 +1,29 @@
 #!/bin/sh
 
-# FIX YOUR OWN OS!
-# THIS IS NOT OUR RESPONSIBILITY
-# THIS WILL BE REMOVED 21 AUG 2009
 isocmd="genisoimage"
 
-rm -rf isofs/System/
+if [ ! -e '/usr/bin/genisoimage' ]; then
+	isocmd="mkisofs"
+fi
+
+if [ -e "iso/Dux.iso" ]; then
+	rm iso/Dux.iso
+fi
+
+if [ -e "isofs/System" ]; then
+	rm -r isofs/System
+fi
 
 mkdir -p isofs/boot/grub
 
-if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]
-then
-	if [ -e /boot/grub/stage2_eltorito ]
-	then
+if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]; then
+	if [ -e /boot/grub/stage2_eltorito ]; then
 		echo "Can't find stage2_eltorito in ./isofs/boot/grub, copying from /boot/grub/"
 		cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 	else
 		echo 'You need to locate stage2_eltorito and put it in ./isofs/boot/grub'
 		exit
 	fi
-fi
-
-if [ ! -e '/usr/bin/genisoimage' ]
-then
-	echo "FIX YOUR OWN OS!"
-	echo "THIS IS NOT OUR RESPONSIBILITY"
-	echo "THIS WILL BE REMOVED 21 AUG 2009"
-	isocmd="mkisofs"
 fi
 
 mkdir -p isofs/System
