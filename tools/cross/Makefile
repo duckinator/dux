@@ -1,5 +1,6 @@
-BINUTILS_VERSION=2.18
-GCC_VERSION=4.2.4
+# For OS X, use binutils 2.18 and gcc 4.2.4
+BINUTILS_VERSION=2.19.1
+GCC_VERSION=4.4.0
 TARGET=i386-elf
 PREFIX=$(HOME)/duxcc
 DOWNLOADS=downloads
@@ -31,7 +32,7 @@ binutils: $(DOWNLOADS)/binutils-$(BINUTILS_VERSION).tar.bz2
 	touch binutils
 
 gcc: $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2
-	tar xzf $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2
+	tar xjf $(DOWNLOADS)/gcc-core-$(GCC_VERSION).tar.bz2
 	mkdir -p gcc-build
 	(cd gcc-build; ../gcc-$(GCC_VERSION)/configure --target=$(TARGET) --prefix=$(PREFIX) --with-incdir=$(INCDIR) --with-libdir=$(LIBDIR) --enable-languages=c --disable-nls --without-headers)
 	(cd gcc-build; PATH=$(PATH):$(PREFIX)/$(TARGET)/bin make all-gcc && make install-gcc)
