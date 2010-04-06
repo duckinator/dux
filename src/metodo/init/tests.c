@@ -8,6 +8,7 @@ void SystemTests()
 	MemorySizeTest();
 	MMTest();
 	KernelSizeTest();
+	UsedFrameTest();
 }
 
 void KernelSizeTest()
@@ -58,4 +59,14 @@ void MMTest()
 	set_frame(first_frame(), 1, 1);
 	printf("\tFirst free frame is now %i\n", first_frame());
 	printf("Finished memory management test\n\n");
+}
+
+void UsedFrameTest()
+{
+	unsigned int i;
+	for(i=0; i < end_memory; i += 0x1000) {
+		if(test_frame(i)) {
+			printf("Frame %u (%u-%u) is used.\n", i, i, i+0x0111);
+		}
+	}
 }
