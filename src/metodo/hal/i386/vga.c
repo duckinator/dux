@@ -37,7 +37,7 @@ static void VgaDisplayScroll(void)
 		for (i = 0; i < COLS*(ROWS-1); i++) {
 			VideoMemory[i] = VideoMemory[i + COLS];
 		}
-		for (COLS*(ROWS-1); i < COLS*ROWS; i++) {
+		for (i = COLS*(ROWS-1); i < COLS*ROWS; i++) {
 			VideoMemory[i] = CLEAR;
 		}
 		row = ROWS-1;
