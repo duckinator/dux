@@ -6,6 +6,7 @@ About the naming:
   metodo - the kernel - "method"/"approach" in Italian (and also in Esperanto, but this was learned later)
   colpa - the debugger - "fault" in Italian
 
-The cross compiler is GCC version 4.4.0 and Binutils 2.19.1, as those are known to work on cygwin, linux, and mac.
-To create the cross compiler:
-cd tools/cross;make
+To compile dux you need:
+  - clang (C compiler; version 1.0 is known to work)
+  - nasm  (assembler; version 2.08.01 is known to work)
+  - ld    (linker, from binutils 2.20.1 is known to work but it should work if it can link an elf binary)
