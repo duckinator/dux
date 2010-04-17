@@ -94,4 +94,5 @@ void HalDisableDisplay(void)
 
 int HalIsDisplayOn(void)
 {
+	return disp_init;
 }
