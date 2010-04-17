@@ -9,5 +9,6 @@ void SystemTests();
 void MemorySizeTest();
 void MMTest();
 void KernelSizeTest();
+void UsedFrameTest();
 
 #endif
