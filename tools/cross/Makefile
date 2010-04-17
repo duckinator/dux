@@ -8,7 +8,7 @@ BINDIR=$(PREFIX)/bin
 INCDIR=$(PREFIX)/includes
 LIBDIR=$(PREFIX)/libs
 
-all: pre binutils gcc
+all: pre binutils
 
 pre:
 	mkdir -p $(DOWNLOADS)
