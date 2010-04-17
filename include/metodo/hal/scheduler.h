@@ -8,4 +8,7 @@ struct proc_regs {
 	unsigned int eip, cs, eflags, useresp, ss; 
 };
 
+void HalSchedulerEnable();
+void HalSchedulerDisable();
+
 #endif

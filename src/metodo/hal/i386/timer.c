@@ -9,7 +9,8 @@ void HalTimerHandler(struct regs *r)
 	ticks++;
 
 	// Scheduler
-	CoSchedulerHandler();
+	if ( scheduler_enabled )
+		CoSchedulerHandler();
 }
 
 unsigned int HalGetTicks()
