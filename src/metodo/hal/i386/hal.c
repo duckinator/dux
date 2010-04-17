@@ -1,5 +1,6 @@
 #include <metodo/metodo.h>
 #include <buildid.h>
+#include <metodo/scheduler.h>
  
 void StartInitializer(char *name, void (*func)())
 {
@@ -23,6 +24,7 @@ void HalInit(void)
 	StartInitializer("system timer", &HalTimerInit);
 	StartInitializer("syscalls", &HalInitializeSyscalls);
 	StartInitializer("memory management", &init_mm);
+	StartInitializer("scheduler", &HalSchedulerEnable);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	
 	printf("Enabling interrupts...");

@@ -18,4 +18,6 @@ void CoSchedulerSetNumProcesses(uint32_t num);
 
 void HalSchedulerRunProcess(SchedulerProcess proc);
 
+static int scheduler_enabled = 0;
+
 #endif
