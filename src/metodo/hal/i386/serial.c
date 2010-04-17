@@ -28,6 +28,8 @@ int UartInit()
 	HalOutPortWord(UART_BASE_REGISTER, UART_BAUDRATE_DIVISOR);
 	HalOutPort(UART_BASE_REGISTER + LineControl, UART_LCR);
 	HalOutPort(UART_BASE_REGISTER + ModemControl, 0);
+
+	return 0;
 }
 
 struct DisplayDevice UartDisplayDevice = {
