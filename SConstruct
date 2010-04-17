@@ -8,8 +8,8 @@ arch = ARGUMENTS.get('arch', 'i386')
 buildtype = ARGUMENTS.get('buildtype', 'debug')
 ansi = ARGUMENTS.get('ansi', 'no')
 strict = ARGUMENTS.get('strict', 'yes')
-compiler = ARGUMENTS.get('compiler', 'i386-elf-gcc')
-linker = ARGUMENTS.get('linker', 'i386-elf-ld')
+compiler = ARGUMENTS.get('compiler', 'clang')
+linker = ARGUMENTS.get('linker', 'ld')
 
 iso = Builder(action='./makeiso.sh')
 
@@ -28,13 +28,11 @@ env = Environment(
 	SHLIBPREFIX='',
 	SHLIBSUFFIX='.shl',
 	CC='%s' % (compiler),
-	CCFLAGS=['-nostdinc', '-fno-builtin', '-g', '-I', 'include', '-I', 'include/arch/%s' % arch, '-D', '%s' % arch.upper()],
+	CCFLAGS=['-m32', '-nostdinc', '-ffreestanding',  '-fno-stack-protector', '-fno-builtin', '-g', '-I', 'include', '-I', 'include/arch/%s' % arch, '-D', '%s' % arch.upper()],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='%s' % (linker),
-	LINKFLAGS=['-nostdlib'],
-	AR='i386-elf-ar',
-	RANLIB='i386-elf-ranlib',
+	LINKFLAGS=['-melf_i386', '-nostdlib'],
 	BUILDERS={'Iso': iso}
 )
 
