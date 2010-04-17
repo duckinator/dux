@@ -10,5 +10,6 @@ struct proc_regs {
 
 void HalSchedulerEnable();
 void HalSchedulerDisable();
+int HalIsSchedulerEnabled();
 
 #endif
