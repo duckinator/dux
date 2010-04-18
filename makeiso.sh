@@ -22,8 +22,10 @@ if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]; then
 		echo "Can't find stage2_eltorito in ./isofs/boot/grub, copying from /boot/grub/"
 		cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 	else
-		echo 'You need to locate stage2_eltorito and put it in ./isofs/boot/grub'
-		exit
+		#echo 'You need to locate stage2_eltorito and put it in ./isofs/boot/grub'
+		#exit
+		echo 'Downloading stage2_eltorito from http://misc.duckinator.net/stage2_eltorito'
+		wget http://misc.duckinator.net/stage2_eltorito -O isofs/boot/grub/stage2_eltorito
 	fi
 fi
 
