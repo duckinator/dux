@@ -39,6 +39,7 @@ void *kmalloc_int(unsigned int size, unsigned int flags);
 void init_mm();
 unsigned int test_frame(unsigned int addr);
 void set_frame(unsigned int addr);
+unsigned int first_frame();
 
 unsigned int end_memory;
 
