@@ -56,7 +56,7 @@ void MMTest()
 	printf("Beginning memory management test:\n");
 	printf("\tFirst free frame:  %i\n", first_frame());
 	printf("\tAllocating frame at %i\n", first_frame());
-	set_frame(first_frame(), 1, 1);
+	set_frame(first_frame());
 	printf("\tFirst free frame is now %i\n", first_frame());
 	printf("Finished memory management test\n\n");
 }
