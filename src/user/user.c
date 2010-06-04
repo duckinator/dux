@@ -1,6 +1,8 @@
 #include <lib/krnllib.h>
 #include <system.h>
 
+int main(int argc, char const* argv[]);
+
 void _start(void)
 {
 	clear_screen();
