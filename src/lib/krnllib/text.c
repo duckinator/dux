@@ -249,7 +249,7 @@ reset:
 		/* Find the precision. */
 		precision = -1;
 		if (*p == '.') {
-			*p++;
+			p++;
 			precision = 0;
 			if (*p == '*') {
 				precision = va_arg(ap, int);
