@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <system.h>
 #include <metodo/metodo.h>
+#include <config.h>
 
 void ULShutdown(void)
 {
@@ -50,7 +51,7 @@ int num_syscalls = 7;
 void HalInitializeSyscalls()
 {
 	// Register our syscall handler.
-	HalSetIDTGate(0x80, (uint32_t) HalIsrSyscall, 0x08, 0x8E, 0, IDT_INTR32);
+	HalSetIDTGate(IA32_SYSCALL_INTERRUPT, (uint32_t) HalIsrSyscall, 0x08, 0x8E, 0, IDT_INTR32);
 }
 
 void HalSyscallHandler(struct regs *r)

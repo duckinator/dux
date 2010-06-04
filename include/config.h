@@ -9,7 +9,12 @@
 /* Interrupt for syscalls:
  *   default is 0x20
  *   used to use 0x80 (got the idea from Linux)
+ * NOTE: 0x80 for debugging
  */
-#define IA32_SYSCALL_INTERRUPT 0x20
+#define IA32_SYSCALL_INTERRUPT 0xFF
+/* For the next one, a nice big thank you to inline assembly
+ * see src/lib/krnllib/krnllib.c for details
+ */
+#define IA32_SYSCALL_INTERRUPT_STR "0xFF"
 
 #endif
