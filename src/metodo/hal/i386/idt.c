@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <metodo/lib.h>
 
 IDTD idtd;
 IDTG idt[256];
