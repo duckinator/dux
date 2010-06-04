@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <metodo/colpa/debug.h>
 
 /* handle interupts */
 int isr_t = 0;
