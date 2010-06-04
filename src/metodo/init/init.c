@@ -15,6 +15,8 @@
 
 #include <metodo/colpa/debug.h>
 
+#include <metodo/elfloader.h>
+
 void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;

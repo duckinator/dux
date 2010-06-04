@@ -6,6 +6,7 @@
 
 #include <metodo/metodo.h> 
 #include <metodo/stop.h>
+#include <metodo/elfloader.h>
  
 void *LoadElfExe(void *exe)
 {
