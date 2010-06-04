@@ -1,4 +1,6 @@
 #include <metodo/metodo.h>
+#include <lib/krnllib.h>
+
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
 int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
