@@ -24,7 +24,6 @@ void HalKeyboardHandler(struct regs *r)
 }
 
 void HalKeyboardLeds(uint8_t status){
- 	uint8_t tmp;
  	while((HalInPort(0x64)&2)!=0){} //loop until zero
  	HalOutPort(0x60,0xED);
 
