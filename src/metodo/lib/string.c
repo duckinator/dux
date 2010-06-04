@@ -62,7 +62,6 @@ int strcmp(char *cs, char *ct)
 
 int strncmp(char *cs, char *ct, int n)
 {
-	register int cmp = 0;
 	register int i = 0;
 	do {
 		if (i++ < n || *cs == '\0' || *ct == '\0')
