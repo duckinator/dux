@@ -99,15 +99,14 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 
 int printf(IN const char *fmt, ...)
 {
-	/* TODO: Make printf use memory management. */
-#if 0
+#if PRINTF_USE_MM
 	char *str;
 #endif
 	char str[1024];
 	va_list args;
 	int len, i = 0;
 
-#if 0
+#if PRINTF_USE_MM
 	va_start(args, fmt);
 	len = vsnprintf(NULL, 0, fmt, args);
 	va_end(args);
@@ -117,16 +116,16 @@ int printf(IN const char *fmt, ...)
 	va_start(args, fmt);
 	len = vsnprintf(str, len+1, fmt, args);
 	va_end(args);
-#endif
-
+#else
 	va_start(args, fmt);
 	len = vsnprintf(str, 1024, fmt, args);
 	va_end(args);
+#endif
 
 	while (str[i])
 		HalDisplayChar(str[i++]);
 
-#if 0
+#if PRINTF_USE_MM
 	free(str);
 #endif
 
@@ -162,26 +161,26 @@ int snprintf(OUT char *str, IN size_t size, IN const char *fmt, ...)
 
 int vprintf(IN const char *fmt, va_list ap)
 {
-	/* TODO: Make vprintf use memory management. */
-#if 0
+#if PRINTF_USE_MM
 	char *str;
-#endif
-	char str[1024];
 	va_list args;
+#else
+	char str[1024];
 	int len, i = 0;
+#endif
 	
-#if 0
+#if PRINTF_USE_MM
 	len = vsnprintf(NULL, 0, fmt, ap);
 	str = malloc(len+1);
 	len = vsnprintf(str, len+1, fmt, ap);
-#endif
-
+#else
 	len = vsnprintf(str, 1024, fmt, ap);
+#endif
 
 	while (str[i])
 		HalDisplayChar(str[i++]);
 
-#if 0
+#if PRINTF_USE_MM
 	free(str);
 #endif
 
