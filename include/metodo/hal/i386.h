@@ -56,6 +56,7 @@ typedef struct IDTG {
 #define IDT_TRAP16 0x7
 #define IDT_TRAP32 0xf
 
+void HalInitGDT(void);
 void HalInitIDT(void);
 void HalSetIDTGate(IN size_t n, IN uint32_t offset, IN uint16_t selector, IN uint8_t priv, IN uint8_t sys, IN uint8_t gatetype);
 
@@ -75,5 +76,5 @@ void HalEnableInterrupts(void);
 
 void HalDisableNMI(void);
 void HalEnableNMI(void);
- 
+
 #endif /* end of include guard: I386_TBY8VD0E */
