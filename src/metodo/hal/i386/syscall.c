@@ -6,6 +6,8 @@
 #include <metodo/metodo.h>
 #include <config.h>
 
+#define NUM_SYSCALLS 7
+
 void ULShutdown(void)
 {
 	CoShutdown(SD_OFF);
@@ -36,7 +38,7 @@ void *malloc(unsigned int size, unsigned int flags)
 	return kmalloc_int(size, flags);
 }
 
-static void *syscalls[7] =
+static void *syscalls[NUM_SYSCALLS] =
 {
 	ULMonitorWriteChar,
 	ULMonitorWriteHex,
@@ -46,7 +48,6 @@ static void *syscalls[7] =
 	HalDisplayClear,
 	malloc
 };
-int num_syscalls = 7;
 
 void HalInitializeSyscalls()
 {
@@ -58,7 +59,7 @@ void HalSyscallHandler(struct regs *r)
 {
 	// Firstly, check if the requested syscall number is valid.
 	// The syscall number is found in EAX.
-	if (r->eax >= num_syscalls)
+	if (r->eax >= NUM_SYSCALLS)
 		 return;
 
 	void (*syscall)(int, int, int, int, int);
