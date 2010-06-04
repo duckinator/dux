@@ -3,22 +3,34 @@
 
 char *strcpy(char *s, char *ct)
 {
-	while (*s++ = *ct++);
+	while (*ct != '\0') {
+		*s = *ct;
+		s++;
+		ct++;
+	}
 	return s;
 }
 
 char *strncpy(char *s, char *ct, int n)
 {
 	register int i;
-	for (i = 0; i < n; i++)
-		*s++ = *ct++;
+	for (i = 0; i < n; i++) {
+		*s = *ct;
+		s++;
+		ct++;
+	}
 	return s;
 }
 
 char *strcat(char *s, char *ct)
 {
-	while (*s++);
-	while (*s++ = *ct++);
+	while (*s++)
+		;
+	while (*ct != '\0') {
+		*s = *ct;
+		s++;
+		ct++;
+	}
 	return s;
 }
 
@@ -27,8 +39,11 @@ char *strncat(char *s, char *ct, int n)
 	register int i;
 	while (*s++)
 		;
-	for (i = 0; i < n; i++)
-		*s++ = *ct++;
+	for (i = 0; i < n; i++) {
+		*s = *ct;
+		s++;
+		ct++;
+	}
 	return s;
 }
 
