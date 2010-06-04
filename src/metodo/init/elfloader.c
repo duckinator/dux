@@ -3,7 +3,8 @@
  
 #include <elf.h>
 #include <multiboot.h>
- 
+
+#include <metodo/metodo.h> 
 #include <metodo/stop.h>
  
 void *LoadElfExe(void *exe)
