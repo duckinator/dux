@@ -11,8 +11,6 @@ void StartInitializer(char *name, void (*func)())
 
 void HalInit(void)
 {
-	PIDTG idt;
-
 	HalInitGDT();
 	HalInitDisplay();
 	
