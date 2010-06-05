@@ -1,12 +1,22 @@
 #include <metodo/colpa/debug.h>
 
-void dprint(const char *msg, debug_type type)
+void dprint(debug_type type, char *str, const char *fmt, ...)
 {
 	if (DEBUG_MODE == NONE)
 		return;
 
-	if (DEBUG_MODE == ALL || type == DEBUG_MODE)
-		printf(msg);
+	if (DEBUG_MODE == ALL || type == DEBUG_MODE) {
+		va_list args;
+		int i;
+
+		va_start(args, fmt);
+		i = vsnprintf(str, 0, fmt, args);
+		va_end(args);
+
+		va_start(args, fmt);
+		i = vsnprintf(str, i+1, fmt, args);
+		va_end(args);
+	}
 }
 
 void set_debug_mode(debug_type type)
