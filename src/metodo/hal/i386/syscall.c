@@ -65,5 +65,5 @@ void HalSyscallHandler(struct regs *r)
 	void (*syscall)(int, int, int, int, int);
 
 	syscall = syscalls[r->eax];
-	syscall((int)r->edi, (int)r->esi, (int)r->edx, (int)r->ecx, (int)r->ebx);
+	syscall((int)r->ebx, (int)r->ecx, (int)r->edx, (int)r->esi, (int)r->edi);
 }
