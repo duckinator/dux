@@ -10,9 +10,9 @@ global HalIsrSyscall
 HalIsrSyscall:
 	cli
 	push byte 0
-	; The following was `push byte 0x80`, but that caused a warning
-	; TODO: Check if `push 0x80` is right or not
-	push dword 0x80
+	; `push dword <interrupt syscall>`, see IA32_SYSCALL_INTERRUPT
+	; in include/config.h for more info
+	push dword 0x20
 	jmp HalIsrCommon
 	iret
 
