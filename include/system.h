@@ -3,6 +3,7 @@
 
 //#include <dux/mm/memory.h>
 #include <metodo/metodo.h>
+#include <macros.h>
 
 extern void *memcpy(void *dest, void *src, unsigned int count);
 extern void *memset(void *dest, unsigned char val, unsigned int count);

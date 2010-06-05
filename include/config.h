@@ -14,9 +14,4 @@
  */
 #define IA32_SYSCALL_INTERRUPT 0x20
 
-/* For the next one, a nice big thank you to inline assembly
- * see src/lib/krnllib/krnllib.c for details
- */
-#define IA32_SYSCALL_INTERRUPT_STR "0x20"
-
 #endif
