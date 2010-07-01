@@ -101,8 +101,9 @@ int printf(IN const char *fmt, ...)
 {
 #if PRINTF_USE_MM
 	char *str;
-#endif
+#else
 	char str[1024];
+#endif
 	va_list args;
 	int len, i = 0;
 
