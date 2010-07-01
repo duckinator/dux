@@ -164,11 +164,10 @@ int vprintf(IN const char *fmt, va_list ap)
 {
 #if PRINTF_USE_MM
 	char *str;
-	va_list args;
 #else
 	char str[1024];
-	int len, i = 0;
 #endif
+	int len, i = 0;
 	
 #if PRINTF_USE_MM
 	len = vsnprintf(NULL, 0, fmt, ap);
