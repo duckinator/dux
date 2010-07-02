@@ -32,9 +32,9 @@ typedef struct {
 
 #define MALLOC_ALIGN 1
 
-#define kmalloc(n) kmalloc_int((n), 0)
-
 void *kmalloc_int(unsigned int size, unsigned int flags);
+void *kmalloc(unsigned int nbytes);
+void free(void *ap);
 
 void init_mm();
 unsigned int test_frame(unsigned int addr);

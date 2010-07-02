@@ -1,6 +1,7 @@
 #include <metodo/metodo.h>
 #include <buildid.h>
 #include <metodo/scheduler.h>
+#include <metodo/hal/mm/memory.h>
  
 void StartInitializer(char *name, void (*func)())
 {
@@ -24,6 +25,8 @@ void HalInit(void)
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
+
+	init_mm();
 	
 	printf("Enabling interrupts...");
 	asm volatile ("sti");

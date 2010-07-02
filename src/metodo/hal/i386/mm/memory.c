@@ -33,6 +33,92 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 	return (void*) placement;
 }
 
+typedef long Align;
+
+union header {
+	struct {
+		union header *ptr;
+		unsigned size;
+	} s;
+	Align x;
+};
+
+typedef union header Header;
+
+static Header base;
+static Header *freep = NULL;
+
+#define NALLOC 4096-sizeof(Header)
+
+void free(void *ap)
+{
+	Header *bp, *p;
+
+	bp = (Header *)ap - 1; /* point to block header */
+	for (p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
+		if (p >= p->s.ptr && (bp > p || bp < p->s.ptr))
+			break; /* freed block at start or end of arena */
+
+	if (bp + bp->s.size == p->s.ptr) { /* join to upper nbr */
+		bp->s.size += p->s.ptr->s.size;
+		bp->s.ptr = p->s.ptr->s.ptr;
+	} else
+		bp->s.ptr = p->s.ptr;
+	if (p + p->s.size == bp) { /* join to lower nbr */
+		p->s.size += bp->s.size;
+		p->s.ptr = bp->s.ptr;
+	} else
+		p->s.ptr = bp;
+	freep = p;
+}
+
+/* Maybe it would be better to allocate in more than units of pages? */
+static Header *morecore(unsigned nu)
+{
+	char *cp;
+	Header *up;
+
+	if (nu <= NALLOC)
+		nu = NALLOC;
+	else
+		return NULL;
+
+	cp = (void*) first_frame();
+	/* first_frame() can't fail. */
+	up = (Header *) cp;
+	up->s.size = nu;
+	free((void *)(up+1));
+	return freep;
+}
+
+void *kmalloc(unsigned int nbytes)
+{
+	Header *p, *prevp;
+	unsigned nunits;
+
+	nunits = (nbytes+sizeof(Header)-1)/sizeof(Header) +1;
+	if ((prevp = freep) == NULL) {
+		base.s.ptr = freep = prevp = &base;
+		base.s.size = 0;
+	}
+	for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) {
+		if (p->s.size >= nunits) { /* big enough */
+			if (p->s.size == nunits) /* exactly */
+				prevp->s.ptr = p->s.ptr;
+			else { /* allocate tail end */
+				p->s.size -= nunits;
+				p += p->s.size;
+				p->s.size = nunits;
+			}
+			freep = prevp;
+			return (void *)(p+1);
+		}
+		if (p == freep) /* wrapper around free list */
+			if ((p = morecore(nunits)) == NULL)
+				return NULL; /* none left */
+	}
+}
+
 static unsigned int *frames;
 
 /* set_frame(addr)
