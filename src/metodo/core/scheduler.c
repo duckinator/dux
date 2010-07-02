@@ -19,7 +19,7 @@ void CoSchedulerHandler(void)
 
 	HalSchedulerRunProcess(processes[current_process_id]);
 
-	CoSchedulerNextProcess();
+	current_process_id = CoSchedulerNextProcess();
 }
 
 uint32_t CoSchedulerCurProcessId(void)
@@ -42,7 +42,7 @@ uint32_t CoSchedulerNextProcessLoop(uint32_t begin, uint32_t end)
 	uint32_t i;
 
 	if (end == -1) {
-		end = number_of_processes-1;
+		end = number_of_processes;
 	}
 
 	if (begin == end) {
@@ -58,18 +58,10 @@ uint32_t CoSchedulerNextProcessLoop(uint32_t begin, uint32_t end)
 
 	// Try processes with ids from begin to end
 	while(!processes[i].used) {
-//		printf("%d is not runnnig, checking process %d...\n", i-1, i);
-
-		if(i > end) // If we are past the last process in the group
-			return -1; // return -1
-
+		if(i > end) // If we are past the last process in the group, return -1
+			return -1;
 		i++;
 	}
-
-/*printf("Trying from %i to %i\n", i, end);
-printf("processes[100].used == %i\n", processes[100].used);
-printf("i == %i\n", i);
-while(1);*/
 
 	return i;
 }
@@ -87,6 +79,7 @@ uint32_t CoSchedulerNextProcess(void)
 		result = CoSchedulerNextProcessLoop(0, last_process);
 	}
 
+	// If result is still -1, either something exploded or there's no processes
 	if(result == -1) {
 		printf("\n\nNo processes");
 		while(1);
