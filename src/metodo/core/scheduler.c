@@ -10,6 +10,7 @@ static uint32_t number_of_processes = 0;
 void CoSchedulerHandler(void)
 {
 	printf("CoSchedulerHandler\n");
+	return;
 	if (scheduler_firstrun) {
 		CoSchedulerFirstRun();
 
