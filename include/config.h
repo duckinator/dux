@@ -11,7 +11,9 @@
  *   used to use 0x80 (got the idea from Linux)
  * This must also be changed in HalIsrSyscall - line 15 in
  * src/metodo/hal/i386/exceptions.asm
+ *
+ * TODO: Find out why interrupt 0x20 for syscalls causes IRQs to fail
  */
-#define IA32_SYSCALL_INTERRUPT 0x20
+#define IA32_SYSCALL_INTERRUPT 0x21
 
 #endif
