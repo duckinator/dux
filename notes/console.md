@@ -14,7 +14,6 @@ Metodo's scheduler for the game console will use cooperative multitasking, threa
 Quick example because I don't feel like typing up a formal explanation:
 
 So assuming there are 1 task with one thread - task 1 is the main screen.
-Y
 The main screen has 1 thread - A:
 
     Task:     main
