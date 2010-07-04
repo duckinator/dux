@@ -11,6 +11,7 @@ typedef struct SchedulerProcess_s {
 
 void CoSchedulerHandler(void);
 SchedulerProcess CoSchedulerCurProcess(void);
+uint32_t CoSchedulerCurProcessId(void);
 uint32_t CoSchedulerNumProcesses(void);
 uint32_t CoSchedulerNextProcessLoop(uint32_t begin, uint32_t end);
 uint32_t CoSchedulerNextProcess(void);
