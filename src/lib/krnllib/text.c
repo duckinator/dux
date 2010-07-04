@@ -101,7 +101,6 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 
 int printf(IN const char *fmt, ...)
 {
-	/* TODO: Make printf use memory management. */
 #if PRINTF_USE_MM
 	char *str;
 #endif
@@ -164,7 +163,6 @@ int snprintf(OUT char *str, IN size_t size, IN const char *fmt, ...)
 
 int vprintf(IN const char *fmt, va_list ap)
 {
-	/* TODO: Make vprintf use memory management. */
 #if PRINTF_USE_MM
 	char *str;
 	va_list args;
