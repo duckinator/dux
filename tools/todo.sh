@@ -1,3 +1,5 @@
 #!/bin/sh
 
-grep -EHnr 'TODO|FIXME' src
+DIR=$(dirname $(readlink -f $0))
+cd $DIR/..
+grep -EHnr 'TODO|FIXME' src include
