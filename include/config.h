@@ -12,8 +12,8 @@
  * This must also be changed in HalIsrSyscall - line 15 in
  * src/metodo/hal/i386/exceptions.asm
  *
- * TODO: Find out why interrupt 0x20 for syscalls causes IRQs to fail
+ * TODO: Find out why interrupt 0x20 and 0x21 for syscalls causes IRQs to fail
  */
-#define IA32_SYSCALL_INTERRUPT 0x21
+#define IA32_SYSCALL_INTERRUPT 0xFF
 
 #endif
