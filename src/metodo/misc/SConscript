@@ -7,4 +7,5 @@ sources += [
 	'misc/panic.c',
 	'misc/misc.c',
 	'misc/stop.c',
+	'misc/modules.c',
 ]
