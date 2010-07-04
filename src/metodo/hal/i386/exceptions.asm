@@ -12,7 +12,7 @@ HalIsrSyscall:
 	push byte 0
 	; `push dword <syscall interrupt>`, see IA32_SYSCALL_INTERRUPT
 	; in include/config.h for more info
-	push dword 0xFF
+	push dword 0x2F
 	jmp HalIsrCommon
 	iret
 
