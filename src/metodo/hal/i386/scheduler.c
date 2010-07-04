@@ -5,7 +5,7 @@ static int scheduler_enabled = 0;
 
 void HalSchedulerRunProcess(SchedulerProcess proc)
 {
-	printf("Switch process %i\n", proc.id);
+	printf("Switch process %i\n", CoSchedulerCurProcessId());
 }
 
 void HalSchedulerEnable()
