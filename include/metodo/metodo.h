@@ -25,5 +25,6 @@
 #include <multiboot.h>
 
 multiboot_info_t *mbd;
+memory_map_t *mmaps[100];
 
 #endif /* end of include guard: METODO_IIXETUDY */
