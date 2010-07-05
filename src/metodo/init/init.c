@@ -25,6 +25,8 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 
 	*mbd = *multiboot;
 
+	memory_map_t *mmap = (memory_map_t*)mbd->mmap_addr;
+
 	HalInit();
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
@@ -54,6 +56,21 @@ void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	}
 
 	SystemTests();
+
+	for (i = 0; mmap < (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length); i++,mmap++) {
+		// Store all memory maps in mmaps (see metodo.h)
+		mmaps[i] = mmap;
+		// Print info about current memory map
+/*		printf("mmap:\n\
+		size: %i\n\
+		base_addr_low: 0x%x\n\
+		base_addr_high: 0x%x\n\
+		length_low: %i\n\
+		length_high: %i\n\
+		type: %i\n",
+		mmap->size, mmap->base_addr_low, mmap->base_addr_high,
+		mmap->length_low, mmap->length_high, mmap->type);*/
+	}
 
 	userland = GetModule("/System/userland.exe");
 
