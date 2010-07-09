@@ -39,8 +39,17 @@ env = Environment(
 if buildtype == 'debug':
 	env.Append(CCFLAGS=['-g', '-D', 'DEBUG'], LINKFLAGS=['-g'])
 
+if buildtype == 'syntax':
+	env['LINK']='echo'
+	env['LINKFLAGS']=[]
+	if compiler == 'clang':
+		env.Append(CCFLAGS=['--analyze'])
+	elif compiler == 'gcc':
+		env.Append(CCFLAGS=['-E'])
+
 Export('env', 'arch', 'buildtype', 'distreq')
 
 SConscript('src/SConscript')
 
-env.Iso('iso/Dux.iso', distreq)
+if buildtype != 'syntax':
+	env.Iso('iso/Dux.iso', distreq)
