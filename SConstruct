@@ -45,7 +45,7 @@ if buildtype == 'syntax':
 	if compiler == 'clang':
 		env.Append(CCFLAGS=['--analyze'])
 	elif compiler == 'gcc':
-		env.Append(CCFLAGS=['-E'])
+		env.Append(CCFLAGS=['-S'])
 
 Export('env', 'arch', 'buildtype', 'distreq')
 
