@@ -5,8 +5,8 @@
 #include <multiboot.h>
 
 #include <metodo/metodo.h> 
-#include <metodo/stop.h>
-#include <metodo/elfloader.h>
+#include <metodo/misc/stop.h>
+#include <metodo/init/elfloader.h>
  
 void *LoadElfExe(void *exe)
 {

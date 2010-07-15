@@ -1,4 +1,4 @@
-#include <metodo/colpa/debug.h>
+#include <metodo/colpa/dprint.h>
 
 void dprint(debug_type type, char *str, const char *fmt, ...)
 {

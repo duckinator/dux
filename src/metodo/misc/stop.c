@@ -5,7 +5,7 @@
 #include <metodo/display.h>
 #include <metodo/shutdown.h>
  */
-#include <metodo/stop.h>
+#include <metodo/misc/stop.h>
  
 static int in_stop = 0;
  

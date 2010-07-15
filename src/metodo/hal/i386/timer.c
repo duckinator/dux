@@ -1,5 +1,5 @@
 #include <metodo/metodo.h>
-#include <metodo/scheduler.h>
+#include <metodo/core/scheduler.h>
 
 unsigned int ticks = 0;
 
