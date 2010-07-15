@@ -49,7 +49,9 @@ void VgaDisplayChar(char c)
 {
 	if (c == 0x08) {
 		/* Backspace */
-		col--;
+		if (col != 0)
+			// TODO: What to do if we're at column 0? What to do, what to do.
+			col--;
 		PUTSPOT(' ');
 	} else if (c == '\t') {
 		/* Tab */
