@@ -1,6 +1,9 @@
 #include <metodo/metodo.h>
 #include <metodo/hal/keyboard/keysym.h>
 
+#define SCANCODE(x) ( (scancode == x) || (scancode == (x + 0x80))) // Does this match either the make or break code?
+#define KEYINFO(x) keyinfo.x = x // KEYINFO(foo) is the same as keyinfo.foo=foo;
+
 unsigned char buf[0x1000];
 unsigned char *buffer;
 unsigned char *origbuffer;
@@ -24,12 +27,12 @@ void HalKeyboardHandler(struct regs *r)
 }
 
 void HalKeyboardLeds(uint8_t status){
- 	while((HalInPort(0x64)&2)!=0){} //loop until zero
- 	HalOutPort(0x60,0xED);
+	while((HalInPort(0x64)&2)!=0){} //loop until zero
+	HalOutPort(0x60,0xED);
 
- 	while((HalInPort(0x64)&2)!=0){} //loop until zero
- 	HalOutPort(0x60,status);
- }
+	while((HalInPort(0x64)&2)!=0){} //loop until zero
+	HalOutPort(0x60,status);
+}
 
 int HalKeyboardShift_l()
 {
@@ -100,78 +103,54 @@ HalKeyInfo HalKeyboardRead()
 
 	scancode = *buffer-- & 0xFF;
 
-	// Caps lock
-	if (scancode == 0xBA) {
-		if ( capslock ) {
-			capslock = 0;
-		} else {
-			capslock = 1;
-		}
-	}
-
-	// Left shift
-	if (scancode == 0x2A)
-		shift_l = 1;
-	else if (scancode == 0xAA)
-		shift_l = 0;
-
-	// Right shift
-	if (scancode == 0x36)
-		shift_r = 1;
-	else if (scancode == 0xB6)
-		shift_r = 0;
-
-	// Alt
-	if (scancode == 0x38) {
-		if ( escaped ) {
-			alt_r = 1;
-		} else {
-			alt_l = 1;
-		}
-	} else if (scancode == 0xB8) {
-		if ( escaped ) {
-			alt_r = 0;
-		} else {
-			alt_l = 0;
-		}
-	}
-
-	// Control
-	if (scancode == 0x1D) {
-		if ( escaped ) {
-			ctrl_r = 1;
-		} else {
-			ctrl_l = 1;
-		}
-	} else if (scancode == 0x9D) {
-		if ( escaped ) {
-			ctrl_r = 0;
-		} else {
-			ctrl_l = 0;
-		}
-	}
-
-	if ( escaped ) {
-		escaped = 0;
-	} else if ( scancode == 0xe0 ) {
-		escaped = 1;
-	}
-
-	if (HalKeyboardCtrl() && HalKeyboardAlt() && (scancode == 0x53))
-	{ // Ctrl-Alt-Delete
-		panic("User initialized");
-	}
-	
-	if ( scancode & 0x80 ) {
-		// Released ("Break" code)
-		keyinfo.action = 0;
-	} else {
-		// Pressed ("Make" code)
-		keyinfo.action = 1;
-	}
-	
 	keyinfo.scancode = scancode;
 	keyinfo.key = (char)scancode;
+
+	if ( scancode & 0x80 )
+		// Released ("Break" code)
+		keyinfo.action = 0;
+	else
+		// Pressed ("Make" code)
+		keyinfo.action = 1;
+
+	// Caps lock
+	if (SCANCODE(CAPSLOCK))
+		capslock = !capslock;
+
+	// Left shift
+	if (SCANCODE(SHIFT_LEFT))
+		shift_l = keyinfo.action;
+
+	// Right shift
+	if (SCANCODE(SHIFT_RIGHT))
+		shift_r = keyinfo.action;
+
+	// Alt
+	if (SCANCODE(ALT))
+		if ( escaped )
+			alt_r = keyinfo.action;
+		else
+			alt_l = keyinfo.action;
+
+	// Control
+	if (SCANCODE(CONTROL))
+		if ( escaped )
+			ctrl_r = keyinfo.action;
+		else
+			ctrl_l = keyinfo.action;
+
+	if ( scancode == 0xe0 )
+		escaped = 1;
+	else
+		escaped = 0;
+
+	KEYINFO(shift_l);
+	KEYINFO(shift_r);
+	KEYINFO(alt_l);
+	KEYINFO(alt_r);
+	KEYINFO(ctrl_l);
+	KEYINFO(ctrl_r);
+
 	return keyinfo;
 }
 
@@ -190,7 +169,7 @@ HalKeyInfo HalKeyboardReadLetter()
 {
 	HalKeyInfo keyinfo = {0};
 	keyinfo = HalKeyboardRead();
-	if(shift_l || shift_r) {
+	if(keyinfo.shift_l || keyinfo.shift_r) {
 		keyinfo = HalKeyboardResolveScancode_shift(keyinfo);
 	} else {
 		keyinfo = HalKeyboardResolveScancode(keyinfo);
