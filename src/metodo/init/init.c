@@ -19,7 +19,7 @@
 
 #include <metodo/modules.h>
 
-void InInitKernel(uint32_t magic, multiboot_info_t *multiboot)
+void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
 
