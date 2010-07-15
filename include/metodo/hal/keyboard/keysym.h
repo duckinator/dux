@@ -1,5 +1,5 @@
-#ifndef KEYSYM_H
-#define KEYSYM_H
+#ifndef HAL_KEYSYM_H
+#define HAL_KEYSYM_H
 
 unsigned char keysym_us[128] =
 {
@@ -82,4 +82,4 @@ unsigned char keysym_us_shift[128] =
   0,  /* All other keys are undefined */
 };
 
-#endif
+#endif /* end of include guard: HAL_KEYSYM_H */

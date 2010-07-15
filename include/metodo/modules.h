@@ -1,5 +1,5 @@
-#ifndef MODULES_H
-#define MODULES_H
+#ifndef MISC_MODULES_H
+#define MISC_MODULES_H
 
 #include <string.h>
 #include <metodo/metodo.h>
@@ -15,4 +15,4 @@ Module *modules;
 
 void *GetModule(char *name);
 
-#endif
+#endif /* end of include guard: MISC_MODULES_H */

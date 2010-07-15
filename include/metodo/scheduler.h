@@ -1,5 +1,5 @@
-#ifndef SCHEDULER_H
-#define SCHEDULER_H
+#ifndef CORE_SCHEDULER_H
+#define CORE_SCHEDULER_H
 
 #include <stdint.h>
 #include <metodo/hal/scheduler.h>
@@ -17,6 +17,4 @@ uint32_t CoSchedulerNextProcessLoop(uint32_t begin, uint32_t end);
 uint32_t CoSchedulerNextProcess(void);
 void CoSchedulerSetNumProcesses(uint32_t num);
 
-void HalSchedulerRunProcess(SchedulerProcess proc);
-
-#endif
+#endif /* end of include guard: CORE_SCHEDULER_H */

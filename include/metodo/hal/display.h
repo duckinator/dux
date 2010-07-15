@@ -1,5 +1,5 @@
-#ifndef DISPLAY_OLOJ4A8Q
-#define DISPLAY_OLOJ4A8Q
+#ifndef HAL_DISPLAY_H
+#define HAL_DISPLAY_H
 
 struct DisplayDevice {
 	void (*Init) ();
@@ -19,4 +19,4 @@ void HalDisableDisplay(void);
 int HalIsDisplayOn(void);
 void HalDisplayHideCursor();
 void HalDisplayCursorPosition(int _row, int _col);
-#endif
+#endif /* end of include guard: HAL_DISPLAY_H */

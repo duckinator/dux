@@ -1,7 +1,6 @@
-#ifndef __SYSTEM_H
-#define __SYSTEM_H
+#ifndef SYSTEM_H
+#define SYSTEM_H
 
-//#include <dux/mm/memory.h>
 #include <metodo/metodo.h>
 #include <macros.h>
 
@@ -27,4 +26,4 @@ void panic(char*);
 void stop(int error, int argc, ...);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
-#endif
+#endif /* end of include guard: SYSTEM_H */

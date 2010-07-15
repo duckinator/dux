@@ -1,5 +1,5 @@
-#ifndef HalIsr_H
-#define HalIsr_H
+#ifndef HAL_ISR_H
+#define HAL_ISR_H
 
 typedef struct registers
 {
@@ -75,4 +75,4 @@ extern void HalIrq13();
 extern void HalIrq14();
 extern void HalIrq15();
 
-#endif
+#endif /* end of include guard: HAL_ISR_H */

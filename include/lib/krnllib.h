@@ -17,4 +17,4 @@ void shutdown ();
 void reboot ();
 void clear_screen ();
 
-#endif
+#endif /* end of include guard: KRNLLIB_H */

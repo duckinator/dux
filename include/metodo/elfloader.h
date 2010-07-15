@@ -5,4 +5,4 @@ void *LoadElfExe(void *exe);
 void LoadUserland(void *userland);
 void LoadExe(void *exe);
 
-#endif
+#endif /* end of include guard: ELFLOADER_H */

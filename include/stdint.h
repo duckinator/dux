@@ -1,6 +1,5 @@
-#ifndef STDINT_FZ9QIUY6
-
-#define STDINT_FZ9QIUY6
+#ifndef STDINT_H
+#define STDINT_H
 
 typedef unsigned long long uint64_t;
 typedef unsigned int uint32_t;
@@ -12,4 +11,4 @@ typedef signed int int32_t;
 typedef signed short int16_t;
 typedef signed char int8_t;
 
-#endif /* end of include guard: STDINT_FZ9QIUY6 */
+#endif /* end of include guard: STDINT_H */

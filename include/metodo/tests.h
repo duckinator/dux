@@ -11,4 +11,4 @@ void MMTest();
 void KernelSizeTest();
 void UsedFrameTest();
 
-#endif
+#endif /* end of include guard: TESTS_H */

@@ -14,4 +14,4 @@
  */
 #define IA32_SYSCALL_INTERRUPT 0xFF
 
-#endif
+#endif /* end of include guard: CONFIG_H */

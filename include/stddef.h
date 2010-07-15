@@ -1,9 +1,8 @@
-#ifndef STDDEF_A6HJPPSL
-
-#define STDDEF_A6HJPPSL
+#ifndef STDDEF_H
+#define STDDEF_H
 
 typedef unsigned int size_t;
 
 #define NULL ((void*)(0))
 
-#endif /* end of include guard: STDDEF_A6HJPPSL */
+#endif /* end of include guard: STDDEF_H */

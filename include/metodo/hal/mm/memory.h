@@ -1,6 +1,5 @@
-#ifndef MEMORY_WCZWHBJM
-
-#define MEMORY_WCZWHBJM
+#ifndef HAL_MM_MEMORY_H
+#define HAL_MM_MEMORY_H
 
 typedef struct {
 	unsigned int present : 1;
@@ -43,4 +42,4 @@ unsigned int first_frame();
 
 unsigned int end_memory;
 
-#endif /* end of include guard: MEMORY_WCZWHBJM */
+#endif /* end of include guard: HAL_MM_MEMORY_H */

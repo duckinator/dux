@@ -1,6 +1,5 @@
-#ifndef HAL_VP4F7OUG
-
-#define HAL_VP4F7OUG
+#ifndef HAL_H
+#define HAL_H
 
 #include <metodo/hal/display.h>
 #include <metodo/hal/hal.h>
@@ -25,4 +24,4 @@ void HalReboot(void);
 int HalIsDisplayOn(void);
 void HalDisplayChar(char c);
 
-#endif /* end of include guard: HAL_VP4F7OUG */
+#endif /* end of include guard: HAL_H */

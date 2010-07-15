@@ -1,5 +1,5 @@
-#ifndef SYSCALL_H
-#define SYSCALL_H
+#ifndef HAL_SYSCALL_H
+#define HAL_SYSCALL_H
 
 #include <metodo/hal/isr.h>
 
@@ -8,4 +8,4 @@ extern void HalIsrSyscall(void);
 
 void HalInitializeSyscalls();
 
-#endif
+#endif /* end of include guard: HAL_SYSCALL_H */

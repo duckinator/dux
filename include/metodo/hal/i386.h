@@ -1,6 +1,5 @@
-#ifndef I386_TBY8VD0E
-
-#define I386_TBY8VD0E
+#ifndef HAL_I386_H
+#define HAL_I386_H
 
 /* Exceptions */
 void isr0(void);
@@ -77,4 +76,4 @@ void HalEnableInterrupts(void);
 void HalDisableNMI(void);
 void HalEnableNMI(void);
 
-#endif /* end of include guard: I386_TBY8VD0E */
+#endif /* end of include guard: HAL_I386_H */

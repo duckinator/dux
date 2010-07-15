@@ -1,6 +1,5 @@
-#ifndef METODO_IIXETUDY
-
-#define METODO_IIXETUDY
+#ifndef METODO_H
+#define METODO_H
 
 #include <stdarg.h>
 #include <stddef.h>
@@ -27,4 +26,4 @@
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
 
-#endif /* end of include guard: METODO_IIXETUDY */
+#endif /* end of include guard: METODO_H */
