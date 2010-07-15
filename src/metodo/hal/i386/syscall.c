@@ -6,7 +6,7 @@
 #include <metodo/metodo.h>
 #include <config.h>
 
-#define NUM_SYSCALLS 7
+#define NUM_SYSCALLS 6
 
 void ULShutdown(void)
 {
@@ -33,11 +33,6 @@ void ULMonitorWriteDec(uint32_t text)
 	printf("%d", text);
 }
 
-void *malloc(unsigned int size, unsigned int flags)
-{
-	return kmalloc_int(size, flags);
-}
-
 static void *syscalls[NUM_SYSCALLS] =
 {
 	ULMonitorWriteChar,
@@ -46,7 +41,6 @@ static void *syscalls[NUM_SYSCALLS] =
 	ULShutdown,
 	ULReboot,
 	HalDisplayClear,
-	malloc
 };
 
 void HalInitializeSyscalls()

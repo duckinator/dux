@@ -1,5 +1,6 @@
 /* krnllib.c for Dux */
 
+#include <stddef.h>
 #include <stdint.h>
 #include <config.h>
 #include <macros.h>
@@ -63,16 +64,13 @@ void clear_screen ()
 			" : : : "eax");
 }
 
-void *malloc (unsigned int size, unsigned int flags)
+void *malloc (unsigned int nbytes)
 {
-	void *rval;
-	__asm__ __volatile__ (" \
-			mov $6, %%eax; \
-			mov %0, %%ebx; \
-			mov %1, %%ecx; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
-			mov %%eax, %2; \
-			" : "=m" (rval) : "m" (size), "m" (flags) : "eax", "ebx", "ecx");
-	return rval;
+	// TODO: Dummy malloc() in src/lib/krnllib/krnllib.c
+	return NULL;
 }
 
+void free(void *ap)
+{
+  // TODO: Dummy free() in src/lib/krnllib/krnllib.c
+}
