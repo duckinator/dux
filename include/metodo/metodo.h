@@ -13,7 +13,7 @@
 #define NOTHING
 
 /* Define pseudo function modifiers. */
-#define DEPRECIATED
+#define DEPRECATED
 
 #include <metodo/hal/hal.h>
 
