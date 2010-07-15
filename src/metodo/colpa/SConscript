@@ -3,5 +3,6 @@ Import('env', 'arch', 'buildtype', 'distreq')
 Import('sources', 'metodo')
 
 sources += [
-	'colpa/debug.c'
+	'colpa/debug.c',
+	'colpa/dprint.c'
 ]
