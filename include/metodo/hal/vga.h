@@ -1,5 +1,5 @@
-#ifndef VGA_H
-#define VGA_H
+#ifndef HAL_VGA_H
+#define HAL_VGA_H
 
 #include <metodo/metodo.h>
 
@@ -14,4 +14,4 @@ void VgaInitDisplay(void);
 void VgaDisableDisplay(void);
 int VgaIsDisplayOn(void);
 
-#endif
+#endif /* end of include guard: HAL_VGA_H */

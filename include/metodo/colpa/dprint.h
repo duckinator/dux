@@ -1,5 +1,5 @@
-#ifndef DPRINT_H
-#define DPRINT_H
+#ifndef COLPA_DPRINT_H
+#define COLPA_DPRINT_H
 
 #include <system.h>
 #include <metodo/metodo.h>
@@ -18,4 +18,4 @@ void dprint(debug_type type, char *str, const char *fmt, ...);
 void set_debug_mode(debug_type type);
 debug_type get_debug_mode(void);
 
-#endif
+#endif /* end of include guard: COLPA_DPRINT_H */

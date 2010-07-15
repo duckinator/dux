@@ -1,6 +1,5 @@
-#ifndef CORE_DY5608B7
-
-#define CORE_DY5608B7
+#ifndef CORE_H
+#define CORE_H
 
 /* Interrupt Priority Level */
 typedef uint8_t IPL, *PIPL;
@@ -41,4 +40,4 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap);
 int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 		IN va_list ap);
 
-#endif /* end of include guard: CORE_DY5608B7 */
+#endif /* end of include guard: CORE_H */

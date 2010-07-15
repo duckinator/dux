@@ -1,6 +1,6 @@
-#ifndef TASK_H
-#define TASK_H
+#ifndef HAL_TASK_H
+#define HAL_TASK_H
 
 void HalSwitchToUserMode();
 
-#endif
+#endif /* end of include guard: HAL_TASK_H */

@@ -1,5 +1,5 @@
-#ifndef SERIAL_H
-#define SERIAL_H
+#ifndef HAL_SERIAL_H
+#define HAL_SERIAL_H
 
 #define COM1			0x3f8
 #define UART_BASE_REGISTER	COM1
@@ -29,4 +29,4 @@ void UartSend(char c);
 static void UartSend_int(char c);
 int UartInit();
 
-#endif
+#endif /* end of include guard: HAL_SERIAL_H */

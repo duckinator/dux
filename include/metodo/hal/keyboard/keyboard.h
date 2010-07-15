@@ -1,5 +1,5 @@
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#ifndef HAL_KEYBOARD_H
+#define HAL_KEYBOARD_H
 
 #define SCROLL_LED 1
 #define NUM_LED 2
@@ -37,4 +37,4 @@ extern void HalKeyboardTest();
 #define ALT           0x38
 #define CONTROL       0x1D
 
-#endif
+#endif /* end of include guard: HAL_KEYBOARD_H */

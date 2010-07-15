@@ -1,6 +1,6 @@
 // From http://www.jamesmolloy.co.uk/tutorial_html/10.-User%20Mode.html
-#ifndef TSS_H
-#define TSS_H
+#ifndef HAL_TSS_H
+#define HAL_TSS_H
 
 #include <stdint.h>
 
@@ -38,4 +38,4 @@ typedef struct tss_entry_struct
 
 typedef struct tss_entry_struct tss_entry_t;
 
-#endif
+#endif /* end of include guard: HAL_TSS_H */

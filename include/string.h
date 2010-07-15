@@ -1,7 +1,5 @@
-#include <stddef.h>
-
-#ifndef __STRING_H
-#define __STRING_H
+#ifndef STRING_H
+#define STRING_H
 
 #include <stddef.h>
 
@@ -19,5 +17,5 @@ extern int strncmp(char *cs, char *ct, int n);
 extern char *strchr(char *cs, int c);
 extern char *strrchr(char *cs, int c);
 
-#endif /* end of include guard: __STRING_H */
+#endif /* end of include guard: STRING_H */
 

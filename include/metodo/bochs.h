@@ -3,4 +3,4 @@
 
 void BochsBreak();
 
-#endif
+#endif /* end of include guard: BOCHS_H */

@@ -54,4 +54,4 @@ void close_fs(fs_node_t *node);
 struct dirent *readdir_fs(fs_node_t *node, uint32_t index);
 fs_node_t *finddir_fs(fs_node_t *node, char *name);
 
-#endif
+#endif /* end of include guard: VFS_H */
