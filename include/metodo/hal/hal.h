@@ -3,13 +3,14 @@
 
 #include <metodo/hal/display.h>
 #include <metodo/hal/hal.h>
+
 #if I386
 #include <metodo/hal/i386.h>
 #endif
 
 #include <metodo/hal/isr.h>
 
-#include <metodo/hal/timer/timer.h>
+#include <metodo/hal/timer.h>
 
 #include <metodo/hal/syscall.h>
 

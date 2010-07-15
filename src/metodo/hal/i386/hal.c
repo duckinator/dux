@@ -1,6 +1,6 @@
 #include <metodo/metodo.h>
 #include <buildid.h>
-#include <metodo/scheduler.h>
+#include <metodo/core/scheduler.h>
 #include <metodo/hal/mm/memory.h>
  
 void StartInitializer(char *name, void (*func)())

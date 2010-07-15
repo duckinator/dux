@@ -11,6 +11,9 @@ struct proc_regs {
 void HalSchedulerEnable();
 void HalSchedulerDisable();
 int HalIsSchedulerEnabled();
-void HalSchedulerRunProcess(SchedulerProcess proc);
+/*
+ * Defined in core/scheduler.h:
+ * void HalSchedulerRunProcess(SchedulerProcess proc);
+ */
 
 #endif /* end of include guard: HAL_SCHEDULER_H */

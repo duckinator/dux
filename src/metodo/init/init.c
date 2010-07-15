@@ -1,10 +1,10 @@
 #include <system.h>
 
 #include <metodo/metodo.h>
-#include <metodo/stop.h>
+#include <metodo/misc/stop.h>
 
 #include <metodo/hal/mm/memory.h>
-#include <metodo/tests.h>
+#include <metodo/init/tests.h>
 
 #include <multiboot.h>
 
@@ -15,9 +15,9 @@
 
 #include <metodo/colpa/debug.h>
 
-#include <metodo/elfloader.h>
+#include <metodo/init/elfloader.h>
 
-#include <metodo/modules.h>
+#include <metodo/misc/modules.h>
 
 void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {

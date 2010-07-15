@@ -16,10 +16,10 @@
 
 #include <metodo/hal/hal.h>
 
-#include <metodo/init.h>
-#include <metodo/core.h>
+#include <metodo/init/init.h>
+#include <metodo/core/core.h>
 
-#include <metodo/misc.h>
+#include <metodo/misc/misc.h>
 
 #include <multiboot.h>
 

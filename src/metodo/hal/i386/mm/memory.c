@@ -1,7 +1,7 @@
 #include <system.h>
 #include <metodo/metodo.h>
 #include <metodo/hal/mm/memory.h>
-#include <metodo/misc.h>
+#include <metodo/misc/misc.h>
 
 extern unsigned int end;
 unsigned int placement = 0;
