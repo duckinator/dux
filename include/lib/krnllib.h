@@ -16,5 +16,7 @@ void putdec ( uint32_t num );
 void shutdown ();
 void reboot ();
 void clear_screen ();
+void *malloc (unsigned int nbytes);
+void free(void *ap);
 
 #endif /* end of include guard: KRNLLIB_H */
