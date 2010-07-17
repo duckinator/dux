@@ -34,21 +34,6 @@ void HalKeyboardLeds(uint8_t status){
 	HalOutPort(0x60,status);
 }
 
-int HalKeyboardShift_l()
-{
-	return shift_l;
-}
-
-int HalKeyboardShift_r()
-{
-	return shift_r;
-}
-
-int HalKeyboardShift()
-{
-	return shift_l || shift_r;
-}
-
 int HalKeyboardCapslock()
 {
 	return capslock;
@@ -57,36 +42,6 @@ int HalKeyboardCapslock()
 int HalKeyboardNumlock()
 {
 	return numlock;
-}
-
-int HalKeyboardAlt_l()
-{
-	return alt_l;
-}
-
-int HalKeyboardAlt_r()
-{
-	return alt_r;
-}
-
-int HalKeyboardAlt()
-{
-	return alt_l || alt_r;
-}
-
-int HalKeyboardCtrl_l()
-{
-	return ctrl_l;
-}
-
-int HalKeyboardCtrl_r()
-{
-	return ctrl_r;
-}
-
-int HalKeyboardCtrl()
-{
-	return ctrl_l || ctrl_r;
 }
 
 char HalKeyboardHasInput()
