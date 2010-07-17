@@ -15,11 +15,8 @@ typedef struct hal_key_info {
 } HalKeyInfo;
 
 extern void HalKeyboardHandler(struct regs *r);
-extern int HalKeyboardShift();
 extern int HalKeyboardCapslock();
 extern int HalKeyboardNumlock();
-extern int HalKeyboardAlt();
-extern int HalKeyboardCtrl();
 extern char HalKeyboardHasInput();
 extern HalKeyInfo HalKeyboardRead();
 extern HalKeyInfo HalKeyboardReadLetter();
