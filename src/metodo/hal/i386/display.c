@@ -22,7 +22,7 @@ extern struct DisplayDevice VgaDisplayDevice;
 extern struct DisplayDevice UartDisplayDevice;
 
 struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice,
-					      &UartDisplayDevice };
+								&UartDisplayDevice };
 
 #define NUM_DISPLAY_DEVICES ( (sizeof(DisplayDeviceList) / sizeof(DisplayDeviceList[0])) )
 
@@ -65,6 +65,10 @@ void HalDisplayString(char *s)
 
 void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 {
+	// To stop gcc from whining...
+	s = s;
+	row = row;
+	col = col;
 }
 
 void HalDisplayHideCursor()
@@ -73,6 +77,9 @@ void HalDisplayHideCursor()
 
 void HalDisplayCursorPosition(int _row, int _col)
 {
+	// To stop gcc from whining, again...
+	_row = _row;
+	_col = _col;
 }
 
 void HalInitDisplay(void)
