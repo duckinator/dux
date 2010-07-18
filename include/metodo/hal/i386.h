@@ -67,7 +67,7 @@ uint16_t HalInPortWord(uint16_t port);
 void HalOutPortLong(uint16_t port, uint32_t val);
 uint32_t HalInPortLong(uint16_t port);
 
-static inline void HalIOWait(void);
+inline void HalIOWait(void);
 
 /* Interrupts */
 void HalDisableInterrupts(void);
