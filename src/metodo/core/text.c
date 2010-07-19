@@ -25,7 +25,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 	if (sign)
 		size--;
 
-	if (flags & TF_ALTERNATE)
+	if (flags & TF_ALTERNATE) {
 		if (base == 8) {
 			if (len < maxlen)
 				str[len++] = '0';
@@ -41,6 +41,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 			else
 				len++;
 		}
+	}
 
 	/* Find the number in reverse. */
 	if (n == 0)
