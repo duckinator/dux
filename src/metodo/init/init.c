@@ -38,12 +38,10 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	module_t *module;
 	int current_module = 0;
 	modules = (Module*)kmalloc(sizeof(Module) * 1024);
-	printf("%i (0x%x)\n", multiboot->flags>>3&1, multiboot->flags>>3&1);
 	if (mbd->flags>>3&1) {
 		module = (module_t*)mbd->mods_addr;
 		printf("We have %i modules.\n", mbd->mods_count);
 		for (i = 0; i < mbd->mods_count; i++, module++) {
-			printf("\nFound module.\n");
 			printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
 			printf("Module name: %s\n", (char*)module->string);
 
