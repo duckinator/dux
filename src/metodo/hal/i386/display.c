@@ -9,14 +9,7 @@
 #define SPOT(n) (attr << 8 | (n))
 #define PUTSPOT(n) VideoMemory[row*COLS + col] = SPOT(n);
 
-static uint16_t *VideoMemory;
-
 static uint8_t disp_init = 0;
-static uint8_t attr;
-static uint8_t col;
-static uint8_t row;
-static uint8_t escape;
-static uint8_t escape_attr;
 
 extern struct DisplayDevice VgaDisplayDevice;
 extern struct DisplayDevice UartDisplayDevice;
