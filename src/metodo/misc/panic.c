@@ -42,7 +42,7 @@ void _panic(char *text, char *filename, char *line)
 	HalInitDisplay();
 	HalDisplaySetAttr(0x4f);
 	HalDisplayClear();
-	printf("\n**** UDUDD ***\n%s\n\n", text);
+	printf("\nYou dun goofed!\n\n%s\n\n", text);
 	printf("File: %s\nLine: %s\n\n", filename, line);
 	stack_dump();
 	asm("cli");
