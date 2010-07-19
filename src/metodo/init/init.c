@@ -23,7 +23,7 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
 
-	*mbd = *multiboot;
+	mbd = multiboot;
 
 	memory_map_t *mmap = (memory_map_t*)mbd->mmap_addr;
 
@@ -38,6 +38,7 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 	module_t *module;
 	int current_module = 0;
 	modules = (Module*)kmalloc(sizeof(Module) * 1024);
+	printf("%i (0x%x)\n", multiboot->flags>>3&1, multiboot->flags>>3&1);
 	if (mbd->flags>>3&1) {
 		module = (module_t*)mbd->mods_addr;
 		printf("We have %i modules.\n", mbd->mods_count);
@@ -81,7 +82,7 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		LoadUserland(userland);
 		printf("\nWhy yes, that is a black hole that flew out of userland...\n(Userland exited unexpectedly)\n");
 	} else {
-	  panic("No userland");
+	  //panic("No userland");
 		printf("No userland\n");
 		HalBreak();
 		//KernDebug();
