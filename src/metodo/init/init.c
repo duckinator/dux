@@ -80,7 +80,7 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		LoadUserland(userland);
 		printf("\nWhy yes, that is a black hole that flew out of userland...\n(Userland exited unexpectedly)\n");
 	} else {
-	  //panic("No userland");
+		panic("No userland");
 		printf("No userland\n");
 		HalBreak();
 		//KernDebug();
