@@ -81,18 +81,20 @@ HalKeyInfo HalKeyboardRead()
 		shift_r = keyinfo.action;
 
 	// Alt
-	if (SCANCODE(ALT))
+	if (SCANCODE(ALT)) {
 		if ( escaped )
 			alt_r = keyinfo.action;
 		else
 			alt_l = keyinfo.action;
+	}
 
 	// Control
-	if (SCANCODE(CONTROL))
+	if (SCANCODE(CONTROL)) {
 		if ( escaped )
 			ctrl_r = keyinfo.action;
 		else
 			ctrl_l = keyinfo.action;
+	}
 
 	if ( scancode == 0xe0 )
 		escaped = 1;
