@@ -22,7 +22,11 @@ extern void monitor_set_cursor(unsigned int x, unsigned int y);
 extern void sleep();
 extern void usleep();*/
 
-void panic(char*);
+
+/* Handle awesome kernel panic implementation */
+void _panic(char *text, char *filename, char *line);
+#define panic(message) _panic(message, __FILE__, MACRO_STRING(__LINE__))
+
 void stop(int error, int argc, ...);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
