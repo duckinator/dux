@@ -3,9 +3,11 @@
 
 struct DisplayDevice {
 	void (*Init) ();
+	void (*Disable) ();
 	void (*DisplayChar) (char c);
 	void (*DisplayClear) ();
-	
+	void (*DisplaySetAttr) (uint8_t lattr);
+	void (*DisplayHideCursor) ();
 };
 
 void HalDisplaySetAttr(uint8_t lattr);

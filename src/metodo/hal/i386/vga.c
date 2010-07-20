@@ -116,7 +116,10 @@ int VgaIsDisplayOn(void)
 }
 
 struct DisplayDevice VgaDisplayDevice = {
-	.Init		= VgaInitDisplay,
-	.DisplayChar	= VgaDisplayChar,
-	.DisplayClear	= VgaDisplayClear,
+	.Init              = VgaInitDisplay,
+	.Disable           = VgaDisableDisplay,
+	.DisplayChar       = VgaDisplayChar,
+	.DisplayClear      = VgaDisplayClear,
+	.DisplaySetAttr    = VgaDisplaySetAttr,
+	.DisplayHideCursor = VgaDisplayHideCursor,
 };
