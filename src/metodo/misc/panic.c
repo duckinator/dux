@@ -29,7 +29,7 @@ char *stop_table[7] = {
 
 int in_panic = 0;
 
-void _panic(char *text, char *filename, char *line)
+void _panic(char *text, char *filename, int line)
 {
 	if (in_panic) {
 		/* Something is causing a recursive panic, so
@@ -43,7 +43,7 @@ void _panic(char *text, char *filename, char *line)
 	HalDisplaySetAttr(0x4f);
 	HalDisplayClear();
 	printf("\n**** UDUDD ***\n\n%s\n\n", text);
-	printf("File: %s\nLine: %s\n\n", filename, line);
+	printf("File: %s\nLine: %d\n\n", filename, line);
 	stack_dump();
 	asm("cli");
 	asm("hlt");
