@@ -64,13 +64,13 @@ void clear_screen ()
 			" : : : "eax");
 }
 
-void *malloc (unsigned int nbytes)
+void *malloc (size_t size)
 {
 	// TODO: Dummy malloc() in src/lib/krnllib/krnllib.c
 	return NULL;
 }
 
-void free(void *ap)
+void free(void *ptr)
 {
   // TODO: Dummy free() in src/lib/krnllib/krnllib.c
 }
