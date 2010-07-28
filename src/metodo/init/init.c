@@ -7,6 +7,7 @@
 #include <metodo/init/tests.h>
 
 #include <multiboot.h>
+#include <beef.h>
 
 #include <buildid.h>
 #include <string.h>
@@ -21,19 +22,28 @@
 
 #include <dwarf2.h>
 
-void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
+void InitKernel(uint32_t magic, void *arg)
 {
 	void *userland = NULL;
+	memory_map_t *mmap;
 
-	mbd = multiboot;
+	switch(magic) {
+		case MULTIBOOT_BOOTLOADER_MAGIC:
+			mbd = arg;
+			mmap = (memory_map_t*)mbd->mmap_addr;
 
-	memory_map_t *mmap = (memory_map_t*)mbd->mmap_addr;
+			break;
+		case BEEF_BOOTLOADER_MAGIC:
+			mbd = NULL;
+			mmap = (memory_map_t*)arg;
+
+			break;
+		default:
+			HalInit();
+			KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
+	}
 
 	HalInit();
-
-	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
-		KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
-	}
 
 	/* mbd->flags */
 	int i, len;

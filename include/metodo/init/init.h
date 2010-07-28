@@ -3,7 +3,7 @@
 
 #include <multiboot.h>
 
-void InitKernel(uint32_t magic, multiboot_info_t *mbd);
+void InitKernel(uint32_t magic, void *args);
 
 extern unsigned int debug_info_start;
 extern unsigned int debug_info_end;
