@@ -19,6 +19,8 @@
 
 #include <metodo/misc/modules.h>
 
+#include <dwarf2.h>
+
 void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 {
 	void *userland = NULL;
@@ -73,6 +75,31 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 
 	userland = GetModule("/System/userland.exe");
 
+/*	printf("debug: 0x%x-0x%x\n", &debug_abbrev_start, &debug_abbrev_end);
+	printf("debug: %s\n", &debug_abbrev_start);*/
+
+// I'm only committing this so other people can play with it if they want, but leaving it commented out by default
+/*
+	printf("debug: 0x%x-0x%x\n", &debug_info_start, &debug_info_end);
+
+	DWARF_Compilation_Unit_H* dwarf_comp_unit;
+	unsigned int ui;
+	i=0;
+//	for (i = 0; i < 0x100000+0x007294; i++) {
+printf("%i\n", &debug_info_end);
+	for (ui = 0; ui <= &debug_info_end; ui++,i++) {
+		dwarf_comp_unit = (DWARF_Compilation_Unit_H*)&debug_info_start+ui;
+		if(dwarf_comp_unit->version == 2) {
+			printf("%i (0x%x):\n", ui, ui);
+			printf("    length:  0x%x (%u)\n", dwarf_comp_unit->length, dwarf_comp_unit->length);
+			printf("    version: %u\n", dwarf_comp_unit->version, dwarf_comp_unit->version);
+			printf("    offset:  0x%x (%u)\n", dwarf_comp_unit->offset, dwarf_comp_unit->offset);
+			printf("    size:    0x%x (%u)\n", dwarf_comp_unit->size, dwarf_comp_unit->size);
+			if(i==2)
+			  break;
+		}
+	}*/
+
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
 		printf("Loading userland...\n");
@@ -80,7 +107,7 @@ void InitKernel(uint32_t magic, multiboot_info_t *multiboot)
 		LoadUserland(userland);
 		printf("\nWhy yes, that is a black hole that flew out of userland...\n(Userland exited unexpectedly)\n");
 	} else {
-		panic("No userland");
+		//panic("No userland");
 		printf("No userland\n");
 		HalBreak();
 		//KernDebug();
