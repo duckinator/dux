@@ -4,6 +4,12 @@ SECTIONS {
 	. = 0x100000;
 	start = .;
 
+  .debug_info : {
+    debug_info_start = .;
+    *(.debug_info)
+    debug_info_end = .;
+  }
+
 	.text : ALIGN (0x1000) {
 		*(.mboot)
 		*(.text)
