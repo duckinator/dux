@@ -34,6 +34,10 @@ void InitKernel(uint32_t magic, void *arg)
 
 			break;
 		case BEEF_BOOTLOADER_MAGIC:
+			HalInit();
+			printf("SUCCESS");
+			while(1)
+				;
 			mbd = NULL;
 			mmap = (memory_map_t*)arg;
 
