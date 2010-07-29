@@ -10,8 +10,9 @@ ansi = ARGUMENTS.get('ansi', 'no')
 strict = ARGUMENTS.get('strict', 'yes')
 compiler = ARGUMENTS.get('compiler', 'clang')
 linker = ARGUMENTS.get('linker', 'ld')
+bootloader = ARGUMENTS.get('bootloader', 'grub')
 
-iso = Builder(action='./makeiso.sh')
+iso = Builder(action='./makeiso.sh %s' % bootloader)
 
 distreq = []
 

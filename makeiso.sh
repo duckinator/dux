@@ -46,4 +46,37 @@ echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
 echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
 mkdir -p iso
 
-$isocmd -R -b boot/grub/stage2_eltorito --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs
+if [ "$1" = "beef" ]; then
+	if [ -e "beef" ]; then
+		bootloader="beef"
+		bootloader_location="boot/boot"
+
+		cd beef
+		if [ -e "Makefile" ]; then
+			make clean
+			if [ -e "isofs" ]; then
+				rm isofs # Just to make sure it's gone
+			fi
+			make
+		else
+			echo "WARNING: no Makefile for beef"
+			bootloader=""
+		fi
+		if [ -e "isofs/boot" ]; then
+			echo "beef built successfully"
+		else
+			echo "WARNING: falling back to grub"
+			bootloader=""
+		fi
+		cd ..
+	else
+		echo "WARNING: beef does not exist, falling back to grub"
+	fi
+fi
+
+if [ "$bootloader" = "" ]; then
+	bootloader="grub"
+	bootloader_location="boot/grub/stage2_eltorito"
+fi
+
+$isocmd -R -b $bootloader_location --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs
