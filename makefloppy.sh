@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dd bs=1024 count=1440 if=/dev/zero of=fdd.img
+dd bs=1024 count=1440 if=/dev/zero of=Dux.img
 mkfs.msdos fdd.img
 
 mkdir mnt
