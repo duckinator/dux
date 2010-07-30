@@ -8,6 +8,9 @@
 # Ignore the ISO
 Dux.iso
 
+# Ignore floppy image
+Dux.img
+
 #ignore emacs files
 #ignore emacs temp files
 \#*\#
