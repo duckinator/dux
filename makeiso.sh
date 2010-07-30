@@ -51,6 +51,7 @@ if [ "$1" = "beef" ]; then
 		bootloader="beef"
 		bootloader_location="boot/boot"
 
+    dir=$(pwd)
 		cd beef
 		if [ -e "Makefile" ]; then
 			make clean
@@ -64,11 +65,12 @@ if [ "$1" = "beef" ]; then
 		fi
 		if [ -e "isofs/boot" ]; then
 			echo "beef built successfully"
+			cp isofs/boot $dir/isofs/boot/boot
 		else
 			echo "WARNING: falling back to grub"
 			bootloader=""
 		fi
-		cd ..
+		cd $dir
 	else
 		echo "WARNING: beef does not exist, falling back to grub"
 	fi
