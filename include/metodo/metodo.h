@@ -31,7 +31,7 @@ void stop(int error, int argc, ...);
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
 
-void assert_dowork(char *file, int line)
+void assert_dowork(char *file, int line);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
 #endif /* end of include guard: METODO_H */
