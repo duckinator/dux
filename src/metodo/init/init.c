@@ -39,9 +39,9 @@ noreturn InitKernel(uint32_t magic, void *arg)
 			while(1)
 				;
 			/*mbd = NULL;
-			mmap = (memory_map_t*)arg;*/
+			mmap = (memory_map_t*)arg;
 
-			break;
+			break;*/
 		default:
 			HalInit();
 			KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
