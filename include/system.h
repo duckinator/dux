@@ -16,7 +16,7 @@ extern void usleep();*/
 
 
 /* Handle awesome kernel panic implementation */
-void _panic(char *text, char *filename, int line);
+void _panic(char *text, const char *filename, int line);
 #define panic(message) _panic(message, __FILE__, __LINE__)
 
 void stop(int error, int argc, ...);

@@ -46,7 +46,7 @@ void HalIsrHandler(struct regs *r)
 	} else if(r->int_no == 3) {
 		KernDebug();
 	} else if(r->int_no < 32){
-		panic(HalExceptions[r->int_no]);
+		panic((char*)HalExceptions[r->int_no]);
 	}
 }
 

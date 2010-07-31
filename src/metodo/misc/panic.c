@@ -29,7 +29,7 @@ char *stop_table[7] = {
 
 int in_panic = 0;
 
-void _panic(char *text, char *filename, int line)
+void _panic(char *text, const char *filename, int line)
 {
 	if (in_panic) {
 		/* Something is causing a recursive panic, so
