@@ -1,10 +1,10 @@
-#include <metodo/metodo.h>
+	#include <metodo/metodo.h>
 #include <metodo/colpa/debug.h>
 #include <config.h>
 
 /* handle interupts */
 int isr_t = 0;
-char *HalExceptions[32] = {
+const char *HalExceptions[32] = {
 	"0 #DE Divide Error",
 	"1 #DB RESERVED",
 	"2 - NMI Interrupt",
