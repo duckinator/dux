@@ -2,7 +2,7 @@
 
 # Create blank image
 dd bs=1024 count=1439 if=/dev/zero of=Dux.img
-
+function hide_this(){ # :P
 # Format file image
 mkfs.msdos Dux.img
 
@@ -26,7 +26,8 @@ losetup -d /dev/loop1
 
 # Delete ./floppy
 rmdir floppy
-
+}
 # Copy bootloader to floppy image
 dd bs=512 count=1 if=beef/isofs/boot of=Dux.img conv=notrunc
 
+dd bs=512 seek=1 if=isofs/System/metodo.exe of=Dux.img
