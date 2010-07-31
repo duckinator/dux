@@ -13,7 +13,6 @@ void CoShutdown(int mode)
 	case SD_WAIT:
 		while (1)
 			;
-		break;
 	case SD_OFF:
 		HalShutdown();
 		break;
@@ -21,10 +20,8 @@ void CoShutdown(int mode)
 		HalReboot();
 		while (1)
 			;
-		break;
 	default:
 		while (1)
 			;
-		break;
 	}
 }
