@@ -4,13 +4,14 @@
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
-int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
+int m_printn(OUT char *str, IN size_t maxlength, IN int len, IN unsigned int n,
 		IN unsigned int base, IN size_t size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
 	const char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	unsigned int i = 0;
 	signed int signed_n = (signed int) n;
+	int maxlen = (int)maxlength;
 
 	/* Preprocess the flags. */
 
