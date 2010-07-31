@@ -14,7 +14,7 @@ void dprint(debug_type type, char *str, const char *fmt, ...)
 		va_end(args);
 
 		va_start(args, fmt);
-		i = vsnprintf(str, i+1, fmt, args);
+		i = vsnprintf(str, (size_t)i+1, fmt, args);
 		va_end(args);
 	}
 }
