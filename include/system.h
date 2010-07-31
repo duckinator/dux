@@ -4,14 +4,6 @@
 #include <metodo/metodo.h>
 #include <macros.h>
 
-extern void *memcpy(void *dest, void *src, unsigned int count);
-extern void *memset(void *dest, unsigned char val, unsigned int count);
-extern unsigned short *memsetw(unsigned short *dest, unsigned short val, unsigned int count);
-extern int strlen(const char *str);
-
-extern void putch(unsigned int c);
-extern void puts(char *str);
-
 extern void monitor_clear();
 extern void monitor_switch_pages(unsigned int a, unsigned int b);
 extern unsigned int monitor_get_cursor_x();

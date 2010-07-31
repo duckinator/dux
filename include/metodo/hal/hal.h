@@ -22,7 +22,5 @@ void HalInit(void);
 void HalBreak(void);
 void HalShutdown(void);
 void HalReboot(void);
-int HalIsDisplayOn(void);
-void HalDisplayChar(char c);
 
 #endif /* end of include guard: HAL_H */

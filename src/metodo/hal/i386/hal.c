@@ -3,7 +3,7 @@
 #include <metodo/core/scheduler.h>
 #include <metodo/hal/mm/memory.h>
  
-void StartInitializer(char *name, void (*func)())
+void StartInitializer(const char *name, void (*func)())
 {
 	printf("Initializing %s...", name);
 	func();

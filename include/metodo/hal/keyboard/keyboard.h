@@ -12,6 +12,7 @@ typedef struct hal_key_info {
 	int action;
 	int scancode;
 	char key;
+	char unused[3]; // Fix alignment
 } HalKeyInfo;
 
 extern void HalKeyboardHandler(struct regs *r);

@@ -47,7 +47,7 @@ typedef struct IDTG {
 	uint8_t zero;
 	uint8_t type;
 	uint16_t offset_2;
-} __attribute__((packed)) IDTG, *PIDTG;
+} IDTG, *PIDTG;
 
 #define IDT_TASK 0x5
 #define IDT_INTR16 0x6
