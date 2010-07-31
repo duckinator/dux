@@ -205,7 +205,8 @@ int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 {
 	int len = 0;
 	const char *p;
-	int flags, fieldwidth, precision, i;
+	int flags, precision, i;
+	unsigned int fieldwidth;
 	const char *sval;
 
 	/* Leave room for the null byte. */
@@ -247,7 +248,7 @@ reset:
 		while (is_digit(*p)) {
 			if (fieldwidth > 0)
 				fieldwidth *= 10;
-			fieldwidth += (*p++-0x30);
+			fieldwidth += (unsigned int)(*p++-0x30);
 		}
 
 		/* Find the precision. */
@@ -278,7 +279,7 @@ reset:
 		case 'd':
 			flags &= ~TF_UNSIGNED;
 			len = m_printn(str, size, len,
-				       va_arg(ap, int), 10,
+				       (unsigned int)va_arg(ap, int), 10,
 				       fieldwidth, flags, precision);
 			break;
 		case 'o':
@@ -304,7 +305,7 @@ reset:
 		case 'c':
 			i = 0;
 			if (!(flags & TF_LEFT))
-				while (i++ < fieldwidth)
+				while (i++ < (int)fieldwidth)
 					if ((size_t)len < size)
 						str[len++] = ' ';
 					else
@@ -316,7 +317,7 @@ reset:
 				len++;
 				va_arg(ap, void);
 			}
-			while (i++ < fieldwidth)
+			while (i++ < (int)fieldwidth)
 				if ((size_t)len < size)
 					str[len++] = ' ';
 				else
