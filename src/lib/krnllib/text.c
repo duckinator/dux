@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <lib/krnllib.h>
 #include <config.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
@@ -7,7 +8,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 		IN int base, IN int size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
-	char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	const char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int i = 0;
 	signed int signed_n = (signed int) n;
 
@@ -18,7 +19,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 
 	if (!(flags & TF_UNSIGNED) && signed_n < 0) {
 		sign = '-';
-		n = -signed_n;
+		n = -(unsigned int)signed_n;
 	} else if (flags & TF_EXP_SIGN) {
 		sign = '+';
 	}
@@ -201,7 +202,7 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap)
 int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 		IN va_list ap)
 {
-	int len = 0;
+	unsigned int len = 0;
 	const char *p;
 	int flags, fieldwidth, precision, i;
 	const char *sval;
