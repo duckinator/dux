@@ -14,7 +14,7 @@ noreturn HalShutdown(void)
 }
 
 // FIXME: Fix HalReboot(), it causes a SIMD Floating Point Exception
-void HalReboot(void)
+noreturn HalReboot(void)
 {
 	unsigned char good = 0x02;
 	HalDisableInterrupts();
