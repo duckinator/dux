@@ -38,8 +38,8 @@ noreturn InitKernel(uint32_t magic, void *arg)
 			printf("SUCCESS");
 			while(1)
 				;
-			mbd = NULL;
-			mmap = (memory_map_t*)arg;
+			/*mbd = NULL;
+			mmap = (memory_map_t*)arg;*/
 
 			break;
 		default:
