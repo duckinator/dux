@@ -23,6 +23,8 @@
 
 #include <multiboot.h>
 
+#include <macros.h>
+
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
 

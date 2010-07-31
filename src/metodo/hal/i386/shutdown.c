@@ -5,7 +5,7 @@ void HalBreak(void)
 	__asm__ __volatile__ ("int $3");
 }
 
-void HalShutdown(void)
+noreturn HalShutdown(void)
 {
 	while (1) {
 		__asm__ __volatile__ ("cli");

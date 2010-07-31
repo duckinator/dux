@@ -2,7 +2,7 @@
 #include <metodo/hal/keyboard/keysym.h>
 
 #define SCANCODE(x) ( (scancode == x) || (scancode == (x + 0x80))) // Does this match either the make or break code?
-#define KEYINFO(x) keyinfo.x = x // KEYINFO(foo) is the same as keyinfo.foo=foo;
+#define KEYINFO(x) keyinfo->x = x // KEYINFO(foo) is the same as keyinfo->foo=foo;
 
 unsigned char buf[0x1000];
 unsigned char *buffer;
@@ -21,9 +21,10 @@ int vt_visible = 0; // VT 0 is visible
 
 void HalKeyboardHandler(struct regs *r)
 {
+	r=r; // UNUSED ARG FIX
 	unsigned int scancode = HalInPort(0x60);
 
-	*++buffer = scancode;
+	*++buffer = (unsigned char)scancode;
 }
 
 void HalKeyboardLeds(uint8_t status){
@@ -49,24 +50,24 @@ char HalKeyboardHasInput()
 	return buffer > origbuffer;
 }
 
-HalKeyInfo HalKeyboardRead()
+HalKeyInfo *HalKeyboardRead()
 {
-	HalKeyInfo keyinfo = {0};
+	HalKeyInfo *keyinfo = kmalloc(sizeof(HalKeyInfo));
 	int scancode;
 
 	while (buffer <= origbuffer); // wait for input
 
 	scancode = *buffer-- & 0xFF;
 
-	keyinfo.scancode = scancode;
-	keyinfo.key = (char)scancode;
+	keyinfo->scancode = scancode;
+	keyinfo->key = (char)scancode;
 
 	if ( scancode & 0x80 )
 		// Released ("Break" code)
-		keyinfo.action = 0;
+		keyinfo->action = 0;
 	else
 		// Pressed ("Make" code)
-		keyinfo.action = 1;
+		keyinfo->action = 1;
 
 	// Caps lock
 	if (SCANCODE(CAPSLOCK))
@@ -74,26 +75,26 @@ HalKeyInfo HalKeyboardRead()
 
 	// Left shift
 	if (SCANCODE(SHIFT_LEFT))
-		shift_l = keyinfo.action;
+		shift_l = keyinfo->action;
 
 	// Right shift
 	if (SCANCODE(SHIFT_RIGHT))
-		shift_r = keyinfo.action;
+		shift_r = keyinfo->action;
 
 	// Alt
 	if (SCANCODE(ALT)) {
 		if ( escaped )
-			alt_r = keyinfo.action;
+			alt_r = keyinfo->action;
 		else
-			alt_l = keyinfo.action;
+			alt_l = keyinfo->action;
 	}
 
 	// Control
 	if (SCANCODE(CONTROL)) {
 		if ( escaped )
-			ctrl_r = keyinfo.action;
+			ctrl_r = keyinfo->action;
 		else
-			ctrl_l = keyinfo.action;
+			ctrl_l = keyinfo->action;
 	}
 
 	if ( scancode == 0xe0 )
@@ -111,22 +112,22 @@ HalKeyInfo HalKeyboardRead()
 	return keyinfo;
 }
 
-HalKeyInfo HalKeyboardResolveScancode(HalKeyInfo keyinfo)
+HalKeyInfo *HalKeyboardResolveScancode(HalKeyInfo *keyinfo)
 {
-	keyinfo.key = keysym_us[keyinfo.scancode & 0x7F];
+	keyinfo->key = keysym_us[keyinfo->scancode & 0x7F];
 	return keyinfo;
 }
-HalKeyInfo HalKeyboardResolveScancode_shift(HalKeyInfo keyinfo)
+HalKeyInfo *HalKeyboardResolveScancode_shift(HalKeyInfo *keyinfo)
 {
-	keyinfo.key = keysym_us_shift[keyinfo.scancode & 0x7F];
+	keyinfo->key = keysym_us_shift[keyinfo->scancode & 0x7F];
 	return keyinfo;
 }
 
-HalKeyInfo HalKeyboardReadLetter()
+HalKeyInfo *HalKeyboardReadLetter()
 {
-	HalKeyInfo keyinfo = {0};
+	HalKeyInfo *keyinfo = kmalloc(sizeof(HalKeyInfo));
 	keyinfo = HalKeyboardRead();
-	if(keyinfo.shift_l || keyinfo.shift_r) {
+	if(keyinfo->shift_l || keyinfo->shift_r) {
 		keyinfo = HalKeyboardResolveScancode_shift(keyinfo);
 	} else {
 		keyinfo = HalKeyboardResolveScancode(keyinfo);
@@ -143,16 +144,16 @@ void HalKeyboardInit()
 	origbuffer = buffer;
 }
 
-void HalKeyboardTest()
+noreturn HalKeyboardTest()
 {
-	HalKeyInfo keyinfo;
+	HalKeyInfo *keyinfo;
 	printf("Initiating keyboard test...\n");
 	while(1)
 	{
 		if ( HalKeyboardHasInput() ) {
 			keyinfo = HalKeyboardReadLetter();
-			if ( keyinfo.action == 0 ) {
-				printf("%c", keyinfo.key);
+			if ( keyinfo->action == 0 ) {
+				printf("%c", keyinfo->key);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #ifndef HAL_KEYSYM_H
 #define HAL_KEYSYM_H
 
-unsigned char keysym_us[128] =
+char keysym_us[128] =
 {
   0, 27, '1', '2', '3', '4', '5', '6', '7', '8',    /* 9 */
   '9', '0', '-', '=', '\x08',  /* Backspace */
@@ -42,7 +42,7 @@ unsigned char keysym_us[128] =
 };
 
  
-unsigned char keysym_us_shift[128] =
+char keysym_us_shift[128] =
 {
   0, 27, '!', '@', '#', '$', '%', '^', '&', '*',    /* 9 */
   '(', ')', '_', '+', '\x08',  /* Backspace */
