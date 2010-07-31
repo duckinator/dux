@@ -45,7 +45,7 @@ void HalDisplayClear(void)
 	}
 }
 
-void HalDisplayChar(char c)
+void HalDisplayChar(const char c)
 {
 	unsigned int i;
 	struct DisplayDevice *Display;
@@ -58,7 +58,7 @@ void HalDisplayChar(char c)
 	}
 }
 
-void HalDisplayString(char *s)
+void HalDisplayString(const char *s)
 {
 	do {
 		HalDisplayChar(*s);
