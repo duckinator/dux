@@ -32,7 +32,7 @@ env = Environment(
 	CCFLAGS=['-Wall', '-m32', '-nostdinc', '-ffreestanding',  '-fno-stack-protector', '-fno-builtin', '-g', '-I', 'include', '-D', '%s' % arch.upper(),
 	         '-Wextra', '-fdiagnostics-show-option', '-Wextra', '-Wunused', '-Wformat=2', '-Winit-self', '-Wmissing-include-dirs', '-Wstrict-overflow=4', '-Wfloat-equal',
 	         '-Wwrite-strings', '-Wconversion', '-Wlogical-op', '-Wundef', '-Wunsafe-loop-optimizations', '-Wtrigraphs', '-Wunused-parameter', '-Wunknown-pragmas', '-Wcast-align',
-	         '-Wswitch-default', '-Wswitch-enum', '-Waggregate-return', '-Wmissing-noreturn', '-Wmissing-format-attribute', '-Wpacked', '-Wpadded', '-Wredundant-decls', '-Wunreachable-code',
+	         '-Wswitch-enum', '-Waggregate-return', '-Wmissing-noreturn', '-Wmissing-format-attribute', '-Wpacked', '-Wpadded', '-Wredundant-decls', '-Wunreachable-code',
 	         '-Winline', '-Winvalid-pch', '-Wdisabled-optimization', '-Wstack-protector', '-Wunused-macros'],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
