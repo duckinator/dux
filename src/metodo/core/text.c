@@ -4,11 +4,11 @@
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
 int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
-		IN unsigned int base, IN int size, IN int flags, IN int precision)
+		IN unsigned int base, IN size_t size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
 	const char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int i = 0;
+	unsigned int i = 0;
 	signed int signed_n = (signed int) n;
 
 	/* Preprocess the flags. */
@@ -72,7 +72,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 		str[len++] = sign;
 
 	/* Write any zeros to satisfy the precision. */ 
-	while (i < precision--)
+	while ((int)i < precision--)
 		if (len < maxlen)
 			str[len++] = '0';
 		else
@@ -201,7 +201,7 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap)
 int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 		IN va_list ap)
 {
-	unsigned int len = 0;
+	int len = 0;
 	const char *p;
 	int flags, fieldwidth, precision, i;
 	const char *sval;
@@ -212,7 +212,7 @@ int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 
 	for (p = fmt; *p; p++) {
 		if (*p != '%') {
-			if (len < size)
+			if ((size_t)len < size)
 				str[len++] = *p;
 			else
 				len++;
@@ -303,11 +303,11 @@ reset:
 			i = 0;
 			if (!(flags & TF_LEFT))
 				while (i++ < fieldwidth)
-					if (len < size)
+					if ((size_t)len < size)
 						str[len++] = ' ';
 					else
 						len++;
-			if (len < size) {
+			if ((size_t)len < size) {
 				str[len++] =
 					(char) va_arg(ap, int);
 			} else {
@@ -315,7 +315,7 @@ reset:
 				va_arg(ap, void);
 			}
 			while (i++ < fieldwidth)
-				if (len < size)
+				if ((size_t)len < size)
 					str[len++] = ' ';
 				else
 					len++;
@@ -328,7 +328,7 @@ reset:
 				precision = -2;
 			while (*sval
 			       && (precision-->0 || precision <= -2))
-				if (len < size) {
+				if ((size_t)len < size) {
 					str[len++] = *sval++;
 				} else {
 					sval++;
@@ -336,13 +336,13 @@ reset:
 				}
 			break;
 		case '%':
-			if (len < size)
+			if ((size_t)len < size)
 				str[len++] = '%';
 			else
 				len++;
 			break;
 		default:
-			if (len < size)
+			if ((size_t)len < size)
 				str[len++] = *p;
 			else
 				len++;
@@ -353,10 +353,10 @@ reset:
 	if (size != 0)
 		size++;
 
-	if (len < size)
+	if ((size_t)len < size)
 		str[len] = '\0';
 	else
 		if (size != 0)
 			str[size] = '\0';
-	return (int)len;
+	return len;
 }
