@@ -21,7 +21,7 @@ struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice,
 
 void HalDisplaySetAttr(uint8_t lattr)
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
@@ -34,7 +34,7 @@ void HalDisplaySetAttr(uint8_t lattr)
 
 void HalDisplayClear(void)
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 	
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
@@ -47,7 +47,7 @@ void HalDisplayClear(void)
 
 void HalDisplayChar(char c)
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 	
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
@@ -75,7 +75,7 @@ void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 
 void HalDisplayHideCursor()
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 	
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
@@ -95,7 +95,7 @@ void HalDisplayCursorPosition(int _row, int _col)
 
 void HalInitDisplay(void)
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 	
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
@@ -108,7 +108,7 @@ void HalInitDisplay(void)
 
 void HalDisableDisplay(void)
 {
-	int i;
+	unsigned int i;
 	struct DisplayDevice *Display;
 	
 	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
