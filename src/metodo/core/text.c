@@ -7,7 +7,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 		IN unsigned int base, IN int size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
-	char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	const char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int i = 0;
 	signed int signed_n = (signed int) n;
 
@@ -18,7 +18,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 
 	if (!(flags & TF_UNSIGNED) && signed_n < 0) {
 		sign = '-';
-		n = -signed_n;
+		n = -(unsigned int)signed_n;
 	} else if (flags & TF_EXP_SIGN) {
 		sign = '+';
 	}
@@ -145,7 +145,7 @@ int sprintf(OUT char *str, IN const char *fmt, ...)
 	va_end(args);
 	
 	va_start(args, fmt);
-	i = vsnprintf(str, i+1, fmt, args);
+	i = vsnprintf(str, (size_t)i+1, fmt, args);
 	va_end(args);
 
 	return i;
@@ -194,7 +194,7 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap)
 	int i;
 	
 	i = vsnprintf(str, 0, fmt, ap);
-	i = vsnprintf(str, i+1, fmt, ap);
+	i = vsnprintf(str, (size_t)i+1, fmt, ap);
 	return i;
 }
 
