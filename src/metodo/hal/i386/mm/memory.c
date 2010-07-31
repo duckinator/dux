@@ -165,7 +165,7 @@ unsigned int first_frame()
 	// Control does not reach end in this function, unless you count
 	// The infinite loop that panic will enter. So compiler, I have a
 	// message for you: "You are stupid."
-	panic("No free frames.\n");
+	panic((char*)"No free frames.\n");
 
 	// I also added the extra 7 bytes (on IA-32 anyway) to shut you up:
 	return 0;
@@ -174,7 +174,7 @@ unsigned int first_frame()
 /* alloc_frame(page, is_kernel, is_writable)
  * Obtains a physical frame and allocates it to the page table given.
  */
-unsigned int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
+int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
 {
 	unsigned int addr;
 
