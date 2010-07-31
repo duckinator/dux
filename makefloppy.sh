@@ -35,3 +35,6 @@ dd bs=512 skip=1 count=2878 if=tmp of=Dux.img conv=notrunc
 
 # Copy bootloader to floppy image
 dd bs=512 count=1 if=isofs/boot/boot of=Dux.img conv=notrunc
+
+# Delete ./tmp
+rm tmp
