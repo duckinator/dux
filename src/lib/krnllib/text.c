@@ -146,7 +146,7 @@ int sprintf(OUT char *str, IN const char *fmt, ...)
 	va_end(args);
 	
 	va_start(args, fmt);
-	i = vsnprintf(str, i+1, fmt, args);
+	i = vsnprintf(str, (size_t)i+1, fmt, args);
 	va_end(args);
 
 	return i;
@@ -195,7 +195,7 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap)
 	int i;
 	
 	i = vsnprintf(str, 0, fmt, ap);
-	i = vsnprintf(str, i+1, fmt, ap);
+	i = vsnprintf(str, (size_t)i+1, fmt, ap);
 	return i;
 }
 
@@ -308,7 +308,7 @@ reset:
 						len++;
 			if (len < size) {
 				str[len++] =
-					(unsigned char) va_arg(ap, int);
+					(char) va_arg(ap, int);
 			} else {
 				len++;
 				va_arg(ap, void);
@@ -357,5 +357,5 @@ reset:
 	else
 		if (size != 0)
 			str[size] = '\0';
-	return len;
+	return (int)len;
 }
