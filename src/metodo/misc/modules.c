@@ -1,6 +1,6 @@
 #include <metodo/misc/modules.h>
 
-void *GetModule(char *name)
+void *GetModule(const char *name)
 {
 	int i;
 	for(i=0; i < sizeof(modules); i++) {

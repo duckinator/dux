@@ -50,7 +50,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	HalInit();
 
 	/* mbd->flags */
-	int i, len;
+	unsigned int i, len;
 	module_t *module;
 	int current_module = 0;
 	modules = (Module*)kmalloc(sizeof(Module) * 1024);
@@ -61,7 +61,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 			printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
 			printf("Module name: %s\n", (char*)module->string);
 
-			len = sizeof(char) * strlen((char*)module->string)+1;
+			len = sizeof(char) * ((unsigned int)strlen((char*)module->string))+1;
 			modules[current_module].name = (char*)kmalloc(len);
 			memcpy(modules[current_module].name, (char*)(module->string), len);
 			modules[current_module].exe = (void*) module->mod_start;

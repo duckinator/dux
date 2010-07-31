@@ -13,6 +13,6 @@ typedef struct Module_s {
 
 Module *modules;
 
-void *GetModule(char *name);
+void *GetModule(const char *name);
 
 #endif /* end of include guard: MISC_MODULES_H */
