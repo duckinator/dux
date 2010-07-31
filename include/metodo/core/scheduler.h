@@ -10,7 +10,7 @@ typedef struct SchedulerProcess_s {
 } SchedulerProcess;
 
 void CoSchedulerHandler(void);
-SchedulerProcess CoSchedulerCurProcess(void);
+SchedulerProcess *CoSchedulerCurProcess(void);
 int64_t CoSchedulerCurProcessId(void);
 int64_t CoSchedulerNumProcesses(void);
 int64_t CoSchedulerNextProcessLoop(int64_t begin, int64_t end);
