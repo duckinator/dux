@@ -67,10 +67,12 @@ void clear_screen ()
 void *malloc (size_t size)
 {
 	// TODO: Dummy malloc() in src/lib/krnllib/krnllib.c
+	size=size; // UNUSED ARG FIX
 	return NULL;
 }
 
 void free(void *ptr)
 {
   // TODO: Dummy free() in src/lib/krnllib/krnllib.c
+	ptr=ptr; // UNUSED ARG FIX
 }

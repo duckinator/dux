@@ -1,5 +1,4 @@
 #include <metodo/metodo.h>
-#include <lib/krnllib.h>
 #include <config.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
