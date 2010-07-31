@@ -128,7 +128,7 @@ static unsigned int *frames;
 void set_frame(unsigned int addr)
 {
 	unsigned int frame = addr/0x1000;
-	frames[frame/32] |= 0x1<<frame%32;
+	frames[frame/32] |= (unsigned int)0x1<<frame%32;
 }
 
 /* clear_frame(addr)
@@ -138,7 +138,7 @@ void set_frame(unsigned int addr)
 void clear_frame(unsigned int addr)
 {
 	unsigned int frame = addr/0x1000;
-	frames[frame/32] &= ~(0x1<<frame%32);
+	frames[frame/32] &= ~((unsigned int)0x1<<frame%32);
 }
 
 /* test_frame(addr)
@@ -149,7 +149,7 @@ void clear_frame(unsigned int addr)
 unsigned int test_frame(unsigned int addr)
 {
 	unsigned int frame = addr/0x1000;
-	return frames[frame/32] & (0x1<<frame%32);
+	return frames[frame/32] & ((unsigned int)0x1<<frame%32);
 }
 
 unsigned int first_frame()
@@ -197,7 +197,7 @@ int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
  */
 void free_frame(PageTableEntry *page)
 {
-	clear_frame(page->address<<12);
+	clear_frame((unsigned int)page->address<<12);
 	page->address = 0x0;
 }
 
