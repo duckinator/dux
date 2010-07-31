@@ -18,7 +18,7 @@ void *memset(void *dest, unsigned char val, unsigned int count)
 	*  Again, return 'dest' */
 	char *cdest = (char*) dest;
 	unsigned int i;
-	for (i = 0; i < count; i++) cdest[i] = val;
+	for (i = 0; i < count; i++) cdest[i] = (char)val;
 	return cdest;
 }
 
