@@ -5,7 +5,7 @@
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
 int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
-		IN int base, IN int size, IN int flags, IN int precision)
+		IN unsigned int base, IN int size, IN int flags, IN int precision)
 {
 	char tmp[36], sign = '\0';
 	const char *digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

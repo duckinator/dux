@@ -31,7 +31,7 @@ void CoShutdown(int mode);
 #define TF_UNSIGNED 128
 
 int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
-		IN int base, IN int size, IN int flags, IN int precision);
+		IN unsigned int base, IN int size, IN int flags, IN int precision);
 int printf(IN const char *fmt, ...);
 int sprintf(OUT char *str, IN const char *fmt, ...);
 int snprintf(OUT char *str, IN size_t size, IN const char *fmt, ...);
