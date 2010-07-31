@@ -31,7 +31,7 @@ rmdir floppy
 dd bs=1024 count=1440 if=/dev/zero of=Dux.img
 
 # Copy file data to floppy image
-dd bs=512 skip=1 count=2878 if=tmp of=Dux.img conv=notrunc
+dd ibs=1024 obs=512 seek=1 count=1439 if=tmp of=Dux.img conv=notrunc
 
 # Copy bootloader to floppy image
 dd bs=512 count=1 if=beef/isofs/boot of=Dux.img conv=notrunc
