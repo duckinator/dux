@@ -1,7 +1,7 @@
 #include <metodo/metodo.h>
 #include <metodo/core/scheduler.h>
 
-static SchedulerProcess *processes = kmalloc(sizeof(SchedulerProcess)*1024);
+SchedulerProcess *processes = NULL;
 
 static int64_t current_process_id = 0;
 static uint8_t scheduler_firstrun = 1;
@@ -9,6 +9,10 @@ static int64_t number_of_processes = 0;
 
 void CoSchedulerHandler(void)
 {
+	if (processes == NULL) {
+		processes = kmalloc(sizeof(SchedulerProcess)*1024);
+	}
+
 	if (scheduler_firstrun) {
 		processes[0].used = 1;
 		processes[100].used = 1;
