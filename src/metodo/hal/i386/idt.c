@@ -26,6 +26,6 @@ void HalSetIDTGate(IN size_t n, IN uint32_t offset, IN uint16_t selector, IN uin
 	idt[n].offset_1 = offset & 0xffff;
 	idt[n].selector = selector;
 	idt[n].zero = 0;
-	idt[n].type = 0x80 | ((int)priv << 5 & 0x3) | ((int)sys << 4 & 0x1) | ((int)gatetype & 0xf);
+	idt[n].type = (uint8_t)(0x80 | (priv << 5 & 0x3) | (sys << 4 & 0x1) | (gatetype & 0xf));
 	idt[n].offset_2 = (uint16_t)(offset >> 16 & 0xffff);
 }
