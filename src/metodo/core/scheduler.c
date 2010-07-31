@@ -1,4 +1,4 @@
-#include <metodo.h>
+#include <metodo/metodo.h>
 #include <metodo/core/scheduler.h>
 
 SchedulerProcess **processes;
