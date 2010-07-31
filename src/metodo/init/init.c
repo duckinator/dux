@@ -22,7 +22,7 @@
 
 #include <dwarf2.h>
 
-void InitKernel(uint32_t magic, void *arg)
+noreturn InitKernel(uint32_t magic, void *arg)
 {
 	void *userland = NULL;
 	memory_map_t *mmap;

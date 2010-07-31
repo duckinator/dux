@@ -19,10 +19,10 @@ extern void HalKeyboardHandler(struct regs *r);
 extern int HalKeyboardCapslock();
 extern int HalKeyboardNumlock();
 extern char HalKeyboardHasInput();
-extern HalKeyInfo HalKeyboardRead();
-extern HalKeyInfo HalKeyboardReadLetter();
-extern HalKeyInfo HalKeyboardResolveScancode(HalKeyInfo keyinfo);
-extern HalKeyInfo HalKeyboardResolveScancode_shift(HalKeyInfo keyinfo);
+extern HalKeyInfo *HalKeyboardRead();
+extern HalKeyInfo *HalKeyboardReadLetter();
+extern HalKeyInfo *HalKeyboardResolveScancode(HalKeyInfo *keyinfo);
+extern HalKeyInfo *HalKeyboardResolveScancode_shift(HalKeyInfo *keyinfo);
 extern void HalKeyboardInit();
 
 extern void HalKeyboardTest();
