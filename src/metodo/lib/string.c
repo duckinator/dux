@@ -56,7 +56,7 @@ int strcmp(char *cs, char *ct)
 			return *cs - *ct;
 		if (*cs < *ct)
 			return *cs - *ct;
-	} while (*cs++, *ct++);
+	} while (*cs++ && *ct++);
 	return 0;
 }
 
@@ -70,7 +70,7 @@ int strncmp(char *cs, char *ct, int n)
 			return *cs - *ct;
 		else if (*cs < *ct)
 			return *cs - *ct;
-	} while (*cs++, *ct++);
+	} while (*cs++ && *ct++);
 	return 0;
 }
 
