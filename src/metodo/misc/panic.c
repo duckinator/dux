@@ -53,7 +53,7 @@ void panic_dump_hex(unsigned int *stack)
 {
 	unsigned int orig_stack = (unsigned int) stack;
 	printf("\nBecause I stack-traced it!\n");
-	while ((unsigned int) stack < ((orig_stack+0x1000) & ~(0x1000-1))) {
+	while ((unsigned int) stack < ((orig_stack+0x1000) & (unsigned int)(~(0x1000-1)))) {
 		printf("0x%x: 0x%x\n", stack, *stack);
 		if ( *stack == 0x0 )
 			break;
