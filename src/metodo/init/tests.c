@@ -18,9 +18,9 @@ void KernelSizeTest()
 
 void MemorySizeTest()
 {
-	int bytes = mbd->mem_upper*1024;
-	char *ext;
-	int last;
+	unsigned long int bytes = mbd->mem_upper*1024;
+	char *ext = kmalloc(sizeof(char) * 6);
+	unsigned long int last;
 	int exp = 0;
 	while(1) {
 		if ( bytes >= 1 ) {
@@ -36,16 +36,16 @@ void MemorySizeTest()
 
 	switch(exp) {
 	case 0:
-		ext = " bytes";
+		strcpy(ext, (char*)" bytes");
 		break;
 	case 3:
-		ext = "KB";
+		strcpy(ext, (char*)"KB");
 		break;
 	case 6:
-		ext = "MB";
+		strcpy(ext, (char*)"MB");
 		break;
 	case 9:
-		ext = "GB";
+		strcpy(ext, (char*)"GB");
 		break;
 	}
 	printf("We have %d%s of RAM\n", bytes, ext);
