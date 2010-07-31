@@ -1,15 +1,16 @@
 #!/bin/sh
 
-dd bs=1024 count=1440 if=/dev/zero of=Dux.img
+# Create blank image to contain file data
+dd bs=1024 count=1439 if=/dev/zero of=tmp
 
-mkfs.msdos Dux.img
+# Format file image
+mkfs.msdos tmp
 
-
-# Create ./floppy
+# Create ./floppy directory
 mkdir floppy
 
 # Enable/configure loopback 1
-losetup /dev/loop1 Dux.img
+losetup /dev/loop1 tmp
 
 # Mount loopback 1
 mount /dev/loop1 floppy
@@ -26,5 +27,11 @@ losetup -d /dev/loop1
 # Delete ./floppy
 rmdir floppy
 
-# Copy bootloader
+# Create blank floppy image
+dd bs=1024 count=1440 if=/dev/zero of=Dux.img
+
+# Copy file data to floppy image
+dd bs=512 skip=1 count=2878 if=tmp of=Dux.img conv=notrunc
+
+# Copy bootloader to floppy image
 dd bs=512 count=1 if=isofs/boot/boot of=Dux.img conv=notrunc
