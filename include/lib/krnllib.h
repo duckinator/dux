@@ -3,11 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
-
-#define IN
-#define OUT
-#define OPTIONAL
-#define NOTHING
+#include <modifiers.h>
 
 
 void putc ( char c );
