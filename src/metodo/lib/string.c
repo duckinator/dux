@@ -3,11 +3,11 @@
 
 char *strcpy(char *s, char *ct)
 {
-	while (*ct != '\0') {
+	do {
 		*s = *ct;
 		s++;
 		ct++;
-	}
+	} while (*ct != '\0');
 	return s;
 }
 
