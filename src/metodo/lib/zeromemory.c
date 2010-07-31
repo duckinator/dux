@@ -2,7 +2,7 @@
 
 void *ZeroMemory(IN void *ptr, IN uint32_t len)
 {
-	int i;
+	unsigned int i;
 	uint8_t *mem = ptr;
 
 	for (i = 0; i < len; i++) 
