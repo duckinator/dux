@@ -2,9 +2,9 @@
 
 void *GetModule(const char *name)
 {
-	int i;
+	size_t i;
 	for(i=0; i < sizeof(modules); i++) {
-		if(strcmp(modules[i].name, name) == 0) {
+		if(strcmp(modules[i].name, (char*)name) == 0) {
 		  printf("Loading module %s\n", name);
 			return modules[i].exe;
 		}
