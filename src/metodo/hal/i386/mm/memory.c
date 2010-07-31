@@ -1,4 +1,3 @@
-#include <system.h>
 #include <metodo/metodo.h>
 #include <metodo/hal/mm/memory.h>
 #include <metodo/misc/misc.h>
@@ -184,6 +183,8 @@ int alloc_frame(PageTableEntry *page, int is_kernel, int is_writable)
 
 	addr = first_frame();
 	set_frame(addr);
+
+	assert((addr>>12) < 1048576); // (addr>>12) < 2^20
 
 	page->present = 1;
 	page->user = is_kernel ? 0 : 1;
