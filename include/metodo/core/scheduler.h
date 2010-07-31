@@ -11,11 +11,11 @@ typedef struct SchedulerProcess_s {
 
 void CoSchedulerHandler(void);
 SchedulerProcess CoSchedulerCurProcess(void);
-uint32_t CoSchedulerCurProcessId(void);
-uint32_t CoSchedulerNumProcesses(void);
-uint32_t CoSchedulerNextProcessLoop(uint32_t begin, uint32_t end);
-uint32_t CoSchedulerNextProcess(void);
-void CoSchedulerSetNumProcesses(uint32_t num);
+int64_t CoSchedulerCurProcessId(void);
+int64_t CoSchedulerNumProcesses(void);
+int64_t CoSchedulerNextProcessLoop(int64_t begin, int64_t end);
+int64_t CoSchedulerNextProcess(void);
+void CoSchedulerSetNumProcesses(int64_t num);
 
 /* Defined here for simplicitly,
  * however the function is in hal/scheduler.c
