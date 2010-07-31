@@ -212,7 +212,7 @@ int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 
 	for (p = fmt; *p; p++) {
 		if (*p != '%') {
-			if (len < size)
+			if ((unsigned int)len < size)
 				str[len++] = *p;
 			else
 				len++;
