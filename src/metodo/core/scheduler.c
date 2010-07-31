@@ -31,7 +31,7 @@ int64_t CoSchedulerCurProcessId(void)
 	return current_process_id;
 }
 
-SchedulerProcess CoSchedulerCurProcess(void)
+SchedulerProcess *CoSchedulerCurProcess(void)
 {
 	return processes[current_process_id];
 }
