@@ -309,7 +309,7 @@ reset:
 						len++;
 			if (len < size) {
 				str[len++] =
-					(unsigned char) va_arg(ap, int);
+					(char) va_arg(ap, int);
 			} else {
 				len++;
 				va_arg(ap, void);
