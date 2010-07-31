@@ -4,8 +4,8 @@
 #define ROWS (25)
 #define VIDEO_MEMORY (0xb8000)
 
-#define CLEAR (attr << 8 | ' ')
-#define SPOT(n) (attr << 8 | (n))
+#define CLEAR (uint16_t)(attr << 8 | ' ')
+#define SPOT(n) (uint16_t)(attr << 8 | (n))
 #define PUTSPOT(n) VideoMemory[row*COLS + col] = SPOT(n);
 
 static uint16_t *VideoMemory;
@@ -55,7 +55,7 @@ void VgaDisplayChar(char c)
 		PUTSPOT(' ');
 	} else if (c == '\t') {
 		/* Tab */
-		col = ((col + 8 - 8) & ~(8 - 1)) + 8;
+		col = (uint8_t)(((col + 8 - 8) & ~(8 - 1)) + 8);
 	} else if (c == '\r') {
 		col = 0;
 	} else if (c == '\n') {
@@ -86,7 +86,7 @@ void VgaDisplayHideCursor()
 	HalOutPort(0x3d5, 1 << 5);
 }
 
-void VgaDisplayCursorPosition(int _row, int _col)
+void VgaDisplayCursorPosition(uint8_t _row, uint8_t _col)
 {
 	col = _col;
 	row = _row;
