@@ -13,8 +13,8 @@ struct DisplayDevice {
 void HalDisplaySetAttr(uint8_t lattr);
 void HalDisplayClear(void);
 void HalDisplayScroll(void);
-void HalDisplayChar(char c);
-void HalDisplayString(char *s);
+void HalDisplayChar(const char c);
+void HalDisplayString(const char *s);
 void HalDisplaySpot(uint8_t s, uint8_t row, uint8_t col);
 void HalInitDisplay(void);
 void HalDisableDisplay(void);
