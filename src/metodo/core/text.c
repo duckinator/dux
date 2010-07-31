@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <config.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
 
@@ -100,7 +101,7 @@ int m_printn(OUT char *str, IN int maxlen, IN int len, IN unsigned int n,
 
 int printf(IN const char *fmt, ...)
 {
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	char *str;
 #else
 	char str[1024];
@@ -108,7 +109,7 @@ int printf(IN const char *fmt, ...)
 	va_list args;
 	int len, i = 0;
 
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	va_start(args, fmt);
 	len = vsnprintf(NULL, 0, fmt, args);
 	va_end(args);
@@ -127,7 +128,7 @@ int printf(IN const char *fmt, ...)
 	while (str[i])
 		HalDisplayChar(str[i++]);
 
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	free(str);
 #endif
 
@@ -163,14 +164,14 @@ int snprintf(OUT char *str, IN size_t size, IN const char *fmt, ...)
 
 int vprintf(IN const char *fmt, va_list ap)
 {
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	char *str;
 #else
 	char str[1024];
 #endif
 	int len, i = 0;
 	
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	len = vsnprintf(NULL, 0, fmt, ap);
 	str = malloc(len+1);
 	len = vsnprintf(str, len+1, fmt, ap);
@@ -181,7 +182,7 @@ int vprintf(IN const char *fmt, va_list ap)
 	while (str[i])
 		HalDisplayChar(str[i++]);
 
-#if PRINTF_USE_MM
+#ifdef PRINTF_USE_MM
 	free(str);
 #endif
 
