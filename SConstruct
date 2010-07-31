@@ -29,17 +29,21 @@ env = Environment(
 	SHLIBPREFIX='',
 	SHLIBSUFFIX='.shl',
 	CC='%s' % (compiler),
-	CCFLAGS=['-Wall', '-m32', '-nostdinc', '-ffreestanding',  '-fno-stack-protector', '-fno-builtin', '-g', '-I', 'include', '-D', '%s' % arch.upper(),
-	         '-Wextra', '-fdiagnostics-show-option', '-Wextra', '-Wunused', '-Wformat=2', '-Winit-self', '-Wmissing-include-dirs', '-Wstrict-overflow=4', '-Wfloat-equal',
-	         '-Wwrite-strings', '-Wconversion', '-Wlogical-op', '-Wundef', '-Wunsafe-loop-optimizations', '-Wtrigraphs', '-Wunused-parameter', '-Wunknown-pragmas', '-Wcast-align',
-	         '-Wswitch-enum', '-Waggregate-return', '-Wmissing-noreturn', '-Wmissing-format-attribute', '-Wpacked', '-Wpadded', '-Wredundant-decls', '-Wunreachable-code',
-	         '-Winline', '-Winvalid-pch', '-Wdisabled-optimization', '-Wstack-protector'],
+	CCFLAGS=['-Wall', '-m32', '-nostdinc', '-ffreestanding',  '-fno-stack-protector', '-fno-builtin', '-g', '-I', 'include', '-D', '%s' % arch.upper(), 
+	         '-fdiagnostics-show-option', '-Wextra', '-Wunused', '-Wformat=2', '-Winit-self', '-Wmissing-include-dirs', '-Wstrict-overflow=4', '-Wfloat-equal',
+	         '-Wwrite-strings', '-Wconversion', '-Wundef', '-Wtrigraphs', '-Wunused-parameter', '-Wunknown-pragmas', '-Wcast-align', '-Wswitch-enum',
+	         '-Waggregate-return', '-Wmissing-noreturn', '-Wmissing-format-attribute', '-Wpacked', '-Wredundant-decls', '-Wunreachable-code', '-Winline',
+	         '-Winvalid-pch', '-Wdisabled-optimization'],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='%s' % (linker),
 	LINKFLAGS=['-melf_i386', '-nostdlib'],
 	BUILDERS={'Iso': iso}
 )
+
+# Add the following flags if clang is not the compiler used (it doesn't have them)
+if env['CC'] != 'clang':
+	env.Append(CCFLAGS=['-Wlogical-op', '-Wunsafe-loop-optimizations', '-Wpadded', '-Wstack-protector'])
 
 if buildtype == 'debug':
 	env.Append(CCFLAGS=['-g', '-D', 'DEBUG'], LINKFLAGS=['-g'])
