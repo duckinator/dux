@@ -201,7 +201,7 @@ int vsprintf(OUT char *str, IN const char *fmt, va_list ap)
 int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 		IN va_list ap)
 {
-	int len = 0;
+	unsigned int len = 0;
 	const char *p;
 	int flags, fieldwidth, precision, i;
 	const char *sval;
@@ -212,7 +212,7 @@ int vsnprintf(OUT char *str, IN size_t size, IN const char *fmt,
 
 	for (p = fmt; *p; p++) {
 		if (*p != '%') {
-			if ((unsigned int)len < size)
+			if (len < size)
 				str[len++] = *p;
 			else
 				len++;
@@ -358,5 +358,5 @@ reset:
 	else
 		if (size != 0)
 			str[size] = '\0';
-	return len;
+	return (int)len;
 }

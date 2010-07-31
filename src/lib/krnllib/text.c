@@ -270,10 +270,12 @@ reset:
 			p++;
 		}
 
+		flags |= TF_UNSIGNED;
 		/* Find the conversion. */
 		switch (*p) {
 		case 'i':
 		case 'd':
+			flags &= ~TF_UNSIGNED;
 			len = m_printn(str, size, len,
 				       va_arg(ap, int), 10,
 				       fieldwidth, flags, precision);
