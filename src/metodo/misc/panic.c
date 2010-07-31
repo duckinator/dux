@@ -82,7 +82,7 @@ void stop(int error, int argc, ...)
 {
 	va_list ap;
 	int i;
-	int arg;
+	unsigned int arg;
 
 	if (in_panic) {
 		/* Something is causing a recursive stop, so
