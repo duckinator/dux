@@ -19,7 +19,7 @@ static void UartSend_int(char c)
 	/* wait until UART is ready to send */
 	while ((HalInPort(UART_BASE_REGISTER + LineStatus) & THRE) == 0);
 
-	HalOutPort(UART_BASE_REGISTER, c);
+	HalOutPort(UART_BASE_REGISTER, (uint8_t)c);
 }
 
 int UartInit()
