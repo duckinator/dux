@@ -5,6 +5,7 @@ unsigned int ticks = 0;
 
 void HalTimerHandler(struct regs *r)
 {
+	r = r; // UNUSED ARG FIX
 	//Increment ticks
 	ticks++;
 
