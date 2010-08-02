@@ -17,9 +17,9 @@ SConscript('misc/SConscript')
 SConscript('colpa/SConscript')
 
 SConscript('driver/generic/SConscript')
-metodo.Append(LIBS=[File('#src/metodo/driver/generic/drivers.lib')])
+#metodo.Append(LIBS=[File('#src/metodo/driver/generic/drivers.lib')])
 SConscript('driver/%s/SConscript' % arch)
-metodo.Append(LIBS=[File('#src/metodo/driver/%s/drivers.lib' % arch)])
+#metodo.Append(LIBS=[File('#src/metodo/driver/%s/drivers.lib' % arch)])
 
 sources += [
 	'init/init.c',

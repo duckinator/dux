@@ -1,14 +1,26 @@
 # vim: syntax=python
 
-Import('env', 'arch', 'buildtype', 'distreq')
+Import('env', 'arch', 'buildtype', 'distreq', 'sources')
 
-generic_drivers = env.Clone()
+drivers = env.Clone()
+modules = env.Clone()
 
-sources = [
-	'display.c',
+modules.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
+modules.Append(LIBS=[File('#src/vfs/vfs.lib')])
+
+# Driver modules (not required by the kernel)
+
+module_sources = [
 ]
 
-distreq += ['src/metodo/driver/generic/driver.lib']
+for file in module_sources:
+	modules.Program(file.replace('.c', ''), [file])
+	distreq += ['src/metodo/driver/generic/'+file.replace('.c', '.o')]
 
-generic_drivers.StaticLibrary('driver', sources)
+# Drivers that are required by the kernel
 
+sources += [
+	'driver/generic/display.c',
+]
+
+Export('sources', 'distreq')
