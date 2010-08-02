@@ -67,6 +67,11 @@ noreturn InitKernel(uint32_t magic, void *arg)
 			modules[current_module].exe = (void*) module->mod_start;
 			printf("Found executable %s at 0x%x\n", modules[current_module].name, modules[current_module].exe);
 			current_module++;
+
+			if (strncmp((char*)module->string, (char*)"/Drivers/", 9) == 0) {
+				printf("Loading driver: %s\n", (char*)module->string);
+				LoadExe(module);
+			}
 		}
 	}
 
