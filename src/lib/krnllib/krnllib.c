@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <config.h>
 #include <macros.h>
+#include <lib/krnllib.h>
 
 void putc ( char c )
 {
