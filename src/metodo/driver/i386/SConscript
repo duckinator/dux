@@ -1,15 +1,29 @@
 # vim: syntax=python
 
-Import('env', 'arch', 'buildtype', 'distreq')
+Import('env', 'arch', 'buildtype', 'distreq', 'sources')
 
-generic_drivers = env.Clone()
+drivers = env.Clone()
+modules = env.Clone()
 
-sources = [
-	'vga.c',
+modules.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
+modules.Append(LIBS=[File('#src/vfs/vfs.lib')])
+
+# Driver modules (not required by the kernel)
+
+module_sources = [
 	'serial.c',
 ]
 
-distreq += ['src/metodo/driver/i386/driver.lib']
+for file in module_sources:
+	modules.Program(file.replace('.c', ''), [file])
+	object_file = 'src/metodo/driver/%s/%s' % (arch, file.replace('.c', '.exe'))
+	distreq += [object_file]
 
-generic_drivers.StaticLibrary('driver', sources)
 
+# Drivers that are required by the kernel
+
+sources += [
+	'driver/i386/vga.c',
+]
+
+Export('sources', 'distreq')

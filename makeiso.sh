@@ -21,13 +21,24 @@ if [ -e "isofs/boot" ]; then
 	rm -r isofs/boot
 fi
 
+if [ -e "isofs/Drivers" ]; then
+	rm -r isofs/Drivers
+fi
+
 mkdir -p isofs/System
+mkdir -p isofs/Drivers
 mkdir -p isofs/boot
 
 cp src/metodo/metodo.exe isofs/System/
 cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
 
+echo > drivers.tmp
+for f in $(ls src/metodo/driver/*/*.exe); do
+	filename=$(echo $f | sed "s/src\/metodo\/driver\/.*\///")
+	cp "$f" "isofs/Drivers/$filename"
+	echo "$filename" >> drivers.tmp
+done
 
 mkdir -p iso
 
@@ -65,20 +76,39 @@ if [ "$bootloader" = "" ]; then
 fi
 
 
+function grub(){
+	echo $@ >> isofs/boot/grub/menu.lst
+}
+
 if [ "$bootloader" = "grub" ]; then
 	bootloader_location="boot/grub/stage2_eltorito"
 
 	mkdir -p isofs/boot/grub
 
-	echo "default 1" > isofs/boot/grub/menu.lst
-	echo "timeout 3" >> isofs/boot/grub/menu.lst
+	echo > isofs/boot/grub/menu.lst
+
+	grub "default 1"
+	grub "timeout 3"
 	# metodo
-	echo "title Metodo Dux" >> isofs/boot/grub/menu.lst
-	echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
+	grub "title Metodo Dux"
+	grub "kernel /System/metodo.exe"
 	# metodo + userland
-	echo "title Metodo Dux with Userland" >> isofs/boot/grub/menu.lst
-	echo "kernel /System/metodo.exe" >> isofs/boot/grub/menu.lst
-	echo "module /System/userland.exe" >> isofs/boot/grub/menu.lst
+	grub "title Metodo Dux with Userland"
+	grub "kernel /System/metodo.exe"
+	grub "module /System/userland.exe"
+
+	grub "title Metodo Dux with all modules (no userland)"
+	grub "kernel /System/metodo.exe"
+	for driver in $(cat drivers.tmp); do
+		grub "module /Drivers/$driver"
+	done
+
+	grub "title Metodo Dux with all modules and Userland"
+	grub "kernel /System/metodo.exe"
+	grub "module /System/userland.exe"
+	for driver in $(cat drivers.tmp); do
+		grub "module /Drivers/$driver"
+	done
 
 	if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]; then
 		if [ -e /boot/grub/stage2_eltorito ]; then
@@ -92,5 +122,7 @@ if [ "$bootloader" = "grub" ]; then
 		fi
 	fi
 fi
+
+rm drivers.tmp
 
 $isocmd -R -b $bootloader_location --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs

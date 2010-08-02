@@ -1,4 +1,4 @@
-#include <metodo/hal/vga.h>
+#include <driver/i386/vga.h>
 
 #define COLS (80)
 #define ROWS (25)
@@ -92,7 +92,7 @@ void VgaDisplayCursorPosition(uint8_t _row, uint8_t _col)
 	row = _row;
 }
 
-void VgaInitDisplay(void)
+void VgaDisplayInit(void)
 {
 	VideoMemory = (uint16_t*) VIDEO_MEMORY;
 	col = 0;
@@ -116,7 +116,7 @@ int VgaIsDisplayOn(void)
 }
 
 struct DisplayDevice VgaDisplayDevice = {
-	.Init              = VgaInitDisplay,
+	.Init              = VgaDisplayInit,
 	.Disable           = VgaDisableDisplay,
 	.DisplayChar       = VgaDisplayChar,
 	.DisplayClear      = VgaDisplayClear,

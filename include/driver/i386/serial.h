@@ -1,5 +1,7 @@
-#ifndef HAL_SERIAL_H
-#define HAL_SERIAL_H
+#ifndef DRIVER_SERIAL_H
+#define DRIVER_SERIAL_H
+
+#include <driver/driver.h>
 
 #define COM1			0x3f8
 #define UART_BASE_REGISTER	COM1

@@ -1,5 +1,4 @@
-#include <metodo/metodo.h>
-#include <metodo/hal/hal.h>
+#include <driver/driver.h>
 
 #define COLS (80)
 #define ROWS (25)
@@ -12,10 +11,10 @@
 static uint8_t disp_init = 0;
 
 extern struct DisplayDevice VgaDisplayDevice;
-extern struct DisplayDevice UartDisplayDevice;
+//extern struct DisplayDevice UartDisplayDevice;
 
 struct DisplayDevice *DisplayDeviceList[] = { &VgaDisplayDevice,
-								&UartDisplayDevice };
+/*								&UartDisplayDevice*/ };
 
 #define NUM_DISPLAY_DEVICES ( (sizeof(DisplayDeviceList) / sizeof(DisplayDeviceList[0])) )
 

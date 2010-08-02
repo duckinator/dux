@@ -4,8 +4,10 @@
  * http://www.nondot.org/sabre/os/files/Communication/ser_port.txt
  */
 
-#include <metodo/metodo.h>
-#include <metodo/hal/serial.h>
+#include <driver/i386/serial.h>
+
+//DRIVER_INIT(UartInit)
+void _start(void) { UartInit(); }
 
 void UartSend(char c)
 {
