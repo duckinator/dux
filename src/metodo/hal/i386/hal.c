@@ -2,6 +2,8 @@
 #include <buildid.h>
 #include <metodo/core/scheduler.h>
 #include <metodo/hal/mm/memory.h>
+
+void StartInitializer(const char *name, void (*func)());
  
 void StartInitializer(const char *name, void (*func)())
 {
