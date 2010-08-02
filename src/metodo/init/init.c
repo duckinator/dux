@@ -71,7 +71,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	}
 
 	SystemTests();
-
+panic("obai");
 	for (i = 0; mmap < (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length); i++,mmap++) {
 		// Store all memory maps in mmaps (see metodo.h)
 		mmaps[i] = mmap;
