@@ -24,7 +24,7 @@ void register_dump(void);
 void panic_setup_stop_table();
 
 /* Assert */
-void assert_dowork(char *file, int line);
+void assert_dowork(const char *file, int line);
 #define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
 /* Panic */
