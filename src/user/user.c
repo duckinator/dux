@@ -1,5 +1,6 @@
 #include <lib/krnllib.h>
 #include <system.h>
+#include <user/user.h>
 
 void _start(void)
 {
