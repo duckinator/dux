@@ -14,6 +14,8 @@
 
 #include <macros.h>
 
+#include <metodo/misc/panic.h>
+
 extern void monitor_clear();
 extern void monitor_switch_pages(unsigned int a, unsigned int b);
 extern unsigned int monitor_get_cursor_x();
@@ -22,16 +24,7 @@ extern void monitor_set_cursor(unsigned int x, unsigned int y);
 
 //extern void HalTimerSleep();
 
-/* Handle awesome kernel panic implementation */
-void _panic(char *text, const char *filename, int line);
-#define panic(message) _panic(message, __FILE__, __LINE__)
-
-void stop(int error, int argc, ...);
-
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
-
-void assert_dowork(char *file, int line);
-#define assert(a) if (!(a)) assert_dowork(__FILE__, __LINE__)
 
 #endif /* end of include guard: METODO_H */
