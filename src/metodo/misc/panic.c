@@ -106,7 +106,7 @@ void stop(int error, int argc, ...)
 	asm volatile("hlt");
 }
 
-void assert_dowork(char *file, int line)
+void assert_dowork(const char *file, int line)
 {
 	printf("Asserton failed in %s:%d", file, line);
 	stop(0x01, 0x2, file, line);
