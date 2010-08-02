@@ -1,6 +1,7 @@
 /* Scott: Thanks ;D */
 
 #include <metodo/metodo.h>
+#include <metodo/bochs.h>
 
 /* read http://bochs.sourceforge.net/doc/docbook/development/iodebug.html */
 
