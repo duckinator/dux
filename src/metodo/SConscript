@@ -16,6 +16,11 @@ SConscript('core/SConscript')
 SConscript('misc/SConscript')
 SConscript('colpa/SConscript')
 
+SConscript('driver/generic/SConscript')
+metodo.Append(LIBS=[File('#src/metodo/driver/generic/drivers.lib')])
+SConscript('driver/%s/SConscript' % arch)
+metodo.Append(LIBS=[File('#src/metodo/driver/%s/drivers.lib' % arch)])
+
 sources += [
 	'init/init.c',
 	'init/elfloader.c',

@@ -1,0 +1,14 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+generic_drivers = env.Clone()
+
+sources = [
+	'display.c',
+]
+
+distreq += ['src/metodo/driver/generic/driver.lib']
+
+generic_drivers.StaticLibrary('driver', sources)
+

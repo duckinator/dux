@@ -15,14 +15,11 @@ sources = [
 	'isrs.c',
 	'irqs.c',
 	'ports.c',
-	'display.c',
 	'interrupts.c',
 	'shutdown.c',
 	'keyboard.c',
 	'timer.c',
 	'mm/memory.c',
-	'vga.c',
-	'serial.c',
 	'scheduler.c'
 ]
 
