@@ -33,7 +33,7 @@ env = Environment(
 	         '-fdiagnostics-show-option', '-Wextra', '-Wunused', '-Wformat=2', '-Winit-self', '-Wmissing-include-dirs', '-Wstrict-overflow=4', '-Wfloat-equal',
 	         '-Wwrite-strings', '-Wconversion', '-Wundef', '-Wtrigraphs', '-Wunused-parameter', '-Wunknown-pragmas', '-Wcast-align', '-Wswitch-enum',
 	         '-Waggregate-return', '-Wmissing-noreturn', '-Wmissing-format-attribute', '-Wpacked', '-Wredundant-decls', '-Wunreachable-code', '-Winline',
-	         '-Winvalid-pch', '-Wdisabled-optimization', '-Wsystem-headers', '-Wbad-function-cast', '-Wmissing-declarations'],
+	         '-Winvalid-pch', '-Wdisabled-optimization', '-Wsystem-headers', '-Wbad-function-cast'],
 	AS='nasm',
 	ASFLAGS=['-felf32'],
 	LINK='%s' % (linker),
