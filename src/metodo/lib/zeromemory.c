@@ -1,4 +1,5 @@
 #include <metodo/metodo.h>
+#include <metodo/lib.h>
 
 void *ZeroMemory(IN void *ptr, IN uint32_t len)
 {
