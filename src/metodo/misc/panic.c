@@ -1,24 +1,8 @@
 #include <metodo/metodo.h>
 #include <system.h>
 
-void stop_dump_stack(void);
-
-#define STOP_MSG "A problem has been detected and Dux has been shut down to prevent damage\nto your computer.\n\n"
-
-#define va_start(v,l) __builtin_va_start(v,l)
-#define va_arg(v,l)   __builtin_va_arg(v,l)
-#define va_end(v)     __builtin_va_end(v)
-#define va_copy(d,s)  __builtin_va_copy(d,s)
-//typedef __builtin_va_list va_list;
-
-struct stack_frame {
-	struct stack_frame *next;
-	void *addr; 
-};
 unsigned int stack;
-
-void stack_dump(void);
-void register_dump(void);
+int in_panic = 0;
 
 char *stop_table[7] = {
 	(char*)0x01, "ASSERTION_FAILED",
@@ -26,8 +10,6 @@ char *stop_table[7] = {
 	(char*)0x10, "USER_INITIALIZED",
 	(char*)0x0
 };
-
-int in_panic = 0;
 
 void _panic(char *text, const char *filename, int line)
 {
@@ -75,7 +57,7 @@ char *stop_getmsg(int error)
 		}
 	}
  
-	return stop_table[index+1];
+	return (char*)stop_table[index+1];
 }
 
 void stop(int error, int argc, ...)
