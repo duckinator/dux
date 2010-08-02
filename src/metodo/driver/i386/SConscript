@@ -1,0 +1,15 @@
+# vim: syntax=python
+
+Import('env', 'arch', 'buildtype', 'distreq')
+
+generic_drivers = env.Clone()
+
+sources = [
+	'vga.c',
+	'serial.c',
+]
+
+distreq += ['src/metodo/driver/i386/driver.lib']
+
+generic_drivers.StaticLibrary('driver', sources)
+
