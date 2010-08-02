@@ -108,7 +108,7 @@ void stop(int error, int argc, ...)
 
 void assert_dowork(const char *file, int line)
 {
-	printf("Asserton failed in %s:%d", file, line);
+	printf("Assertion failed in %s:%d", file, line);
 	stop(0x01, 0x2, file, line);
 }
 
