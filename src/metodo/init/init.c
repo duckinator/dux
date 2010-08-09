@@ -70,7 +70,8 @@ noreturn InitKernel(uint32_t magic, void *arg)
 
 			if (strncmp((char*)module->string, (char*)"/Drivers/", 9) == 0) {
 				printf("Loading driver: %s\n", (char*)module->string);
-				LoadExe((void*)module->mod_start);
+				//LoadExe((void*)module->mod_start);
+				//while(1){}
 			}
 		}
 	}
