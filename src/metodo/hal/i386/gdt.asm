@@ -2,6 +2,7 @@ bits 32
 
 global HalInitGDT
 global HalGDTLoadEsp0IntoTSS
+global HalTSSFlush
 extern _stacktop
 
 section .text
@@ -90,12 +91,14 @@ section .text
 		mov ax, 0x10
 		mov esi, 8
 		mov word [ds:esi], ax
+
+		; This falls through to HalTSSFlush
 		
-		; Finally, we can load the valid TSS into the task register. The
-		; TSS is at offset 28 in the GDT.
+	; Finally, we can load the valid TSS into the task register. The
+	; TSS is at offset 28 in the GDT.
+	HalTSSFlush:
 		mov ax, 0x28
 		ltr ax
-
 		; Finished
 		ret
 
