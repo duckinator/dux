@@ -2,8 +2,9 @@
 
 Import('env', 'arch', 'buildtype', 'distreq', 'sources')
 
-drivers = env.Clone()
 modules = env.Clone()
+
+modules.Append(LINKFLAGS=['-Ttext', '0x300000'])
 
 modules.Append(LIBS=[File('#src/metodo/hal/%s/hal.lib' % arch)])
 modules.Append(LIBS=[File('#src/vfs/vfs.lib')])
