@@ -16,17 +16,69 @@ MultiBootHeader:
 	dd FLAGS
 	dd CHECKSUM
 
+gdt:
+
+gdt_null:
+	dq 0
+
+gdt_code:
+	dw 0xFFFF ; first 16 bits of segment limiter
+	dw 0 ; first 16 bits of base address
+	db 0 ; next 8 bits of base address
+	db 10011010b ; code segment, readable, nonconforming
+	db 11001111b ; ganular, last 4 bits of segment limiter
+	db 0 ; final 8 bits of base address
+
+gdt_data:
+	dw 0xFFFF
+	dw 0 ; first 16 bits of base address
+	db 0 ; next 8 bits of base address
+	db 10010010b ; data segment, writable, extends downwards
+	db 11001111b ; big
+	db 0 ; final 8 bits of base address
+
+gdt_end:
+
+gdt_desc:
+	dw gdt_end - gdt - 1
+	dd gdt
+
 ; reserve initial kernel stack space
 STACKSIZE equ 0x4000			; that's 16k.
 
 extern stop
 _start:
+	;Enter long mode
+
+	mov eax, 10100000b		;Set PAE and PGE
+	mov cr4,eax
+
+	mov edx, 0x0000a000		;Point CR3 at PML4
+	mov cr3,edx
+
+	mov ecx, 0xC0000080		;Specify EFER MSR
+
+	rdmsr				;Enable Long Mode
+	or eax, 0x00000100
+	wrmsr
+
+	mov ebx, cr0			;Activate long mode
+	or ebx, 0x80000001		;by enabling paging and protection simultaneously
+	mov cr0,ebx			;skipping protected mode entirely
+
+	lgdt [gdt_desc]			;load 80-bit gdt.pointer below
+
+	jmp gdt_code:longMode		;Load CS with 64 bit segment and flush the instruction cache
+
+longMode:
 	mov esp, _stacktop	; set up the stack
-	push ebx			; argument to kmain
-	push eax			; provided by multiboot compliant bootloaders
-	call  InitKernel			; call kernel proper
-	cli				; stop interrupts
-	hlt				; halt machine should kernel return
+	mov rsi, ebx		; argument to kmain
+	mov rdi, eax		; provided by multiboot compliant bootloaders
+;	push ebx		; argument to kmain
+;	push eax		; provided by multiboot compliant bootloaders
+	call  InitKernel	; call kernel proper
+	cli			; stop interrupts
+	hlt			; halt machine should kernel return
 
 section .bss
 align 32
