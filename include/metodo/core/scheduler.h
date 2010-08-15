@@ -2,7 +2,10 @@
 #define CORE_SCHEDULER_H
 
 #include <stdint.h>
-#include <metodo/hal/scheduler.h>
+
+#if I386
+  #include <metodo/hal/i386/scheduler.h>
+#endif
 
 typedef struct SchedulerProcess_s {
   int used;
