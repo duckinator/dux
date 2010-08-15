@@ -24,7 +24,7 @@ for file in module_sources:
 # Drivers that are required by the kernel
 
 sources += [
-	'driver/i386/vga.c',
+	'driver/x86_64/vga.c',
 ]
 
 Export('sources', 'distreq')

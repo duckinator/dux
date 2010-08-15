@@ -5,8 +5,10 @@
 
 #include <metodo/hal/mm/memory.h>
 
-#if I386
-#include <metodo/hal/i386.h>
+#ifdef I386
+  #include <metodo/hal/i386.h>
+#elif defined X86_64
+  #include <metodo/hal/x86_64.h>
 #endif
 
 void HalInit(void);
