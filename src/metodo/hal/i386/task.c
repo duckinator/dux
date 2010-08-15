@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <metodo/metodo.h>
 #include <metodo/hal/task.h>
 
 // FIXME: Why wont HalSwitchToUserMode() actually enable interrupts?
