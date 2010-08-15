@@ -1,4 +1,5 @@
 #include <driver/driver.h>
+#include <driver/generic/display.h>
 
 #define COLS (80)
 #define ROWS (25)

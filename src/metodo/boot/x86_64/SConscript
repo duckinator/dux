@@ -1,8 +1,8 @@
-# vim: syntax=python
 Import('env', 'arch', 'buildtype', 'distreq')
 Import('sources', 'metodo')
 
+metodo.Append(LINKFLAGS=['-T', 'src/metodo/boot/i386/link.ld'])
+
 sources += [
-#	'colpa/debug.c',
-	'colpa/dprint.c'
+	'boot/i386/start.asm',
 ]

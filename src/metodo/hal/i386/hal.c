@@ -1,7 +1,7 @@
 #include <metodo/metodo.h>
 #include <buildid.h>
 #include <metodo/core/scheduler.h>
-#include <metodo/hal/mm/memory.h>
+#include <metodo/hal/i386/mm/memory.h>
  
 void StartInitializer(const char *name, void (*func)())
 {

@@ -1,5 +1,5 @@
-#include <metodo/metodo.h>
-#include <metodo/hal/keyboard/keysym.h>
+#include <driver/driver.h>
+#include <driver/i386/keyboard/keysym.h>
 
 #define SCANCODE(x) ( (scancode == x) || (scancode == (x + 0x80))) // Does this match either the make or break code?
 #define KEYINFO(x) keyinfo->x = x // KEYINFO(foo) is the same as keyinfo->foo=foo;

@@ -1,21 +1,11 @@
 #ifndef HAL_H
 #define HAL_H
 
-#include <metodo/hal/display.h>
+#include <driver/generic/display.h>
 
 #if I386
 #include <metodo/hal/i386.h>
 #endif
-
-#include <metodo/hal/isr.h>
-
-#include <metodo/hal/timer.h>
-
-#include <metodo/hal/syscall.h>
-
-#include <metodo/hal/mm/memory.h>
-
-#include <metodo/hal/keyboard/keyboard.h>
 
 void HalInit(void);
 void HalBreak(void);
