@@ -3,6 +3,8 @@
 
 #include <driver/generic/display.h>
 
+#include <metodo/hal/mm/memory.h>
+
 #if I386
 #include <metodo/hal/i386.h>
 #endif

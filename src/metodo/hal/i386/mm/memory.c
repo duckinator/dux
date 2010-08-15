@@ -1,5 +1,4 @@
 #include <metodo/metodo.h>
-#include <metodo/hal/i386/mm/memory.h>
 #include <metodo/misc/misc.h>
 
 extern unsigned int end;

@@ -14,7 +14,6 @@ void HalEnableNMI(void);
 #include <metodo/hal/i386/ports.h>
 #include <metodo/hal/i386/isr.h>
 #include <metodo/hal/i386/syscall.h>
-#include <metodo/hal/i386/mm/memory.h>
 
 #include <driver/i386/timer.h>
 #include <driver/i386/keyboard/keyboard.h>
