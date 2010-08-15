@@ -14,7 +14,7 @@ void HalInit(void)
 	HalInitGDT();
 	HalInitDisplay();
 	
-	printf("Metodo " __DATE__ " " __TIME__ " " SCM_REV "\n\n");
+	printf("Metodo " DUX_ARCH " " DUX_BUILDTYPE " build.\nCompiled at " __TIME__ " " __DATE__ "\nRevision " SCM_REV "\n\n");
 
 	StartInitializer("IDT", &HalInitIDT);
 	StartInitializer("ISRs", &HalIsrInstall);
