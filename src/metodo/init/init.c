@@ -3,7 +3,7 @@
 #include <metodo/metodo.h>
 #include <metodo/misc/stop.h>
 
-#include <metodo/hal/i386/mm/memory.h>
+#include <metodo/hal/mm/memory.h>
 #include <metodo/init/tests.h>
 
 #include <multiboot.h>
