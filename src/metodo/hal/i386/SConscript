@@ -17,8 +17,6 @@ sources = [
 	'ports.c',
 	'interrupts.c',
 	'shutdown.c',
-	'keyboard.c',
-	'timer.c',
 	'mm/memory.c',
 	'scheduler.c'
 ]
