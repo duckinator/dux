@@ -3,6 +3,7 @@ Import('env', 'arch', 'buildtype', 'distreq')
 Import('sources', 'metodo')
 
 sources += [
+	'core/memory.c',
 	'core/text.c',
 	'core/shutdown.c',
 	'core/ipl.c',

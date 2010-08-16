@@ -1,6 +1,5 @@
-#include <metodo/misc/misc.h>
+#include <metodo/core/memory.h>
 
-//TODO: Figure out where these should go
 void *memcpy(void *dest, void *src, unsigned int count)
 {
 	/* Add code here to copy 'count' bytes of data from 'src' to
