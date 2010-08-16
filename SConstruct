@@ -10,7 +10,7 @@ compiler = ARGUMENTS.get('compiler', 'clang')
 linker = ARGUMENTS.get('linker', 'ld')
 bootloader = ARGUMENTS.get('bootloader', 'grub')
 
-os.system("./tools/buildid.sh > ./include/buildid.h \"%s\" \"%s\"" % (buildtype, arch))
+os.system("./tools/buildinfo.sh > ./include/buildinfo.h \"%s\" \"%s\"" % (buildtype, arch))
 
 iso = Builder(action='./makeiso.sh %s' % bootloader)
 
