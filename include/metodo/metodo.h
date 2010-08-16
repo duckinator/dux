@@ -8,8 +8,6 @@
 #include <metodo/init/init.h>
 #include <metodo/core/core.h>
 
-#include <metodo/misc/misc.h>
-
 #include <multiboot.h>
 
 #include <macros.h>

@@ -1,5 +1,4 @@
 #include <metodo/metodo.h>
-#include <metodo/misc/misc.h>
 
 extern unsigned int end;
 unsigned int placement = 0;

@@ -22,4 +22,6 @@ void CoShutdown(int mode);
 
 #include <text.h>
 
+#include <metodo/core/memory.h>
+
 #endif /* end of include guard: CORE_H */
