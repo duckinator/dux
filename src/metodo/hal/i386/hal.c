@@ -1,5 +1,5 @@
 #include <metodo/metodo.h>
-#include <buildid.h>
+#include <buildinfo.h>
 #include <metodo/core/scheduler.h>
  
 void StartInitializer(const char *name, void (*func)())

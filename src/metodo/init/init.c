@@ -9,7 +9,7 @@
 #include <multiboot.h>
 #include <beef.h>
 
-#include <buildid.h>
+#include <buildinfo.h>
 #include <string.h>
 
 #include <metodo/bochs.h>
