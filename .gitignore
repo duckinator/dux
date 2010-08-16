@@ -32,8 +32,8 @@ tags
 #ignore isofs
 isofs
 
-#ignore buildid
-include/buildid.h
+#ignore buildinfo
+include/buildinfo.h
 
 #ignore make_initrd executable
 tools/initrd/make_initrd
