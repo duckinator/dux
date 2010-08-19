@@ -33,6 +33,14 @@ Dux.exe: metodo.exe
 metodo.exe: ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
 	@ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
 
+user.exe:
+	@echo "user"
+
+krnllib.lib:
+	@echo "krnllib"
 
 clean:
 	@find ./src -name '*.o' -delete
+
+iso: metodo.exe user.exe krnllib.lib
+	./makeiso.sh
