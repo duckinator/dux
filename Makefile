@@ -4,7 +4,7 @@ ARCH := i386
 ARCHES := i386 x86_64
 BUILD_TYPE := debug
 
-CCFLAGS := -m32 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -D${ARCH} -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
+CCFLAGS := -m32 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -D "DUX_${ARCH}" -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
 
 SRCFILES := $(shell find 'src' -name '*.c' -or -name '*.asm')
 HDRFILES := $(shell find "src" -name "*.h")
@@ -46,8 +46,8 @@ hal.lib: $(filter src/metodo/hal/%, ${FINALOBJFILES})
 	ar rc src/metodo/hal/i386/hal.lib $(filter src/metodo/hal/%, ${FINALOBJFILES})
 	ranlib src/metodo/hal/i386/hal.lib
 
-user.exe:
-	@echo "user"
+user.exe: krnllib.lib $(filter src/user/%, ${FINALOBJFILES})
+	ld -o src/user/user.exe -nostdlib -melf_i386 -g -Ttext 0x200000 $(filter src/user/%, ${FINALOBJFILES}) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 krnllib.lib: $(filter src/lib/krnllib/%, ${FINALOBJFILES})
 	ar rc src/lib/krnllib/krnllib.lib $(filter  src/lib/krnllib/%, ${FINALOBJFILES})
