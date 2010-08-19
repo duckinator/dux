@@ -33,7 +33,7 @@ BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buil
 
 all: Dux.exe
 
-Dux.exe: hal.lib krnllib.lib vfs.lib
+Dux.exe: hal.lib krnllib.lib vfs.lib user.exe
 	@echo ${OBJFILES_32}
 
 %.o: %.c Makefile
