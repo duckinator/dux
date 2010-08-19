@@ -1,5 +1,7 @@
 COMPILER := clang
-ARCH := I386 #default to 32 bit.
+#default to 32 bit.
+ARCH := I386
+ARCHES := i386 x86_64
 
 CCFLAGS := -m32 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -D${ARCH} -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
 
@@ -16,12 +18,19 @@ OBJFILES_32 := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES_32)))
 OBJFILES_64 := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES_64)))
 OBJFILES_NOT_ARCH_SPECIFIC := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,${SRCFILES_NOT_ARCH_SPECIFIC}))
 OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES)))
-AOBJFILES := $(patsubst %.asm,%.o,$(ASMFILES))
 DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
+
+ifeq (${ARCH},I386)
+FINALOBJFILES := ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
+else ifeq (${ARCH}, x86_64)
+FINALOBJFILES := ${OBJFILES_64} ${OBJFILES_NOT_ARCH_SPECIFIC}
+else
+$(error ${ARCH})
+endif
 
 all: Dux.exe
 
-Dux.exe: metodo.exe
+Dux.exe: hal.lib krnllib.lib vfs.lib
 	@echo ${OBJFILES_32}
 
 %.o: %.c Makefile
@@ -30,17 +39,25 @@ Dux.exe: metodo.exe
 %.o: %.asm Makefile
 	@nasm -f elf -o $@ $<
 
-metodo.exe: ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
-	@ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
+hal.lib: $(filter src/metodo/hal/%, ${FINALOBJFILES})
+	ar rc src/metodo/hal/i386/hal.lib $(filter src/metodo/hal/%, ${FINALOBJFILES})
+	ranlib src/metodo/hal/i386/hal.lib
 
 user.exe:
 	@echo "user"
 
-krnllib.lib:
-	@echo "krnllib"
+krnllib.lib: $(filter src/lib/krnllib/%, ${FINALOBJFILES})
+	ar rc src/lib/krnllib/krnllib.lib $(filter  src/lib/krnllib/%, ${FINALOBJFILES})
+	ranlib src/lib/krnllib/krnllib.lib
+
+vfs.lib: $(filter src/vfs/%, ${FINALOBJFILES})
+	ar rc src/vfs/vfs.lib $(filter src/vfs/%, ${FINALOBJFILES})
+	ranlib src/vfs/vfs.lib
 
 clean:
 	@find ./src -name '*.o' -delete
 
-iso: metodo.exe user.exe krnllib.lib
+iso: Dux.exe
 	./makeiso.sh
+
+#@ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
