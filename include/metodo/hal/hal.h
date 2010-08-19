@@ -1,13 +1,15 @@
 #ifndef HAL_H
 #define HAL_H
 
+#include <buildinfo.h>
+
 #include <driver/generic/display.h>
 
 #include <metodo/hal/mm/memory.h>
 
-#ifdef I386
+#ifdef DUX_I386
   #include <metodo/hal/i386.h>
-#elif defined X86_64
+#elif defined DUX_X86_64
   #include <metodo/hal/x86_64.h>
 #endif
 
