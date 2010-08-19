@@ -5,9 +5,9 @@
 
 #include <stdint.h>
 
-#ifdef DUX_I386
+#ifdef i386
   #include <metodo/hal/i386/scheduler.h>
-#elif defined DUX_X86_64
+#elif defined x86_64
   #include <metodo/hal/x86_64/scheduler.h>
 #endif
 
