@@ -25,20 +25,49 @@ if [ -e "isofs/Drivers" ]; then
 	rm -r isofs/Drivers
 fi
 
+if [ -e "isofs/Modules" ]; then
+	rm -r isofs/Modules
+fi
+
 mkdir -p isofs/System
 mkdir -p isofs/Drivers
+mkdir -p isofs/Modules
 mkdir -p isofs/boot
 
 cp src/metodo/metodo.exe isofs/System/
 cp src/user/user.exe isofs/System/userland.exe
 cp src/lib/krnllib/krnllib.lib isofs/System/
 
-echo > drivers.tmp
-for f in $(ls src/metodo/driver/*/*.exe); do
-	filename=$(echo $f | sed "s/src\/metodo\/driver\/.*\///")
-	cp "$f" "isofs/Drivers/$filename"
-	echo "$filename" >> drivers.tmp
+function handle_modules() {
+	TYPE="$1"
+	DIR="$2"
+	ESC_DIR=$(echo $DIR | sed 's/\//\\\//g')
+	#echo > $TYPE.tmp
+	for f in $(ls $2/*.exe); do
+		filename=$(echo $f | sed 's/${ESC_DIR}//')
+		cp "$f" "isofs/${TYPE}/${filename}"
+		echo $filename >> $TYPE.tmp
+	done
+}
+
+echo > Drivers.tmp
+#for f in $(ls src/metodo/modules/driver/*/*.exe); do
+#	filename=$(echo $f | sed "s/src\/metodo\/driver\/.*\///")
+#	cp "$f" "isofs/Drivers/$filename"
+#	echo "$filename" >> drivers.tmp
+#done
+
+handle_modules "Drivers" "src/metodo/modules/driver/*/"
+
+echo > Modules.tmp
+for x in $(ls src/metodo/modules); do
+	handle_modules "Modules" "src/metodo/modules/${x}/*"
 done
+#for f in $(ls src/metodo/modules/*/*.exe); do
+#	filename=$(echo $f | sed "s/src\/metodo\/driver\/.*\///")
+#	cp "$f" "isofs/Drivers/$filename"
+#	echo "$filename" >> drivers.tmp
+#done
 
 mkdir -p iso
 
@@ -46,7 +75,7 @@ if [ "$bootloader" = "beef" ]; then
 	if [ -e "beef" ]; then
 		bootloader_location="boot/boot"
 
-    dir=$(pwd)
+		dir=$(pwd)
 		cd beef
 		if [ -e "Makefile" ]; then
 			make clean
@@ -99,30 +128,34 @@ if [ "$bootloader" = "grub" ]; then
 
 	grub "title Metodo Dux with all modules (no userland)"
 	grub "kernel /System/metodo.exe"
-	for driver in $(cat drivers.tmp); do
+	for driver in $(cat Drivers.tmp); do
 		grub "module /Drivers/$driver"
+	done
+	for module in $(cat Modules.tmp); do
+		grub "module /Modules/$module"
 	done
 
 	grub "title Metodo Dux with all modules and Userland"
 	grub "kernel /System/metodo.exe"
 	grub "module /System/userland.exe"
-	for driver in $(cat drivers.tmp); do
+	for driver in $(cat Drivers.tmp); do
 		grub "module /Drivers/$driver"
 	done
+	for module in $(cat Modules.tmp); do
+		grub "module /Modules/$module"
+	done
 
-	if [ ! -e 'isofs/boot/grub/stage2_eltorito' ]; then
+	if [ ! -e isofs/boot/grub/stage2_eltorito ]; then
 		if [ -e /boot/grub/stage2_eltorito ]; then
 			echo "Can't find stage2_eltorito in ./isofs/boot/grub, copying from /boot/grub/"
 			cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 		else
-			#echo 'You need to locate stage2_eltorito and put it in ./isofs/boot/grub'
-			#exit
-			echo 'Downloading stage2_eltorito from http://misc.duckinator.net/stage2_eltorito'
+			echo "Downloading stage2_eltorito from http://misc.duckinator.net/stage2_eltorito"
 			wget http://misc.duckinator.net/stage2_eltorito -O isofs/boot/grub/stage2_eltorito
 		fi
 	fi
 fi
 
-rm drivers.tmp
+rm Drivers.tmp Modules.tmp
 
 $isocmd -R -b $bootloader_location --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs

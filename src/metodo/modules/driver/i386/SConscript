@@ -12,21 +12,12 @@ modules.Append(LIBS=[File('#src/vfs/vfs.lib')])
 # Driver modules (not required by the kernel)
 
 module_sources = [
-#	'serial.c',
+	'serial.c',
 ]
 
 for file in module_sources:
 	modules.Program(file.replace('.c', ''), [file])
 	object_file = 'src/metodo/driver/%s/%s' % (arch, file.replace('.c', '.exe'))
 	distreq += [object_file]
-
-
-# Drivers that are required by the kernel
-
-sources += [
-	'driver/i386/vga.c',
-	'driver/i386/keyboard.c',
-	'driver/i386/timer.c',
-]
 
 Export('sources', 'distreq')
