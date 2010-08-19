@@ -1,7 +1,8 @@
 COMPILER := clang
 #default to 32 bit.
-ARCH := I386
+ARCH := i386
 ARCHES := i386 x86_64
+BUILD_TYPE := debug
 
 CCFLAGS := -m32 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -D${ARCH} -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
 
@@ -20,13 +21,15 @@ OBJFILES_NOT_ARCH_SPECIFIC := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,${SRCFIL
 OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES)))
 DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
-ifeq (${ARCH},I386)
+ifeq (${ARCH},i386)
 FINALOBJFILES := ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
 else ifeq (${ARCH}, x86_64)
 FINALOBJFILES := ${OBJFILES_64} ${OBJFILES_NOT_ARCH_SPECIFIC}
 else
 $(error ${ARCH})
 endif
+
+BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buildinfo.h)
 
 all: Dux.exe
 
