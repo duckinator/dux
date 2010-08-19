@@ -16,13 +16,16 @@ OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES)))
 AOBJFILES := $(patsubst %.asm,%.o,$(ASMFILES))
 DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
+## user options
+COMPILER := clang
+
 all: Dux.exe
 
 Dux.exe: metodo.exe
 	@echo ${OBJFILES_32}
 
 %.o: %.c Makefile
-	@gcc ${CCFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
+	@${COMPILER} ${CCFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
 %.o: %.asm Makefile
 	@nasm -f elf -o $@ $<
