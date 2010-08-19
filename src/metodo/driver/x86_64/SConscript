@@ -12,7 +12,7 @@ modules.Append(LIBS=[File('#src/vfs/vfs.lib')])
 # Driver modules (not required by the kernel)
 
 module_sources = [
-	'serial.c',
+#	'serial.c',
 ]
 
 for file in module_sources:
