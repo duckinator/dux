@@ -12,7 +12,7 @@ SRCFILES_NOT_ARCH_SPECIFIC := $(filter-out ${SRCFILES_ARCH_SPECIFIC}, ${SRCFILES
 OBJFILES_32 := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES_32)))
 OBJFILES_64 := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES_64)))
 OBJFILES_NOT_ARCH_SPECIFIC := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,${SRCFILES_NOT_ARCH_SPECIFIC}))
-OBJFILES := $(patsubst %.c,%.o,$(SRCFILES))
+OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES)))
 AOBJFILES := $(patsubst %.asm,%.o,$(ASMFILES))
 DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
@@ -29,3 +29,7 @@ Dux.exe: metodo.exe
 
 metodo.exe: ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
 	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld ${OBJFILES_32} ${OBJFILES_NOT_ARCH_SPECIFIC}
+
+
+clean:
+	@find ./src -name '*.o' -delete
