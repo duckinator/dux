@@ -60,6 +60,9 @@ vfs.lib: $(filter src/vfs/%, ${FINALOBJFILES})
 clean:
 	@find ./src -name '*.o' -delete
 
+qemu:
+	qemu -monitor stdio -cdrom iso/Dux.iso
+
 iso: Dux.exe
 	./makeiso.sh
 
