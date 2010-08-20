@@ -21,16 +21,16 @@ Dux.exe: metodo.exe
 #what depends on vfs.lib?
 metodo.exe: hal.lib user.exe vfs.lib
 
-user.exe: krnllib.lib
+user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
 
 hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
-	ar rc src/metodo/hal/i386/hal.lib $+
+	ar rc src/metodo/hal/i386/hal.lib $^
 	ranlib src/metodo/hal/i386/hal.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
 krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
-	ar rc src/lib/krnllib/krnllib.lib $+
+	ar rc src/lib/krnllib/krnllib.lib $^
 	ranlib src/lib/krnllib/krnllib.lib
 
 #duck says this is going away, if he is smart, he puts it in src/lib/vfs/ or similar.
