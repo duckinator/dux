@@ -24,8 +24,8 @@ metodo.exe: hal.lib user.exe vfs.lib
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
 
 hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
-	ar rc src/metodo/hal/i386/hal.lib $^
-	ranlib src/metodo/hal/i386/hal.lib
+	ar rc src/metodo/hal/${ARCH}/hal.lib $^
+	ranlib src/metodo/hal/${ARCH}/hal.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
