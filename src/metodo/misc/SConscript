@@ -3,7 +3,7 @@ Import('env', 'arch', 'buildtype', 'distreq')
 Import('sources', 'metodo')
 
 sources += [
-	'misc/stack_dump.asm',
+	'misc/%s/stack_dump.asm' % arch,
 	'misc/panic.c',
 	'misc/stop.c',
 	'misc/modules.c',
