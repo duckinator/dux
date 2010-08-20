@@ -18,11 +18,25 @@ all: Dux.exe
 Dux.exe: metodo.exe
 	@echo "it works"
 
-metodo.exe: hal.lib
+#what depends on vfs.lib?
+metodo.exe: hal.lib user.exe vfs.lib
 
-hal.lib: $(filter src/metodo/hal/${ARCH}/%o, ${OBJFILES})
+user.exe: krnllib.lib
+
+hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
 	ar rc src/metodo/hal/i386/hal.lib $+
 	ranlib src/metodo/hal/i386/hal.lib
+
+#this needs to take advantage of static rules to apply for all of:
+# <libname>: src/lib/<libname>/*.o
+krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
+	ar rc src/lib/krnllib/krnllib.lib $+
+	ranlib src/lib/krnllib/krnllib.lib
+
+#duck says this is going away, if he is smart, he puts it in src/lib/vfs/ or similar.
+vfs.lib: $(filter src/vfs/%.o, ${OBJFILES})
+	ar rc src/vfs/vfs.lib $+
+	ranlib src/vfs/vfs.lib
 
 %.o: %.c
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
@@ -31,9 +45,4 @@ hal.lib: $(filter src/metodo/hal/${ARCH}/%o, ${OBJFILES})
 	@${ASM} -f elf -o $@ $<
 
 %::
-	@echo "NOHIT" $(dall)
-
-#print out all the cool info in special variables (debug only)
-define dall
-@echo '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
-endef
+	@echo "NOHIT" '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
