@@ -22,6 +22,7 @@ Dux.exe: metodo.exe
 metodo.exe: hal.lib user.exe vfs.lib
 
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
+	ld -o src/user/user.exe -nostdlib -melf_i386 -g -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
 	ar rc src/metodo/hal/${ARCH}/hal.lib $^
