@@ -17,7 +17,7 @@ module_sources = [
 
 for file in module_sources:
 	modules.Program(file.replace('.c', ''), [file])
-	object_file = 'src/metodo/driver/%s/%s' % (arch, file.replace('.c', '.exe'))
+	object_file = 'src/metodo/modules/driver/%s/%s' % (arch, file.replace('.c', '.exe'))
 	distreq += [object_file]
 
 Export('sources', 'distreq')

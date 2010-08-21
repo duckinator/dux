@@ -15,6 +15,7 @@ SConscript('boot/%s/SConscript' % arch)
 SConscript('core/SConscript')
 SConscript('misc/SConscript')
 SConscript('colpa/SConscript')
+SConscript('modules/SConscript')
 
 SConscript('driver/generic/SConscript')
 #metodo.Append(LIBS=[File('#src/metodo/driver/generic/drivers.lib')])
