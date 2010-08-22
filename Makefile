@@ -29,7 +29,7 @@ Dux.exe: metodo.exe
 
 #what depends on vfs.lib?
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld $(filter-out metodo-libs, $^) src/metodo/hal/i386/hal.lib src/vfs/vfs.lib
+	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/vfs/vfs.lib
 	@echo $^
 
 metodo-libs: hal.lib user.exe vfs.lib
