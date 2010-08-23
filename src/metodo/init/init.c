@@ -82,6 +82,10 @@ noreturn InitKernel(uint32_t magic, void *arg)
 
 	SystemTests();
 
+	printf("Memory map:\n");
+	printf("\
+          |      base addr      |       length\n\
+   size   |   low    |   high   |   low    |   high   |   type\n");
 	for (i = 0; mmap < (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length); i++,mmap++) {
 		// Store all memory maps in mmaps (see metodo.h)
 		mmaps[i] = mmap;
@@ -92,37 +96,13 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		base_addr_high: 0x%x\n\
 		length_low: %i\n\
 		length_high: %i\n\
-		type: %i\n",
+		type: %i\n",*/
+		printf(" %8x | %8x | %8x | %8x | %8x | %8x\n",
 		mmap->size, mmap->base_addr_low, mmap->base_addr_high,
-		mmap->length_low, mmap->length_high, mmap->type);*/
+		mmap->length_low, mmap->length_high, mmap->type);
 	}
 
 	userland = GetModule("/System/userland.exe");
-
-/*	printf("debug: 0x%x-0x%x\n", &debug_abbrev_start, &debug_abbrev_end);
-	printf("debug: %s\n", &debug_abbrev_start);*/
-
-// I'm only committing this so other people can play with it if they want, but leaving it commented out by default
-/*
-	printf("debug: 0x%x-0x%x\n", &debug_info_start, &debug_info_end);
-
-	DWARF_Compilation_Unit_H* dwarf_comp_unit;
-	unsigned int ui;
-	i=0;
-//	for (i = 0; i < 0x100000+0x007294; i++) {
-printf("%i\n", &debug_info_end);
-	for (ui = 0; ui <= &debug_info_end; ui++,i++) {
-		dwarf_comp_unit = (DWARF_Compilation_Unit_H*)&debug_info_start+ui;
-		if(dwarf_comp_unit->version == 2) {
-			printf("%i (0x%x):\n", ui, ui);
-			printf("    length:  0x%x (%u)\n", dwarf_comp_unit->length, dwarf_comp_unit->length);
-			printf("    version: %u\n", dwarf_comp_unit->version, dwarf_comp_unit->version);
-			printf("    offset:  0x%x (%u)\n", dwarf_comp_unit->offset, dwarf_comp_unit->offset);
-			printf("    size:    0x%x (%u)\n", dwarf_comp_unit->size, dwarf_comp_unit->size);
-			if(i==2)
-			  break;
-		}
-	}*/
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
