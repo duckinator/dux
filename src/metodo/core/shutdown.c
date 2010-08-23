@@ -2,12 +2,12 @@
 
 void CoShutdown(int mode)
 {
-	if (!HalIsDisplayOn()) {
-		HalInitDisplay();
+	if (!DisplayIsOn()) {
+		DisplayInit();
 	}
 
-	HalDisplayString("Shutting down.\n");
-	HalDisplayString("Done.\n");
+	DisplayString("Shutting down.\n");
+	DisplayString("Done.\n");
 
 	switch (mode) {
 	case SD_WAIT:

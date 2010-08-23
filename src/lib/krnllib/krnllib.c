@@ -8,7 +8,7 @@
 
 void putc ( char c )
 {
-	// Call syscall 0 (HalDisplayChar) with c as the arg
+	// Call syscall 0 (DisplayChar) with c as the arg
 	__asm__ __volatile__ (" \
 			mov $0, %%eax; \
 			mov %0, %%ebx; \

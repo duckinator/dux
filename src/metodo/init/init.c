@@ -47,7 +47,11 @@ noreturn InitKernel(uint32_t magic, void *arg)
 			KrnlStop(STOP_BAD_MULTIBOOT_SIGNATURE, magic, 0, 0, 0);
 	}
 
-	HalInit();
+
+	HalPreInit(); // HAL-related things that must be started before drivers
+	DisplayInit();
+	printf("Metodo " DUX_ARCH " " DUX_BUILDTYPE " build.\nCompiled at " __TIME__ " " __DATE__ "\nRevision " SCM_REV "\n\n");
+	HalInit(); // Rest of HAL
 
 	/* mbd->flags */
 	unsigned int i, len;

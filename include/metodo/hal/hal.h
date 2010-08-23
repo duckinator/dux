@@ -3,7 +3,7 @@
 
 #include <buildinfo.h>
 
-#include <driver/generic/display.h>
+#include <api/display.h>
 
 #include <metodo/hal/mm/memory.h>
 
@@ -13,6 +13,7 @@
   #include <metodo/hal/x86_64.h>
 #endif
 
+void HalPreInit(void);
 void HalInit(void);
 void HalBreak(void);
 void HalShutdown(void);
