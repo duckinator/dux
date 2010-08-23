@@ -25,6 +25,8 @@ for file in module_sources:
 
 sources += [
 	'driver/x86_64/vga.c',
+	'driver/x86_64/keyboard.c',
+	'driver/x86_64/timer.c',
 ]
 
 Export('sources', 'distreq')
