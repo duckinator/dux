@@ -7,7 +7,10 @@
 #define OPTIONAL
 #define NOTHING
 
-/* Define pseudo function modifiers. */
-#define DEPRECATED
+/* Define function modifiers. */
+#define DEPRECATED __attribute__((deprecated))
+
+/* Define argument modifiers */
+#define UNUSED __attribute__((unused))
 
 #endif /* end of include guard: MODIFIERS_H */

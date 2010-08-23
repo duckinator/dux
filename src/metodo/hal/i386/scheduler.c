@@ -5,7 +5,6 @@ static int scheduler_enabled = 0;
 
 void HalSchedulerRunProcess(SchedulerProcess *proc)
 {
-	proc = proc; // UNUSED ARG FIX
 	printf("Switch process %i\n", CoSchedulerCurProcessId());
 }
 
