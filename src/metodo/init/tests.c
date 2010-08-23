@@ -49,6 +49,7 @@ void MemorySizeTest()
 		break;
 	}
 	printf("We have %d%s of RAM\n", bytes, ext);
+	free(ext);
 }
 
 void MMTest()
