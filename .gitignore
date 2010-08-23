@@ -4,6 +4,7 @@
 *.exe
 *.lib
 *.shl
+*.d
 
 # Ignore the ISO
 Dux.iso
