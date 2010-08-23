@@ -56,8 +56,8 @@ void HalSyscallHandler(struct regs *r)
 	if (r->eax >= NUM_SYSCALLS)
 		 return;
 
-	void (*syscall)(int, int, int, int, int);
+	void (*syscall)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 
 	syscall = syscalls[r->eax];
-	syscall((int)r->ebx, (int)r->ecx, (int)r->edx, (int)r->esi, (int)r->edi);
+	syscall((uint64_t)r->ebx, (uint64_t)r->ecx, (uint64_t)r->edx, (uint64_t)r->esi, (uint64_t)r->edi);
 }
