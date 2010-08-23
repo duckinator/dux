@@ -44,8 +44,8 @@ void HalIsrHandler(struct regs *r)
 	if (r->int_no == IA32_SYSCALL_INTERRUPT) {
 		HalSyscallHandler(r);
 	} else if(r->int_no == 3) {
-		//KernDebug();
-		panic("Insert debugger here");
+		KernDebug();
+		//panic("Insert debugger here");
 	} else if(r->int_no < 32){
 		panic((char*)HalExceptions[r->int_no]);
 	}
