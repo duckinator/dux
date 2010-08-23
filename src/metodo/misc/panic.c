@@ -21,9 +21,9 @@ void _panic(char *text, const char *function, const char *filename, int line)
 	}
 	in_panic = 1;
  
-	HalInitDisplay();
-	HalDisplaySetAttr(0x4f);
-	HalDisplayClear();
+	DisplayInit();
+	DisplaySetAttr(0x4f);
+	DisplayClear();
 	printf("\n**** UDUDD ***\n\n%s\n\n", text);
 	printf("Function: %s\nFile: %s\nLine: %d\n", function, filename, line);
 	stack_dump();
@@ -76,9 +76,9 @@ void stop(int error, int argc, ...)
 	}
 	in_panic = 1;
 
-	HalInitDisplay();
-	HalDisplaySetAttr(0x4f);
-	HalDisplayClear();
+	DisplayInit();
+	DisplaySetAttr(0x4f);
+	DisplayClear();
 
 	printf(STOP_MSG);
 	printf("%s\n\n", stop_getmsg(error));

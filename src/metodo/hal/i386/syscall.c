@@ -40,7 +40,7 @@ static void *syscalls[NUM_SYSCALLS] =
 	ULMonitorWriteDec,
 	ULShutdown,
 	ULReboot,
-	HalDisplayClear,
+	DisplayClear,
 };
 
 void HalInitializeSyscalls()

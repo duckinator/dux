@@ -1,5 +1,4 @@
 #include <metodo/metodo.h>
-#include <buildinfo.h>
 #include <metodo/core/scheduler.h>
  
 void StartInitializer(const char *name, void (*func)())
@@ -9,13 +8,16 @@ void StartInitializer(const char *name, void (*func)())
 	printf("Done.\n");
 }
 
-void HalInit(void)
+/*
+ * HalPreInit is for things that must be enabled before the display drivers. HalInit() is ran after this.
+ */
+void HalPreInit(void)
 {
 	HalInitGDT();
-	HalInitDisplay();
-	
-	printf("Metodo " DUX_ARCH " " DUX_BUILDTYPE " build.\nCompiled at " __TIME__ " " __DATE__ "\nRevision " SCM_REV "\n\n");
+}
 
+void HalInit(void)
+{
 	StartInitializer("IDT", &HalInitIDT);
 	StartInitializer("ISRs", &HalIsrInstall);
 	StartInitializer("IRQs", &HalIrqInstall);

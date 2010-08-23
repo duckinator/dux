@@ -127,7 +127,7 @@ int printf(IN const char *fmt, ...)
 #endif
 
 	while (str[i])
-		HalDisplayChar(str[i++]);
+		DisplayChar(str[i++]);
 
 #ifdef PRINTF_USE_MM
 	free(str);
@@ -181,7 +181,7 @@ int vprintf(IN const char *fmt, va_list ap)
 #endif
 
 	while (str[i])
-		HalDisplayChar(str[i++]);
+		DisplayChar(str[i++]);
 
 #ifdef PRINTF_USE_MM
 	free(str);

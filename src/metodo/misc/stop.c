@@ -17,16 +17,16 @@ void KrnlStop(uint32_t error, uint32_t arg1, uint32_t arg2, uint32_t arg3, uint3
 	}
 	in_stop = 1;
 
-	HalInitDisplay();
-	HalDisplaySetAttr(0x4f);
-	HalDisplayClear();
+	DisplayInit();
+	DisplaySetAttr(0x4f);
+	DisplayClear();
 
-	HalDisplayString("An error has occured and Dux has been shutdown to prevent damage.\n\n");
+	DisplayString("An error has occured and Dux has been shutdown to prevent damage.\n\n");
 
 	printf("STOP: %x (%x, %x, %x, %x)\n", error, arg1, arg2, arg3, arg4);
  
 #ifdef DEBUG
-	HalDisplayString("BREAK\n");
+	DisplayString("BREAK\n");
 	HalBreak();
 #else
 	HalShutdown();
