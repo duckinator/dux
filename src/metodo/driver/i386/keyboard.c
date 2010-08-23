@@ -19,9 +19,8 @@ int escaped = 0;
 
 int vt_visible = 0; // VT 0 is visible
 
-void HalKeyboardHandler(struct regs *r)
+void HalKeyboardHandler(UNUSED struct regs *r)
 {
-	r=r; // UNUSED ARG FIX
 	unsigned int scancode = HalInPort(0x60);
 
 	*++buffer = (unsigned char)scancode;

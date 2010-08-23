@@ -12,7 +12,7 @@ void _start(void)
 	return;
 }
 
-int main(int argc, char const* argv[])
+int main(UNUSED int argc, UNUSED char const* argv[])
 {
 	/*
 	 * argc and argv are only passed to follow C conventions,
@@ -20,8 +20,6 @@ int main(int argc, char const* argv[])
 	 * make the compilers be nice and not throw warnings about
 	 * unused args.
 	 */
-	argc = argc; // UNUSED ARG FIX
-	argv = argv; // UNUSED ARG FIX
 	printf("Hi!\n%x\n%i\n", 1024, 1024);
 	return 0;
 }
