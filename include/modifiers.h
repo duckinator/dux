@@ -10,6 +10,8 @@
 /* Define function modifiers. */
 #define DEPRECATED __attribute__((deprecated))
 
+#define noreturn __attribute__((noreturn)) void // Specify that a function doesn't return
+
 /* Define argument modifiers */
 #define UNUSED __attribute__((unused))
 
