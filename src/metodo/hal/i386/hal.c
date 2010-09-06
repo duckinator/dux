@@ -26,8 +26,6 @@ void HalInit(void)
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
-
-	init_mm();
 	
 	printf("Enabling interrupts...");
 	asm volatile ("sti");
