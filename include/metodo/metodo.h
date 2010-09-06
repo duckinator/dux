@@ -14,8 +14,6 @@
 
 #include <metodo/misc/panic.h>
 
-//extern void HalTimerSleep();
-
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
 
