@@ -64,6 +64,8 @@ $(ASMTARGETS): %.o: %.asm
 
 clean:
 	@find ./src -name '*.o' -delete
+	@find ./src -name '*.lib' -delete
+	@find ./src -name '*.exe' -delete
 
 qemu: iso
 	qemu -monitor stdio -cdrom iso/Dux.iso
