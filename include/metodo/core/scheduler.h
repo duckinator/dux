@@ -12,17 +12,19 @@
 #endif
 
 typedef struct SchedulerProcess_s {
-  int used;
-  struct proc_regs registers;
+     uint32_t id;
+     int used;
+     struct proc_regs registers;
+     struct SchedulerProcess_s *prev;
+     struct SchedulerProcess_s *next;
 } SchedulerProcess;
 
 void CoSchedulerHandler(void);
 SchedulerProcess *CoSchedulerCurProcess(void);
-int32_t CoSchedulerCurProcessId(void);
 int32_t CoSchedulerNumProcesses(void);
-int32_t CoSchedulerNextProcessLoop(int32_t begin, int32_t end);
-int32_t CoSchedulerNextProcess(void);
-void CoSchedulerSetNumProcesses(int32_t num);
+SchedulerProcess *CoSchedulerPrevProcess(void);
+SchedulerProcess *CoSchedulerNextProcess(void);
+SchedulerProcess *CoSchedulerAllocateProcess();
 
 /* Defined here for simplicitly,
  * however the function is in hal/scheduler.c
