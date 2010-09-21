@@ -12,7 +12,5 @@ void putdec ( uint32_t num );
 void shutdown ();
 void reboot ();
 void clear_screen ();
-void *malloc (size_t size);
-void free(void *ptr);
 
 #endif /* end of include guard: KRNLLIB_H */
