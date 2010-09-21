@@ -9,6 +9,4 @@
 	typedef unsigned int size_t;
 #endif
 
-#define NULL ((void*)(0))
-
 #endif /* end of include guard: STDDEF_H */
