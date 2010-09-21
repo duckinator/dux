@@ -7,6 +7,7 @@
 #include <text.h>
 #include <macros.h>
 #include <modifiers.h>
+#include <stdlib.h>
 
 /*void sleep();
 void usleep();*/

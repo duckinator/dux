@@ -1,8 +1,7 @@
 #ifndef KRNLLIB_H
 #define KRNLLIB_H
 
-#include <stdint.h>
-#include <stddef.h>
+#include <system.h>
 #include <modifiers.h>
 
 
