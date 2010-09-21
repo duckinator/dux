@@ -1,17 +1,10 @@
 #ifndef STDLIB_H
 #define STDLIB_H
 
-/* Attempt to be compliant with Single UNIX Specification, Version 4 */
-
 #include <stddef.h>
 //#include <limits.h>
 //#include <math.h>
 //#include <sys/wait.h>
-
-/*
- * We need sys/wait.h to have the following: WNOCHANG, WUNTRACED, WEXITSTATUS,
- * WIFEXITED, WIFSIGNALED, WIFSTOPPED, WSTOPSIG, WTERMSIG
- */
 
 /* These are the same for all machines */
 #define EXIT_FAILURE 1
@@ -19,122 +12,53 @@
 
 #define NULL ((void*)(0))
 
-// Maximum value returned by rand(), at least 32767
-#define RAND_MAX 32767
+/* atexit(fn): run fn() at exit */
+//int atexit(void (*)(void));
+/* exit(n): exit with status code of n */
+//void exit(int);
 
-// MB_CUR_MAX returns value of maximum number of bytes in a character specified by the current locale
-//#define MB_CUR_MAX
-
-/* The following should be declared as functions/macros, uncomment as implemented
-
-void _Exit(int);
-
-long a64l(const char *);
-
-void abort(void);
-int abs(int);
-int atexit(void (*)(void));
-double atof(const char *);
-int atoi(const char *);
-long atol(const char *);
-long long atoll(const char *);
-void *bsearch(const void *, const void *, size_t, size_t,
-int (*)(const void *, const void *));
-void *calloc(size_t, size_t);
-div_t div(int, int);
-
-double drand48(void);
-char *ecvt(double, int, int *restrict, int *restrict); (LEGACY )
-double erand48(unsigned short[3]);
-
-void exit(int);
-
-char *fcvt(double, int, int *restrict, int *restrict); (LEGACY )
-
+void *malloc(size_t);
+//void *calloc(size_t, size_t);
+//void *realloc(void *, size_t);
 void free(void *);
 
-char *gcvt(double, int, char *); (LEGACY )
 
-char *getenv(const char *);
+/* Char array to number conversion */
 
-int getsubopt(char **, char *const *, char **);
-int grantpt(int);
-char *initstate(unsigned, char *, size_t);
-long jrand48(unsigned short[3]);
-char *l64a(long);
+/* atof(str): return a double containing the numeric equivalent of str */
+//double atof(const char *);
+/* atoi(str): return an integer containing the numeric equivalent of str */
+//int atoi(const char *);
+/* atol(str): return a long containing the numeric equivalent of str */
+//long atol(const char *);
+/* atoll(str): return a long long containing the numeric equivalent of str */
+//long long atoll(const char *);
 
-long labs(long);
+/* Math */
 
-void lcong48(unsigned short[7]);
+/* abs(n): return absolute value of n as a integer */
+//int abs(int);
+/* labs(n): return absolute value of n as a long */
+//long labs(long);
+/* llabs(n): return absolute value of n as a long long */
+//long long llabs(long long);
 
-ldiv_t ldiv(long, long);
-long long llabs(long long);
-lldiv_t lldiv(long long, long long);
-
-long lrand48(void);
-*/
-void *malloc(size_t);
-/*
-int mblen(const char *, size_t);
-size_t mbstowcs(wchar_t *restrict, const char *restrict, size_t);
-int mbtowc(wchar_t *restrict, const char *restrict, size_t);
-
-char *mktemp(char *); (LEGACY )
-int  mkstemp(char *);
-long mrand48(void);
-long nrand48(unsigned short[3]);
+/* div(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are integers */
+//div_t div(int, int);
+/* ldiv(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are longs */
+//ldiv_t ldiv(long, long);
+/* lldiv(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are long longs */
+//lldiv_t lldiv(long long, long long);
 
 
-int posix_memalign(void **, size_t, size_t);
+/* String to number conversion */
 
-
-int posix_openpt(int);
-char *ptsname(int);
-int putenv(char *);
-
-void qsort(void *, size_t, size_t, int (*)(const void *,
-           const void *));
-int rand(void);
-
-int rand_r(unsigned *);
-
-
-long random(void);
-
-void *realloc(void *, size_t);
-
-char *realpath(const char *restrict, char *restrict);
-unsigned short seed48(unsigned short[3]);
-
-
-int setenv(const char *, const char *, int);
-
-
-void setkey(const char *);
-char *setstate(const char *);
-
-void srand(unsigned);
-
-void srand48(long);
-void srandom(unsigned);
-
-double strtod(const char *restrict, char **restrict);
-float strtof(const char *restrict, char **restrict);
-long strtol(const char *restrict, char **restrict, int);
-long double strtold(const char *restrict, char **restrict);
-long long strtoll(const char *restrict, char **restrict, int);
-unsigned long strtoul(const char *restrict, char **restrict, int);
-unsigned long long strtoull(const char *restrict, char **restrict, int);
-int system(const char *);
-
-int unlockpt(int);
-
-
-int unsetenv(const char *);
-
-size_t wcstombs(char *restrict, const wchar_t *restrict, size_t);
-int wctomb(char *, wchar_t);
-
-*/
+//double strtod(const char *, char **);
+//float strtof(const char *, char **);
+//long strtol(const char *, char **, int);
+//long double strtold(const char *, char **);
+//long long strtoll(const char *, char **, int);
+//unsigned long strtoul(const char *, char **, int);
+//unsigned long long strtoull(const char *, char **, int);
 
 #endif
