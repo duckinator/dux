@@ -15,6 +15,7 @@
 #include <metodo/bochs.h>
 
 #include <metodo/colpa/debug.h>
+#include <metodo/colpa/tests.h>
 
 #include <metodo/init/elfloader.h>
 
@@ -80,7 +81,8 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		}
 	}
 
-	SystemTests();
+//	SystemTests();
+	ColpaInit();
 
 	printf("Memory map:\n");
 	printf("\

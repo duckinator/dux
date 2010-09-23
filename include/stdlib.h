@@ -34,23 +34,6 @@ void free(void *);
 /* atoll(str): return a long long containing the numeric equivalent of str */
 //long long atoll(const char *);
 
-/* Math */
-
-/* abs(n): return absolute value of n as a integer */
-//int abs(int);
-/* labs(n): return absolute value of n as a long */
-//long labs(long);
-/* llabs(n): return absolute value of n as a long long */
-//long long llabs(long long);
-
-/* div(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are integers */
-//div_t div(int, int);
-/* ldiv(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are longs */
-//ldiv_t ldiv(long, long);
-/* lldiv(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are long longs */
-//lldiv_t lldiv(long long, long long);
-
-
 /* String to number conversion */
 
 //double strtod(const char *, char **);
