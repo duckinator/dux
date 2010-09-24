@@ -255,10 +255,10 @@ void init_mm()
 	cur_page_directory[0].user = 0;
 
 	// Enable paging.
-	asm volatile("mov %0, %%cr3":: "b"(cur_page_directory));
+	__asm__ volatile("mov %0, %%cr3":: "b"(cur_page_directory));
 	unsigned int cr0;
-	asm volatile("mov %%cr0, %0": "=b"(cr0));
+	__asm__ volatile("mov %%cr0, %0": "=b"(cr0));
 	cr0 |= 0x80000000;
-	asm volatile("mov %0, %%cr0":: "b"(cr0));
+	__asm__ volatile("mov %0, %%cr0":: "b"(cr0));
 }
 
