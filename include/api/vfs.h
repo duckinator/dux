@@ -1,5 +1,5 @@
-#ifndef VFS_H
-#define VFS_H
+#ifndef API_VFS_H
+#define API_VFS_H
 
 #include <stdint.h>
 
@@ -44,14 +44,14 @@ typedef struct fs_node
 
 extern fs_node_t *fs_root; // The root of the filesystem.
 
-// Standard read/write/open/close functions. Note that these are all suffixed with
-// _fs to distinguish them from the read/write/open/close which deal with file descriptors
+// Standard read/write/open/close functions. Note that these are all prefixed with
+// FS to distinguish them from the read/write/open/close which deal with file descriptors
 // not file nodes.
-uint32_t read_fs(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer);
-uint32_t write_fs(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer);
-void open_fs(fs_node_t *node, uint8_t read, uint8_t write);
-void close_fs(fs_node_t *node);
-struct dirent *readdir_fs(fs_node_t *node, uint32_t index);
-fs_node_t *finddir_fs(fs_node_t *node, char *name);
+uint32_t FSRead(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer);
+uint32_t FSWrite(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer);
+void FSOpen(fs_node_t *node, uint8_t read, uint8_t write);
+void FSClose(fs_node_t *node);
+struct dirent *FSReadDir(fs_node_t *node, uint32_t index);
+fs_node_t *FSFindDir(fs_node_t *node, char *name);
 
-#endif /* end of include guard: VFS_H */
+#endif /* end of include guard: API_VFS_H */

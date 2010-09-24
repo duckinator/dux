@@ -27,9 +27,8 @@ all: Dux.exe
 Dux.exe: metodo.exe
 	@echo "it works"
 
-#what depends on vfs.lib?
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/vfs/vfs.lib src/lib/libc/libc.lib
+	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/lib/libc/libc.lib
 	@echo $^
 
 metodo-libs: hal.lib libc.lib user.exe vfs.lib
@@ -50,11 +49,6 @@ krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
 libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	ar rc src/lib/libc/libc.lib $^
 	ranlib src/lib/libc/libc.lib
-
-#duck says this is going away, if he is smart, he puts it in src/lib/vfs/ or similar.
-vfs.lib: $(filter src/vfs/%.o, ${OBJFILES})
-	ar rc src/vfs/vfs.lib $+
-	ranlib src/vfs/vfs.lib
 
 %.o: %.c
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
