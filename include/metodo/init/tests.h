@@ -2,7 +2,6 @@
 #define TESTS_H
 
 #include <metodo/metodo.h>
-#include <vfs/vfs.h>
 #include <string.h>
 
 void SystemTests();
