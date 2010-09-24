@@ -31,19 +31,10 @@ TestReturn *TestColpa()
 	TEST_RETURN(TEST_SUCCESS, "Colpa lives!");
 }
 
-TestReturn *TestFail() { TEST_RETURN(TEST_FAIL, ""); }
-TestReturn *TestFailMsg() { TEST_RETURN(TEST_FAIL, "ohnoes, failed D:"); }
-TestReturn *TestFatal() { TEST_RETURN(TEST_FATAL, ""); }
-TestReturn *TestFatalMsg() { TEST_RETURN(TEST_FATAL, "I'm fatal, muwahaha!"); }
-
 void ColpaInit()
 {
 	printf("Initializing Colpa system tests...\n\n");
 	TEST(Colpa);
-	TEST(Fail);
-	TEST(FailMsg);
-	TEST(Fatal);
-	TEST(FatalMsg);
 	ColpaRunTests();
 }
 
