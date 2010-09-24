@@ -1,5 +1,4 @@
 #include <metodo/metodo.h>
-#include <metodo/lib.h>
 
 IDTD idtd;
 IDTG idt[256];
@@ -11,7 +10,7 @@ void HalInitIDT(void)
 	idtd.offset = (uint32_t) idt;
 	idtd.size = sizeof(IDTG)*256 - 1;
 
-	ZeroMemory(idt, idtd.size);
+	memset(idt, 0, idtd.size);
 
 	HalLoadIDT();
 }
