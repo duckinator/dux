@@ -53,6 +53,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	DisplayInit();
 	printf("Metodo " DUX_ARCH " " DUX_BUILDTYPE " build.\nCompiled at " __TIME__ " " __DATE__ "\nRevision " SCM_REV "\n\n");
 	HalInit(); // Rest of HAL
+	ColpaInit(); // System tests that only return success/failure status
 
 	/* mbd->flags */
 	unsigned int i, len;
@@ -81,8 +82,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		}
 	}
 
-//	SystemTests();
-	ColpaInit();
+	SystemTests();
 
 	printf("Memory map:\n");
 	printf("\
