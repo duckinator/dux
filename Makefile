@@ -29,10 +29,10 @@ Dux.exe: metodo.exe
 
 #what depends on vfs.lib?
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/vfs/vfs.lib
+	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/vfs/vfs.lib src/lib/libc/libc.lib
 	@echo $^
 
-metodo-libs: hal.lib user.exe vfs.lib
+metodo-libs: hal.lib libc.lib user.exe vfs.lib
 
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
 	ld -o src/user/user.exe -nostdlib -melf_i386 -g -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
@@ -46,6 +46,10 @@ hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
 krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
 	ar rc src/lib/krnllib/krnllib.lib $^
 	ranlib src/lib/krnllib/krnllib.lib
+
+libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
+	ar rc src/lib/libc/libc.lib $^
+	ranlib src/lib/libc/libc.lib
 
 #duck says this is going away, if he is smart, he puts it in src/lib/vfs/ or similar.
 vfs.lib: $(filter src/vfs/%.o, ${OBJFILES})
