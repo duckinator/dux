@@ -22,10 +22,7 @@ ALLARCHTARGETS := $(shell find 'src' '(' -path '*/i386/*' -o -path '*/x86_64/*' 
 NOARCHTARGETS := ${filter-out ${ALLARCHTARGETS}, ${OBJFILES}}
 objects := ${NOARCHTARGETS} ${CURARCHTARGETS}
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buildinfo.h)
-all: Dux.exe
-
-Dux.exe: metodo.exe
-	@echo "it works"
+all: iso
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
 	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/lib/libc/libc.lib
@@ -68,7 +65,7 @@ clean:
 qemu: iso
 	qemu -monitor stdio -cdrom iso/Dux.iso
 
-iso: Dux.exe
+iso: metodo.exe
 	./makeiso.sh
 
 test:
