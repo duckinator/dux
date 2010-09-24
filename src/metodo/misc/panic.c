@@ -16,8 +16,8 @@ void _panic(char *text, const char *function, const char *filename, int line)
 	if (in_panic) {
 		/* Something is causing a recursive panic, so
 		 * just kill the machine. */
-		asm volatile("cli");
-		asm volatile("hlt");
+		__asm__ volatile("cli");
+		__asm__ volatile("hlt");
 	}
 	in_panic = 1;
  
@@ -27,8 +27,8 @@ void _panic(char *text, const char *function, const char *filename, int line)
 	printf("\n**** UDUDD ***\n\n%s\n\n", text);
 	printf("Function: %s\nFile: %s\nLine: %d\n", function, filename, line);
 	stack_dump();
-	asm("cli");
-	asm("hlt");
+	__asm__("cli");
+	__asm__("hlt");
 }
  
 void panic_dump_hex(unsigned int *stack)
@@ -71,8 +71,8 @@ void stop(int error, int argc, ...)
 	if (in_panic) {
 		/* Something is causing a recursive stop, so
 		 * just kill the machine. */
-		asm volatile("cli");
-		asm volatile("hlt");
+		__asm__ volatile("cli");
+		__asm__ volatile("hlt");
 	}
 	in_panic = 1;
 
@@ -115,8 +115,8 @@ void stop(int error, int argc, ...)
 
 	stop_dump_stack();
 
-	asm volatile("cli");
-	asm volatile("hlt");
+	__asm__ volatile("cli");
+	__asm__ volatile("hlt");
 }
 
 void assert_dowork(const char *function, const char *file, int line, const char *code)
@@ -128,7 +128,7 @@ void stop_dump_stack(void)
 {
 	struct stack_frame *frame;
  
-	asm volatile ("movl %%ebp, %0" : "=rm" (frame));
+	__asm__ volatile ("movl %%ebp, %0" : "=rm" (frame));
  
 	while ((unsigned int)frame < stack) {
 		printf("addr: 0x%x, frame: 0x%x\n", frame->addr, frame);

@@ -6,9 +6,9 @@
 void HalSwitchToUserMode()
 {
 	// Set up a stack structure for switching to user mode.
-	asm volatile("cli");
+	__asm__ volatile("cli");
 	HalGDTLoadEsp0IntoTSS();
-	asm volatile(
+	__asm__ volatile(
 		//"cli;"
 		"mov $0x23, %ax;"  // Store user mode data selector in ax register
 		"mov %ax, %ds;"    // Set ds, es, fs, and gs to user mode data selector
