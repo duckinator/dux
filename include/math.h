@@ -6,11 +6,11 @@
 #define M_E  2.71828182845904523536
 
 /* abs(n): return absolute value of n as a integer */
-//int abs(int);
+int abs(int);
 /* labs(n): return absolute value of n as a long */
-//long labs(long);
+long labs(long);
 /* llabs(n): return absolute value of n as a long long */
-//long long llabs(long long);
+long long llabs(long long);
 
 /* div(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are integers */
 //div_t div(int, int);
