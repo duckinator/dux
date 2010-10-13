@@ -3,28 +3,19 @@
 /* abs(n): return absolute value of n as a integer */
 int abs(int n)
 {
-  if (n >= 0)
-    return n;
-  else
-    return -n;
+  return n >= 0 ? n : -n;
 }
 
 /* labs(n): return absolute value of n as a long */
 long labs(long n)
 {
-  if (n >= 0)
-    return n;
-  else
-    return -n;
+  return n >= 0 ? n : -n;
 }
 
 /* llabs(n): return absolute value of n as a long long */
 long long llabs(long long n)
 {
-  if (n >= 0)
-    return n;
-  else
-    return -n;
+  return n >= 0 ? n : -n;
 }
 
 /* div(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are integers */
