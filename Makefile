@@ -4,8 +4,25 @@ ARCH := i386
 ARCHES := i386 x86_64
 BUILD_TYPE := debug
 
-#add all of these flags to whatever user input we get.
-override CFLAGS += -std=c99 -m32 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
+# Add all of these flags to whatever user input we get.
+override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast
+
+override LDFLAGS += -nostdlib -g
+
+# May we well place this here in case it's needed later
+#override ASFLAGS +=
+
+ifeq "${ARCH}" "i386"
+	override CFLAGS += -m32
+	override LDFLAGS += -melf_i386
+	override ASFLAGS += -felf32
+else
+	ifeq "${ARCH}" "x86_64"
+		override CFLAGS += -m64
+		override LDFLAGS += -melf_x86_64
+		override ASFLAGS += -felf64
+	endif
+endif
 
 SOURCE_SUFFIXES := '(' -name '*.c' -o -name '*.asm' ')'
 SRCFILES := $(shell find 'src' ${SOURCE_SUFFIXES})
@@ -25,13 +42,13 @@ BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buil
 all: iso
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe -nostdlib -melf_i386 -g -T src/metodo/boot/i386/link.ld src/metodo/boot/i386/start.o $(filter-out metodo-libs src/metodo/boot/i386/start.o, $^) src/metodo/hal/i386/hal.lib src/lib/libc/libc.lib
+	ld -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/${ARCH}/link.ld src/metodo/boot/${ARCH}/start.o $(filter-out metodo-libs src/metodo/boot/${ARCH}/start.o, $^) src/metodo/hal/${ARCH}/hal.lib src/lib/libc/libc.lib
 	@echo $^
 
 metodo-libs: hal.lib libc.lib user.exe
 
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
-	ld -o src/user/user.exe -nostdlib -melf_i386 -g -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
+	ld -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
 	ar rc src/metodo/hal/${ARCH}/hal.lib $^
@@ -50,9 +67,8 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 %.o: %.c
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
-#this needs to support more then 32bit by using if/else etc.
 $(ASMTARGETS): %.o: %.asm
-	${ASM} -f elf32 -o $@ $<
+	${ASM} ${ASFLAGS} -o $@ $<
 
 %::
 	@echo "NOHIT" ${ARCH} '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
