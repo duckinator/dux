@@ -38,7 +38,7 @@ void ColpaInit()
 	ColpaRunTests();
 }
 
-TestCase *ColpaAddTest(char *n, TestReturn* (*fn)())
+TestCase *ColpaAddTest(const char *n, TestReturn* (*fn)())
 {
 	TestCase *t = (TestCase*)kmalloc(sizeof(TestCase));
 	TestCase *tmp;

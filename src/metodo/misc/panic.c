@@ -4,14 +4,14 @@
 unsigned int stack;
 int in_panic = 0;
 
-char *stop_table[7] = {
-	(char*)0x01, "ASSERTION_FAILED",
-	(char*)0x02, "NO_MULTIBOOT",
-	(char*)0x10, "USER_INITIALIZED",
-	(char*)0x0
+const char *stop_table[7] = {
+	(const char*)0x01, "ASSERTION_FAILED",
+	(const char*)0x02, "NO_MULTIBOOT",
+	(const char*)0x10, "USER_INITIALIZED",
+	(const char*)0x0
 };
 
-void _panic(char *text, const char *function, const char *filename, int line)
+void _panic(const char *text, const char *function, const char *filename, int line)
 {
 	if (in_panic) {
 		/* Something is causing a recursive panic, so

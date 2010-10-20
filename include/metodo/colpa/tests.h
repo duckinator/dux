@@ -3,11 +3,11 @@
 
 typedef struct {
 	int status;
-	char *message;
+	const char *message;
 } TestReturn;
 
 typedef struct TestCase_s {
-	char *name;
+	const char *name;
 	TestReturn* (*func) ();
 	struct TestCase_s *next;
 	struct TestCase_s *prev;
@@ -22,7 +22,7 @@ extern unsigned int end;
 static TestCase *firsttest = NULL;
 static TestCase *lasttest = NULL;
 
-static char *test_status_messages[3] = {
+static const char *test_status_messages[3] = {
 	"passed",
 	"failed",
 	"failed (FATAL)"
@@ -30,7 +30,7 @@ static char *test_status_messages[3] = {
 
 void ColpaInit();
 void ColpaRunTests();
-TestCase *ColpaAddTest(char *n, TestReturn* (*fn)());
+TestCase *ColpaAddTest(const char *n, TestReturn* (*fn)());
 
 #define TEST(NAME) ColpaAddTest(#NAME, (void*)Test##NAME)
 
