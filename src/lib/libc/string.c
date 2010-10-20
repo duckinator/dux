@@ -47,7 +47,7 @@ char *strncat(char *s, char *ct, int n)
 	return s;
 }
 
-int strcmp(char *cs, char *ct)
+int strcmp(const char *cs, const char *ct)
 {
 	do {
 		if (*cs == 0 && *ct == 0)
@@ -60,7 +60,7 @@ int strcmp(char *cs, char *ct)
 	return 0;
 }
 
-int strncmp(char *cs, char *ct, int n)
+int strncmp(const char *cs, const char *ct, int n)
 {
 	register int i = 0;
 	do {
