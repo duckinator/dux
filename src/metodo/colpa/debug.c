@@ -3,7 +3,8 @@
 noreturn KernDebug()
 {
 	HalKeyInfo *keyinfo;
-	printf("Initiating kernel debugger...\n>> ");
+	panic("Kernel debugger not implemented.");
+	/*printf("Initiating kernel debugger...\n>> ");
 	while(1) {
 		if ( HalKeyboardHasInput() ) {
 			keyinfo = HalKeyboardReadLetter();
@@ -20,5 +21,5 @@ noreturn KernDebug()
 				}
 			}
 		}
-	}
+	}*/
 }
