@@ -33,7 +33,7 @@ SchedulerProcess *CoSchedulerCurProcess(void)
 	return current_process;
 }
 
-int32_t CoSchedulerNumProcesses(void)
+uint32_t CoSchedulerNumProcesses(void)
 {
 	return number_of_processes;
 }
