@@ -1,8 +1,0 @@
-Import('env', 'arch', 'buildtype', 'distreq')
-Import('sources', 'metodo')
-
-metodo.Append(LINKFLAGS=['-T', 'src/metodo/boot/x86_64/link.ld'])
-
-sources += [
-	'boot/x86_64/start.asm',
-]
