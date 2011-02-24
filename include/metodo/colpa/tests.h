@@ -45,4 +45,4 @@ TestCase *ColpaAddTest(const char *n, TestReturn* (*fn)());
                                                 ret;                                                        \
                                             })
 
-#endif
+#endif /* end of include guard: COLPA_TESTS_H */

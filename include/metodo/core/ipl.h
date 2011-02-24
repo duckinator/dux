@@ -1,5 +1,7 @@
-#ifndef CORE_H
-#define CORE_H
+#ifndef IPL_H
+#define IPL_H
+
+#include <metodo/core/shutdown.h>
 
 /* Interrupt Priority Level */
 typedef uint8_t IPL, *PIPL;
@@ -13,15 +15,4 @@ void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl);
 void CoLowerIpl(IN IPL NewIpl);
 IPL CoGetIpl(void);
 
-/* Shutdown */
-#define SD_REBOOT 1
-#define SD_OFF 2
-#define SD_WAIT 3
-
-void CoShutdown(int mode);
-
-#include <text.h>
-
-#include <metodo/core/memory.h>
-
-#endif /* end of include guard: CORE_H */
+#endif /* end of include guard: IPL_H */

@@ -1,4 +1,4 @@
-#include <metodo/metodo.h>
+#include <metodo/core/ipl.h>
 
 static IPL m_ipl = IPL_UNINITIALIZED;
 
