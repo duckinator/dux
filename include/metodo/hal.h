@@ -5,12 +5,12 @@
 
 #include <api/display.h>
 
-#include <metodo/hal/mm/memory.h>
+#include <metodo/x86/mm/memory.h>
 
 #ifdef DUX_I386
-  #include <metodo/hal/i386.h>
-#elif defined DUX_X86_64
-  #include <metodo/hal/x86_64.h>
+  #include <metodo/i386/hal.h>
+#elif defined DUX_AMD64
+  #include <metodo/amd64/hal.h>
 #endif
 
 void HalPreInit(void);

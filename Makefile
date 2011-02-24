@@ -1,7 +1,7 @@
 CC := clang
 ASM := nasm
 ARCH := i386
-ARCHES := i386 x86_64
+ARCHES := i386 amd64
 BUILD_TYPE := debug
 
 # Add all of these flags to whatever user input we get.
@@ -17,7 +17,7 @@ ifeq "${ARCH}" "i386"
 	override LDFLAGS += -melf_i386
 	override ASFLAGS += -felf32
 else
-	ifeq "${ARCH}" "x86_64"
+	ifeq "${ARCH}" "amd64"
 		override CFLAGS += -m64
 		override LDFLAGS += -melf_x86_64
 		override ASFLAGS += -felf64
@@ -34,7 +34,7 @@ DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 CURARCHTARGETS := $(shell find 'src' '(' -path '*/${ARCH}/*' ')' '(' -name '*.c' -o -name '*.asm' ')' | sed 's/asm\|\bc/o/g')
 
 # Eventually do this using ARCHES list, right now "just making it work"
-ALLARCHTARGETS := $(shell find 'src' '(' -path '*/i386/*' -o -path '*/x86_64/*' ')' '(' -name '*.c' -o -name '*.asm' ')' | sed 's/asm\|\bc/o/g')
+ALLARCHTARGETS := $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' ')' '(' -name '*.c' -o -name '*.asm' ')' | sed 's/asm\|\bc/o/g')
 
 NOARCHTARGETS := ${filter-out ${ALLARCHTARGETS}, ${OBJFILES}}
 objects := ${NOARCHTARGETS} ${CURARCHTARGETS}
@@ -42,7 +42,7 @@ BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buil
 all: iso
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/${ARCH}/link.ld src/metodo/boot/${ARCH}/start.o $(filter-out metodo-libs src/metodo/boot/${ARCH}/start.o, $^) src/metodo/hal/${ARCH}/hal.lib src/lib/libc/libc.lib
+	ld -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
 	@echo $^
 
 metodo-libs: hal.lib libc.lib user.exe
@@ -50,9 +50,9 @@ metodo-libs: hal.lib libc.lib user.exe
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
 	ld -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
-hal.lib: $(filter src/metodo/hal/${ARCH}/%.o, ${OBJFILES})
-	ar rc src/metodo/hal/${ARCH}/hal.lib $^
-	ranlib src/metodo/hal/${ARCH}/hal.lib
+hal.lib: $(filter src/metodo/${ARCH}/hal/%.o, ${OBJFILES})
+	ar rc src/metodo/${ARCH}/hal/hal.lib $^
+	ranlib src/metodo/${ARCH}/hal/hal.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o

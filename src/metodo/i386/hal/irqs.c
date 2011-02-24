@@ -1,5 +1,5 @@
 #include <metodo/metodo.h>
-#include <metodo/hal/x86_64/isr.h>
+#include <metodo/i386/hal/isr.h>
 int irq_t = 1;
 /* This array is actually an array of function pointers. We use
 *  this to handle custom IRQ handlers for a given IRQ */
