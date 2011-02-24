@@ -9,6 +9,8 @@
 #include <modifiers.h>
 #include <stdlib.h>
 
+#include <buildinfo.h>
+
 /*void sleep();
 void usleep();*/
 

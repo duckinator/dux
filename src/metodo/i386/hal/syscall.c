@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <system.h>
 #include <metodo/metodo.h>
+#include <metodo/core/shutdown.h>
 #include <config.h>
 
 #define NUM_SYSCALLS 6
