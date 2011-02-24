@@ -1,6 +1,0 @@
-# vim: syntax=python
-
-Import('metodo', 'arch', 'buildtype', 'distreq')
-
-SConscript('driver/generic/SConscript')
-SConscript('driver/%s/SConscript' % arch)
