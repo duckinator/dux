@@ -3,7 +3,7 @@
 
 #include <system.h>
 
-#include <metodo/hal/hal.h>
+#include <metodo/hal.h>
 
 #include <metodo/init/init.h>
 #include <metodo/core/core.h>

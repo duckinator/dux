@@ -9,8 +9,8 @@
 /* Interrupt for syscalls:
  *   default is 0xFF
  *   used to use 0x80 (got the idea from Linux)
- * src/metodo/hal/i386/exceptions.asm
  * This must also be changed in HalIsrSyscall - line 15 in
+ * src/metodo/i386/hal/exceptions.asm
  */
 #define IA32_SYSCALL_INTERRUPT 0xFF
 
