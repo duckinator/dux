@@ -8,6 +8,7 @@
 
 #include <metodo/init/tests.h>
 #include <metodo/init/memory_map.h>
+#include <metodo/init/load_modules.h>
 
 #include <string.h>
 
