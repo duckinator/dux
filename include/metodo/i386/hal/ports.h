@@ -9,6 +9,9 @@ uint16_t HalInPortWord(uint16_t port);
 void HalOutPortLong(uint16_t port, uint32_t val);
 uint32_t HalInPortLong(uint16_t port);
 
-inline void HalIOWait(void);
+inline void HalIOWait(void)
+{
+	__asm volatile ("jmp 1f;1:jmp 1f;1:");
+}
 
 #endif /* end of include guard: HAL_PORTS_H */
