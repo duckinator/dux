@@ -14,6 +14,8 @@
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];
 
+uint8_t bootloader;
+
 extern unsigned int debug_info_start;
 extern unsigned int debug_info_end;
 extern unsigned int debug_abbrev_start;

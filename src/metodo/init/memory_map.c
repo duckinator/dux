@@ -1,31 +1,36 @@
+#include <metodo/metodo.h>
 #include <metodo/init/memory_map.h>
 
-void MMapSetup()
+void MMapSetup(void *arg)
 {
-	/* mbd->flags */
-	unsigned int i, len;
-	module_t *module;
-	int current_module = 0;
-	modules = (Module*)kmalloc(sizeof(Module) * 1024);
-	if (mbd->flags>>3&1) {
-		module = (module_t*)mbd->mods_addr;
-		printf("We have %i modules.\n", mbd->mods_count);
-		for (i = 0; i < mbd->mods_count; i++, module++) {
-			printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
-			printf("Module name: %s\n", (char*)module->string);
+	int i;
+	memory_map_t *mmap;
+	memory_map_t *first_empty_mmap;
+	switch(bootloader) {
+		case BOOTLOADER_MULTIBOOT:
+			mmap = (memory_map_t*)arg->mmap_addr;
+			first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length)
+			break;
+		case BOOTLOADER_BEEF:
+			mmap = (memory_map_t*)arg;
+			// How would I define first_empty_mmap here?
+			break;
+	}
 
-			len = sizeof(char) * ((unsigned int)strlen((char*)module->string))+1;
-			modules[current_module].name = (char*)kmalloc(len);
-			memcpy(modules[current_module].name, (char*)(module->string), len);
-			modules[current_module].exe = (void*) module->mod_start;
-			printf("Found executable %s at 0x%x\n", modules[current_module].name, modules[current_module].exe);
-			current_module++;
+	for (i = 0; mmap < first_empty_mmap; i++, mmap++)
+		mmaps[i] = mmap;
+	for (i++, mmap++; i < 100; i++, mmap++)
+		mmaps[i] = NULL;
+}
 
-			if (strncmp((char*)module->string, (char*)"/Drivers/", 9) == 0) {
-				printf("Loading driver: %s\n", (char*)module->string);
-				//LoadExe((void*)module->mod_start);
-				//while(1){}
-			}
-		}
+void MMapPrint() {
+	printf("Memory map:\n");
+	printf("\
+          |      base addr      |       length\n\
+   size   |   low    |   high   |   low    |   high   |   type\n");
+	for (i = 0; mmaps[i] != NULL; i++) {
+		printf(" %8x | %8x | %8x | %8x | %8x | %8x\n",
+		mmaps[i]->size, mmaps[i]->base_addr_low, mmaps[i]->base_addr_high,
+		mmaps[i]->length_low, mmaps[i]->length_high, mmaps[i]->type);
 	}
 }

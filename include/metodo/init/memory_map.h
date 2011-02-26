@@ -7,5 +7,6 @@
 #include <metodo/misc/modules.h>
 
 void MMapSetup();
+void MMapPrint();
 
 #endif /* end of include guard: MEMORY_MAP_H */
