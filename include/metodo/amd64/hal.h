@@ -1,5 +1,5 @@
-#ifndef HAL_X86_64_H
-#define HAL_X86_64_H
+#ifndef HAL_AMD64_H
+#define HAL_AMD64_H
 
 #include <metodo/amd64/hal/idt.h>
 
@@ -15,7 +15,7 @@ void HalEnableNMI(void);
 #include <metodo/amd64/hal/isr.h>
 #include <metodo/amd64/hal/syscall.h>
 
-#include <driver/x86_64/timer.h>
-#include <driver/x86_64/keyboard/keyboard.h>
+#include <driver/AMD64/timer.h>
+#include <driver/AMD64/keyboard/keyboard.h>
 
-#endif /* end of include guard: HAL_X86_64_H */
+#endif /* end of include guard: HAL_AMD64_H */
