@@ -4,11 +4,12 @@
 #include <system.h>
 
 #include <metodo/metodo.h>
-#include <metodo/misc/stop.h>
+#include <metodo/misc/panic.h>
 
 #include <metodo/init/tests.h>
 #include <metodo/init/memory_map.h>
 #include <metodo/init/load_modules.h>
+#include <metodo/init/bootloader.h>
 
 #include <string.h>
 

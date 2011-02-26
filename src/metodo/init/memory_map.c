@@ -8,8 +8,8 @@ void MMapSetup(void *arg)
 	memory_map_t *first_empty_mmap;
 	switch(bootloader) {
 		case BOOTLOADER_MULTIBOOT:
-			mmap = (memory_map_t*)arg->mmap_addr;
-			first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length)
+			mmap = (memory_map_t*)mbd->mmap_addr;
+			first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length);
 			break;
 		case BOOTLOADER_BEEF:
 			mmap = (memory_map_t*)arg;
@@ -24,6 +24,7 @@ void MMapSetup(void *arg)
 }
 
 void MMapPrint() {
+	int i;
 	printf("Memory map:\n");
 	printf("\
           |      base addr      |       length\n\

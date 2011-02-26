@@ -4,37 +4,18 @@
 unsigned int stack;
 int in_panic = 0;
 
-const char *stop_table[7] = {
+const char *stop_table[9] = {
 	(const char*)0x01, "ASSERTION_FAILED",
-	(const char*)0x02, "NO_MULTIBOOT",
+	(const char*)0x02, "BAD_BOOTLOADER_MAGIC",
+	(const char*)0x03, "NO_USERLAND",
 	(const char*)0x10, "USER_INITIALIZED",
 	(const char*)0x0
 };
 
-void _panic(const char *text, const char *function, const char *filename, int line)
-{
-	if (in_panic) {
-		/* Something is causing a recursive panic, so
-		 * just kill the machine. */
-		__asm__ volatile("cli");
-		__asm__ volatile("hlt");
-	}
-	in_panic = 1;
- 
-	DisplayInit();
-	DisplaySetAttr(0x4f);
-	DisplayClear();
-	printf("\n**** UDUDD ***\n\n%s\n\n", text);
-	printf("Function: %s\nFile: %s\nLine: %d\n", function, filename, line);
-	stack_dump();
-	__asm__("cli");
-	__asm__("hlt");
-}
- 
 void panic_dump_hex(unsigned int *stack)
 {
 	unsigned int orig_stack = (unsigned int) stack;
-	printf("\nBecause I stack-traced it!\n");
+	printf("\nStack dump:\n");
 	while ((unsigned int) stack < ((orig_stack+0x1000) & (unsigned int)(~(0x1000-1)))) {
 		printf("0x%x: 0x%x\n", stack, *stack);
 		if ( *stack == 0x0 )
@@ -60,19 +41,13 @@ char *stop_getmsg(int error)
 	return (char*)stop_table[index+1];
 }
 
-void stop(int error, int argc, ...)
+void _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code)
 {
-	va_list ap;
-	int i;
-	unsigned int arg;
-	char *function, *file, *code;
-	int line;
 
 	if (in_panic) {
-		/* Something is causing a recursive stop, so
+		/* Something is causing a recursive panic, so
 		 * just kill the machine. */
-		__asm__ volatile("cli");
-		__asm__ volatile("hlt");
+		HalShutdown();
 	}
 	in_panic = 1;
 
@@ -81,57 +56,21 @@ void stop(int error, int argc, ...)
 	DisplayClear();
 
 	printf(STOP_MSG);
-	printf("%s\n\n", stop_getmsg(error));
-
-	va_start(ap, argc);
-
-	if ((error == 0x01) && (argc >= 4)) { // Assertion failed
-		function = (char*)va_arg(ap, const char*);
-		file = (char*)va_arg(ap, const char*);
-		line = va_arg(ap, int);
-		code = (char*)va_arg(ap, const char*);
-		printf("Assertion failed in %s at %s:%d\n\n", function, file, line);
+	if(error == STOP_ASSERTION_FAILED) {
+		// Failed assertion
+		printf("Assertion failed in %s at %s:%d\n\n", function, filename, line);
 		printf("Failed assertion: %s\n\n", code);
-		argc -= 4;
+	} else if(error == 0) {
+		// panic()
+		printf("%s\n\n", text);
+	} else {
+		// Everything else
+		printf("STOP: 0x%x (%s)\n\n", error, stop_getmsg(error));
+		printf("Function: %s\nFile: %s\nLine: %d\n", function, filename, line);
 	}
 
-	printf("STOP: 0x%x (", error);
+	stack_dump();
 
-	/* Print all the arguments. */
-	for (i = 0; i < argc; i++) {
-		arg = va_arg(ap, unsigned int);
-		printf("0x%x, ", arg);
-	}
-
-	/* \x08 is backspace, so it doesn't have an extra ", " at the end. */
-	if (argc != 0)
-		printf("\x08\x08)\n\n");
-	else
-		printf(")\n\n");
-
-	va_end(ap);
-
-	printf("Stack Dump:\n\n");
-
-	stop_dump_stack();
-
-	__asm__ volatile("cli");
-	__asm__ volatile("hlt");
+	HalShutdown();
 }
 
-void assert_dowork(const char *function, const char *file, int line, const char *code)
-{
-	stop(0x01, 0x4, function, file, line, code);
-}
-
-void stop_dump_stack(void)
-{
-	struct stack_frame *frame;
- 
-	__asm__ volatile ("movl %%ebp, %0" : "=rm" (frame));
- 
-	while ((unsigned int)frame < stack) {
-		printf("addr: 0x%x, frame: 0x%x\n", frame->addr, frame);
-		frame = frame->next;
-	}
-}
