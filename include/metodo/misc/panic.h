@@ -12,19 +12,26 @@ struct stack_frame {
 
 void panic_dump_hex(unsigned int *stack);
 char *stop_getmsg(int error);
-void stop(int error, int argc, ...);
 void stop_dump_stack(void);
 void stack_dump(void);
 void register_dump(void);
 
+void _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code);
+
 void panic_setup_stop_table();
 
+/* Stop */
+#define stop(error) _stop("", error, __FUNCTION__, __FILE__, __LINE__, "")
+
 /* Assert */
-void assert_dowork(const char *function, const char *file, int line, const char *code);
-#define assert(a) if (!(a)) assert_dowork(__FUNCTION__, __FILE__, __LINE__, #a)
+#define assert(a) if (!(a)) _stop("", 0x01, __FUNCTION__, __FILE__, __LINE__, #a)
 
 /* Panic */
-void _panic(const char *text, const char *function, const char *filename, int line);
-#define panic(message) _panic(message, __FUNCTION__, __FILE__, __LINE__)
+#define panic(message) _stop(message, 0, __FUNCTION__, __FILE__, __LINE__, "")
+
+#define STOP_ASSERTION_FAILED     0x01
+#define STOP_BAD_BOOTLOADER_MAGIC 0x02
+#define STOP_NO_USERLAND          0x03
+#define STOP_UNKNOWN              0x10
 
 #endif /* end of include guard: PANIC_H */
