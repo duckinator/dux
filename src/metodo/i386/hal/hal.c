@@ -8,16 +8,12 @@ void StartInitializer(const char *name, void (*func)())
 	printf("Done.\n");
 }
 
-/*
- * HalPreInit is for things that must be enabled before the display drivers. HalInit() is ran after this.
- */
-void HalPreInit(void)
-{
-	HalInitGDT();
-}
 
-void HalInit(void)
-{
+void HalInit(void) {
+    HalInitGDT();
+    DisplayInit();
+    printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n\n\n");
+
 	StartInitializer("IDT", &HalInitIDT);
 	StartInitializer("ISRs", &HalIsrInstall);
 	StartInitializer("IRQs", &HalIrqInstall);
