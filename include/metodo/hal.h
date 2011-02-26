@@ -13,7 +13,6 @@
   #include <metodo/amd64/hal.h>
 #endif
 
-void HalPreInit(void);
 void HalInit(void);
 void HalBreak(void);
 void HalShutdown(void);

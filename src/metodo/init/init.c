@@ -26,10 +26,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	}
 
 
-	HalPreInit(); // HAL-related things that must be started before drivers
-	DisplayInit();
-	printf("Metodo " DUX_ARCH " " DUX_BUILDTYPE " build.\nCompiled at " __TIME__ " " __DATE__ "\nRevision " SCM_REV "\n\n");
-	HalInit(); // Rest of HAL
+	HalInit(); // Start HAL (GDT, Display, IDT, etc)
 	ColpaInit(); // System tests that only return success/failure status
 
 	MMapSetup();
