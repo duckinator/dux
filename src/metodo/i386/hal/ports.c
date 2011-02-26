@@ -36,7 +36,4 @@ uint32_t HalInPortLong(uint16_t port)
 	return val;
 }
 
-inline void HalIOWait(void)
-{
-	__asm volatile ("jmp 1f;1:jmp 1f;1:");
-}
+// HalIOWait() is in the ports.h, since it's inline.
