@@ -1,6 +1,8 @@
 #ifndef HAL_MM_MEMORY_H
 #define HAL_MM_MEMORY_H
 
+#include <stdlib.h>
+
 typedef struct {
 	unsigned int present : 1;
 	unsigned int readwrite : 1;
@@ -33,7 +35,6 @@ typedef struct {
 
 void *kmalloc_int(unsigned int size, unsigned int flags);
 void *kmalloc(unsigned int nbytes);
-void free(void *ap);
 
 void init_mm();
 unsigned int test_frame(unsigned int addr);
