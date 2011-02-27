@@ -24,9 +24,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		LoadUserland(userland);
 		stop(STOP_USERLAND_EXITED);
 	} else {
-//		printf("No userland\n");
-//		HalBreak();
-		//KernDebug();
+		//HalBreak();
 		stop(STOP_NO_USERLAND);
 	}
 	stop(STOP_END_OF_KERNEL);
