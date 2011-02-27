@@ -28,12 +28,24 @@ void panic_setup_stop_table();
 
 /* Panic */
 #define panic(message) _stop(message, 0, __FUNCTION__, __FILE__, __LINE__, "")
-
+/*
 #define STOP_ASSERTION_FAILED     0x01
 #define STOP_BAD_BOOTLOADER_MAGIC 0x02
 #define STOP_NO_USERLAND          0x03
 #define STOP_USERLAND_EXITED      0x04
 #define STOP_UNKNOWN              0x10
 #define STOP_END_OF_KERNEL        0x11
+#define STOP_USER_INITIALIZED     0x12
+*/
+enum STOP_MESSAGES {
+	STOP_ASSERTION_FAILED     = 0x01,
+	STOP_BAD_BOOTLOADER_MAGIC = 0x02,
+	STOP_NO_USERLAND          = 0x03,
+	STOP_USERLAND_EXITED      = 0x04,
+	
+	STOP_UNKNOWN              = 0x10,
+	STOP_USER_INITIALIZED     = 0x11,
+	STOP_END_OF_KERNEL        = 0x12
+};
 
 #endif /* end of include guard: PANIC_H */
