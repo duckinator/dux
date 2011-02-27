@@ -22,12 +22,12 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		printf("Loading userland...\n");
 		//HalSwitchToUserMode();
 		LoadUserland(userland);
-		printf("\nWhy yes, that is a black hole that flew out of userland...\n(Userland exited unexpectedly)\n");
+		stop(STOP_USERLAND_EXITED);
 	} else {
 //		printf("No userland\n");
 //		HalBreak();
 		//KernDebug();
 		stop(STOP_NO_USERLAND);
 	}
-	while(1);
+	stop(STOP_END_OF_KERNEL);
 }
