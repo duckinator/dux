@@ -4,11 +4,13 @@
 unsigned int stack;
 int in_panic = 0;
 
-const char *stop_table[9] = {
+const char *stop_table[13] = {
 	(const char*)0x01, "ASSERTION_FAILED",
 	(const char*)0x02, "BAD_BOOTLOADER_MAGIC",
 	(const char*)0x03, "NO_USERLAND",
+	(const char*)0x04, "USERLAND_EXITED",
 	(const char*)0x10, "USER_INITIALIZED",
+	(const char*)0x11, "END_OF_KERNEL",
 	(const char*)0x0
 };
 

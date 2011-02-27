@@ -32,6 +32,8 @@ void panic_setup_stop_table();
 #define STOP_ASSERTION_FAILED     0x01
 #define STOP_BAD_BOOTLOADER_MAGIC 0x02
 #define STOP_NO_USERLAND          0x03
+#define STOP_USERLAND_EXITED      0x04
 #define STOP_UNKNOWN              0x10
+#define STOP_END_OF_KERNEL        0x11
 
 #endif /* end of include guard: PANIC_H */
