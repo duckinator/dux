@@ -1,5 +1,9 @@
-CC := clang
-ASM := nasm
+CC     := clang
+ASM    := nasm
+AR     := ar
+RANLIB := ranlib
+LD     := ld
+
 ARCH := i386
 ARCHES := i386 amd64
 BUILD_TYPE := debug
@@ -26,15 +30,15 @@ endif
 
 SOURCE_SUFFIXES := '(' -name '*.c' -o -name '*.asm' ')'
 SRCFILES := $(shell find 'src' ${SOURCE_SUFFIXES})
-ASMTARGETS = $(shell find 'src' -path '*/$(ARCH)/*' -name '*.asm' | sed 's/asm/o/g')
+ASMTARGETS = $(patsubst %.asm, %.o, $(shell find 'src' -path '*/$(ARCH)/*' -name '*.asm'))
 HDRFILES := $(shell find "src" -name "*.h")
 OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c,%.o,$(SRCFILES)))
 DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
-CURARCHTARGETS := $(shell find 'src' '(' -path '*/${ARCH}/*' ')' '(' -name '*.c' -o -name '*.asm' ')' | sed 's/asm\|\bc/o/g')
+CURARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/${ARCH}/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
 # Eventually do this using ARCHES list, right now "just making it work"
-ALLARCHTARGETS := $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' ')' '(' -name '*.c' -o -name '*.asm' ')' | sed 's/asm\|\bc/o/g')
+ALLARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
 NOARCHTARGETS := ${filter-out ${ALLARCHTARGETS}, ${OBJFILES}}
 objects := ${NOARCHTARGETS} ${CURARCHTARGETS}
@@ -42,27 +46,27 @@ BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buil
 all: iso
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	ld -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
+	${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
 	@echo $^
 
 metodo-libs: hal.lib libc.lib user.exe
 
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
-	ld -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
+	${LD} -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 hal.lib: $(filter src/metodo/${ARCH}/hal/%.o, ${OBJFILES})
-	ar rc src/metodo/${ARCH}/hal/hal.lib $^
-	ranlib src/metodo/${ARCH}/hal/hal.lib
+	${AR} rc src/metodo/${ARCH}/hal/hal.lib $^
+	${RANLIB} src/metodo/${ARCH}/hal/hal.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
 krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
-	ar rc src/lib/krnllib/krnllib.lib $^
-	ranlib src/lib/krnllib/krnllib.lib
+	${AR} rc src/lib/krnllib/krnllib.lib $^
+	${RANLIB} src/lib/krnllib/krnllib.lib
 
 libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
-	ar rc src/lib/libc/libc.lib $^
-	ranlib src/lib/libc/libc.lib
+	${AR} rc src/lib/libc/libc.lib $^
+	${RANLIB} src/lib/libc/libc.lib
 
 %.o: %.c
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
