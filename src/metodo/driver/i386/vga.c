@@ -49,9 +49,16 @@ void VgaDisplayChar(char c)
 {
 	if (c == 0x08) {
 		/* Backspace */
-		if (col != 0)
-			// TODO: What to do if we're at column 0? What to do, what to do.
+		// TODO: Add test for VgaDisplayChar() backspacing from column 0 to previous line. Row 0, as well as a higher row.
+		if (col == 0) {
+			// If it's row 0, col 0, we merely ignore it.
+			if (row != 0) {
+				row -= 1;
+				col = COLS-1;
+			}
+		} else {
 			col--;
+		}
 		PUTSPOT(' ');
 	} else if (c == '\t') {
 		/* Tab */
