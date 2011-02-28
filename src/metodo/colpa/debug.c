@@ -2,7 +2,7 @@
 
 noreturn KernDebug()
 {
-	// TODO: Replace dummy KernDebug() with proper alternative
+	// FIXME: Dummy KernDebug()
 	panic("Kernel debugger not implemented.");
 	while(1){}
 	/*HalKeyInfo *keyinfo;
