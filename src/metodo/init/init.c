@@ -27,5 +27,4 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		//HalBreak();
 		stop(STOP_NO_USERLAND);
 	}
-	stop(STOP_END_OF_KERNEL);
 }
