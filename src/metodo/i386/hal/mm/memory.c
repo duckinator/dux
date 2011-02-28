@@ -163,9 +163,6 @@ unsigned int first_frame()
 	// The infinite loop that panic will enter. So compiler, I have a
 	// message for you: "You are stupid."
 	panic((char*)"No free frames.\n");
-
-	// I also added the extra 7 bytes (on IA-32 anyway) to shut you up:
-	return 0;
 }
 
 /* alloc_frame(page, is_kernel, is_writable)

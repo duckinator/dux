@@ -13,7 +13,6 @@ int InitDetectBootloader(uint32_t magic, void *arg)
 
 			HalInit();
 			panic("Successfully booted with beef. No clue what to do now.");
-			break;
 		default:
 			HalInit();
 			stop(STOP_BAD_BOOTLOADER_MAGIC);

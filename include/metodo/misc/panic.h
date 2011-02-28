@@ -16,7 +16,7 @@ void stop_dump_stack(void);
 void stack_dump(void);
 void register_dump(void);
 
-void _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code);
+noreturn _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code);
 
 void panic_setup_stop_table();
 

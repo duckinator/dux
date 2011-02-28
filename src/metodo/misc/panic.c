@@ -44,7 +44,7 @@ char *stop_getmsg(int error)
 	return (char*)stop_table[index+1];
 }
 
-void _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code)
+noreturn _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code)
 {
 
 	if (in_panic) {
@@ -75,5 +75,9 @@ void _stop(const char *text, int error, const char *function, const char *filena
 	stack_dump();
 
 	HalShutdown();
+
+	// Should not get this far
+	while(1)
+		;
 }
 

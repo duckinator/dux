@@ -4,7 +4,6 @@ noreturn KernDebug()
 {
 	// FIXME: Dummy KernDebug()
 	panic("Kernel debugger not implemented.");
-	while(1){}
 	/*HalKeyInfo *keyinfo;
 	printf("Initiating kernel debugger...\n>> ");
 	while(1) {
