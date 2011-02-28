@@ -1,12 +1,38 @@
 #!/bin/sh
 
-isocmd="genisoimage"
+
+function error() {
+	echo "ERROR: ${@}"
+	exit 1
+}
 
 bootloader="$1"
 
-which genisoimage
-if [ $? -ne 0 ]; then
-	isocmd="mkisofs"
+downloadcmd=""
+which wget > /dev/null
+if [ $? -eq 0 ]; then
+	downloadcmd="wget"
+else
+    # No wget, try curl
+    which curl > /dev/null
+    if [ $? -eq 1 ]; then
+    	error "You need to have curl or wget installed."
+    else
+    	downloadcmd="curl -O"
+    fi
+fi
+
+isocmd=""
+which genisoimage > /dev/null
+if [ $? -eq 0 ]; then
+	isocmd="genisoimage"
+else
+	which mkisofs > /dev/null
+	if [ $? -eq 0 ]; then
+		isocmd="mkisofs"
+	else
+		error "You need to have genisoimage or mkisofs installed."
+	fi
 fi
 
 if [ -e "iso/Dux.iso" ]; then
@@ -151,7 +177,7 @@ if [ "$bootloader" = "grub" ]; then
 			cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 		else
 			echo "Downloading stage2_eltorito from http://misc.duckinator.net/stage2_eltorito"
-			wget http://misc.duckinator.net/stage2_eltorito -O isofs/boot/grub/stage2_eltorito
+			$downloadcmd http://misc.duckinator.net/stage2_eltorito -O isofs/boot/grub/stage2_eltorito
 		fi
 	fi
 fi
