@@ -8,8 +8,8 @@ void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl)
 		*OldIpl = m_ipl;
 		m_ipl = NewIpl;
 	} else {
-		/* TODO: Implement some kind of error system. Unresolvable. Somehow stop. */
-		CoShutdown(SD_WAIT);
+		// FIXME: panic() message with almost no details
+		panic("Error in IPL");
 	}
 }
 
