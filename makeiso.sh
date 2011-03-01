@@ -18,7 +18,7 @@ else
     if [ $? -eq 1 ]; then
     	error "You need to have curl or wget installed."
     else
-    	downloadcmd="curl -O"
+    	downloadcmd="curl"
     fi
 fi
 
@@ -177,7 +177,9 @@ if [ "$bootloader" = "grub" ]; then
 			cp /boot/grub/stage2_eltorito isofs/boot/grub/stage2_eltorito
 		else
 			echo "Downloading stage2_eltorito from http://misc.duckinator.net/stage2_eltorito"
-			$downloadcmd http://misc.duckinator.net/stage2_eltorito -O isofs/boot/grub/stage2_eltorito
+			cd isofs/boot/grub/
+			$downloadcmd http://misc.duckinator.net/stage2_eltorito -O stage2_eltorito
+			cd -
 		fi
 	fi
 fi
