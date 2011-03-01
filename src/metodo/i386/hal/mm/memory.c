@@ -72,7 +72,7 @@ void free(void *ap)
 /* Maybe it would be better to allocate in more than units of pages? */
 static Header *morecore(unsigned nu)
 {
-	char *cp;
+	Header *cp;
 	Header *up;
 
 	if (nu <= NALLOC)
@@ -82,7 +82,7 @@ static Header *morecore(unsigned nu)
 
 	cp = (void*) first_frame();
 	/* first_frame() can't fail. */
-	up = (Header *) cp;
+	up = cp;
 	up->s.size = nu;
 	free((void *)(up+1));
 	return freep;
