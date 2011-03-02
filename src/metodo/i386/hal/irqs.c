@@ -1,5 +1,5 @@
-#include <metodo/metodo.h>
-#include <metodo/i386/hal/isr.h>
+#include <metodo/i386/hal/irqs.h>
+
 int irq_t = 1;
 /* This array is actually an array of function pointers. We use
 *  this to handle custom IRQ handlers for a given IRQ */
@@ -41,7 +41,20 @@ void HalIrqHandler_Uninstall(int irq)
 *  47 */
 void HalIrqRemap(void)
 {
-	HalOutPort(0x20, 0x11);
+	HalOutPort(PIC1_COMMAND, ICW1_INIT+ICW1_ICW4);  // starts the initialization sequence
+	HalOutPort(PIC2_COMMAND, ICW1_INIT+ICW1_ICW4);
+	HalOutPort(PIC1_DATA, 0x20);                    // define the PIC vectors
+	HalOutPort(PIC2_DATA, 0x28);
+	HalOutPort(PIC1_DATA, 4);                       // continue initialization sequence
+	HalOutPort(PIC2_DATA, 2);
+ 
+	HalOutPort(PIC1_DATA, ICW4_8086);
+	HalOutPort(PIC2_DATA, ICW4_8086);
+ 
+	HalOutPort(PIC1_DATA, 0x0);   // Unmask all interrupts on PIC1
+	HalOutPort(PIC2_DATA, 0x0);   // Unmask all interrupts on PIC2
+
+/*	HalOutPort(0x20, 0x11);
 	HalOutPort(0xA0, 0x11);
 	HalOutPort(0x21, 0x20);
 	HalOutPort(0xA1, 0x28);
@@ -50,7 +63,7 @@ void HalIrqRemap(void)
 	HalOutPort(0x21, 0x01);
 	HalOutPort(0xA1, 0x01);
 	HalOutPort(0x21, 0x0);
-	HalOutPort(0xA1, 0x0);
+	HalOutPort(0xA1, 0x0);*/
 }
 
 /* We first remap the interrupt controllers, and then we install
@@ -107,4 +120,38 @@ void HalIrqHandler(struct regs *r)
 		HalOutPort(0xA0, 0x20);
 	}
 	HalOutPort(0x20, 0x20);
+}
+
+/* Disables a particular IRQ */
+void HalIrqSetMask(uint8_t irq)
+{
+	uint16_t port;
+	uint8_t value;
+
+    if(irq < 8) {
+		port = PIC1_DATA;
+	} else {
+		port = PIC2_DATA;
+		irq -= 8;
+	}
+
+	value = HalInPort(port) | (1 << irq);
+	HalOutPort(port, value);    
+}
+
+/* Enables a particular IRQ */
+void HalIrqUnsetMask(uint8_t irq)
+{
+	uint16_t port;
+	uint8_t value;
+
+	if(irq < 8) {
+		port = PIC1_DATA;
+	} else {
+		port = PIC2_DATA;
+		irq -= 8;
+	}
+
+	value = HalInPort(port) & ~(1 << irq);
+	HalOutPort(port, value);
 }

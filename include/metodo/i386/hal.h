@@ -13,6 +13,7 @@ void HalEnableNMI(void);
 #include <metodo/i386/hal/exceptions.h>
 #include <metodo/i386/hal/ports.h>
 #include <metodo/i386/hal/isr.h>
+#include <metodo/i386/hal/irqs.h>
 #include <metodo/i386/hal/syscall.h>
 
 #include <driver/i386/timer.h>

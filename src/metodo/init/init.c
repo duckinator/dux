@@ -24,6 +24,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		LoadUserland(userland);
 		printf("\n\nUserland exited unexpectedly.\n");
 		HalBreak();
+		stop(STOP_USERLAND_EXITED);
 	} else {
 		stop(STOP_NO_USERLAND);
 	}

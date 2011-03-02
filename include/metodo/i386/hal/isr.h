@@ -18,10 +18,6 @@ struct regs {
 
 extern void HalIsrInstall(void);
 extern void HalIsrHandler(struct regs *r);
-extern void HalIrqInstall(void);
-extern void HalIrqHandler(struct regs *r);
-extern void HalIrqHandler_Install(int irq, void (*handler)(struct regs *r));
-extern void HalIrqHandler_Uninstall(int irq);
 
 extern void HalIsr0();
 extern void HalIsr1();
@@ -55,24 +51,5 @@ extern void HalIsr28();
 extern void HalIsr29();
 extern void HalIsr30();
 extern void HalIsr31();
-
-/* These are own isrs that point to our special IRQ handler
-*  instead of the regular 'HalFaultHandler' function */
-extern void HalIrq0();
-extern void HalIrq1();
-extern void HalIrq2();
-extern void HalIrq3();
-extern void HalIrq4();
-extern void HalIrq5();
-extern void HalIrq6();
-extern void HalIrq7();
-extern void HalIrq8();
-extern void HalIrq9();
-extern void HalIrq10();
-extern void HalIrq11();
-extern void HalIrq12();
-extern void HalIrq13();
-extern void HalIrq14();
-extern void HalIrq15();
 
 #endif /* end of include guard: HAL_ISR_H */
