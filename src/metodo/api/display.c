@@ -1,14 +1,6 @@
 #include <api/api.h>
 #include <api/display.h>
 
-#define COLS (80)
-#define ROWS (25)
-#define VIDEO_MEMORY (0xb8000)
-
-#define CLEAR (attr << 8 | ' ')
-#define SPOT(n) (attr << 8 | (n))
-#define PUTSPOT(n) VideoMemory[row*COLS + col] = SPOT(n);
-
 static uint8_t disp_init = 0;
 
 extern struct DisplayDevice VgaDisplayDevice;
