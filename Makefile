@@ -68,6 +68,7 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	${AR} rc src/lib/libc/libc.lib $^
 	${RANLIB} src/lib/libc/libc.lib
 
+-include $(find ./src -name '*.d')
 %.o: %.c
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
@@ -78,9 +79,10 @@ $(ASMTARGETS): %.o: %.asm
 	@echo "NOHIT" ${ARCH} '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
 
 clean:
-	@find ./src -name '*.o' -delete
+	@find ./src -name '*.o'   -delete
 	@find ./src -name '*.lib' -delete
 	@find ./src -name '*.exe' -delete
+	@find ./src -name '*.d'   -delete
 
 qemu: iso
 	qemu -monitor stdio -cdrom iso/Dux.iso
