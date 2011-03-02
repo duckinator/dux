@@ -16,6 +16,8 @@ noreturn HalHalt(void)
 
 noreturn HalShutdown(void)
 {
+	DisplayClear();
+	printf("It's now safe to turn off your computer. (Can has ACPI?)");
 	while (1) {
 		HalDisableInterrupts();
 		HalHalt();
