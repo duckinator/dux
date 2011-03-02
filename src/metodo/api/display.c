@@ -59,10 +59,15 @@ void DisplayString(const char *s)
 
 void DisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 {
-	// To stop gcc from whining...
-	s = s;
-	row = row;
-	col = col;
+	unsigned int i;
+	struct DisplayDevice *Display;
+
+	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
+		Display = DisplayDeviceList[i];
+		/* don't call NULL function pointers... */
+		if (Display->DisplaySpot)
+			Display->DisplaySpot(s, row, col);
+	}
 }
 
 void DisplayHideCursor()
@@ -80,9 +85,15 @@ void DisplayHideCursor()
 
 void DisplayCursorPosition(int _row, int _col)
 {
-	// To stop gcc from whining, again...
-	_row = _row;
-	_col = _col;
+	unsigned int i;
+	struct DisplayDevice *Display;
+
+	for (i = 0; i < NUM_DISPLAY_DEVICES; i++) {
+		Display = DisplayDeviceList[i];
+		/* don't call NULL function pointers... */
+		if (Display->DisplayCursorPosition)
+			Display->DisplayCursorPosition(_row, _col);
+	}
 }
 
 void DisplayInit(void)
