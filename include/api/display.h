@@ -8,6 +8,8 @@ struct DisplayDevice {
 	void (*DisplayClear) ();
 	void (*DisplaySetAttr) (uint8_t lattr);
 	void (*DisplayHideCursor) ();
+	void (*DisplaySpot) (uint8_t s, uint8_t row, uint8_t col);
+	void (*DisplayCursorPosition) (int _row, int _col);
 };
 
 void DisplaySetAttr(uint8_t lattr);
