@@ -3,9 +3,9 @@
  
 void StartInitializer(const char *name, void (*func)())
 {
-	printf("Initializing %s...", name);
+	printf("Initializing %s [BUSY]", name);
 	func();
-	printf("Done.\n");
+	printf("\b\b\b\b\bDONE]\n");
 }
 
 
