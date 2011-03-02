@@ -1,5 +1,6 @@
 #include <metodo/colpa/debug.h>
 #include <string.h>
+#include <metodo/core/shutdown.h>
 
 uint8_t i;
 char *str;
@@ -23,9 +24,9 @@ char *ColpaHandleLine()
 	} else if(strcmp(str, "info") == 0) {
 		printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n");
 	} else if(strcmp(str, "halt") == 0) {
-		HalShutdown();
+		CoShutdown(SD_OFF);
 	} else if(strcmp(str, "reboot") == 0) {
-		HalReboot();
+		CoShutdown(SD_REBOOT);
 	} else {
 		printf("Unknown command: %s\n", str);
 	}
