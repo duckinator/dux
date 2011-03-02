@@ -96,8 +96,16 @@ bochs: iso
 iso: metodo.exe
 	./makeiso.sh
 
+todo:
+	@./tools/todo.sh
+
+sloc:
+	@sloccount ./src ./include | grep "(SLOC)"
+
 test:
 	@echo ${ALLARCHTARGETS}
 	@echo ${NOARCHTARGETS}
 	@echo ${CURARCHTARGETS}
 	@echo ${objects}
+
+.PHONY: metodo-libs iso clean qemu qemu-monitor bochs todo sloc
