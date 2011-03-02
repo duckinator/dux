@@ -22,9 +22,9 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		printf("Loading userland...\n");
 		//HalSwitchToUserMode();
 		LoadUserland(userland);
-		stop(STOP_USERLAND_EXITED);
+		printf("\n\nUserland exited unexpectedly.\n");
+		HalBreak();
 	} else {
-		//HalBreak();
 		stop(STOP_NO_USERLAND);
 	}
 }

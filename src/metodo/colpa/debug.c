@@ -3,11 +3,12 @@
 noreturn KernDebug()
 {
 	// FIXME: Dummy KernDebug()
-	panic("Kernel debugger not implemented.");
-	/*HalKeyInfo *keyinfo;
+	//panic("Kernel debugger not implemented.");
+	HalKeyInfo *keyinfo;
 	printf("Initiating kernel debugger...\n>> ");
 	while(1) {
 		if ( HalKeyboardHasInput() ) {
+			HalKeyboardHandler(NULL);
 			keyinfo = HalKeyboardReadLetter();
 			if ( keyinfo->action == 0 ) {
 				switch ( keyinfo->scancode ) {
@@ -22,5 +23,5 @@ noreturn KernDebug()
 				}
 			}
 		}
-	}*/
+	}
 }
