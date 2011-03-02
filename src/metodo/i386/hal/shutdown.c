@@ -5,24 +5,31 @@ void HalBreak(void)
 	__asm__ __volatile__ ("int $3");
 }
 
+noreturn HalHalt(void)
+{
+	__asm__ __volatile__ ("hlt");
+	/* Yes, hlt does in fact not return.
+	 * Too bad clang/gcc/etc can't figure this out. */
+	while(1)
+		;
+}
+
 noreturn HalShutdown(void)
 {
 	while (1) {
-		__asm__ __volatile__ ("cli");
-		__asm__ __volatile__ ("hlt");
+		HalDisableInterrupts();
+		HalHalt();
 	}
 }
 
-// FIXME: HalReboot() causes a SIMD Floating Point Exception
 noreturn HalReboot(void)
 {
-	unsigned char good = 0x02;
+	uint8_t good = 0x02;
 	HalDisableInterrupts();
-	__asm__ __volatile__ ("int $0x13");
 
 	while ((good & 0x02) != 0)
 		good = HalInPort(0x64);
 	HalOutPort(0x64, 0xFE);
 
-	HalShutdown();
+	HalHalt();
 }
