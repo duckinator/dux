@@ -26,6 +26,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 		HalBreak();
 		stop(STOP_USERLAND_EXITED);
 	} else {
+		HalBreak();
 		stop(STOP_NO_USERLAND);
 	}
 }
