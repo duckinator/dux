@@ -1,13 +1,23 @@
 #include <metodo/metodo.h>
 #include <metodo/core/scheduler.h>
- 
-void StartInitializer(const char *name, void (*func)())
+#include <string.h>
+
+void StartService(const char *msg, const char *name, void (*func)())
 {
-	printf("Initializing %s [BUSY]", name);
+	int i;
+	printf("%s %s", msg, name);
+	for(i = 0; i < (50 - strlen(msg) - strlen(name)); i++)
+		printf(" ");
+	printf(" [BUSY]");
+	//printf("%s %s\n\b\b\b\b\b\b\b[BUSY]", msg, name);
 	func();
 	printf("\b\b\b\b\bDONE]\n");
 }
 
+void StartInitializer(const char *name, void (*func)())
+{
+	StartService("Initializing", name, func);
+}
 
 void HalInit(void) {
     HalInitGDT();
@@ -23,7 +33,8 @@ void HalInit(void) {
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
 	
-	printf("Enabling interrupts...");
+	/*printf("Enabling interrupts...");
 	HalEnableInterrupts();
-	printf("Done.\n");
+	printf("Done.\n");*/
+	StartService("Enabling", "interrupts", &HalEnableInterrupts);
 }
