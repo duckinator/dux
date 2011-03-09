@@ -1,8 +1,6 @@
 #include <metodo/metodo.h>
-#include <metodo/misc/misc.h>
 
-extern unsigned int end;
-unsigned int placement = 0;
+unsigned int *placement = 0;
 
 /* malloc(size, flags)
  * Simple placement based allocator. This allocates off the end of the kernel.
@@ -10,18 +8,19 @@ unsigned int placement = 0;
  */
 void *kmalloc_int(unsigned int size, unsigned int flags)
 {
-	unsigned int tmp;
+	// FIXME: It seems "tmp" (and not "placement") may be what was meant to be returned, but that results in a triple fault. What gives?
+	unsigned int *tmp;
 
 	// Initialize if needed.
-	if (placement == 0)
+	if (*placement == 0)
 		placement = end;
 
 	// Align on a page if needed.
 /* The following line was this, but meteger said to invert the bitmask in the check:
  *	if ((flags & MALLOC_ALIGN) && (placement & 0xfffff000)) {
 */
-	if ((flags & MALLOC_ALIGN) && (placement & 0x0fff)) {
-		placement &= 0xfffff000;
+	if ((flags & MALLOC_ALIGN) && ((*placement) & 0x0fff)) {
+		*placement &= 0xfffff000;
 		placement += 0x1000;
 	}
 
@@ -73,7 +72,7 @@ void free(void *ap)
 /* Maybe it would be better to allocate in more than units of pages? */
 static Header *morecore(unsigned nu)
 {
-	char *cp;
+	Header *cp;
 	Header *up;
 
 	if (nu <= NALLOC)
@@ -83,7 +82,7 @@ static Header *morecore(unsigned nu)
 
 	cp = (void*) first_frame();
 	/* first_frame() can't fail. */
-	up = (Header *) cp;
+	up = cp;
 	up->s.size = nu;
 	free((void *)(up+1));
 	return freep;
@@ -160,13 +159,7 @@ unsigned int first_frame()
 		}
 	}
 
-	// Control does not reach end in this function, unless you count
-	// The infinite loop that panic will enter. So compiler, I have a
-	// message for you: "You are stupid."
 	panic((char*)"No free frames.\n");
-
-	// I also added the extra 7 bytes (on IA-32 anyway) to shut you up:
-	return 0;
 }
 
 /* alloc_frame(page, is_kernel, is_writable)
