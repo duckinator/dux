@@ -20,9 +20,9 @@ void StartInitializer(const char *name, void (*func)())
 }
 
 void HalInit(void) {
-    HalInitGDT();
-    DisplayInit();
-    printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n\n\n");
+	HalInitGDT();
+	DisplayInit();
+	printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n\n\n");
 
 	StartInitializer("IDT", &HalInitIDT);
 	StartInitializer("ISRs", &HalIsrInstall);
