@@ -1,8 +1,5 @@
 #include <metodo/init/tests.h>
 
-extern unsigned int start;
-extern unsigned int end;
-
 void SystemTests()
 {
 	MemorySizeTest();
