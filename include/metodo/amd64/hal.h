@@ -15,7 +15,6 @@ void HalEnableNMI(void);
 #include <metodo/amd64/hal/isr.h>
 #include <metodo/amd64/hal/syscall.h>
 
-#include <driver/AMD64/timer.h>
-#include <driver/AMD64/keyboard/keyboard.h>
+#include <metodo/x86/hal.h>
 
 #endif /* end of include guard: HAL_AMD64_H */

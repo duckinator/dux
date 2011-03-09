@@ -16,7 +16,6 @@ void HalEnableNMI(void);
 #include <metodo/i386/hal/irqs.h>
 #include <metodo/i386/hal/syscall.h>
 
-#include <driver/i386/timer.h>
-#include <driver/i386/keyboard/keyboard.h>
+#include <metodo/x86/hal.h>
 
 #endif /* end of include guard: HAL_I386_H */
