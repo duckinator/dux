@@ -1,7 +1,6 @@
 #include <metodo/metodo.h>
 
-extern unsigned int end;
-unsigned int placement = 0;
+unsigned int *placement = 0;
 
 /* malloc(size, flags)
  * Simple placement based allocator. This allocates off the end of the kernel.
@@ -9,18 +8,19 @@ unsigned int placement = 0;
  */
 void *kmalloc_int(unsigned int size, unsigned int flags)
 {
-	unsigned int tmp;
+	// FIXME: It seems "tmp" (and not "placement") may be what was meant to be returned, but that results in a triple fault. What gives?
+	unsigned int *tmp;
 
 	// Initialize if needed.
-	if (placement == 0)
+	if (*placement == 0)
 		placement = end;
 
 	// Align on a page if needed.
 /* The following line was this, but meteger said to invert the bitmask in the check:
  *	if ((flags & MALLOC_ALIGN) && (placement & 0xfffff000)) {
 */
-	if ((flags & MALLOC_ALIGN) && (placement & 0x0fff)) {
-		placement &= 0xfffff000;
+	if ((flags & MALLOC_ALIGN) && ((*placement) & 0x0fff)) {
+		*placement &= 0xfffff000;
 		placement += 0x1000;
 	}
 

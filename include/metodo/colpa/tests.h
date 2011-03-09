@@ -13,12 +13,6 @@ typedef struct TestCase_s {
 	struct TestCase_s *prev;
 } TestCase;
 
-extern unsigned int start_tests;
-extern unsigned int end_tests;
-
-extern unsigned int start;
-extern unsigned int end;
-
 static TestCase *firsttest = NULL;
 static TestCase *lasttest = NULL;
 
