@@ -159,9 +159,6 @@ unsigned int first_frame()
 		}
 	}
 
-	// Control does not reach end in this function, unless you count
-	// The infinite loop that panic will enter. So compiler, I have a
-	// message for you: "You are stupid."
 	panic((char*)"No free frames.\n");
 }
 
