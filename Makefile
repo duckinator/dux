@@ -16,18 +16,6 @@ override LDFLAGS += -nostdlib -g
 # May we well place this here in case it's needed later
 #override ASFLAGS +=
 
-ifeq "${ARCH}" "i386"
-	override CFLAGS += -m32
-	override LDFLAGS += -melf_i386
-	override ASFLAGS += -felf32
-else
-	ifeq "${ARCH}" "amd64"
-		override CFLAGS += -m64
-		override LDFLAGS += -melf_x86_64
-		override ASFLAGS += -felf64
-	endif
-endif
-
 SOURCE_SUFFIXES := '(' -name '*.c' -o -name '*.asm' ')'
 SRCFILES := $(shell find 'src' ${SOURCE_SUFFIXES})
 ASMTARGETS = $(patsubst %.asm, %.o, $(shell find 'src' -path '*/$(ARCH)/*' -name '*.asm'))
@@ -37,12 +25,29 @@ DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
 CURARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/${ARCH}/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
+X86TARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/x86/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
+
 # Eventually do this using ARCHES list, right now "just making it work"
-ALLARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
+ALLARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' -o -path '*/x86/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
 NOARCHTARGETS := ${filter-out ${ALLARCHTARGETS}, ${OBJFILES}}
 objects := ${NOARCHTARGETS} ${CURARCHTARGETS}
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buildinfo.h)
+
+ifeq "${ARCH}" "i386"
+	override CFLAGS += -m32
+	override LDFLAGS += -melf_i386
+	override ASFLAGS += -felf32
+	override objects += ${X86TARGETS}
+else
+	ifeq "${ARCH}" "amd64"
+		override CFLAGS += -m64
+		override LDFLAGS += -melf_x86_64
+		override ASFLAGS += -felf64
+		override objects += ${X86TARGETS}
+	endif
+endif
+
 all: iso
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
