@@ -20,7 +20,7 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
  *	if ((flags & MALLOC_ALIGN) && (placement & 0xfffff000)) {
 */
 	if ((flags & MALLOC_ALIGN) && ((*placement) & 0x0fff)) {
-		*placement &= 0xfffff000;
+		placement = (unsigned int*)((unsigned int)placement & 0xfffff000);
 		placement += 0x1000;
 	}
 
