@@ -32,9 +32,6 @@ void HalInit(void) {
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
-	
-	/*printf("Enabling interrupts...");
-	HalEnableInterrupts();
-	printf("Done.\n");*/
+
 	StartService("Enabling", "interrupts", &HalEnableInterrupts);
 }
