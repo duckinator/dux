@@ -135,7 +135,7 @@ void HalIrqSetMask(uint8_t irq)
 		irq -= 8;
 	}
 
-	value = HalInPort(port) | (1 << irq);
+	value = HalInPort(port) | (uint8_t)(1 << irq);
 	HalOutPort(port, value);    
 }
 
