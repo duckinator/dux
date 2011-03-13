@@ -132,7 +132,10 @@ void HalIrqSetMask(uint8_t irq)
 		port = PIC1_DATA;
 	} else {
 		port = PIC2_DATA;
-		irq -= 8;
+		/* Silly gcc 4.5, clang can handle this flawlessly:
+		 * irq -= 8;
+		 */
+		irq = (uint8_t)(irq - 8);
 	}
 
 	value = HalInPort(port) | (uint8_t)(1 << irq);
@@ -149,9 +152,12 @@ void HalIrqUnsetMask(uint8_t irq)
 		port = PIC1_DATA;
 	} else {
 		port = PIC2_DATA;
-		irq -= 8;
+		/* Silly gcc 4.5, clang can handle this flawlessly:
+		 * irq -= 8;
+		 */
+		irq = (uint8_t)(irq - 8);
 	}
 
-	value = HalInPort(port) & ~(1 << irq);
+	value = HalInPort(port) & (uint8_t)(~(1 << irq));
 	HalOutPort(port, value);
 }
