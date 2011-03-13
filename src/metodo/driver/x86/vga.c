@@ -53,7 +53,11 @@ void VgaDisplayChar(char c)
 		if (col == 0) {
 			// If it's row 0, col 0, we merely ignore it.
 			if (row != 0) {
-				row -= 1;
+				/* This stupid gcc fail *AGAIN*?! come on now.
+				 * clang can handle this:
+				 * 	  row -= 1;
+				 */
+				row = (uint8_t)(row - 1);
 				col = COLS-1;
 			}
 		} else {
