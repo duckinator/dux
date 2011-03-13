@@ -75,13 +75,15 @@ static Header *morecore(unsigned nu)
 {
 	Header *cp;
 	Header *up;
+	unsigned int tmp;
 
 	if (nu <= NALLOC)
 		nu = NALLOC;
 	else
 		return NULL;
 
-	cp = (void*) first_frame();
+	tmp = first_frame();
+	cp = (void*)tmp;
 	/* first_frame() can't fail. */
 	up = cp;
 	up->s.size = nu;
