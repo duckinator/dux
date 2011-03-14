@@ -109,8 +109,13 @@ bochs: iso
 	./run.sh
 
 iso: metodo.exe
+	@$(call STATUS,"Generating Dux.iso")
+	@./makeiso.sh &> /dev/null
 	@$(call STATUS,"DONE")
-	@./makeiso.sh
+	@echo -e "Run one of the following to test:"
+	@echo -e "  ${COLOR_BLUE}make qemu${COLOR_RESET}"
+	@echo -e "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}"
+	@echo -e "  ${COLOR_BLUE}make bochs${COLOR_RESET}"
 
 todo:
 	@./tools/todo.sh
