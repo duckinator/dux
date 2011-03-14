@@ -55,7 +55,8 @@ endif
 # to remove as much terminal-specific clutter as possible
 all: terminalfix iso
 
-terminalfix: @echo # Don't overwrite the prompt :P
+terminalfix:
+	@echo # Don't overwrite the prompt :P
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
@@ -89,8 +90,8 @@ $(ASMTARGETS): %.o: %.asm
 	@$(call STATUS,"ASSEMBLE",$^)
 	@${ASM} ${ASFLAGS} -o $@ $<
 
-%::
-	@echo "NOHIT" ${ARCH} '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
+#%::
+#	@echo "NOHIT" ${ARCH} '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
 
 clean:
 	@find ./src -name '*.o'   -delete
