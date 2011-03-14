@@ -4,15 +4,15 @@
 unsigned int stack;
 int in_panic = 0;
 
-const char *stop_table[15] = {
-	(const char*)0x01, "ASSERTION_FAILED",
-	(const char*)0x02, "BAD_BOOTLOADER_MAGIC",
-	(const char*)0x03, "NO_USERLAND",
-	(const char*)0x04, "USERLAND_EXITED",
-	(const char*)0x10, "UNKNOWN",
-	(const char*)0x11, "USER_INITIALIZED",
-	(const char*)0x12, "END_OF_KERNEL",
-	(const char*)0x0
+const char *stop_table[__STOP_NUM_MESSAGES] = {
+	"Assertion failed",
+	"Coder failed",
+	"Bad bootloader magic",
+	"No userland",
+	"Userland exited",
+	"Unknown error",
+	"User initialized",
+	"Reached end of kernel",
 };
 
 void panic_dump_hex(unsigned int *stack)
@@ -29,11 +29,11 @@ void panic_dump_hex(unsigned int *stack)
 
 char *stop_getmsg(int error)
 {
-	int i;
+/*	int i;
 	int index;
  
-	/* Loop through the table, stopping at every other entry to see if it
-	 * matches. If so, record it. */
+	/ * Loop through the table, stopping at every other entry to see if it
+	 * matches. If so, record it. * /
 	for (i = 0; stop_table[i] != 0x0; i+=2) {
 		if ((int)stop_table[i] == error) {
 			index = i;
@@ -41,7 +41,10 @@ char *stop_getmsg(int error)
 		}
 	}
  
-	return (char*)stop_table[index+1];
+	return (char*)stop_table[index+1];*/
+	if (error > __STOP_NUM_MESSAGES)
+		error = STOP_CODER_FAILED;
+	return (char*)stop_table[error];
 }
 
 noreturn _stop(const char *text, int error, const char *function, const char *filename, int line, const char *code)

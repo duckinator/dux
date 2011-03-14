@@ -19,6 +19,7 @@ char *ColpaHandleLine()
 		printf("Commands:\n\
   help\n\
   info\n\
+  panic\n\
   halt\n\
   reboot\n");
 	} else if(strcmp(str, "info") == 0) {
@@ -27,6 +28,8 @@ char *ColpaHandleLine()
 		CoShutdown(SD_OFF);
 	} else if(strcmp(str, "reboot") == 0) {
 		CoShutdown(SD_REBOOT);
+	} else if(strcmp(str, "panic") == 0) {
+		stop(STOP_USER_INITIALIZED);
 	} else {
 		printf("Unknown command: %s\n", str);
 	}
