@@ -35,25 +35,8 @@ else
 	fi
 fi
 
-if [ -e "iso/Dux.iso" ]; then
-	rm iso/Dux.iso
-fi
-
-if [ -e "isofs/System" ]; then
-	rm -r isofs/System
-fi
-
-if [ -e "isofs/boot" ]; then
-	rm -r isofs/boot
-fi
-
-if [ -e "isofs/Drivers" ]; then
-	rm -r isofs/Drivers
-fi
-
-if [ -e "isofs/Modules" ]; then
-	rm -r isofs/Modules
-fi
+rm  -f iso/Dux.iso
+rm -rf isofs/System isofs/Drivers isofs/Modules
 
 mkdir -p isofs/System
 mkdir -p isofs/Drivers
@@ -69,11 +52,13 @@ function handle_modules() {
 	DIR="$2"
 	ESC_DIR=$(echo $DIR | sed 's/\//\\\//g')
 	#echo > $TYPE.tmp
-	for f in $(ls $2/*.exe); do
-		filename=$(echo $f | sed 's/${ESC_DIR}//')
-		cp "$f" "isofs/${TYPE}/${filename}"
-		echo $filename >> $TYPE.tmp
-	done
+	if [ -e "$2" ]; then
+		for f in $(ls $2/*.exe); do
+			filename=$(echo $f | sed 's/${ESC_DIR}//')
+			cp "$f" "isofs/${TYPE}/${filename}"
+			echo $filename >> $TYPE.tmp
+		done
+	fi
 }
 
 echo > Drivers.tmp
@@ -82,6 +67,8 @@ echo > Drivers.tmp
 #	cp "$f" "isofs/Drivers/$filename"
 #	echo "$filename" >> drivers.tmp
 #done
+
+# TODO: Fix this mess with handle_modules and whatnot.
 
 handle_modules "Drivers" "src/metodo/modules/driver/*/"
 
