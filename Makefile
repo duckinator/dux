@@ -1,3 +1,5 @@
+include terminal.mk
+
 CC     := clang
 ASM    := nasm
 AR     := ar
@@ -48,37 +50,41 @@ else
 	endif
 endif
 
-all: iso
+all: hack iso
+
+hack: @echo # Don't overwrite the prompt :P
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
-	${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
-	@echo $^
+	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
+#	@echo $^
 
 metodo-libs: hal.lib libc.lib user.exe
 
 user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
-	${LD} -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
+	@${LD} -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 hal.lib: $(filter src/metodo/${ARCH}/hal/%.o, ${OBJFILES})
-	${AR} rc src/metodo/${ARCH}/hal/hal.lib $^
-	${RANLIB} src/metodo/${ARCH}/hal/hal.lib
+	@${AR} rc src/metodo/${ARCH}/hal/hal.lib $^
+	@${RANLIB} src/metodo/${ARCH}/hal/hal.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
 krnllib.lib: $(filter src/lib/krnllib/%.o, ${OBJFILES})
-	${AR} rc src/lib/krnllib/krnllib.lib $^
-	${RANLIB} src/lib/krnllib/krnllib.lib
+	@${AR} rc src/lib/krnllib/krnllib.lib $^
+	@${RANLIB} src/lib/krnllib/krnllib.lib
 
 libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
-	${AR} rc src/lib/libc/libc.lib $^
-	${RANLIB} src/lib/libc/libc.lib
+	@${AR} rc src/lib/libc/libc.lib $^
+	@${RANLIB} src/lib/libc/libc.lib
 
 -include $(find ./src -name '*.d')
 %.o: %.c
+	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[COMPILE]${COLOR_RESET} $^"
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
 $(ASMTARGETS): %.o: %.asm
-	${ASM} ${ASFLAGS} -o $@ $<
+	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[ASSMBLE]${COLOR_RESET} $^"
+	@${ASM} ${ASFLAGS} -o $@ $<
 
 %::
 	@echo "NOHIT" ${ARCH} '$$@' $@ '$$%' $% '$$<' $< '$$?' $? '$$^' $^ '$$+' $+ '$$|' $| '$$*' $*
@@ -99,7 +105,8 @@ bochs: iso
 	./run.sh
 
 iso: metodo.exe
-	./makeiso.sh
+	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[DONE]${COLOR_RESET}"
+	@./makeiso.sh
 
 todo:
 	@./tools/todo.sh
@@ -113,4 +120,4 @@ test:
 	@echo ${CURARCHTARGETS}
 	@echo ${objects}
 
-.PHONY: metodo-libs iso clean qemu qemu-monitor bochs todo sloc
+.PHONY: hack metodo-libs iso clean qemu qemu-monitor bochs todo sloc
