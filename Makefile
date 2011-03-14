@@ -50,9 +50,12 @@ else
 	endif
 endif
 
-all: hack iso
+# "terminalfix" is required so it wont overwrite your prompt.
+# Would be nice if this could somehow be handled inside of terminal.mk,
+# to remove as much terminal-specific clutter as possible
+all: terminalfix iso
 
-hack: @echo # Don't overwrite the prompt :P
+terminalfix: @echo # Don't overwrite the prompt :P
 
 metodo.exe: metodo-libs $(filter src/metodo/%, $(filter-out src/metodo/hal/% src/metodo/modules/%, ${objects}))
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/${ARCH}/boot/link.ld src/metodo/${ARCH}/boot/start.o $(filter-out metodo-libs src/metodo/${ARCH}/boot/start.o, $^) src/metodo/${ARCH}/hal/hal.lib src/lib/libc/libc.lib
@@ -79,11 +82,11 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 
 -include $(find ./src -name '*.d')
 %.o: %.c
-	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[COMPILE]${COLOR_RESET} $^"
+	@$(call STATUS,"COMPILE",$^)
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
 $(ASMTARGETS): %.o: %.asm
-	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[ASSMBLE]${COLOR_RESET} $^"
+	@$(call STATUS,"ASSEMBLE",$^)
 	@${ASM} ${ASFLAGS} -o $@ $<
 
 %::
@@ -105,7 +108,7 @@ bochs: iso
 	./run.sh
 
 iso: metodo.exe
-	@echo -e "${MESSAGE_PRE}${COLOR_GREEN}[DONE]${COLOR_RESET}"
+	@$(call STATUS,"DONE")
 	@./makeiso.sh
 
 todo:
@@ -120,4 +123,4 @@ test:
 	@echo ${CURARCHTARGETS}
 	@echo ${objects}
 
-.PHONY: hack metodo-libs iso clean qemu qemu-monitor bochs todo sloc
+.PHONY: terminalfix metodo-libs iso clean qemu qemu-monitor bochs todo sloc

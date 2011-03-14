@@ -7,3 +7,5 @@ UP_ONE_LINE = "\\033[1A"    # Move cursor up one line
 
 MESSAGE_PRE = "${UP_ONE_LINE}\\r${CLEAR_TO_EOL}"
 
+STATUS = echo -e "${MESSAGE_PRE}${COLOR_GREEN}[$(1)]${COLOR_RESET} $(2)"
+
