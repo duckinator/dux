@@ -45,7 +45,7 @@ tools/initrd/initrd.img
 src/metodo/init/cscope.out
 
 # ignore the crosscompiler
-tools/cross/binutils-2.19.1/
+tools/cross/binutils-2.20.1/
 tools/cross/binutils-build/
 tools/cross/gcc-4.4.0/
 tools/cross/gcc-build/
