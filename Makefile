@@ -50,10 +50,10 @@ else
 	endif
 endif
 
-# "terminalfix" is required so it wont overwrite your prompt.
+# "terminalfix" is required so it wont overwrite your prompt if line is overwritten.
 # Would be nice if this could somehow be handled inside of terminal.mk,
 # to remove as much terminal-specific clutter as possible
-all: terminalfix iso
+all: iso
 
 terminalfix:
 	@echo # Don't overwrite the prompt :P
