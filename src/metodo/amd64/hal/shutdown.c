@@ -16,9 +16,8 @@ noreturn HalShutdown(void)
 // FIXME: HalReboot() causess a SIMD Floating Point Exception
 noreturn HalReboot(void)
 {
-	unsigned char good = 0x02;
+	uint8_t good = 0x02;
 	HalDisableInterrupts();
-	__asm__ __volatile__ ("int $0x13");
 
 	while ((good & 0x02) != 0)
 		good = HalInPort(0x64);
