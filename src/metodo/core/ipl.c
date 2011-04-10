@@ -8,8 +8,7 @@ void CoRaiseIpl(IN IPL NewIpl, OUT PIPL OldIpl)
 		*OldIpl = m_ipl;
 		m_ipl = NewIpl;
 	} else {
-		// FIXME: panic() message with almost no details
-		panic("Error in IPL");
+		panic("Attempted to lower IPL using CoRaiseIpl().");
 	}
 }
 
