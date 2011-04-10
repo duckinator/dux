@@ -8,7 +8,6 @@ unsigned int placement = 0;
  */
 void *kmalloc_int(unsigned int size, unsigned int flags)
 {
-	// FIXME: It seems "tmp" (and not "placement") may be what was meant to be returned, but that results in a triple fault. What gives?
 	unsigned int tmp;
 
 	// Initialize if needed.
