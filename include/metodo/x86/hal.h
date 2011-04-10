@@ -8,6 +8,8 @@ void HalEnableInterrupts(void);
 void HalDisableNMI(void);
 void HalEnableNMI(void);
 
+#include <metodo/x86/hal/shutdown.h>
+
 #include <driver/x86/timer.h>
 #include <driver/x86/keyboard/keyboard.h>
 

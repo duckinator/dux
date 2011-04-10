@@ -14,9 +14,5 @@
 #endif
 
 void HalInit(void);
-void HalBreak(void);
-void HalShutdown(void);
-void HalReboot(void);
-void HalHalt(void);
 
 #endif /* end of include guard: HAL_H */
