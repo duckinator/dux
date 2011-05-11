@@ -40,8 +40,6 @@ void HalSetTSS(tss_entry_t *entry, int32_t num, uint16_t sso, uint32_t esp0)
 	uint32_t limit = base + sizeof(entry);
 
 	// FIXME: Implement HalSetTSS()
-	// Hack to make it stop whining about unused vars
-	num=num; sso = sso; esp0 = esp0; limit = limit;
 
 	// add TSS descriptor address to GDT
 	//HalGDTSetGate(num, base, limit, 0xE9, 0x00);
