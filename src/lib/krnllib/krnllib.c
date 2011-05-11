@@ -68,12 +68,10 @@ void clear_screen ()
 void *malloc (size_t size)
 {
 	// FIXME: Dummy userland malloc()
-	size=size; // UNUSED ARG FIX
 	return NULL;
 }
 
 void free(void *ptr)
 {
 	// FIXME: Dummy userland free()
-	ptr=ptr; // UNUSED ARG FIX
 }
