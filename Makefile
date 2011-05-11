@@ -83,7 +83,7 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 
 -include $(find ./src -name '*.d')
 %.o: %.c
-	@$(call STATUS,"COMPILE",$^)
+	@$(call STATUS,"COMPILE ",$^)
 	@${CC} ${CFLAGS} -MMD -MP -MT "$*.d $*.o"  -c $< -o $@
 
 $(ASMTARGETS): %.o: %.asm
