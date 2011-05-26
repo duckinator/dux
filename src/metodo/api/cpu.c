@@ -34,9 +34,11 @@ int CPUCount()
 	return 0;
 }
 
-/*CPU_features_t *CPUFeatures()
+CPU_features_t *CPUFeatures()
 {
-}*/
+	CPU_features_t *ret = kmalloc(sizeof(CPU_features_t));
+	return ret;
+}
 
 int CPUCacheSize()
 {
