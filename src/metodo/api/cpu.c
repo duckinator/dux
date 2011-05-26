@@ -3,35 +3,27 @@
 
 char *CPUBrand()
 {
-	// FIXME: Dummy CPU API
-	char *ret = kmalloc(1);
-	return ret;
+	return CPUIDBrand();
 }
 
 char *CPUShortBrand()
 {
-	// FIXME: Dummy CPU API
-	char *ret = kmalloc(1);
-	return ret;
+	return CPUIDShortBrand();
 }
 
 char *CPUFamily()
 {
-	// FIXME: Dummy CPU API
-	char *ret = kmalloc(1);
-	return ret;
+	return CPUIDFamily();
 }
 
 char *CPUModel()
 {
-	// FIXME: Dummy CPU API
-	char *ret = kmalloc(1);
-	return ret;
+	return CPUIDModel();
 }
 
 int CPUCount()
 {
-	return 0;
+	return CPUIDCount();
 }
 
 CPU_features_t *CPUFeatures()
@@ -42,12 +34,10 @@ CPU_features_t *CPUFeatures()
 
 int CPUCacheSize()
 {
-	return 0;
+	return CPUIDCacheSize();
 }
 
 char *CPUSerial()
 {
-	// FIXME: Dummy CPU API
-	char *ret = kmalloc(1);
-	return ret;
+	return CPUIDSerial();
 }

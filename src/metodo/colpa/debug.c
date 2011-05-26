@@ -1,6 +1,7 @@
 #include <metodo/colpa/debug.h>
 #include <string.h>
 #include <metodo/core/shutdown.h>
+#include <api/cpu.h>
 
 uint8_t i;
 char *str;
@@ -30,6 +31,8 @@ char *ColpaHandleLine()
 		CoShutdown(SD_REBOOT);
 	} else if(strcmp(str, "panic") == 0) {
 		stop(STOP_USER_INITIALIZED);
+	} else if(strcmp(str, "cpu") == 0) {
+		printf("%s\n", CPUBrand());
 	} else {
 		printf("Unknown command: %s\n", str);
 	}
