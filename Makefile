@@ -6,12 +6,12 @@ AR     := ar
 RANLIB := ranlib
 LD     := ld
 
-ARCH := i386
-ARCHES := i386 amd64
+ARCH := x86_32
+ARCHES := x86_32 x86_64
 BUILD_TYPE := debug
 
 # Add all of these flags to whatever user input we get.
-override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function
+override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -I include -I include/metodo/${ARCH} -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function
 
 override LDFLAGS += -nostdlib -g
 
@@ -30,19 +30,19 @@ CURARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src'
 X86TARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/x86/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
 # Eventually do this using ARCHES list, right now "just making it work"
-ALLARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/i386/*' -o -path '*/amd64/*' -o -path '*/x86/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
+ALLARCHTARGETS := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(shell find 'src' '(' -path '*/x86_32/*' -o -path '*/x86_64/*' -o -path '*/x86/*' ')' '(' -name '*.c' -o -name '*.asm' ')')))
 
 NOARCHTARGETS := ${filter-out ${ALLARCHTARGETS}, ${OBJFILES}}
 objects := ${NOARCHTARGETS} ${CURARCHTARGETS}
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} ${ARCH} > ./include/buildinfo.h)
 
-ifeq "${ARCH}" "i386"
+ifeq "${ARCH}" "x86_32"
 	override CFLAGS += -m32
 	override LDFLAGS += -melf_i386
 	override ASFLAGS += -felf32
 	override objects += ${X86TARGETS}
 else
-	ifeq "${ARCH}" "amd64"
+	ifeq "${ARCH}" "x86_64"
 		override CFLAGS += -m64
 		override LDFLAGS += -melf_x86_64
 		override ASFLAGS += -felf64

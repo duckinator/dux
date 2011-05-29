@@ -5,11 +5,7 @@
 
 #include <stdint.h>
 
-#ifdef DUX_I386
-  #include <metodo/i386/hal/scheduler.h>
-#elif defined DUX_AMD64
-  #include <metodo/amd64/hal/scheduler.h>
-#endif
+#include <hal/scheduler.h>
 
 typedef struct SchedulerProcess_s {
      uint32_t id;

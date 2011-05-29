@@ -1,4 +1,4 @@
-#include <metodo/i386/hal/irqs.h>
+#include <hal/irqs.h>
 
 int irq_t = 1;
 /* This array is actually an array of function pointers. We use

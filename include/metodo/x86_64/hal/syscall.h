@@ -1,7 +1,7 @@
 #ifndef HAL_SYSCALL_H
 #define HAL_SYSCALL_H
 
-#include <metodo/i386/hal/isr.h>
+#include <hal/isr.h>
 
 extern void HalSyscallHandler(struct regs *r);
 extern void HalIsrSyscall(void);

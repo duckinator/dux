@@ -7,11 +7,7 @@
 
 #include <metodo/x86/mm/memory.h>
 
-#ifdef DUX_I386
-  #include <metodo/i386/hal.h>
-#elif defined DUX_AMD64
-  #include <metodo/amd64/hal.h>
-#endif
+#include <hal.h>
 
 void HalInit(void);
 
