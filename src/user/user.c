@@ -20,6 +20,25 @@ int main(UNUSED int argc, UNUSED char const* argv[])
 	 * make the compilers be nice and not throw warnings about
 	 * unused args.
 	 */
-	printf("Hi!\n%x\n%i\n", 1024, 1024);
+	printf("Welcome to Dux useless userland!\n(That really needs to change)\n");
+
+	/*
+	 * TODO: Implement APIs mentioned in user/user.c
+	 * Unimplemented APIs:
+	 *   Keyboard
+	 *   Console
+	 *   Image
+	 *   Display
+	 *   Network
+	 *   VFS
+	 * Pull the following out of the kernel, make more generic:
+	 *   Text
+	 *   CPU
+	 */
+	/*
+	while(1) {
+		__asm__ ("hlt");
+	}
+	*/
 	return 0;
 }
