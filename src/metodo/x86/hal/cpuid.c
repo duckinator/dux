@@ -40,6 +40,7 @@ char *CPUIDBrand()
 	return ret;
 }
 
+// FIXME: Make this use a enum instead of a string! Much less horrifying...
 char *CPUIDShortBrand()
 {
 	char *tmp = kmalloc(sizeof(char) * CPUID_BRAND_LENGTH);
