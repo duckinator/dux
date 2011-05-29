@@ -78,10 +78,17 @@ size_t HalCPUShortBrand()
 
 char *HalCPUFamily()
 {
-	// FIXME: Dummy CPUID functions
-	char *ret = kmalloc(1);
-	size_t where[4];
+	char *tmp = kmalloc(20),
+	     *ret;
+	size_t len,
+	       where[4];
+
 	cpuid_string(CPUID_GETFEATURES, where);
+	sprintf(tmp, "%hx", (short)(where[0] >> 8));
+	len = strlen(tmp);
+	ret = kmalloc(len + 1);
+	memset(ret, 0, len + 1);
+	strcpy(ret, tmp);
 	return ret;
 }
 
