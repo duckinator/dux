@@ -1,7 +1,7 @@
 #ifndef API_CPU_H
 #define API_CPU_H
 
-#if defined(DUX_I386) || defined(DUX_AMD64)
+#if defined(DUX_X86_32) || defined(DUX_X86_64)
 	#include <metodo/x86/hal/cpuid.h>
 #endif
 

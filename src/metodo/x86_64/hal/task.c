@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <metodo/metodo.h>
-#include <metodo/i386/hal/task.h>
+#include <hal/task.h>
 
 // FIXME: Why wont HalSwitchToUserMode() actually enable interrupts?
 void HalSwitchToUserMode()
@@ -38,8 +38,6 @@ void HalSetTSS(tss_entry_t *entry, int32_t num, uint16_t sso, uint32_t esp0)
 	// calculate base and limit of entry
 	uint32_t base = (uint32_t) entry;
 	uint32_t limit = base + sizeof(entry);
-
-	// FIXME: Implement HalSetTSS()
 
 	// add TSS descriptor address to GDT
 	//HalGDTSetGate(num, base, limit, 0xE9, 0x00);
