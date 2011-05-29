@@ -2,7 +2,7 @@
 #define API_CPU_H
 
 #if defined(DUX_I386) || defined(DUX_AMD64)
-	#include <metodo/x86/cpuid.h>
+	#include <metodo/x86/hal/cpuid.h>
 #endif
 
 typedef struct {
