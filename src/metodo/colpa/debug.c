@@ -34,7 +34,7 @@ char *ColpaHandleLine()
 	} else if(strcmp(str, "cpu") == 0) {
 		// Ow :(
 		char  *brand      = CPUBrand(),
-		      *shortbrand = CPUShortBrand(),
+		      *shortbrand = CPUShortBrandString(),
 		      *family     = CPUFamily(),
 		      *model      = CPUModel();
 		size_t count      = CPUCount(),
@@ -49,7 +49,7 @@ CPU  count: %u\n\
 Cache size: %u\n\
 Serial no.: %u\n",
                brand, shortbrand, family, model, count, cachesize, serial);
-		printf("Maximum supported standard level: 0x%x\n", CPUIDMaxStandardLevel());
+		printf("Maximum supported standard level: 0x%x\n", HalCPUMaxStandardLevel());
 		free(brand);
 		free(shortbrand);
 		free(family);

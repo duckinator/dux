@@ -21,14 +21,14 @@ static inline int cpuid_string(int code, size_t where[4]) {
   return highest;
 }
 
-size_t CPUIDMaxStandardLevel()
+size_t HalCPUMaxStandardLevel()
 {
 	size_t where[4];
 	cpuid_string(CPUID_GETVENDORSTRING, where);
 	return where[0];
 }
 
-char *CPUIDBrand()
+char *HalCPUBrand()
 {
 	char *ret = kmalloc(sizeof(char) * 13); // on x86, length is always 13
 	size_t where[4];
@@ -41,54 +41,42 @@ char *CPUIDBrand()
 }
 
 // FIXME: Make this use a enum instead of a string! Much less horrifying...
-char *CPUIDShortBrand()
+size_t HalCPUShortBrand()
 {
-	char *tmp = kmalloc(sizeof(char) * CPUID_BRAND_LENGTH);
-	char *lname = CPUIDBrand();
-	char *ret;
-	unsigned int size;
-
-	memset(tmp, 0, sizeof(char) * CPUID_BRAND_LENGTH);
+	char *lname = HalCPUBrand();
+	size_t ret;
 
 	if ((strcmp(lname, CPUID_VENDOR_OLDAMD) == 0) || (strcmp(lname, CPUID_VENDOR_AMD) == 0)) {
-			strcpy(tmp, "AMD");
+			ret = CPU_VENDOR_AMD;
 	} else if (strcmp(lname, CPUID_VENDOR_INTEL) == 0) {
-			strcpy(tmp, "Intel");
+			ret = CPU_VENDOR_INTEL;
 	} else if (strcmp(lname, CPUID_VENDOR_VIA) == 0) {
-			strcpy(tmp, "Via");
+			ret = CPU_VENDOR_VIA;
 	} else if ((strcmp(lname, CPUID_VENDOR_OLDTRANSMETA) == 0) ||
 	           (strcmp(lname, CPUID_VENDOR_TRANSMETA) == 0)) {
-			strcpy(tmp, "Transmeta");
+			ret = CPU_VENDOR_TRANSMETA;
 	} else if (strcmp(lname, CPUID_VENDOR_CYRIX) == 0) {
-			strcpy(tmp, "Cyrix");
+			ret = CPU_VENDOR_CYRIX;
 	} else if (strcmp(lname, CPUID_VENDOR_CENTAUR) == 0) {
-			strcpy(tmp, "Centaur");
+			ret = CPU_VENDOR_CENTAUR;
 	} else if (strcmp(lname, CPUID_VENDOR_NEXGEN) == 0) {
-			strcpy(tmp, "NexGen");
+			ret = CPU_VENDOR_NEXGEN;
 	} else if (strcmp(lname, CPUID_VENDOR_UMC) == 0) {
-			strcpy(tmp, "UMC");
+			ret = CPU_VENDOR_UMC;
 	} else if (strcmp(lname, CPUID_VENDOR_SIS) == 0) {
-			strcpy(tmp, "SIS");
+			ret = CPU_VENDOR_SIS;
 	} else if (strcmp(lname, CPUID_VENDOR_NSC) == 0) {
-			strcpy(tmp, "NSC");
+			ret = CPU_VENDOR_NSC;
 	} else if (strcmp(lname, CPUID_VENDOR_RISE) == 0) {
-			strcpy(tmp, "Rise");
+			ret = CPU_VENDOR_RISE;
 	} else {
-			// Falls back to returning the full brand name.
-			free(tmp);
-			free(lname);
-			return CPUIDBrand();
+			ret = CPU_VENDOR_UNKNOWN;
     }
-	size = sizeof(char) * ((unsigned int)strlen(tmp) + 1);
-	ret = kmalloc(size);
-	memset(ret, 0, size);
-	strcpy(ret, tmp);
-	free(tmp);
 	free(lname);
 	return ret;
 }
 
-char *CPUIDFamily()
+char *HalCPUFamily()
 {
 	// FIXME: Dummy CPUID functions
 	char *ret = kmalloc(1);
@@ -97,38 +85,38 @@ char *CPUIDFamily()
 	return ret;
 }
 
-char *CPUIDModel()
+char *HalCPUModel()
 {
 	// FIXME: Dummy CPUID functions
 	char *ret = kmalloc(1);
 	return ret;
 }
 
-size_t CPUIDCount()
+size_t HalCPUCount()
 {
 	return 0;
 }
 
 /*
-CPU_features_t *CPUIDFeatures()
+CPU_features_t *HalCPUFeatures()
 {
 	CPU_features_t *ret = kmalloc(sizeof(CPU_features_t));
 	return ret;
 }
 */
 
-size_t CPUIDCacheSize()
+size_t HalCPUCacheSize()
 {
 	// FIXME: Dummy CPUID functions
-	if(CPUIDMaxStandardLevel() >= 0x2) {
+	if(HalCPUMaxStandardLevel() >= 0x2) {
 		// ?
 	}
 	return 0;
 }
 
-size_t CPUIDSerial()
+size_t HalCPUSerial()
 {
-	if(CPUIDMaxStandardLevel() >= 0x3) {
+	if(HalCPUMaxStandardLevel() >= 0x3) {
 		size_t where[4];
 		cpuid_string(CPUID_GETSERIAL, where);
 		// Is this worthwhile?

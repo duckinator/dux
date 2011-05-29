@@ -1,9 +1,22 @@
 #ifndef API_CPU_H
 #define API_CPU_H
 
-#if defined(DUX_X86_32) || defined(DUX_X86_64)
-	#include <metodo/x86/hal/cpuid.h>
-#endif
+#include <system.h>
+
+enum {
+	CPU_VENDOR_UNKNOWN = 0,
+	CPU_VENDOR_AMD,
+	CPU_VENDOR_INTEL,
+	CPU_VENDOR_VIA,
+	CPU_VENDOR_TRANSMETA,
+	CPU_VENDOR_CYRIX,
+	CPU_VENDOR_CENTAUR,
+	CPU_VENDOR_NEXGEN,
+	CPU_VENDOR_UMC,
+	CPU_VENDOR_SIS,
+	CPU_VENDOR_NSC,
+	CPU_VENDOR_RISE,
+};
 
 typedef struct {
 	char family[15]; // Brand and such: "Intel P4", "AMD K8", etc
@@ -13,7 +26,8 @@ typedef struct {
 } CPU_features_t;
 
 char *CPUBrand();
-char *CPUShortBrand();
+size_t CPUShortBrand();
+char *CPUShortBrandString();
 char *CPUFamily();
 char *CPUModel();
 size_t CPUCount();

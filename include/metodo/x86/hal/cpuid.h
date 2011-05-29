@@ -2,9 +2,10 @@
 #define CPUID_H
 
 #include <system.h>
+#include <api/cpu.h>
 
 // Length of name that CPUID returns.
-#define CPUID_BRAND_LENGTH 13
+#define CPUID_VENDOR_LENGTH 13
 
 /* Vendor-strings. */
 #define CPUID_VENDOR_OLDAMD        "AMDisbetter!" //early engineering samples of AMD K5 processor
@@ -92,14 +93,14 @@ enum cpuid_requests {
 	CPUID_INTELBRANDSTRINGEND,
 };
 
-size_t CPUIDMaxStandardLevel();
-char *CPUIDBrand();
-char *CPUIDShortBrand();
-char *CPUIDFamily();
-char *CPUIDModel();
-size_t CPUIDCount();
-//CPU_features_t *CPUIDFeatures();
-size_t CPUIDCacheSize();
-size_t CPUIDSerial();
+size_t HalCPUMaxStandardLevel();
+char *HalCPUBrand();
+size_t HalCPUShortBrand();
+char *HalCPUFamily();
+char *HalCPUModel();
+size_t HalCPUCount();
+//CPU_features_t *HalCPUFeatures();
+size_t HalCPUCacheSize();
+size_t HalCPUSerial();
 
 #endif /* end of include guard: CPUID_H */
