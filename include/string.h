@@ -5,8 +5,8 @@
 
 extern int strlen(const char *str);
 
-extern char *strcpy(char *s, char *ct);
-extern char *strncpy(char *s, char *ct, int n);
+extern char *strcpy(char *s, const char *ct);
+extern char *strncpy(char *s, const char *ct, int n);
 
 extern char *strcat(char *s, char *ct);
 extern char *strncat(char *s, char *ct, int n);

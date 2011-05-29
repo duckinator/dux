@@ -1,7 +1,7 @@
 #include <system.h>
 #include <string.h>
 
-char *strcpy(char *s, char *ct)
+char *strcpy(char *s, const char *ct)
 {
 	do {
 		*s = *ct;
@@ -11,7 +11,7 @@ char *strcpy(char *s, char *ct)
 	return s;
 }
 
-char *strncpy(char *s, char *ct, int n)
+char *strncpy(char *s, const char *ct, int n)
 {
 	register int i;
 	for (i = 0; i < n; i++) {
