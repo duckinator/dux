@@ -49,7 +49,6 @@ CPU  count: %u\n\
 Cache size: %u\n\
 Serial no.: %u\n",
                brand, shortbrand, family, model, count, cachesize, serial);
-		printf("Maximum supported standard level: 0x%x\n", HalCPUMaxStandardLevel());
 		free(brand);
 		free(shortbrand);
 		free(family);
