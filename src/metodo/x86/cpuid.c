@@ -73,7 +73,10 @@ char *CPUIDShortBrand()
 	} else if (strcmp(lname, CPUID_VENDOR_RISE) == 0) {
 			strcpy(tmp, "Rise");
 	} else {
-            strcpy(tmp, "Unknown");
+			// Falls back to returning the full brand name.
+			free(tmp);
+			free(lname);
+			return CPUIDBrand();
     }
 	size = sizeof(char) * ((unsigned int)strlen(tmp) + 1);
 	ret = kmalloc(size);
