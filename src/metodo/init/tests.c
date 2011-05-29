@@ -33,16 +33,16 @@ void MemorySizeTest()
 
 	switch(exp) {
 	case 0:
-		strcpy(ext, (char*)" bytes");
+		strcpy(ext, " bytes");
 		break;
 	case 3:
-		strcpy(ext, (char*)"KB");
+		strcpy(ext, "KB");
 		break;
 	case 6:
-		strcpy(ext, (char*)"MB");
+		strcpy(ext, "MB");
 		break;
 	case 9:
-		strcpy(ext, (char*)"GB");
+		strcpy(ext, "GB");
 		break;
 	}
 	printf("We have %d%s of RAM\n", bytes, ext);
