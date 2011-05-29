@@ -21,7 +21,7 @@ char *CPUModel()
 	return CPUIDModel();
 }
 
-int CPUCount()
+size_t CPUCount()
 {
 	return CPUIDCount();
 }
@@ -32,12 +32,12 @@ CPU_features_t *CPUFeatures()
 	return ret;
 }
 
-int CPUCacheSize()
+size_t CPUCacheSize()
 {
 	return CPUIDCacheSize();
 }
 
-char *CPUSerial()
+size_t CPUSerial()
 {
 	return CPUIDSerial();
 }

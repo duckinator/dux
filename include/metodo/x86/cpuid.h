@@ -89,13 +89,14 @@ enum cpuid_requests {
 	CPUID_INTELBRANDSTRINGEND,
 };
 
+size_t CPUIDMaxStandardLevel();
 char *CPUIDBrand();
 char *CPUIDShortBrand();
 char *CPUIDFamily();
 char *CPUIDModel();
-int CPUIDCount();
+size_t CPUIDCount();
 //CPU_features_t *CPUIDFeatures();
-int CPUIDCacheSize();
-char *CPUIDSerial();
+size_t CPUIDCacheSize();
+size_t CPUIDSerial();
 
 #endif /* end of include guard: CPUID_H */
