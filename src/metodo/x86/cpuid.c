@@ -42,7 +42,6 @@ char *CPUIDBrand()
 
 char *CPUIDShortBrand()
 {
-    // FIXME: CPUIDShortBrand() doesn't work
 	char *tmp = kmalloc(sizeof(char) * 13);
 	char *lname = CPUIDBrand();
 	char *ret;
