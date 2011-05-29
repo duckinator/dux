@@ -42,12 +42,12 @@ char *CPUIDBrand()
 
 char *CPUIDShortBrand()
 {
-	char *tmp = kmalloc(sizeof(char) * 13);
+	char *tmp = kmalloc(sizeof(char) * CPUID_BRAND_LENGTH);
 	char *lname = CPUIDBrand();
 	char *ret;
 	unsigned int size;
 
-	memset(tmp, 0, sizeof(char)*13);
+	memset(tmp, 0, sizeof(char) * CPUID_BRAND_LENGTH);
 
 	if ((strcmp(lname, CPUID_VENDOR_OLDAMD) == 0) || (strcmp(lname, CPUID_VENDOR_AMD) == 0)) {
 			strcpy(tmp, "AMD");
