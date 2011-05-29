@@ -16,9 +16,9 @@ char *CPUBrand();
 char *CPUShortBrand();
 char *CPUFamily();
 char *CPUModel();
-int CPUCount();
+size_t CPUCount();
 CPU_features_t *CPUFeatures();
-int CPUCacheSize();
-char *CPUSerial();
+size_t CPUCacheSize();
+size_t CPUSerial();
 
 #endif  /* end of include guard: API_CPU_H */

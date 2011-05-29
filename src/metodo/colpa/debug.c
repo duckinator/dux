@@ -32,7 +32,28 @@ char *ColpaHandleLine()
 	} else if(strcmp(str, "panic") == 0) {
 		stop(STOP_USER_INITIALIZED);
 	} else if(strcmp(str, "cpu") == 0) {
-		printf("%s\n", CPUBrand());
+		// Ow :(
+		char  *brand      = CPUBrand(),
+		      *shortbrand = CPUShortBrand(),
+		      *family     = CPUFamily(),
+		      *model      = CPUModel();
+		size_t count      = CPUCount(),
+		       cachesize  = CPUCacheSize(),
+		       serial     = CPUSerial();
+		printf("\
+Full  Brand: %s\n\
+Short Brand: %s\n\
+Family:  %s\n\
+Model:   %s\n\
+CPU  count: %u\n\
+Cache size: %u\n\
+Serial no.: %u\n",
+               brand, shortbrand, family, model, count, cachesize, serial);
+		printf("Maximum supported standard level: 0x%x\n", CPUIDMaxStandardLevel());
+		free(brand);
+		free(shortbrand);
+		free(family);
+		free(model);
 	} else {
 		printf("Unknown command: %s\n", str);
 	}
