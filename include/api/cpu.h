@@ -2,6 +2,7 @@
 #define API_CPU_H
 
 #include <system.h>
+#include <string.h>
 
 enum {
 	CPU_VENDOR_UNKNOWN = 0,
