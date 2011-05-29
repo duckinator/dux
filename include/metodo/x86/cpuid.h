@@ -3,6 +3,9 @@
 
 #include <system.h>
 
+// Length of name that CPUID returns.
+#define CPUID_BRAND_LENGTH 13
+
 /* Vendor-strings. */
 #define CPUID_VENDOR_OLDAMD        "AMDisbetter!" //early engineering samples of AMD K5 processor
 #define CPUID_VENDOR_AMD           "AuthenticAMD"
