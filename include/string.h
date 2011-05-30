@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-extern int strlen(const char *str);
+extern size_t strlen(const char *str);
 
 extern char *strcpy(char *s, const char *ct);
 extern char *strncpy(char *s, const char *ct, int n);

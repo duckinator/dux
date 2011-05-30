@@ -93,7 +93,7 @@ char *strrchr(char *cs, int c)
 	return last;
 }
 
-int strlen(const char *str)
+size_t strlen(const char *str)
 {
 	/* This loops through character array 'str', returning how
 	*  many characters it needs to check before it finds a 0.
