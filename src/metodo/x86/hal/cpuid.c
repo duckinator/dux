@@ -40,7 +40,6 @@ char *HalCPUBrand()
 	return ret;
 }
 
-// FIXME: Make this use a enum instead of a string! Much less horrifying...
 size_t HalCPUShortBrand()
 {
 	char *lname = HalCPUBrand();
