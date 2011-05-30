@@ -103,6 +103,14 @@ noreturn KernDebug()
 				}
 				ColpaPrompt();
 				break;
+			// Backspace
+			case 0x8e:
+				if(strlen(str) > 0) {
+					i--;
+					str[i] = '\0';
+					printf("%c", keyinfo->key);
+				}
+				break;
 			// Otherwise
 			default:
 				if(strlen(str) >= 1000) {
