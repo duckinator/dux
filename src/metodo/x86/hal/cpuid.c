@@ -98,6 +98,7 @@ char *HalCPUModel()
 	return ret;
 }
 
+// TODO: Proper CPU topology detection? http://wiki.osdev.org/Detecting_CPU_Topology_%2880x86%29
 size_t HalCPUCount()
 {
 	size_t where[4];
