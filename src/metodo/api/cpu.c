@@ -10,7 +10,7 @@ char *CPUBrand()
 	return HalCPUBrand();
 }
 
-unsigned int CPUShortBrand()
+size_t CPUShortBrand()
 {
 	return HalCPUShortBrand();
 }
