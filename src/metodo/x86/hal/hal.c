@@ -4,7 +4,7 @@
 
 void StartService(const char *msg, const char *name, void (*func)())
 {
-	int i;
+	size_t i;
 	printf("%s %s", msg, name);
 	for(i = 0; i < (50 - strlen(msg) - strlen(name)); i++)
 		printf(" ");
