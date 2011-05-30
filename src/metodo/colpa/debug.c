@@ -20,6 +20,7 @@ char *ColpaHandleLine()
 		printf("Commands:\n\
   help\n\
   info\n\
+  cpu\n\
   panic\n\
   halt\n\
   reboot\n");
