@@ -101,16 +101,16 @@ char *HalCPUModel()
 size_t HalCPUCount()
 {
 	size_t where[4];
-	uint8_t tmp;
+	uint8_t ret;
 
 	cpuid_string(CPUID_GETFEATURES, where);
-	tmp = (uint8_t)(where[1] >> 16);
+	ret = (uint8_t)(where[1] >> 16);
 
 	// If it reports 0 processors, assume 1 instead of 0
-	if(tmp == 0)
-		tmp = 1;
+	if(ret == 0)
+		ret = 1;
 	
-	return (size_t)tmp;
+	return (size_t)ret;
 }
 
 /*
