@@ -52,9 +52,8 @@ void DisplayChar(const char c)
 
 void DisplayString(const char *s)
 {
-	do {
+	for(; *s; s++)
 		DisplayChar(*s);
-	} while (*s++);
 }
 
 void DisplaySpot(uint8_t s, uint8_t row, uint8_t col)
