@@ -65,7 +65,7 @@ noreturn KernDebug()
 	// FIXME: Dummy KernDebug()
 	//panic("Kernel debugger not implemented.");
 	HalKeyInfo *keyinfo;
-	str = kmalloc(1000); // 1000-har message
+	str = kmalloc(1000); // 1000-char message
 
 	printf("Initiating kernel debugger...\n");
 	printf("Disabling interrupts...");
