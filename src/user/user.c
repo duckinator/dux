@@ -20,7 +20,7 @@ int main(UNUSED int argc, UNUSED char const* argv[])
 	 * make the compilers be nice and not throw warnings about
 	 * unused args.
 	 */
-	printf("Welcome to Dux useless userland!\n(That really needs to change)\n");
+	printf("Welcome to Dux's useless userland!\n(That really needs to change)\n");
 
 	/*
 	 * TODO: Implement APIs mentioned in user/user.c
