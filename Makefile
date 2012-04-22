@@ -100,10 +100,10 @@ clean:
 	@find ./src -name '*.d'   -delete
 
 qemu: iso
-	qemu -serial stdio -cdrom iso/Dux.iso
+	qemu-system-i386 -serial stdio -cdrom iso/Dux.iso
 
 qemu-monitor: iso
-	qemu -monitor stdio -cdrom iso/Dux.iso
+	qemu-system-i386 -monitor stdio -cdrom iso/Dux.iso
 
 bochs: iso
 	./run.sh
