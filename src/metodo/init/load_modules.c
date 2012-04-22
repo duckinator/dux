@@ -11,6 +11,21 @@ void InitLoadModules()
 		module = (module_t*)mbd->mods_addr;
 		printf("We have %i modules.\n", mbd->mods_count);
 		for (i = 0; i < mbd->mods_count; i++, module++) {
+      if(module->mod_start == 0x0 && module->mod_end == 0x0) {
+        // If we get here, it's not really a module.
+        current_module++;
+        
+        if(current_module >= 5) {
+          // Arbitrary number. Give up to avoid an endless loop.
+          printf("BUG: Found 5 modules at 0x0-0x0.\n");
+          printf("Giving up on loading modules.\n");
+          return;
+        } else {
+          printf("BUG: Found module at 0x0-0x0.\n");
+          continue;
+        }
+      }
+      
 			printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
 			printf("Module name: %s\n", (char*)module->string);
 
