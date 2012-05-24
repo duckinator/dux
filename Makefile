@@ -7,7 +7,7 @@ RANLIB := ranlib
 LD     := ld
 
 ARCH := x86_32
-ARCHES := x86_32 x86_64
+ARCHES := x86_32
 BUILD_TYPE := debug
 
 # Add all of these flags to whatever user input we get.
