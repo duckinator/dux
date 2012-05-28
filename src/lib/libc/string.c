@@ -99,7 +99,7 @@ size_t strlen(const char *str)
 	*  many characters it needs to check before it finds a 0.
 	*  In simple words, it returns the length in bytes of a string */
 	char *cstr = (char*) str;
-	int i;
+	size_t i;
 	for (i = 0; cstr[i] != '\0'; i++) {}
 	return i;
 }
