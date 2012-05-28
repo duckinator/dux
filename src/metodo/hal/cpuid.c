@@ -1,6 +1,6 @@
 #include <metodo/metodo.h>
 #include <string.h>
-#include <metodo/x86/hal/cpuid.h>
+#include <metodo/hal/cpuid.h>
 
 /* cpuid() and cpuid_string() are from Clicker, which is in the public domain */
 

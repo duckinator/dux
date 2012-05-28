@@ -32,6 +32,7 @@ void HalInit(void) {
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
+	StartInitializer("UART", &HalKeyboardInit);
 
 	StartService("Enabling", "interrupts", &HalEnableInterrupts);
 }

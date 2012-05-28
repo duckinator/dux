@@ -2,7 +2,7 @@
 #define LOAD_MODULES_H
 
 #include <metodo/metodo.h>
-#include <metodo/x86/mm/memory.h>
+#include <metodo/mm/memory.h>
 
 #include <metodo/misc/modules.h>
 

@@ -1,9 +1,7 @@
 #include <metodo/metodo.h>
 #include <api/cpu.h>
 
-#if defined(DUX_X86_32) || defined(DUX_X86_64)
-	#include <metodo/x86/hal/cpuid.h>
-#endif
+#include <metodo/hal/cpuid.h>
 
 char *CPUBrand()
 {

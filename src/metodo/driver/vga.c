@@ -1,4 +1,4 @@
-#include <driver/x86/vga.h>
+#include <driver/vga.h>
 
 #define COLS (80)
 #define ROWS (25)

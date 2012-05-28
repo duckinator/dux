@@ -173,4 +173,4 @@ fi
 
 rm Drivers.tmp Modules.tmp
 
-$isocmd -R -b $bootloader_location --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/Dux.iso isofs
+$isocmd -R -b $bootloader_location --no-emul-boot --boot-load-size 4 --boot-info-table --input-charset utf-8 -o iso/dux.iso isofs

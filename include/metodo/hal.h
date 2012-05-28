@@ -5,9 +5,27 @@
 
 #include <api/display.h>
 
-#include <metodo/x86/mm/memory.h>
+#include <metodo/mm/memory.h>
 
-#include <hal.h>
+#include <hal/idt.h>
+
+#include <hal/exceptions.h>
+#include <hal/ports.h>
+#include <hal/isr.h>
+#include <hal/irqs.h>
+#include <hal/syscall.h>
+
+/* Interrupts */
+void HalDisableInterrupts(void);
+void HalEnableInterrupts(void);
+
+void HalDisableNMI(void);
+void HalEnableNMI(void);
+
+#include <hal/shutdown.h>
+
+#include <driver/timer.h>
+#include <driver/keyboard/keyboard.h>
 
 void HalInit(void);
 

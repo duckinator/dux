@@ -10,7 +10,7 @@ global HalIsrSyscall
 HalIsrSyscall:
 	cli
 	push byte 0
-	; `push dword <syscall interrupt>`, see IA32_SYSCALL_INTERRUPT
+	; `push dword <syscall interrupt>`, see SYSCALL_INTERRUPT
 	; in include/config.h for more info
 	push dword 0xFF
 	jmp HalIsrCommon
