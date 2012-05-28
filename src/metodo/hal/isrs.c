@@ -41,7 +41,7 @@ const char *HalExceptions[32] = {
 
 void HalIsrHandler(struct regs *r)
 {
-	if (r->int_no == IA32_SYSCALL_INTERRUPT) {
+	if (r->int_no == SYSCALL_INTERRUPT) {
 		HalSyscallHandler(r);
 	} else if(r->int_no == 3) {
 		KernDebug();

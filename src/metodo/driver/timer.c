@@ -1,5 +1,5 @@
 #include <driver/driver.h>
-#include <driver/x86/timer.h>
+#include <driver/timer.h>
 #include <metodo/core/scheduler.h>
 
 unsigned int ticks = 0;

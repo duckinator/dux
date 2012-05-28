@@ -1,4 +1,4 @@
 boot: cdrom
 megs: 75
-ata0-master: type=cdrom, path=Dux.iso, status=inserted
+ata0-master: type=cdrom, path=dux.iso, status=inserted
 

@@ -10,8 +10,8 @@
  *   default is 0xFF
  *   used to use 0x80 (got the idea from Linux)
  * This must also be changed in HalIsrSyscall - line 15 in
- * src/metodo/i386/hal/exceptions.asm
+ * src/metodo/hal/exceptions.asm
  */
-#define IA32_SYSCALL_INTERRUPT 0xFF
+#define SYSCALL_INTERRUPT 0xFF
 
 #endif /* end of include guard: CONFIG_H */

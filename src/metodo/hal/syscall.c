@@ -47,7 +47,7 @@ static void *syscalls[NUM_SYSCALLS] =
 void HalInitializeSyscalls()
 {
 	// Register our syscall handler.
-	HalSetIDTGate(IA32_SYSCALL_INTERRUPT, (uint32_t) HalIsrSyscall, 0x08, 0x8E, 0, IDT_INTR32);
+	HalSetIDTGate(SYSCALL_INTERRUPT, (uint32_t) HalIsrSyscall, 0x08, 0x8E, 0, IDT_INTR32);
 }
 
 void HalSyscallHandler(struct regs *r)

@@ -12,7 +12,7 @@ void putc ( char c )
 	__asm__ __volatile__ (" \
 			mov $0, %%eax; \
 			mov %0, %%ebx; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : "m" (c) : "eax", "ebx");
 }
 
@@ -28,7 +28,7 @@ void puthex ( uint32_t num )
 	__asm__ __volatile__ (" \
 			mov $1, %%eax; \
 			mov %0, %%ebx; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : "m" (num) : "eax", "ebx");
 }
 
@@ -37,7 +37,7 @@ void putdec ( uint32_t num )
 	__asm__ __volatile__ (" \
 			mov $2, %%eax; \
 			mov %0, %%ebx; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : "m" (num) : "eax", "ebx");
 }
 
@@ -45,7 +45,7 @@ void shutdown ()
 {
 	__asm__ __volatile__ (" \
 			mov $3, %%eax; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : : "eax");
 }
 
@@ -53,7 +53,7 @@ void reboot ()
 {
 	__asm__ __volatile__ (" \
 			mov $4, %%eax; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : : "eax");
 }
 
@@ -61,7 +61,7 @@ void clear_screen ()
 {
 	__asm__ __volatile__ (" \
 			mov $5, %%eax; \
-			int $" MACRO_STRING(IA32_SYSCALL_INTERRUPT) "; \
+			int $" MACRO_STRING(SYSCALL_INTERRUPT) "; \
 			" : : : "eax");
 }
 

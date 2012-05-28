@@ -6,11 +6,16 @@
 *.shl
 *.d
 
-# Ignore the ISO
-Dux.iso
+# Ignore test-related stuff
+tests.out
+tests.raw
+*.pid
 
+# Ignore the ISO
+
+*.iso
 # Ignore floppy image
-Dux.img
+*.img
 
 #ignore emacs files
 #ignore emacs temp files
