@@ -36,7 +36,9 @@ tests.raw
 tags
 
 #ignore isofs
-isofs
+isofs/Drivers
+isofs/Modules
+isofs/System
 
 #ignore buildinfo
 include/buildinfo.h
