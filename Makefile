@@ -1,5 +1,5 @@
-#CC     :=clang
-CC     := gcc
+CC     :=clang
+#CC     := gcc
 ASM    := nasm
 AR     := ar
 RANLIB := ranlib

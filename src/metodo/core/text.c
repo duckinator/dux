@@ -303,18 +303,19 @@ reset:
 			break;
 		case 'c':
 			i = 0;
-			if (!(flags & TF_LEFT))
+			if (!(flags & TF_LEFT)) {
 				while (i++ < (int)fieldwidth)
 					if ((size_t)len < size)
 						str[len++] = ' ';
 					else
 						len++;
+			}
 			if ((size_t)len < size) {
 				str[len++] =
 					(char) va_arg(ap, int);
 			} else {
 				len++;
-				va_arg(ap, void);
+				va_arg(ap, int); // was va_arg(ap, void);
 			}
 			while (i++ < (int)fieldwidth)
 				if ((size_t)len < size)
