@@ -15,7 +15,7 @@ static inline void cpuid(int code, size_t *eax, size_t *ebx, size_t *ecx, size_t
 /** issue a complete request, storing general registers output as a string
  */
 static inline int cpuid_string(int code, size_t where[4]) {
-  int highest;
+  int highest = -1;
   __asm__ volatile("cpuid":"=a"(*where),"=b"(*(where+1)),
 			   "=c"(*(where+2)),"=d"(*(where+3)):"0"(code));
   return highest;
