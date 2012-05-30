@@ -1,0 +1,19 @@
+before_script:
+#  - sudo apt-get -y update
+  - sudo apt-get -y install qemu clang nasm mkisofs
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
+
+#script: make && ./test.sh
+script: make qemu
+
+notifications:
+  webhooks:
+    - http://rcmp.programble.co.cc/irc.tenthbit.net/programming
+  
+  email:
+    on_success: change # default: change
+    on_failure: change # default: always
+
