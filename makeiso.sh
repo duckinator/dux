@@ -13,8 +13,8 @@ fi
 
 mkdir -p isofs/System
 
-mv src/metodo/metodo.exe isofs/System
-mv src/user/user.exe     isofs/System
+cp src/metodo/metodo.exe isofs/System
+cp src/user/user.exe     isofs/System
 
 for x in `find -name '*.lib'`; do
   cp $x isofs/System
