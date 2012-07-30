@@ -7,7 +7,7 @@ before_script:
 
 
 #script: make && ./test.sh
-script: exit 1
+script: false
 
 notifications:
 #  webhooks:
