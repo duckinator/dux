@@ -6,11 +6,13 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 
-script: make && ./test.sh
+#script: make && ./test.sh
+script: exit 1
 
 notifications:
-  webhooks:
-    - http://rcmp.programble.co.cc/irc.tenthbit.net/programming
+#  webhooks:
+#    - http://rcmp.programble.co.cc/irc.tenthbit.net/programming
+#    - http://rcmp.programble.co.cc/irc.freenode.net/duxos
   
   email:
     on_success: change # default: change
