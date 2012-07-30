@@ -44,10 +44,10 @@ metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
 #	@/bin/echo $^
 
-metodo-libs: libc.lib user.exe
+metodo-libs: libc.lib userland.exe
 
-user.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
-	@${LD} -o src/user/user.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
+userland.exe: krnllib.lib $(filter src/user/%.o, ${OBJFILES})
+	@${LD} -o src/user/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
