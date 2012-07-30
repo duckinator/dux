@@ -12,5 +12,5 @@ UP_ONE_LINE  = "\\033[1A"    # Move cursor up one line
 MESSAGE_PRE  = "${UP_ONE_LINE}\\r${CLEAR_TO_EOL}"
 MESSAGE_PRE  = ""
 
-STATUS       = ${ECHO_E} "${MESSAGE_PRE}${COLOR_GREEN}\\b\\b[$(1)]${COLOR_RESET} $(dir $(2))${COLOR_RED}\\b$(notdir $(2))${COLOR_RESET}"
+STATUS       = /bin/echo -e "${MESSAGE_PRE}${COLOR_GREEN}\\b\\b[$(1)]${COLOR_RESET} $(dir $(2))${COLOR_RED}\\b$(notdir $(2))${COLOR_RESET}"
 

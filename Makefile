@@ -25,26 +25,24 @@ override ASFLAGS += -felf32
 
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} x86_32 > ./include/buildinfo.h)
 
-ECHO_E=$(shell [ -z "$(echo -en)" ] && echo -n "echo -e" || echo -n "echo")
-
 # "terminalfix" is required so it wont overwrite your prompt if line is overwritten.
 # Would be nice if this could somehow be handled inside of terminal.mk,
 # to remove as much terminal-specific clutter as possible
 all: iso
-	@${ECHO_E} "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}"
-	@${ECHO_E} "  ${COLOR_BLUE}make qemu${COLOR_RESET}"
-	@${ECHO_E} "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}"
-	@${ECHO_E} "  ${COLOR_BLUE}make bochs${COLOR_RESET}"
+	@/bin/echo -e "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}"
+	@/bin/echo -e "  ${COLOR_BLUE}make qemu${COLOR_RESET}"
+	@/bin/echo -e "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}"
+	@/bin/echo -e "  ${COLOR_BLUE}make bochs${COLOR_RESET}"
 	@echo
-	@${ECHO_E} "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}"
-	@${ECHO_E} "  ${COLOR_BLUE}make test${COLOR_RESET}"
+	@/bin/echo -e "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}"
+	@/bin/echo -e "  ${COLOR_BLUE}make test${COLOR_RESET}"
 
 terminalfix:
-	@echo # Don't overwrite the prompt :P
+	@/bin/echo # Don't overwrite the prompt :P
 
 metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
-#	@echo $^
+#	@/bin/echo $^
 
 metodo-libs: libc.lib user.exe
 
