@@ -40,7 +40,15 @@ void InitLoadModules()
 				printf("Loading driver: %s\n", (char*)module->string);
 				//LoadExe((void*)module->mod_start);
 				//while(1){}
-			}
+			} else if (strncmp((char*)module->string, (char*)"/Modules/", 9) == 0) {
+				printf("Loading module: %s\n", (char*)module->string);
+				//LoadExe((void*)module->mod_start);
+				//while(1){}
+			} else {
+				printf("Loading...something: %s\n", (char*)module->string);
+				//LoadExe((void*)module->mod_start);
+				//while(1){}
+      }
 		}
 	}
 }

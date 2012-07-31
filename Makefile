@@ -59,6 +59,7 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	@${AR} rc src/lib/libc/libc.lib $^
 	@${RANLIB} src/lib/libc/libc.lib
 
+
 -include $(find ./src -name '*.d')
 %.o: %.c
 	@$(call STATUS,"COMPILE ",$^)
@@ -67,6 +68,8 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 %.o: %.asm
 	@$(call STATUS,"ASSEMBLE",$^)
 	@${ASM} ${ASFLAGS} -o $@ $<
+
+include modules.mk
 
 iso: metodo.exe
 	@$(call STATUS,"Generating Dux.iso")
