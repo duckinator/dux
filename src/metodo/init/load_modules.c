@@ -36,19 +36,8 @@ void InitLoadModules()
 			printf("Found executable %s at 0x%x\n", modules[current_module].name, modules[current_module].exe);
 			current_module++;
 
-			if (strncmp((char*)module->string, (char*)"/Drivers/", 9) == 0) {
-				printf("Loading driver: %s\n", (char*)module->string);
-				//LoadExe((void*)module->mod_start);
-				//while(1){}
-			} else if (strncmp((char*)module->string, (char*)"/Modules/", 9) == 0) {
-				printf("Loading module: %s\n", (char*)module->string);
-				//LoadExe((void*)module->mod_start);
-				//while(1){}
-			} else {
-				printf("Loading...something: %s\n", (char*)module->string);
-				//LoadExe((void*)module->mod_start);
-				//while(1){}
-      }
+			printf("Loading driver: %s\n", (char*)module->string);
+			LoadExe((void*)module->mod_start);
 		}
 	}
 }
