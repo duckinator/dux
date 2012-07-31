@@ -21,6 +21,8 @@ char *ColpaHandleLine()
   help\n\
   info\n\
   cpu\n\
+  test\n\
+  mmap\n\
   panic\n\
   halt\n\
   reboot\n");
@@ -54,6 +56,10 @@ Serial no.: %u\n",
 		free(shortbrand);
 		free(family);
 		free(model);
+	} else if(strcmp(str, "test") == 0) {
+		SystemTests();
+	} else if(strcmp(str, "mmap") == 0) {
+		MMapPrint();
 	} else {
 		printf("Unknown command: %s\n", str);
 	}

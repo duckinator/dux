@@ -11,10 +11,6 @@ noreturn InitKernel(uint32_t magic, void *arg)
 
 	InitLoadModules(); // Load all kernel modules
 
-	SystemTests();     // Run system tests
-
-	MMapPrint();       // Print memory map information
-
 	userland = GetModule("/System/userland.exe");
 
 	/* Initialize pseudo-user mode */
