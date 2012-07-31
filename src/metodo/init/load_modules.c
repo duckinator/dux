@@ -1,4 +1,5 @@
 #include <metodo/init/load_modules.h>
+#include <metodo/misc/modules.h>
 
 void InitLoadModules()
 {
@@ -7,9 +8,11 @@ void InitLoadModules()
 	module_t *module;
 	int current_module = 0;
 	modules = (Module*)kmalloc(sizeof(Module) * 1024);
+	void *module_ptr = NULL;
+
 	if (mbd->flags>>3&1) {
 		module = (module_t*)mbd->mods_addr;
-		printf("We have %i modules.\n", mbd->mods_count);
+		printf("Found %i modules.\n", mbd->mods_count);
 		for (i = 0; i < mbd->mods_count; i++, module++) {
       if(module->mod_start == 0x0 && module->mod_end == 0x0) {
         // If we get here, it's not really a module.
@@ -26,18 +29,23 @@ void InitLoadModules()
         }
       }
       
-			printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
-			printf("Module name: %s\n", (char*)module->string);
+			//printf("Module located at 0x%x-0x%x\n", module->mod_start, module->mod_end);
+			//printf("Module name: %s\n", (char*)module->string);
 
+			printf("Found module: %s\n", (char*)module->string);
 			len = sizeof(char) * ((unsigned int)strlen((char*)module->string))+1;
 			modules[current_module].name = (char*)kmalloc(len);
 			memcpy(modules[current_module].name, (char*)(module->string), len);
 			modules[current_module].exe = (void*) module->mod_start;
-			printf("Found executable %s at 0x%x\n", modules[current_module].name, modules[current_module].exe);
+			//printf("Found module %s at 0x%x\n", modules[current_module].name, modules[current_module].exe);
 			current_module++;
 
-			printf("Loading driver: %s\n", (char*)module->string);
-			LoadExe((void*)module->mod_start);
+			module_ptr = GetModule((char*)(module->string));
+
+			if (module_ptr != NULL && (strncmp((char*)(module->string), "/Modules/", 10) == 0)) {
+				printf("Initalizing %s...\n", (char*)(module->string));
+				LoadExe(module_ptr);
+			}
 		}
 	}
 }

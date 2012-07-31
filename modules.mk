@@ -1,4 +1,4 @@
-modules: test_module.exe
+modules: metodo.exe test_module.exe
 	@mkdir -p isofs/Modules
 	@cp src/modules/test_module.exe isofs/Modules/
 
