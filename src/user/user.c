@@ -4,7 +4,7 @@
 
 void _start(void)
 {
-	clear_screen();
+	//clear_screen();
 	const char *argv[1] = {
 		"user"
 	};
