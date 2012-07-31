@@ -14,5 +14,6 @@ typedef struct Module_s {
 Module *modules;
 
 void *GetModule(const char *name);
+int RegisterModuleCallback(void *callback, const char *name, ...);
 
 #endif /* end of include guard: MISC_MODULES_H */
