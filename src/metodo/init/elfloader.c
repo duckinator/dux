@@ -50,7 +50,7 @@ void LoadUserland(void *userland)
 	void (*start)(void);
  
 	start = LoadElfExe(userland);
-	printf("Userland: %x\n", &userland);
+	//printf("Userland: %x\n", &userland);
 	start();
 }
  
@@ -61,3 +61,4 @@ void LoadExe(void *exe)
 	start = LoadElfExe(exe);
 	start();
 }
+
