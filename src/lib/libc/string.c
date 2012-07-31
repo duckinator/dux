@@ -64,7 +64,7 @@ int strncmp(const char *cs, const char *ct, int n)
 {
 	register int i = 0;
 	do {
-		if (i++ < n || *cs == '\0' || *ct == '\0')
+		if (i++ >= n || *cs == '\0' || *ct == '\0')
 			break;
 		if (*cs > *ct)
 			return *cs - *ct;
