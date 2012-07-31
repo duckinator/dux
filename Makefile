@@ -70,7 +70,7 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 
 iso: metodo.exe
 	@$(call STATUS,"Generating Dux.iso")
-	@./makeiso.sh &> /dev/null
+	@./makeiso.sh
 	@$(call STATUS,"DONE")
 
 test: iso
