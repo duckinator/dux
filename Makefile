@@ -25,9 +25,6 @@ override ASFLAGS += -felf32
 
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} x86_32 > ./include/buildinfo.h)
 
-# "terminalfix" is required so it wont overwrite your prompt if line is overwritten.
-# Would be nice if this could somehow be handled inside of terminal.mk,
-# to remove as much terminal-specific clutter as possible
 all: iso
 	@/bin/echo -e "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}"
 	@/bin/echo -e "  ${COLOR_BLUE}make qemu${COLOR_RESET}"
@@ -36,9 +33,6 @@ all: iso
 	@echo
 	@/bin/echo -e "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}"
 	@/bin/echo -e "  ${COLOR_BLUE}make test${COLOR_RESET}"
-
-terminalfix:
-	@/bin/echo # Don't overwrite the prompt :P
 
 metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
@@ -104,4 +98,4 @@ clean:
 	@find ./src -name '*.exe' -delete
 	@find ./src -name '*.d'   -delete
 
-.PHONY: all terminalfix metodo-libs iso clean test qemu qemu-monitor bochs todo sloc clean
+.PHONY: all metodo-libs iso clean test qemu qemu-monitor bochs todo sloc clean
