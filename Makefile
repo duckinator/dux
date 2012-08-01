@@ -59,6 +59,10 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	@${AR} rc src/lib/libc/libc.lib $^
 	@${RANLIB} src/lib/libc/libc.lib
 
+hal.lib: $(filter src/metodo/hal/%.o, ${OBJFILES})
+	@${AR} rc  src/metodo/hal/hal.lib $^
+	@${RANLIB} src/metodo/hal/hal.lib
+
 
 -include $(find ./src -name '*.d')
 %.o: %.c
