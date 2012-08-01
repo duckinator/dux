@@ -68,9 +68,7 @@ Serial no.: %u\n",
 
 noreturn KernDebug()
 {
-	// FIXME: Dummy KernDebug()
-	//panic("Kernel debugger not implemented.");
-	HalKeyInfo *keyinfo;
+	HalKeyboardEvent *event;
 	str = kmalloc(1000); // 1000-char message
 
 	printf("Initiating kernel debugger...\n");
@@ -93,17 +91,13 @@ noreturn KernDebug()
 	HalEnableInterrupts();
 	printf("Done.\n");
 
-	// Empty the buffer
-	if(HalKeyboardHasInput())
-		HalKeyboardReadLetter();
-
 	ColpaPrompt();
 	while(1) {
-		keyinfo = HalKeyboardReadLetter();
-		if (keyinfo->action == 0) {
-			switch ( keyinfo->scancode ) {
+		event = HalKeyboardGetEvent(1);
+		if (event->type == HalKeyboardEventType_down) {
+			switch ( event->code ) {
 			// Enter
-			case 0x9c:
+			case 0x1c:
 				printf("\n");
 				if(strlen(str) > 0) {
 					ColpaHandleLine();
@@ -111,11 +105,11 @@ noreturn KernDebug()
 				ColpaPrompt();
 				break;
 			// Backspace
-			case 0x8e:
+			case 0xe:
 				if(strlen(str) > 0) {
 					i--;
 					str[i] = '\0';
-					printf("%c", keyinfo->key);
+					printf("%c", event->character);
 				}
 				break;
 			// Otherwise
@@ -123,9 +117,9 @@ noreturn KernDebug()
 				if(strlen(str) >= 1000) {
 					printf("YOU TYPE TOO MUCH D:\n");
 				} else {
-					str[i] = keyinfo->key;
+					str[i] = event->character;
 					i++;
-					printf("%c", keyinfo->key);
+					printf("%c", event->character);
 				}
 				break;
 			}

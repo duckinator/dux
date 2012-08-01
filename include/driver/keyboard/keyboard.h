@@ -5,34 +5,36 @@
 #define NUM_LED 2
 #define CAPSLOCK_LED 4
 
-typedef struct hal_key_info {
+typedef enum
+{
+    HalKeyboardEventType_down,
+    HalKeyboardEventType_up
+} HalKeyboardEventType;
+
+typedef struct HalKeyboardEvent {
+	HalKeyboardEventType type;
 	int ctrl_l, ctrl_r;
 	int alt_l, alt_r;
 	int shift_l, shift_r;
-	int action;
-	int scancode;
-	char key;
+  int alt, shift, ctrl;
+	uint32_t code;
+	char character;
 	char unused[3]; // Fix alignment
-} HalKeyInfo;
+} HalKeyboardEvent;
 
-extern void HalKeyboardHandler(struct regs *r);
-extern int HalKeyboardCapslock();
-extern int HalKeyboardNumlock();
-extern char HalKeyboardHasInput();
-extern HalKeyInfo *HalKeyboardRead();
-extern HalKeyInfo *HalKeyboardReadLetter();
-extern HalKeyInfo *HalKeyboardResolveScancode(HalKeyInfo *keyinfo);
-extern HalKeyInfo *HalKeyboardResolveScancode_shift(HalKeyInfo *keyinfo);
-extern void HalKeyboardInit();
+typedef struct HalKeyboardEventQueue
+{
+    HalKeyboardEvent *event;
+    struct HalKeyboardEventQueue *previous;
+} HalKeyboardEventQueue;
 
-extern void HalKeyboardTest();
-
-// The following are a list of the 'make' codes.
-// We find break codes from these
-#define SHIFT_LEFT    0x2A
-#define SHIFT_RIGHT   0x36
-#define CAPSLOCK      0xBA
-#define ALT           0x38
-#define CONTROL       0x1D
+void HalKeyboardHandler(struct regs *r);
+int HalKeyboardCapslock();
+int HalKeyboardNumlock();
+void HalKeyboardEventQueue_enqueue(HalKeyboardEvent *event);
+HalKeyboardEvent *HalKeyboardEventQueue_dequeue();
+HalKeyboardEvent *HalKeyboardGetEvent(int blocking);
+HalKeyboardEvent *HalKeyboardReadLetter();
+void HalKeyboardInit();
 
 #endif /* end of include guard: HAL_KEYBOARD_H */
