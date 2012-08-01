@@ -1,5 +1,6 @@
-#include <metodo/init/load_modules.h>
-#include <metodo/misc/modules.h>
+#include <init/elfloader.h>
+#include <init/load_modules.h>
+#include <misc/modules.h>
 
 void InitLoadModules()
 {

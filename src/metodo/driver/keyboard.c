@@ -123,7 +123,7 @@ HalKeyboardEvent *HalKeyboardGetEvent(int blocking)
 	return HalKeyboardEventQueue_dequeue();
 }
 
-HalKeyboardEvent *HalKeyboardReadLetter(int echo)
+char HalKeyboardReadLetter(int echo)
 {
 	HalKeyboardEvent *event = HalKeyboardGetEvent(1);
 	while (!event || !event->character || event->type == HalKeyboardEventType_up) {

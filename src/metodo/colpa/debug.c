@@ -3,6 +3,9 @@
 #include <metodo/core/shutdown.h>
 #include <api/cpu.h>
 
+#include <init/tests.h>
+#include <init/memory_map.h>
+
 uint8_t i;
 char *str;
 
