@@ -2,6 +2,8 @@
 #include <metodo/core/scheduler.h>
 #include <string.h>
 
+//#include <driver/serial.h>
+
 void StartService(const char *msg, const char *name, void (*func)())
 {
 	size_t i;
@@ -32,7 +34,7 @@ void HalInit(void) {
 	StartInitializer("memory management", &init_mm);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
-	StartInitializer("UART", &HalKeyboardInit);
+	//StartInitializer("UART", &UartInit);
 
 	StartService("Enabling", "interrupts", &HalEnableInterrupts);
 }

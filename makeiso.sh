@@ -20,7 +20,8 @@ for x in `find src -name '*.lib'`; do
   cp $x isofs/System
 done
 
-for x in `find src/module -name '*.exe'`; do
+for x in `find src/modules -name '*.exe'`; do
+  echo "Copying $x"
   cp $x isofs/Modules
 done
 
