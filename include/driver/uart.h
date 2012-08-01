@@ -1,5 +1,5 @@
-#ifndef DRIVER_SERIAL_H
-#define DRIVER_SERIAL_H
+#ifndef DRIVER_UART_H
+#define DRIVER_UART_H
 
 #include <driver/driver.h>
 
@@ -28,7 +28,8 @@ enum UART_Registers {
 };
 
 void UartSend(char c);
+void UartSendString(const char *str);
 static void UartSend_int(char c);
 int UartInit();
 
-#endif /* end of include guard: HAL_SERIAL_H */
+#endif /* end of include guard: HAL_UART_H */

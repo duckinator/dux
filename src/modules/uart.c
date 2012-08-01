@@ -7,7 +7,7 @@
 #include <lib/krnllib.h>
 #include <system.h>
 
-#include <driver/serial.h>
+#include <driver/uart.h>
 
 //DRIVER_INIT(UartInit)
 //void _start(void) { UartInit(); }
@@ -19,7 +19,7 @@ void UartSend(char c)
 	UartSend_int(c);
 }
 
-void UartSendString(char *str)
+void UartSendString(const char *str)
 {
 	do {
 		UartSend(*str);

@@ -34,7 +34,7 @@ int HalKeyboardNumlock();
 void HalKeyboardEventQueue_enqueue(HalKeyboardEvent *event);
 HalKeyboardEvent *HalKeyboardEventQueue_dequeue();
 HalKeyboardEvent *HalKeyboardGetEvent(int blocking);
-HalKeyboardEvent *HalKeyboardReadLetter();
+char HalKeyboardReadLetter();
 void HalKeyboardInit();
 
 #endif /* end of include guard: HAL_KEYBOARD_H */
