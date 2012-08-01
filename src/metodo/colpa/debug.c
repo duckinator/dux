@@ -118,7 +118,7 @@ noreturn KernDebug()
 			// Otherwise
 			default:
 				if(strlen(str) >= 1000) {
-					printf("YOU TYPE TOO MUCH D:\n");
+					printf("\nERROR: Line cannot be longer than 1,000 bytes due to the lack of realloc()\n");
 				} else {
 					str[i] = event->character;
 					i++;
