@@ -1,5 +1,9 @@
 #include <system.h>
-#include <lib/krnllib.h>
+
+#ifndef NO_KRNLLIB
+	#include <lib/krnllib.h>
+#endif
+
 #include <config.h>
 
 #define is_digit(c) ((c) >= '0' && (c) <= '9')
