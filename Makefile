@@ -69,7 +69,7 @@ hal.lib: $(filter src/metodo/hal/%.o, ${OBJFILES})
 
 include modules.mk
 
-iso: metodo.exe
+iso: metodo.exe modules
 	@$(call STATUS,"Generating Dux.iso")
 	@./makeiso.sh
 	@$(call STATUS,"DONE")
