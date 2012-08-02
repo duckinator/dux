@@ -78,13 +78,16 @@ test: iso
 	@./test.sh "$(QEMU)"
 
 qemu: iso
-	qemu-system-i386 -serial stdio -cdrom iso/dux.iso
+	qemu-system-i386 -vga std -serial stdio -cdrom iso/dux.iso
 
 qemu-monitor: iso
 	qemu-system-i386 -monitor stdio -cdrom iso/dux.iso
 
 bochs: iso
 	./run.sh
+
+vbox: iso
+	/usr/lib/virtualbox/VirtualBox --startvm dux --debug-statistics --debug-command-line --start-running
 
 todo:
 	@./tools/todo.sh
