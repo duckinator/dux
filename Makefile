@@ -87,7 +87,7 @@ bochs: iso
 	./run.sh
 
 vbox: iso
-	/usr/lib/virtualbox/VirtualBox --startvm dux --debug-statistics --debug-command-line --start-running
+	VirtualBox --startvm dux --debug-statistics --debug-command-line --start-running
 
 todo:
 	@./tools/todo.sh
