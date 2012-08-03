@@ -26,13 +26,13 @@ override ASFLAGS += -felf32
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} x86_32 > ./include/buildinfo.h)
 
 all: iso
-	@/bin/echo -e "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}"
-	@/bin/echo -e "  ${COLOR_BLUE}make qemu${COLOR_RESET}"
-	@/bin/echo -e "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}"
-	@/bin/echo -e "  ${COLOR_BLUE}make bochs${COLOR_RESET}"
+	@printf "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}\n"
+	@printf "  ${COLOR_BLUE}make qemu${COLOR_RESET}\n"
+	@printf "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}\n"
+	@printf "  ${COLOR_BLUE}make bochs${COLOR_RESET}\n"
 	@echo
-	@/bin/echo -e "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}"
-	@/bin/echo -e "  ${COLOR_BLUE}make test${COLOR_RESET}"
+	@printf "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}\n"
+	@printf "  ${COLOR_BLUE}make test${COLOR_RESET}\n"
 
 metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
