@@ -1,6 +1,6 @@
 before_script:
 #  - sudo apt-get -y update
-  - sudo apt-get -y install qemu clang nasm mkisofs
+  - sudo apt-get --fix-missing -y install qemu clang nasm mkisofs
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
