@@ -6,7 +6,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 
-script: make # && ./test.sh
+script: time make # && ./test.sh
 
 notifications:
   webhooks:
