@@ -1,10 +1,10 @@
 include terminal.mk
 
-CC     := clang
-ASM    := nasm
-AR     := ar
-RANLIB := ranlib
-LD     := ld
+CC     := i386-none-elf-gcc
+ASM    := yasm
+AR     := i386-none-elf-ar
+RANLIB := i386-none-elf-ranlib
+LD     := i386-none-elf-ld
 
 NAME= dux
 
@@ -69,7 +69,10 @@ hal.lib: $(filter src/metodo/hal/%.o, ${OBJFILES})
 
 include modules.mk
 
-iso: metodo.exe modules
+tools/bootinfo: tools/bootinfo.c
+	cc -o $@ $<
+
+iso: tools/bootinfo metodo.exe modules
 	@$(call STATUS,"Generating Dux.iso")
 	@./makeiso.sh
 	@$(call STATUS,"DONE")
