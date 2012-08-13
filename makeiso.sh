@@ -26,9 +26,12 @@ if [ `uname -s` = "Darwin" ]; then
 	hdiutil makehybrid -iso -o dux.iso \
 		-eltorito-boot isofs/boot/grub/stage2_eltorito \
 		-no-emul-boot isofs
-	./tools/bootinfo isofs/boot/grub/stage2_eltorito dux.iso
 else
-	$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o dux.iso isofs
+	$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -input-charset utf-8 -o dux.iso isofs
 fi
+
+# Instead of calling -boot-info-table, we use tools/bootinfo, so it doesn't modify stage2_eltorito.
+# Why doesn't -boot-info-table just modify the iso, you ask? I'd like to know as well...
+./tools/bootinfo isofs/boot/grub/stage2_eltorito dux.iso
 
 mv dux.iso iso
