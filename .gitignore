@@ -5,6 +5,7 @@
 *.lib
 *.shl
 *.d
+config.mk
 
 # Ignore test-related stuff
 tests.out

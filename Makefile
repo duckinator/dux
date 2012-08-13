@@ -1,11 +1,5 @@
 include terminal.mk
 
-CC     := i386-none-elf-gcc
-ASM    := yasm
-AR     := i386-none-elf-ar
-RANLIB := i386-none-elf-ranlib
-LD     := i386-none-elf-ld
-
 NAME= dux
 
 BUILD_TYPE := debug
@@ -23,9 +17,11 @@ override LDFLAGS += -nostdlib -g -melf_i386
 
 override ASFLAGS += -felf32
 
+include config.mk
+
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} x86_32 > ./include/buildinfo.h)
 
-all: iso
+all: config.mk iso
 	@printf "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make qemu${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}\n"
@@ -33,6 +29,10 @@ all: iso
 	@echo
 	@printf "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make test${COLOR_RESET}\n"
+
+config.mk:
+	@printf "You will need to copy config.mk.dist to config.mk first."
+	@false
 
 metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
