@@ -1,11 +1,5 @@
 include terminal.mk
 
-CC     := clang
-ASM    := nasm
-AR     := ar
-RANLIB := ranlib
-LD     := ld
-
 NAME= dux
 
 BUILD_TYPE := debug
@@ -23,9 +17,11 @@ override LDFLAGS += -nostdlib -g -melf_i386
 
 override ASFLAGS += -felf32
 
+include config.mk
+
 BUILDINFO := $(shell ./tools/buildinfo.sh ${BUILD_TYPE} x86_32 > ./include/buildinfo.h)
 
-all: iso
+all: config.mk iso
 	@printf "${COLOR_GREEN}Run one of the following for debugging:${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make qemu${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make qemu-monitor${COLOR_RESET}\n"
@@ -33,6 +29,10 @@ all: iso
 	@echo
 	@printf "${COLOR_GREEN}Run the following to run the test suite:${COLOR_RESET}\n"
 	@printf "  ${COLOR_BLUE}make test${COLOR_RESET}\n"
+
+config.mk:
+	@printf "You will need to copy config.mk.dist to config.mk first."
+	@false
 
 metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
 	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
@@ -69,7 +69,10 @@ hal.lib: $(filter src/metodo/hal/%.o, ${OBJFILES})
 
 include modules.mk
 
-iso: metodo.exe modules
+tools/bootinfo: tools/bootinfo.c
+	cc -o $@ $<
+
+iso: tools/bootinfo metodo.exe modules
 	@$(call STATUS,"Generating Dux.iso")
 	@./makeiso.sh
 	@$(call STATUS,"DONE")

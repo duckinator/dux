@@ -22,6 +22,13 @@ done
 
 ./copymodules.sh
 
-$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o dux.iso isofs
+if [ `uname -s` = "Darwin" ]; then
+	hdiutil makehybrid -iso -o dux.iso \
+		-eltorito-boot isofs/boot/grub/stage2_eltorito \
+		-no-emul-boot isofs
+	./tools/bootinfo isofs/boot/grub/stage2_eltorito dux.iso
+else
+	$isocmd -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -input-charset utf-8 -o dux.iso isofs
+fi
 
 mv dux.iso iso
