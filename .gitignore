@@ -5,6 +5,7 @@
 *.lib
 *.shl
 *.d
+config.mk
 
 # Ignore test-related stuff
 tests.out
@@ -62,5 +63,6 @@ tools/cross/binutils
 tools/cross/gcc
 tools/cross/pre
 tools/cross/downloads/
+tools/bootinfo
 /cscope.files
 /cscope.out
