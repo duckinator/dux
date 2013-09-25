@@ -16,7 +16,7 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
 		printf("Loading userland...\n");
-		//HalSwitchToUserMode();
+		HalSwitchToUserMode();
 		LoadUserland(userland);
 		printf("\n\nUserland exited unexpectedly.\n");
 		HalBreak();
