@@ -103,6 +103,6 @@ clean:
 	@find ./src -name '*.lib' -delete
 	@find ./src -name '*.exe' -delete
 	@find ./src -name '*.d'   -delete
-	@rm tools/bootinfo
+	@rm -f tools/bootinfo
 
 .PHONY: all metodo-libs iso clean test qemu qemu-monitor bochs todo sloc clean
