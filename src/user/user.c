@@ -35,10 +35,9 @@ int main(UNUSED int argc, UNUSED char const* argv[])
 	 *   Text
 	 *   CPU
 	 */
-	/*
 	while(1) {
 		__asm__ ("hlt");
 	}
-	*/
+
 	return 0;
 }
