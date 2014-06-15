@@ -10,7 +10,7 @@ script: cp config.mk.dist config.mk && time make # && ./test.sh
 
 notifications:
   webhooks:
-    - http://rcmp.programble.co.cc/irc.tenthbit.net/programming
+    - http://rcmp.programble.co.cc/irc.freenode.net/duckyy
     - http://rcmp.programble.co.cc/irc.freenode.net/duxos
   
   email:
