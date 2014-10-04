@@ -40,8 +40,8 @@ kernel.exe: kernel-libs $(filter src/kernel/%, ${OBJFILES})
 
 kernel-libs: libc.lib userland.exe
 
-userland.exe: krnllib.lib libc.lib $(filter src/user/%.o, ${OBJFILES})
-	@${LD} -o src/user/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
+userland.exe: krnllib.lib libc.lib $(filter src/userland/%.o, ${OBJFILES})
+	@${LD} -o src/userland/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/userland/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
