@@ -10,8 +10,8 @@ SOURCE_SUFFIXES := '(' -name '*.c' -o -name '*.asm' ')'
 SRCFILES := $(shell find 'src' ${SOURCE_SUFFIXES})
 OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(SRCFILES)))
 
-#CFLAGS=-std=c99 -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -fno-builtin -Iinclude -Iinclude/metodo -m32
-override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -Iinclude -Iinclude/metodo -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function -m32 -gdwarf-2
+#CFLAGS=-std=c99 -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -fno-builtin -Iinclude -Iinclude/kernel -m32
+override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -Iinclude -Iinclude/kernel -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function -m32 -gdwarf-2
 
 override LDFLAGS += -nostdlib -g -melf_i386
 
@@ -34,11 +34,11 @@ config.mk:
 	@printf "You will need to copy config.mk.dist to config.mk first."
 	@false
 
-metodo.exe: metodo-libs $(filter src/metodo/%, ${OBJFILES})
-	@${LD} -o src/metodo/metodo.exe ${LDFLAGS} -T src/metodo/boot/link.ld src/metodo/boot/start.o $(filter-out metodo-libs src/metodo/boot/start.o, $^) src/lib/libc/libc.lib
+kernel.exe: kernel-libs $(filter src/kernel/%, ${OBJFILES})
+	@${LD} -o src/kernel/kernel.exe ${LDFLAGS} -T src/kernel/boot/link.ld src/kernel/boot/start.o $(filter-out kernel-libs src/kernel/boot/start.o, $^) src/lib/libc/libc.lib
 #	@/bin/echo $^
 
-metodo-libs: libc.lib userland.exe
+kernel-libs: libc.lib userland.exe
 
 userland.exe: krnllib.lib libc.lib $(filter src/user/%.o, ${OBJFILES})
 	@${LD} -o src/user/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/user/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
@@ -53,9 +53,9 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	@${AR} rc src/lib/libc/libc.lib $^
 	@${RANLIB} src/lib/libc/libc.lib
 
-hal.lib: $(filter src/metodo/hal/%.o, ${OBJFILES})
-	@${AR} rc  src/metodo/hal/hal.lib $^
-	@${RANLIB} src/metodo/hal/hal.lib
+hal.lib: $(filter src/kernel/hal/%.o, ${OBJFILES})
+	@${AR} rc  src/kernel/hal/hal.lib $^
+	@${RANLIB} src/kernel/hal/hal.lib
 
 
 -include $(find ./src -name '*.d')
@@ -72,7 +72,7 @@ include modules.mk
 tools/bootinfo: tools/bootinfo.c
 	cc -o $@ $<
 
-iso: tools/bootinfo metodo.exe modules
+iso: tools/bootinfo kernel.exe modules
 	@$(call STATUS,"Generating Dux.iso")
 	@./makeiso.sh
 	@$(call STATUS,"DONE")
@@ -105,4 +105,4 @@ clean:
 	@find ./src -name '*.d'   -delete
 	@rm -f tools/bootinfo
 
-.PHONY: all metodo-libs iso clean test qemu qemu-monitor bochs todo sloc clean
+.PHONY: all kernel-libs iso clean test qemu qemu-monitor bochs todo sloc clean

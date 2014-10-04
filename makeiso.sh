@@ -13,7 +13,7 @@ fi
 
 mkdir -p isofs/System isofs/Modules
 
-cp src/metodo/metodo.exe isofs/System
+cp src/kernel/kernel.exe isofs/System
 cp src/user/userland.exe isofs/System
 
 for x in `find src -name '*.lib'`; do

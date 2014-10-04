@@ -1,7 +1,7 @@
 #ifndef MODULE_H
 #define MODULE_H
 
-#include <metodo/misc/modules.h>
+#include <kernel/misc/modules.h>
 
 #define MODULE(name, ...) \
 	int name##__ModuleInit();\

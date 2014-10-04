@@ -50,7 +50,7 @@ tools/initrd/make_initrd
 #ignore initrd.img
 tools/initrd/initrd.img
 
-src/metodo/init/cscope.out
+src/kernel/init/cscope.out
 
 # ignore the crosscompiler
 tools/cross/binutils-2.20.1/

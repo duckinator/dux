@@ -1,20 +1,20 @@
 default 1
 timeout 3
 
-title Metodo Dux
-kernel /System/metodo.exe
+title Dux
+kernel /System/kernel.exe
 
-title Metodo Dux with Userland
-kernel /System/metodo.exe
+title Dux with Userland
+kernel /System/kernel.exe
 module /System/userland.exe
 
-title Metodo Dux with all modules (no userland)
-kernel /System/metodo.exe
+title Dux with all modules (no userland)
+kernel /System/kernel.exe
 module /Modules/uart.exe
 module /Modules/test_module.exe
 
-title Metodo Dux with all modules and Userland
-kernel /System/metodo.exe
+title Dux with all modules and Userland
+kernel /System/kernel.exe
 module /System/userland.exe
 module /Modules/uart.exe
 module /Modules/test_module.exe

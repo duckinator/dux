@@ -30,4 +30,4 @@ rmdir floppy
 # Copy bootloader to floppy image
 dd bs=512 count=1 if=beef/isofs/boot of=Dux.img conv=notrunc
 
-dd bs=512 seek=1 if=isofs/System/metodo.exe of=Dux.img
+dd bs=512 seek=1 if=isofs/System/kernel.exe of=Dux.img
