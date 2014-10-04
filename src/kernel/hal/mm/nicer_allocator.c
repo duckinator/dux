@@ -57,14 +57,13 @@ void *kmalloc(unsigned int nbytes)
 			return (void *)(p+1);
 		}
 
-		if (p == freep) { /* wrapper around free list */
-			if ((p = morecore(nunits)) == NULL) {
-				return NULL; /* none left */
-			}
+		if ((p == freep) && (p = morecore(nunits)) == NULL) {
+			break; /* none left */
 		}
 
 	}
-	// FIXME: No default return value.
+
+	return NULL;
 }
 
 void free(void *ap)
