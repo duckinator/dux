@@ -1,6 +1,8 @@
 #ifndef HAL_MM_FRAMES_H
 #define HAL_MM_FRAMES_H
 
+#include <kernel/hal/mm/placement_allocator.h>
+
 void set_frame(unsigned int addr);
 void clear_frame(unsigned int addr);
 unsigned int test_frame(unsigned int addr);
