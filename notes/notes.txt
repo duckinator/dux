@@ -6,7 +6,7 @@ Date: 2009-12-22 03:50:45 Local time zone must be set--see zic manual page
 
 
 
-<duckinator> nixeagle: src/metodo/init/init.c
+<duckinator> nixeagle: src/kernel/init/init.c
 
 
 Table of Contents

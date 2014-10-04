@@ -1,9 +1,6 @@
-Dux is an operating system started back in 2008 or so.
+Dux is an operating system started in 2008, and was mostly unmaintained from 2012 to 2014.
 
-About the naming:
-  Dux - the operating system as a whole - this name was a suggestion from duckinator's friend
-  metodo - the kernel - "method"/"approach" in Italian (and also in Esperanto, but this was learned later)
-  colpa - the debugger - "fault" in Italian
+Originally a super-gross monolithic kernel, it is currently being torn apart and turned into a microkernel.
 
 To compile dux you need:
   - clang (C compiler; version 1.0 is known to work)

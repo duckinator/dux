@@ -2,7 +2,7 @@
 
 First file to look at:
 
-<duckinator> nixeagle: src/metodo/init/init.c
+<duckinator> nixeagle: src/kernel/init/init.c
 
 
 * Build
