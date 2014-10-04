@@ -22,19 +22,6 @@ int main(UNUSED int argc, UNUSED char const* argv[])
 	 */
 	printf("Welcome to Dux's useless userland!\n(That really needs to change)\n");
 
-	/*
-	 * TODO: Implement APIs mentioned in user/user.c
-	 * Unimplemented APIs:
-	 *   Keyboard
-	 *   Console
-	 *   Image
-	 *   Display
-	 *   Network
-	 *   VFS
-	 * Pull the following out of the kernel, make more generic:
-	 *   Text
-	 *   CPU
-	 */
 	while(1) {
 		__asm__ ("hlt");
 	}
