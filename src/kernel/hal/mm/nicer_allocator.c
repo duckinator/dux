@@ -11,17 +11,22 @@ static Header *morecore(unsigned nu)
 	Header *up;
 	unsigned int tmp;
 
-	if (nu <= NALLOC)
+	if (nu <= NALLOC) {
 		nu = NALLOC;
-	else
+	} else {
 		return NULL;
+	}
 
+	// first_frame() cannot fail: failures trigger panics.
 	tmp = first_frame();
+
+
 	cp = (void*)tmp;
-	/* first_frame() can't fail. */
 	up = cp;
 	up->s.size = nu;
+
 	free((void *)(up+1));
+
 	return freep;
 }
 
@@ -31,26 +36,35 @@ void *kmalloc(unsigned int nbytes)
 	unsigned nunits;
 
 	nunits = (nbytes+sizeof(Header)-1)/sizeof(Header) +1;
+
 	if ((prevp = freep) == NULL) {
 		base.s.ptr = freep = prevp = &base;
 		base.s.size = 0;
 	}
+
 	for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) {
 		if (p->s.size >= nunits) { /* big enough */
-			if (p->s.size == nunits) /* exactly */
+			if (p->s.size == nunits) { /* exactly */
 				prevp->s.ptr = p->s.ptr;
-			else { /* allocate tail end */
+			} else { /* allocate tail end */
 				p->s.size -= nunits;
 				p += p->s.size;
 				p->s.size = nunits;
 			}
+
 			freep = prevp;
+
 			return (void *)(p+1);
 		}
-		if (p == freep) /* wrapper around free list */
-			if ((p = morecore(nunits)) == NULL)
+
+		if (p == freep) { /* wrapper around free list */
+			if ((p = morecore(nunits)) == NULL) {
 				return NULL; /* none left */
+			}
+		}
+
 	}
+	// FIXME: No default return value.
 }
 
 void free(void *ap)
@@ -65,12 +79,16 @@ void free(void *ap)
 	if (bp + bp->s.size == p->s.ptr) { /* join to upper nbr */
 		bp->s.size += p->s.ptr->s.size;
 		bp->s.ptr = p->s.ptr->s.ptr;
-	} else
+	} else {
 		bp->s.ptr = p->s.ptr;
+	}
+
 	if (p + p->s.size == bp) { /* join to lower nbr */
 		p->s.size += bp->s.size;
 		p->s.ptr = bp->s.ptr;
-	} else
+	} else {
 		p->s.ptr = bp;
+	}
+
 	freep = p;
 }
