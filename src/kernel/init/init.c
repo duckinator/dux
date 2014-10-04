@@ -12,8 +12,10 @@ noreturn InitKernel(uint32_t magic, void *arg)
 	}
 
 	MMapSetup(mbd);    // Set up memory map first
-	HalInit();         // Start HAL (GDT, Display, IDT, etc)
-	ColpaInit();       // System tests that only return success/failure status
+	HalInit();         // Start HAL (GDT, Display, IDT, etc).
+	TestInit();        // Configure tests.
+
+	TestRunAll();      // Run tests.
 
 	InitLoadModules(); // Load all kernel modules
 

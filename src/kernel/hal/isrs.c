@@ -1,5 +1,5 @@
 #include <kernel.h>
-#include <kernel/colpa/debug.h>
+#include <kernel/debugger/debug.h>
 #include <config.h>
 
 /* handle interupts */

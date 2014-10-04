@@ -1,5 +1,7 @@
-#ifndef COLPA_TESTS_H
-#define COLPA_TESTS_H
+#ifndef KERNEL_CORE_TEST_FRAMEWORK_H
+#define KERNEL_CORE_TEST_FRAMEWORK_H
+
+#include <stdlib.h>
 
 typedef struct {
 	int status;
@@ -16,21 +18,23 @@ typedef struct TestCase_s {
 static TestCase *firsttest = NULL;
 static TestCase *lasttest = NULL;
 
-static const char *test_status_messages[3] = {
-	"passed",
-	"failed",
-	"failed (FATAL)"
+static const char *test_status_messages[4] = {
+	"PASS",
+	"FAIL",
+	"FATAL",
+	"SKIP",
 };
 
-void ColpaInit();
-void ColpaRunTests();
-TestCase *ColpaAddTest(const char *n, TestReturn* (*fn)());
+void TestInit();
+void TestRunAll();
+TestCase *TestAdd(const char *n, TestReturn* (*fn)());
 
-#define TEST(NAME) ColpaAddTest(#NAME, (void*)Test##NAME)
+#define TEST(NAME) TestAdd(#NAME, (void*)NAME##Test)
 
 #define TEST_SUCCESS 0
 #define TEST_FAIL    1
 #define TEST_FATAL   2
+#define TEST_SKIP    3
 
 #define TEST_RETURN(STATUS, MESSAGE) return ({                                                              \
                                                 TestReturn *ret = (TestReturn*)kmalloc(sizeof(TestReturn)); \
@@ -39,4 +43,4 @@ TestCase *ColpaAddTest(const char *n, TestReturn* (*fn)());
                                                 ret;                                                        \
                                             })
 
-#endif /* end of include guard: COLPA_TESTS_H */
+#endif /* end of include guard: KERNEL_CORE_TEST_FRAMEWORK_H */
