@@ -2,7 +2,6 @@
 #include <metodo/metodo.h>
 #include <hal/task.h>
 
-// FIXME: Why wont HalSwitchToUserMode() actually enable interrupts?
 void HalSwitchToUserMode()
 {
 	// Set up a stack structure for switching to user mode.
