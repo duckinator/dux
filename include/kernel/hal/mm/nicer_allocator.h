@@ -1,6 +1,8 @@
 #ifndef HAL_MM_NICER_ALLOCATOR
 #define HAL_MM_NICER_ALLOCATOR
 
+#include <kernel/hal/mm/frames.h>
+
 typedef long Align;
 
 union header {

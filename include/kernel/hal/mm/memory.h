@@ -33,18 +33,9 @@ typedef struct {
 
 #define MALLOC_ALIGN 1
 
-#include <kernel/hal/mm/placement_allocator.h>
 #include <kernel/hal/mm/nicer_allocator.h>
-#include <kernel/hal/mm/frames.h>
-#include <kernel/hal/mm/paging.h>
-
-void *kmalloc_int(unsigned int size, unsigned int flags);
-void *kmalloc(unsigned int nbytes);
 
 void HalMMInit();
-unsigned int test_frame(unsigned int addr);
-void set_frame(unsigned int addr);
-unsigned int first_frame();
 
 unsigned int end_memory;
 
