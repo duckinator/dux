@@ -2,7 +2,6 @@
 #define LOAD_MODULES_H
 
 #include <kernel.h>
-#include <kernel/mm/memory.h>
 
 #include <kernel/misc/modules.h>
 

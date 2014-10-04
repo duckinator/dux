@@ -2,7 +2,7 @@
 #define MEMORY_MAP_H
 
 #include <kernel.h>
-#include <kernel/mm/memory.h>
+#include <kernel/hal/mm/memory.h>
 
 #include <kernel/misc/modules.h>
 
