@@ -6,7 +6,6 @@
 #include <kernel.h>
 #include <kernel/misc/panic.h>
 
-#include <kernel/init/tests.h>
 #include <kernel/init/memory_map.h>
 #include <kernel/init/load_modules.h>
 
@@ -14,8 +13,8 @@
 
 #include <kernel/bochs.h>
 
-#include <kernel/colpa/debug.h>
-#include <kernel/colpa/tests.h>
+#include <kernel/debugger/debug.h>
+#include <kernel/core/test_framework.h>
 
 #include <kernel/init/elfloader.h>
 

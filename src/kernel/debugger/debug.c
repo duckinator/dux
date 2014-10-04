@@ -1,21 +1,21 @@
-#include <kernel/colpa/debug.h>
+#include <kernel/debugger/debug.h>
 #include <string.h>
 #include <kernel/core/shutdown.h>
 
-#include <init/tests.h>
+#include <kernel/core/test_framework.h>
 #include <init/memory_map.h>
 
 uint8_t i;
 char *str;
 
-void ColpaPrompt()
+void DebuggerPrompt()
 {
 	i = 0;
 	str[0] = '\0';
 	printf(">> ");
 }
 
-char *ColpaHandleLine()
+char *DebuggerHandleLine()
 {
 	str[i] = '\0';
 	if(strcmp(str, "help") == 0) {
@@ -29,6 +29,7 @@ char *ColpaHandleLine()
   reboot\n");
 	} else if(strcmp(str, "info") == 0) {
 		printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n");
+		printf("Kernel size is approximately %i bytes (start: 0x%08x, end: 0x%08x)\n", &end-&start, &start, &end);
 	} else if(strcmp(str, "halt") == 0) {
 		CoShutdown(SD_OFF);
 	} else if(strcmp(str, "reboot") == 0) {
@@ -36,7 +37,7 @@ char *ColpaHandleLine()
 	} else if(strcmp(str, "panic") == 0) {
 		stop(STOP_USER_INITIALIZED);
 	} else if(strcmp(str, "test") == 0) {
-		SystemTests();
+		TestRunAll();
 	} else if(strcmp(str, "mmap") == 0) {
 		MMapPrint();
 	} else {
@@ -70,7 +71,7 @@ noreturn KernDebug()
 	HalEnableInterrupts();
 	printf("Done.\n");
 
-	ColpaPrompt();
+	DebuggerPrompt();
 	while(1) {
 		event = HalKeyboardGetEvent(1);
 		if (event->type == HalKeyboardEventType_down) {
@@ -79,9 +80,9 @@ noreturn KernDebug()
 			case 0x1c:
 				printf("\n");
 				if(strlen(str) > 0) {
-					ColpaHandleLine();
+					DebuggerHandleLine();
 				}
-				ColpaPrompt();
+				DebuggerPrompt();
 				break;
 			// Backspace
 			case 0xe:
