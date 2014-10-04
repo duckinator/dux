@@ -31,7 +31,7 @@ void HalInit(void) {
 	StartInitializer("IRQs", &HalIrqInstall);
 	StartInitializer("system timer", &HalTimerInit);
 	StartInitializer("syscalls", &HalInitializeSyscalls);
-	StartInitializer("memory management", &init_mm);
+	StartInitializer("memory management", &HalMMInit);
 	StartInitializer("keyboard", &HalKeyboardInit);
 	//StartInitializer("scheduler", &HalSchedulerEnable);
 	//StartInitializer("UART", &UartInit);

@@ -5,7 +5,7 @@
 
 #include <api/display.h>
 
-#include <kernel/mm/memory.h>
+#include <kernel/hal/mm/memory.h>
 
 #include <hal/idt.h>
 
