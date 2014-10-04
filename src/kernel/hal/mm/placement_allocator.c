@@ -11,9 +11,10 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 {
 	unsigned int tmp;
 
-	// Initialize if needed.
-	if (placement == 0)
+	if (placement == 0) // Initialize if needed.
 		placement = (unsigned int)end;
+	else // Otherwise, increment to next placement address.
+		placement += size;
 
 	// Align on a page if needed.
 /* The following line was this, but meteger said to invert the bitmask in the check:
@@ -24,9 +25,5 @@ void *kmalloc_int(unsigned int size, unsigned int flags)
 		placement += 0x1000;
 	}
 
-	// Return the address of allocation and increment the next placement address to whatever.
-	tmp = placement;
-	placement += size;
-	//return (void*) placement;
-	return (void*) tmp;
+	return (void*) placement;
 }
