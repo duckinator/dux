@@ -15,16 +15,6 @@ typedef struct TestCase_s {
 	struct TestCase_s *prev;
 } TestCase;
 
-static TestCase *firsttest = NULL;
-static TestCase *lasttest = NULL;
-
-static const char *test_status_messages[4] = {
-	"PASS",
-	"FAIL",
-	"FATAL",
-	"SKIP",
-};
-
 void TestInit();
 void TestRunAll();
 TestCase *TestAdd(const char *n, TestReturn* (*fn)());
