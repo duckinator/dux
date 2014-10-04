@@ -9,8 +9,6 @@ unsigned int placement = 0;
  */
 void *kmalloc_int(unsigned int size, unsigned int flags)
 {
-	unsigned int tmp;
-
 	if (placement == 0) // Initialize if needed.
 		placement = (unsigned int)end;
 	else // Otherwise, increment to next placement address.
