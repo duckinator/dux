@@ -24,6 +24,16 @@
  *    If message is NULL, no explanatory message is printed.
  */
 
+static TestCase *firsttest = NULL;
+static TestCase *lasttest = NULL;
+
+static const char *test_status_messages[4] = {
+	"PASS",
+	"FAIL",
+	"FATAL",
+	"SKIP",
+};
+
 void TestInit()
 {
 	// Pretend to be a module!
