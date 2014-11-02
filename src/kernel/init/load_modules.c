@@ -1,7 +1,7 @@
 #include <init/elfloader.h>
 #include <init/load_modules.h>
 
-void InitLoadModules()
+void load_modules()
 {
 	/* mbd->flags */
 	unsigned int i, len;
@@ -44,7 +44,7 @@ void InitLoadModules()
 
 			if (module_ptr != NULL && (strncmp((char*)(module->string), "/Modules/", 10) == 0)) {
 				printf("Initalizing %s...\n", (char*)(module->string));
-				LoadExe(module_ptr);
+				run_elf_exe(module_ptr);
 			}
 		}
 	}

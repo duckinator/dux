@@ -13,24 +13,23 @@ noreturn init_kernel(uint32_t magic, void *arg)
 
 	mmap_init(mbd);    // Set up memory map first
 	hal_init();         // Start HAL (GDT, Display, IDT, etc).
-	TestInit();//test_init();        // Configure tests.
+	test_init();        // Configure tests.
 
-	TestRunAll();//test_run_all();      // Run tests.
+	test_run_all();      // Run tests.
 
-	InitLoadModules();//load_modules(); // Load all kernel modules
+	load_modules(); // Load all kernel modules
 
 	userland = get_module("/System/userland.exe");
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
 		printf("Loading userland...\n");
+
 		//switch_to_user_mode();
-		LoadUserland(userland);//load_userland(userland);
-		printf("\n\nUserland exited unexpectedly.\n");
-		//hal_break();
+		run_elf_exe(userland);//load_userland(userland);
+
 		stop(STOP_USERLAND_EXITED);
 	} else {
-		//hal_break();
 		stop(STOP_NO_USERLAND);
 	}
 }

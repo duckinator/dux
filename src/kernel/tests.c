@@ -1,12 +1,12 @@
 #include <kernel/tests.h>
 
-void AddKernelTests()
+void add_kernel_tests()
 {
-	TEST(MemoryAllocation);
-	TEST(FrameAllocation);
+	TEST(memory_allocation);
+	TEST(frame_allocation);
 }
 
-TestReturn *MemoryAllocationTest()
+TestReturn *memory_allocation_test()
 {
 	unsigned long int size = (mbd->mem_upper * 1024) - *end;
 	//void *universe;
@@ -24,7 +24,7 @@ TestReturn *MemoryAllocationTest()
 */
 }
 
-TestReturn *FrameAllocationTest()
+TestReturn *frame_allocation_test()
 {
 	unsigned int frame = first_frame();
 

@@ -15,11 +15,11 @@ typedef struct TestCase_s {
 	struct TestCase_s *prev;
 } TestCase;
 
-void TestInit();
-void TestRunAll();
-TestCase *TestAdd(const char *n, TestReturn* (*fn)());
+void test_init();
+void test_run_all();
+TestCase *test_add(const char *n, TestReturn* (*fn)());
 
-#define TEST(NAME) TestAdd(#NAME, (TestReturn* (*)())NAME##Test)
+#define TEST(NAME) test_add(#NAME, (TestReturn* (*)())NAME##_test)
 
 #define TEST_SUCCESS 0
 #define TEST_FAIL    1
