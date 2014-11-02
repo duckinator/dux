@@ -6,18 +6,13 @@ void mmap_init(void *arg)
 	int i;
 	memory_map_t *mmap;
 	memory_map_t *first_empty_mmap;
-	switch(bootloader) {
-		case BOOTLOADER_MULTIBOOT:
-			mmap = (memory_map_t*)mbd->mmap_addr;
-			first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length);
-			break;
-		default:
-			panic("Unknown bootloader; don't know how to get memory map.");
-			break;
-	}
+
+	mmap = (memory_map_t*)mbd->mmap_addr;
+	first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length);
 
 	for (i = 0; mmap < first_empty_mmap; i++, mmap++)
 		mmaps[i] = mmap;
+
 	for (i++, mmap++; i < 100; i++, mmap++)
 		mmaps[i] = NULL;
 }
