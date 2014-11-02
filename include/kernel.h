@@ -6,10 +6,9 @@
 #include <kernel/hal.h>
 
 #include <kernel/core/memory.h>
+#include <kernel/core/panic.h>
 
 #include <multiboot.h>
-
-#include <kernel/misc/panic.h>
 
 multiboot_info_t *mbd;
 memory_map_t *mmaps[100];

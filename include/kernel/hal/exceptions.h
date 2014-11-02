@@ -36,3 +36,4 @@ void isr30(void);
 void isr31(void);
 
 #endif /* end of include guard: HAL_EXCEPTIONS_H */
+

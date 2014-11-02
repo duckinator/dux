@@ -13,12 +13,15 @@ TestReturn *MemoryAllocationTest()
 
 	TEST_RETURN(TEST_SKIP, "our malloc() and free() aren't decent enough for this.");
 
-	//universe = kmalloc(size);
-	//free(universe);
-	//universe = kmalloc(size);
-	//free(universe);
+/*
+
+	universe = kmalloc(size);
+	free(universe);
+	universe = kmalloc(size);
+	free(universe);
 
 	TEST_RETURN(TEST_SUCCESS, "Successfully allocated and freed everything twice.");
+*/
 }
 
 TestReturn *FrameAllocationTest()

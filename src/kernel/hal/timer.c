@@ -1,16 +1,13 @@
-#include <driver/driver.h>
-#include <driver/timer.h>
+#include <hal/timer.h>
 #include <kernel/core/scheduler.h>
 
 unsigned int ticks = 0;
 
 void HalTimerHandler(UNUSED struct regs *r)
 {
-	//Increment ticks
 	ticks++;
 
-	// Scheduler
-	if ( HalIsSchedulerEnabled() )
+	if (HalIsSchedulerEnabled())
 		CoSchedulerHandler();
 }
 

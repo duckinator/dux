@@ -3,7 +3,7 @@
 
 #include <kernel.h>
 
-#include <kernel/misc/modules.h>
+#include <kernel/init/modules.h>
 
 void InitLoadModules();
 

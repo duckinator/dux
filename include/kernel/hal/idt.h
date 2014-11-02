@@ -26,3 +26,4 @@ void HalInitIDT(void);
 void HalSetIDTGate(IN size_t n, IN uint32_t offset, IN uint16_t selector, IN uint8_t priv, IN uint8_t sys, IN uint8_t gatetype);
 
 #endif /* end of include guard: HAL_IDT_H */
+

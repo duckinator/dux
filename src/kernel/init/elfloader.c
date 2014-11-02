@@ -6,7 +6,7 @@
 
 #include <kernel.h> 
 #include <kernel/init/elfloader.h>
- 
+
 void *LoadElfExe(void *exe)
 {
 	int i;
@@ -49,7 +49,7 @@ void LoadUserland(void *userland)
 {
 	void (*start)(void);
  
-	start = LoadElfExe(userland);
+	start = (void (*)(void))LoadElfExe(userland);
 	//printf("Userland: %x\n", &userland);
 	start();
 }
@@ -58,7 +58,7 @@ void LoadExe(void *exe)
 {
 	void (*start)(void);
  
-	start = LoadElfExe(exe);
+	start = (void (*)(void))LoadElfExe(exe);
 	start();
 }
 

@@ -9,6 +9,7 @@
 
 #include <hal/idt.h>
 
+#include <hal/timer.h>
 #include <hal/exceptions.h>
 #include <hal/ports.h>
 #include <hal/isr.h>
@@ -24,8 +25,8 @@ void HalEnableNMI(void);
 
 #include <hal/shutdown.h>
 
-#include <driver/timer.h>
-#include <driver/keyboard/keyboard.h>
+//#include <driver/timer.h>
+//#include <driver/keyboard/keyboard.h>
 
 void HalInit(void);
 

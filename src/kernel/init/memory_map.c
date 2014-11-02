@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include <kernel/init/memory_map.h>
 
-void MMapSetup(void *arg)
+void mmap_init(void *arg)
 {
 	int i;
 	memory_map_t *mmap;
@@ -11,9 +11,8 @@ void MMapSetup(void *arg)
 			mmap = (memory_map_t*)mbd->mmap_addr;
 			first_empty_mmap = (memory_map_t*)(mbd->mmap_addr + mbd->mmap_length);
 			break;
-		case BOOTLOADER_BEEF:
-			mmap = (memory_map_t*)arg;
-			// How would I define first_empty_mmap here?
+		default:
+			panic("Unknown bootloader; don't know how to get memory map.");
 			break;
 	}
 
@@ -23,7 +22,7 @@ void MMapSetup(void *arg)
 		mmaps[i] = NULL;
 }
 
-void MMapPrint() {
+void mmap_print() {
 	int i;
 	printf("Memory map:\n");
 	printf("\

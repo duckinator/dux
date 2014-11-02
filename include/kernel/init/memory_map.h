@@ -4,7 +4,7 @@
 #include <kernel.h>
 #include <kernel/hal/mm/memory.h>
 
-#include <kernel/misc/modules.h>
+//#include <kernel/misc/modules.h>
 
 void MMapSetup();
 void MMapPrint();

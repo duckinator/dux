@@ -19,18 +19,16 @@ void TestInit();
 void TestRunAll();
 TestCase *TestAdd(const char *n, TestReturn* (*fn)());
 
-#define TEST(NAME) TestAdd(#NAME, (void*)NAME##Test)
+#define TEST(NAME) TestAdd(#NAME, (TestReturn* (*)())NAME##Test)
 
 #define TEST_SUCCESS 0
 #define TEST_FAIL    1
 #define TEST_FATAL   2
 #define TEST_SKIP    3
 
-#define TEST_RETURN(STATUS, MESSAGE) return ({                                                              \
-                                                TestReturn *ret = (TestReturn*)kmalloc(sizeof(TestReturn)); \
-                                                ret->status = STATUS;                                       \
-                                                ret->message = MESSAGE;                                    \
-                                                ret;                                                        \
-                                            })
+#define TEST_RETURN(STATUS, MESSAGE) TestReturn *ret = (TestReturn*)kmalloc(sizeof(TestReturn)); \
+                                     ret->status = STATUS;                                       \
+                                     ret->message = MESSAGE;                                    \
+                                     return ret;
 
 #endif /* end of include guard: KERNEL_CORE_TEST_FRAMEWORK_H */

@@ -1,4 +1,5 @@
-#include <driver/vga.h>
+#include <system.h>
+#include <api/display.h>
 
 #define COLS (80)
 #define ROWS (25)
@@ -17,20 +18,20 @@ static uint8_t row;
 static uint8_t escape;
 static uint8_t escape_attr;
 
-void VgaDisplaySetAttr(uint8_t lattr)
+void DisplaySetAttr(uint8_t lattr)
 {
 	attr = lattr;
 }
 
-void VgaDisplayClear(void)
+void DisplayClear(void)
 {
 	int i;
-	VgaDisplayCursorPosition(0, 0);
+	DisplayCursorPosition(0, 0);
 	for (i = 0; i < COLS*ROWS; i++)
 		VideoMemory[i] = CLEAR;
 }
 
-static void VgaDisplayScroll(void)
+void DisplayScroll(void)
 {
 	int i;
 	if (row >= ROWS) {
@@ -45,11 +46,11 @@ static void VgaDisplayScroll(void)
 	}
 }
 
-void VgaDisplayChar(char c)
+void DisplayChar(char c)
 {
 	if (c == 0x08) {
 		/* Backspace */
-		// TODO: Add test for VgaDisplayChar() backspacing from column 0 to previous line. Row 0, as well as a higher row.
+		// TODO: Add test for DisplayChar() backspacing from column 0 to previous line. Row 0, as well as a higher row.
 		if (col == 0) {
 			// If it's row 0, col 0, we merely ignore it.
 			if (row != 0) {
@@ -82,28 +83,34 @@ void VgaDisplayChar(char c)
 		col = 0;
 		row++;
 	}
-	VgaDisplayScroll();
+	DisplayScroll();
 }
 
-void VgaDisplaySpot(uint8_t s, uint8_t row, uint8_t col)
+void DisplayString(const char *s)
+{
+	for(; *s; s++)
+		DisplayChar(*s);
+}
+
+void DisplaySpot(uint8_t s, uint8_t row, uint8_t col)
 {
 	PUTSPOT(s);
 	col++;
 }
 
-void VgaDisplayHideCursor()
+void DisplayHideCursor()
 {
 	HalOutPort(0x3d4, 0x0a);
 	HalOutPort(0x3d5, 1 << 5);
 }
 
-void VgaDisplayCursorPosition(uint8_t _row, uint8_t _col)
+void DisplayCursorPosition(uint8_t _row, uint8_t _col)
 {
 	col = _col;
 	row = _row;
 }
 
-void VgaDisplayInit(void)
+void DisplayInit(void)
 {
 	VideoMemory = (uint16_t*) VIDEO_MEMORY;
 	col = 0;
@@ -112,25 +119,17 @@ void VgaDisplayInit(void)
 	escape = 0;
 	escape_attr = 0;
 	disp_init = 1;
-	VgaDisplayHideCursor();
-	VgaDisplayClear();
+	DisplayHideCursor();
+	DisplayClear();
 }
 
-void VgaDisableDisplay(void)
+void DisableDisplay(void)
 {
 	disp_init = 0;
 }
 
-int VgaIsDisplayOn(void)
+int DisplayIsOn(void)
 {
 	return (int) disp_init ? 1 : 0;
 }
 
-struct DisplayDevice VgaDisplayDevice = {
-	.Init              = VgaDisplayInit,
-	.Disable           = VgaDisableDisplay,
-	.DisplayChar       = VgaDisplayChar,
-	.DisplayClear      = VgaDisplayClear,
-	.DisplaySetAttr    = VgaDisplaySetAttr,
-	.DisplayHideCursor = VgaDisplayHideCursor,
-};

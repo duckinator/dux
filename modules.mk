@@ -1,4 +1,5 @@
-modules: kernel.exe test_module.exe uart.exe
+#modules: kernel.exe test_module.exe uart.exe
+modules: kernel.exe
 	@mkdir -p isofs/Modules
 	./copymodules.sh
 

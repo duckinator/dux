@@ -1,6 +1,6 @@
-#include <kernel/misc/modules.h>
+#include <kernel/init/modules.h>
 
-void *GetModule(const char *name)
+void *get_module(const char *name)
 {
 	size_t i;
 	for(i=0; i < sizeof(modules); i++) {
@@ -12,6 +12,6 @@ void *GetModule(const char *name)
 	return NULL;
 }
 
-int RegisterModuleCallback(void *callback, const char *name, ...) {
+int register_module_callback(void *callback, const char *name, ...) {
   return 0;
 }

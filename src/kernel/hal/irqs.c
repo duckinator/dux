@@ -1,9 +1,11 @@
+#include <hal/isr.h>
 #include <hal/irqs.h>
 
 int irq_t = 1;
+
 /* This array is actually an array of function pointers. We use
 *  this to handle custom IRQ handlers for a given IRQ */
-void *irq_routines[16] =
+void (*irq_routines[27])(struct regs *r) =
 {
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0
@@ -109,6 +111,7 @@ void HalIrqHandler(struct regs *r)
 	/* Find out if we have a custom handler to run for this
 	*  IRQ, and then finally, run it */
 	handler = irq_routines[r->int_no - 32];
+
 	if (handler)
 	{
 		handler(r);
@@ -119,6 +122,7 @@ void HalIrqHandler(struct regs *r)
 	if(r->int_no > 8){ /* Only send EOI to slave controller if it's involved (irqs 9 and up) */
 		HalOutPort(0xA0, 0x20);
 	}
+
 	HalOutPort(0x20, 0x20);
 }
 
