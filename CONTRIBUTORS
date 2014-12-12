@@ -6,19 +6,33 @@ N: Martin Brandenbug
 E: brandenburgmk@gmail.com
 D: Programming
 
+N: Liam Dunn
+E: liam.dunn144@gmail.com
+D: Programming
+
+N: Rick Elrod
+E: ricky@elrod.me
+W: http://elrod.me/
+D: Testing
+
 N: Daniel Lamando
 E: me@danopia.net
 W: http://danopia.net
-D: Programming
-
-N: Liam Dunn
-E: liam.dunn144@gmail.com
 D: Programming
 
 N: Marie Markwell
 E: me@marie.so
 W: https://marie.codes
 D: Programming, documentation
+
+N: Curtis McEnroe
+E: programble@gmail.com
+W: http://cmcenroe.me/
+D: Code (from proxos), testing
+
+N: Thomas Miletich
+E: thomas.miletich@gmail.com
+D: Programming
 
 N: Scott Olson
 E: scott@scott-olson.org
@@ -28,20 +42,6 @@ D: Programming
 N: James E. Spahlinger
 E: dux@nixeagle.net
 D: Programming
-
-N: Thomas Miletich
-E: thomas.miletich@gmail.com
-D: Programming
-
-N: Curtis McEnroe
-E: programble@gmail.com
-W: http://cmcenroe.me/
-D: Code (from proxos), testing
-
-N: Rick Elrod
-E: ricky@elrod.me
-W: http://elrod.me/
-D: Testing
 
 N: Joe T. Techinus
 E: ttech@mostlynothing.info
