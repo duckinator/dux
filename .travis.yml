@@ -6,7 +6,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 
-script: cp config.mk.dist config.mk && time make # && ./test.sh
+script: cp config.mk.dist config.mk && time make test
 
 notifications:
   email:
