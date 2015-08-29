@@ -49,6 +49,9 @@ END {
 echo
 cat tests.out
 echo
+echo "DEBUG (tests.raw):"
+cat tests.raw
+echo
 
 
 PID=$(cat $NAME.pid)
