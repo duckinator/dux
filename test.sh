@@ -18,7 +18,7 @@ $QEMU -cpu core2duo -m 32M -usb -serial "tcp::$PORT,server" -name "$NAME" -monit
 
 sleep 1
 
-{ sleep 10; echo 'h'; } | netcat localhost $PORT &> tests.raw
+{ sleep 10; echo 'h'; } | nc localhost $PORT &> tests.raw
 
 
 cat tests.raw | awk '
