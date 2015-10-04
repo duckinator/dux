@@ -1,27 +1,30 @@
 #include <kernel/tests.h>
 
-void AddKernelTests()
+void add_kernel_tests()
 {
-	TEST(MemoryAllocation);
-	TEST(FrameAllocation);
+	TEST(memory_allocation);
+	TEST(frame_allocation);
 }
 
-TestReturn *MemoryAllocationTest()
+TestReturn *memory_allocation_test()
 {
 	unsigned long int size = (mbd->mem_upper * 1024) - *end;
 	//void *universe;
 
 	TEST_RETURN(TEST_SKIP, "our malloc() and free() aren't decent enough for this.");
 
-	//universe = kmalloc(size);
-	//free(universe);
-	//universe = kmalloc(size);
-	//free(universe);
+/*
+
+	universe = kmalloc(size);
+	free(universe);
+	universe = kmalloc(size);
+	free(universe);
 
 	TEST_RETURN(TEST_SUCCESS, "Successfully allocated and freed everything twice.");
+*/
 }
 
-TestReturn *FrameAllocationTest()
+TestReturn *frame_allocation_test()
 {
 	unsigned int frame = first_frame();
 

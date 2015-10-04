@@ -19,6 +19,5 @@ long long llabs(long long);
 /* lldiv(n, d): return struct containing quotient and remainder of n/d -- .quot and .rem are long longs */
 //lldiv_t lldiv(long long, long long);
 
-
-
 #endif
+

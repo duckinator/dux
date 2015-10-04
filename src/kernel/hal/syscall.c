@@ -9,39 +9,50 @@
 
 #define NUM_SYSCALLS 6
 
-void ULShutdown(void)
+void ULShutdown(UNUSED uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
 {
 	CoShutdown(SD_OFF);
 }
 
-void ULReboot(void)
+void ULReboot(UNUSED uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
 {
 	CoShutdown(SD_REBOOT);
 }
 
-void ULMonitorWriteChar(char c)
+void ULMonitorWriteChar(uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
 {
-	printf("%c", c);
+	printf("%c", (char)ebx);
 }
 
-void ULMonitorWriteHex(uint32_t text)
+void ULMonitorWriteHex(uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
 {
-	printf("%x", text);
+	printf("%x", ebx);
 }
 
-void ULMonitorWriteDec(uint32_t text)
+void ULMonitorWriteDec(uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
 {
-	printf("%d", text);
+	printf("%d", ebx);
 }
 
-static void *syscalls[NUM_SYSCALLS] =
+void ULDisplayClear(UNUSED uint32_t ebx, UNUSED uint32_t ecx, UNUSED uint32_t edx,
+	UNUSED uint32_t esi, UNUSED uint32_t edi)
+{
+	DisplayClear();
+}
+
+static void (*syscalls[NUM_SYSCALLS])(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) = 
 {
 	ULMonitorWriteChar,
 	ULMonitorWriteHex,
 	ULMonitorWriteDec,
 	ULShutdown,
 	ULReboot,
-	DisplayClear,
+	ULDisplayClear,
 };
 
 void HalInitializeSyscalls()

@@ -1,40 +1,49 @@
+This is a list of people who have contributed to Dux. It is sorted by
+name, and formatted the same way as Linux's CREDITS file. The fields
+are: name (N), email (E), website (W), description (D).
+
 N: Martin Brandenbug
 E: brandenburgmk@gmail.com
-C: Programming
-
-N: Daniel Lamando
-E: me@danopia.net
-C: Programming
+D: Programming
 
 N: Liam Dunn
 E: liam.dunn144@gmail.com
-C: Programming
-
-N: Nick Markwell
-E: nick@duckinator.net
-C: Programming, documentation
-
-N: Scott Olson
-E: scott@solson.me
-C: Programming
-
-N: James E. Spahlinger
-E: dux@nixeagle.net
-C: Programming
-
-N: Thomas Miletich
-E: thomas.miletich@gmail.com
-C: Programming
-
-N: Curtis McEnroe
-E: programble@gmail.com
-C: Code (from proxos), testing
+D: Programming
 
 N: Rick Elrod
 E: ricky@elrod.me
-C: Testing
+W: http://elrod.me/
+D: Testing
+
+N: Daniel Lamando
+E: me@danopia.net
+W: http://danopia.net
+D: Programming
+
+N: Marie Markwell
+E: me@marie.so
+W: https://marie.codes
+D: Programming, documentation
+
+N: Curtis McEnroe
+E: programble@gmail.com
+W: http://cmcenroe.me/
+D: Code (from proxos), testing
+
+N: Thomas Miletich
+E: thomas.miletich@gmail.com
+D: Programming
+
+N: Scott Olson
+E: scott@solson.me
+W: https://solson.me
+D: Programming
+
+N: James E. Spahlinger
+E: dux@nixeagle.net
+D: Programming
 
 N: Joe T. Techinus
 E: ttech@mostlynothing.info
-C: Documentation, testing
+D: Documentation, testing
 

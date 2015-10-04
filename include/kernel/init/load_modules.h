@@ -3,8 +3,8 @@
 
 #include <kernel.h>
 
-#include <kernel/misc/modules.h>
+#include <kernel/init/modules.h>
 
-void InitLoadModules();
+void load_modules();
 
 #endif /* end of include guard: LOAD_MODULES_H */

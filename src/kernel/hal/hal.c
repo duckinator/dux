@@ -2,9 +2,7 @@
 #include <kernel/core/scheduler.h>
 #include <string.h>
 
-//#include <driver/serial.h>
-
-void StartService(const char *msg, const char *name, void (*func)())
+void start_service(const char *msg, const char *name, void (*func)())
 {
 	size_t i;
 	printf("%s %s", msg, name);
@@ -16,25 +14,24 @@ void StartService(const char *msg, const char *name, void (*func)())
 	printf("\b\b\b\b\bDONE]\n");
 }
 
-void StartInitializer(const char *name, void (*func)())
+void start_initializerr(const char *name, void (*func)())
 {
-	StartService("Initializing", name, func);
+	start_service("Initializing", name, func);
 }
 
-void HalInit(void) {
+void hal_init(void) {
 	HalInitGDT();
 	DisplayInit();
 	printf(DUX_FULLNAME "\nCompiled at " __TIME__ " " __DATE__ "\n\n\n");
 
-	StartInitializer("IDT", &HalInitIDT);
-	StartInitializer("ISRs", &HalIsrInstall);
-	StartInitializer("IRQs", &HalIrqInstall);
-	StartInitializer("system timer", &HalTimerInit);
-	StartInitializer("syscalls", &HalInitializeSyscalls);
-	StartInitializer("memory management", &HalMMInit);
-	StartInitializer("keyboard", &HalKeyboardInit);
-	//StartInitializer("scheduler", &HalSchedulerEnable);
-	//StartInitializer("UART", &UartInit);
+	start_initializerr("IDT", &HalInitIDT);
+	start_initializerr("ISRs", &HalIsrInstall);
+	start_initializerr("IRQs", &HalIrqInstall);
+	start_initializerr("system timer", &HalTimerInit);
+	start_initializerr("syscalls", &HalInitializeSyscalls);
+	start_initializerr("memory management", &HalMMInit);
+	//start_initializerr("keyboard", &HalKeyboardInit);
+	//start_initializerr("scheduler", &HalSchedulerEnable);
 
-	StartService("Enabling", "interrupts", &HalEnableInterrupts);
+	start_service("Enabling", "interrupts", &HalEnableInterrupts);
 }

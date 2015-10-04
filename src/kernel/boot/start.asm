@@ -1,6 +1,6 @@
 global _start		; making entry point visible to linker
 global _stacktop
-extern InitKernel	; Defined in init/init.c
+extern init_kernel	; Defined in init/init.c
 
 ; setting up the Multiboot header - see GRUB docs for details
 MODULEALIGN equ  1<<0			; align loaded modules on page boundaries
@@ -24,7 +24,7 @@ _start:
 	mov esp, _stacktop	; set up the stack
 	push ebx			; argument to kmain
 	push eax			; provided by multiboot compliant bootloaders
-	call  InitKernel			; call kernel proper
+	call  init_kernel			; call kernel proper
 	cli				; stop interrupts
 	hlt				; halt machine should kernel return
 

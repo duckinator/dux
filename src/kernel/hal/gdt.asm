@@ -109,6 +109,7 @@ section .text
 		mov eax, _stacktop
 		mov esi, 4
 		mov dword [ds:esi], eax
+		ret
 
 section .data
 	_gdt_begin:

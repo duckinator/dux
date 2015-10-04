@@ -1,16 +1,7 @@
 #ifndef API_DISPLAY_H
 #define API_DISPLAY_H
 
-struct DisplayDevice {
-	void (*Init) ();
-	void (*Disable) ();
-	void (*DisplayChar) (char c);
-	void (*DisplayClear) ();
-	void (*DisplaySetAttr) (uint8_t lattr);
-	void (*DisplayHideCursor) ();
-	void (*DisplaySpot) (uint8_t s, uint8_t row, uint8_t col);
-	void (*DisplayCursorPosition) (int _row, int _col);
-};
+#include <stdint.h>
 
 void DisplaySetAttr(uint8_t lattr);
 void DisplayClear(void);
@@ -22,5 +13,7 @@ void DisplayInit(void);
 void DisableDisplay(void);
 int  DisplayIsOn(void);
 void DisplayHideCursor();
-void DisplayCursorPosition(int _row, int _col);
+void DisplayCursorPosition(uint8_t _row, uint8_t _col);
+
 #endif /* end of include guard: API_DISPLAY_H */
+

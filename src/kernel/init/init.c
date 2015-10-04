@@ -1,36 +1,35 @@
 #include <kernel/init/init.h>
 
-noreturn InitKernel(uint32_t magic, void *arg)
+noreturn init_kernel(uint32_t magic, void *arg)
 {
 	void *userland = NULL;
 
 	mbd = arg; // In kernel.h.
 
 	if (magic != MULTIBOOT_BOOTLOADER_MAGIC) {
-		HalInit();
+		hal_init();
 		stop(STOP_BAD_BOOTLOADER_MAGIC);
 	}
 
-	MMapSetup(mbd);    // Set up memory map first
-	HalInit();         // Start HAL (GDT, Display, IDT, etc).
-	TestInit();        // Configure tests.
+	mmap_init(mbd);    // Set up memory map first
+	hal_init();         // Start HAL (GDT, Display, IDT, etc).
+	test_init();        // Configure tests.
 
-	TestRunAll();      // Run tests.
+	test_run_all();      // Run tests.
 
-	InitLoadModules(); // Load all kernel modules
+	load_modules(); // Load all kernel modules
 
-	userland = GetModule("/System/userland.exe");
+	userland = get_module("/System/userland.exe");
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {
 		printf("Loading userland...\n");
-		HalSwitchToUserMode();
-		LoadUserland(userland);
-		printf("\n\nUserland exited unexpectedly.\n");
-		HalBreak();
+
+		//switch_to_user_mode();
+		run_elf_exe(userland);//load_userland(userland);
+
 		stop(STOP_USERLAND_EXITED);
 	} else {
-		HalBreak();
 		stop(STOP_NO_USERLAND);
 	}
 }

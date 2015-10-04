@@ -1,8 +1,7 @@
 #ifndef ELFLOADER_H
 #define ELFLOADER_H
 
-void *LoadElfExe(void *exe);
-void LoadUserland(void *userland);
-void LoadExe(void *exe);
+void *load_elf_exe(void *exe);
+void run_elf_exe(void *exe);
 
 #endif /* end of include guard: ELFLOADER_H */

@@ -34,17 +34,17 @@ static const char *test_status_messages[4] = {
 	"SKIP",
 };
 
-void TestInit()
+void test_init()
 {
 	// Pretend to be a module!
 	printf("Initializing system test framework                  ");
 
-	AddKernelTests();
+	add_kernel_tests();
 
 	printf("[DONE]\n");
 }
 
-TestCase *TestAdd(const char *n, TestReturn* (*fn)())
+TestCase *test_add(const char *n, TestReturn* (*fn)())
 {
 	TestCase *t = (TestCase*)kmalloc(sizeof(TestCase));
 	TestCase *tmp;
@@ -77,7 +77,7 @@ TestCase *TestAdd(const char *n, TestReturn* (*fn)())
 	return t;
 }
 
-int TestRun(size_t ran, TestCase *test)
+int test_run(size_t ran, TestCase *test)
 {
 	TestReturn *ret;
 
@@ -96,7 +96,7 @@ int TestRun(size_t ran, TestCase *test)
 	return ret->status;
 }
 
-void TestRunAll()
+void test_run_all()
 {
 	TestCase *test;
 	int status;
@@ -109,7 +109,7 @@ void TestRunAll()
 	printf("\nRunning tests:\n\n");
 
 	for(test = firsttest; test != NULL; test=test->next) {
-		status = TestRun(ran, test);
+		status = test_run(ran, test);
 		ran++;
 
 		if(status == TEST_SUCCESS) {
