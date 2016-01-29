@@ -70,7 +70,7 @@ hal.lib: $(filter src/kernel/hal/%.o, ${OBJFILES})
 include modules.mk
 
 tools/bootinfo: tools/bootinfo.c
-	cc -o $@ $<
+	${CC} -o $@ $<
 
 #iso: tools/bootinfo kernel.exe modules
 iso: tools/bootinfo kernel.exe
