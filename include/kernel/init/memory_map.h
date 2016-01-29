@@ -6,7 +6,7 @@
 
 //#include <kernel/misc/modules.h>
 
-void MMapSetup();
-void MMapPrint();
+void mmap_init();
+void mmap_print();
 
 #endif /* end of include guard: MEMORY_MAP_H */
