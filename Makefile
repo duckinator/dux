@@ -67,12 +67,9 @@ hal.lib: $(filter src/kernel/hal/%.o, ${OBJFILES})
 	@$(call STATUS,"ASSEMBLE",$^)
 	@${ASM} ${ASFLAGS} -o $@ $<
 
-include modules.mk
-
 tools/bootinfo: tools/bootinfo.c
 	${CC} -o $@ $<
 
-#iso: tools/bootinfo kernel.exe modules
 iso: tools/bootinfo kernel.exe
 	@$(call STATUS,"Generating Dux.iso")
 	@./makeiso.sh
@@ -87,17 +84,8 @@ qemu: iso
 qemu-monitor: iso
 	${QEMU} -monitor stdio -cdrom iso/dux.iso
 
-bochs: iso
-	./run.sh
-
-vbox: iso
-	VirtualBox --startvm dux --debug-statistics --debug-command-line --start-running
-
 todo:
 	@./tools/todo.sh
-
-sloc:
-	@sloccount ./src ./include | grep "(SLOC)"
 
 clean:
 	@find ./src -name '*.o'   -delete
