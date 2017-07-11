@@ -1,20 +1,20 @@
 #!/bin/sh
 
-#ARCH=$(echo "$2" | tr [a-z] [A-Z])
-BUILDTYPE=$(echo "$1" | tr [a-z] [A-Z])
+ARCH=$(echo "$2" | tr [a-z] [A-Z])
 
-LBUILDTYPE=$(echo "$1" | tr [A-Z] [a-z])
+UPPER_CASE_BUILD_TYPE=$(echo "$1" | tr [a-z] [A-Z])
 
-VERSION=$(git describe --tags HEAD | cut -c2-)-${LBUILDTYPE}
+LOWER_CASE_BUILD_TYPE=$(echo "$1" | tr [A-Z] [a-z])
+
+VERSION=$(git describe --tags HEAD | cut -c2-)-${LOWER_CASE_BUILD_TYPE}
 
 
-echo  "#ifndef DUX_BUILDINFO_H"
-echo  "#define DUX_BUILDINFO_H"
-echo  "#define SCM_REV \"$(git show | head -n1 | cut -c8-)\""
-echo  "#define DUX_BUILDTYPE \"${BUILDTYPE}\""
+echo  "#ifndef DUX_BUILD_INFO_H"
+echo  "#define DUX_BUILD_INFO_H"
+echo  "#define DUX_SCM_REV \"$(git show | head -n1 | cut -c8-)\""
+echo  "#define DUX_BUILD_TYPE \"${UPPER_CASE_BUILD_TYPE}\""
 echo  "#define DUX_VERSION \"${VERSION}\""
-#echo  "#define DUX_ARCH \"$2\""
-#echo  "#define DUX_${ARCH}"
-#echo  "#define DUX_FULLNAME \"Dux $2 ${VERSION}\" "
-echo  "#define DUX_FULLNAME \"Dux ${VERSION}\" "
+echo  "#define DUX_ARCH \"${ARCH}\""
+echo  "#define DUX_${ARCH}"
+echo  "#define DUX_FULL_NAME \"Dux ${ARCH} ${VERSION}\""
 echo  "#endif"
