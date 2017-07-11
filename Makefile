@@ -82,10 +82,10 @@ test: iso
 	@./test.sh "$(QEMU)"
 
 qemu: iso
-	qemu-system-i386 -vga std -serial stdio -cdrom iso/dux.iso
+	${QEMU} -vga std -serial stdio -cdrom iso/dux.iso
 
 qemu-monitor: iso
-	qemu-system-i386 -monitor stdio -cdrom iso/dux.iso
+	${QEMU} -monitor stdio -cdrom iso/dux.iso
 
 bochs: iso
 	./run.sh
