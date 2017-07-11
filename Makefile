@@ -31,7 +31,7 @@ all: config.mk iso
 	@printf "  ${COLOR_BLUE}make test${COLOR_RESET}\n"
 
 config.mk:
-	@printf "You will need to copy config.mk.dist to config.mk first."
+	@printf "You will need to copy config.mk.dist to config.mk first.\n"
 	@false
 
 kernel.exe: kernel-libs $(filter src/kernel/%, ${OBJFILES})
