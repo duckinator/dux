@@ -1,10 +1,6 @@
-# dux
+# not dux
 
-Dux is an operating system started in 2008, and was mostly unmaintained from 2012 to 2014. It's a hot mess.
-
-**NOTE:** If you cloned this repository before July 11th 2017, you will
-need to re-clone it. I (@duckinator) modified the commit history to
-correct my name.
+DOING A THING. STAY TUNED.
 
 ## Requirements
 
