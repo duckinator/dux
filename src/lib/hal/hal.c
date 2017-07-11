@@ -14,7 +14,7 @@ void start_service(const char *msg, const char *name, void (*func)())
 	printf("\b\b\b\b\bDONE]\n");
 }
 
-void start_initializerr(const char *name, void (*func)())
+void start_initializer(const char *name, void (*func)())
 {
 	start_service("Initializing", name, func);
 }
@@ -24,14 +24,14 @@ void hal_init(void) {
 	DisplayInit();
 	printf(DUX_FULL_NAME "\nCompiled at " __TIME__ " " __DATE__ "\n\n\n");
 
-	start_initializerr("IDT", &HalInitIDT);
-	start_initializerr("ISRs", &HalIsrInstall);
-	start_initializerr("IRQs", &HalIrqInstall);
-	start_initializerr("system timer", &HalTimerInit);
-	start_initializerr("syscalls", &HalInitializeSyscalls);
-	start_initializerr("memory management", &HalMMInit);
-	//start_initializerr("keyboard", &HalKeyboardInit);
-	//start_initializerr("scheduler", &HalSchedulerEnable);
+	start_initializer("IDT", &HalInitIDT);
+	start_initializer("ISRs", &HalIsrInstall);
+	start_initializer("IRQs", &HalIrqInstall);
+	start_initializer("system timer", &HalTimerInit);
+	start_initializer("syscalls", &HalInitializeSyscalls);
+	start_initializer("memory management", &HalMMInit);
+	//start_initializer("keyboard", &HalKeyboardInit);
+	//start_initializer("scheduler", &HalSchedulerEnable);
 
 	start_service("Enabling", "interrupts", &HalEnableInterrupts);
 }
