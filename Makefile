@@ -11,7 +11,7 @@ SRCFILES := $(shell find 'src' ${SOURCE_SUFFIXES})
 OBJFILES := $(patsubst %.asm, %.o, $(patsubst %.c, %.o, $(SRCFILES)))
 
 #CFLAGS=-std=c99 -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -fno-builtin -Iinclude -Iinclude/kernel -m32
-override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -Iinclude -Iinclude/kernel -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function -Werror=implicit-function-declaration -m32 -gdwarf-2 -pedantic-errors
+override CFLAGS += -std=c99 -Wall -nostdinc -ffreestanding  -fno-stack-protector -fno-builtin -g -Iinclude -Iinclude/kernel -fdiagnostics-show-option -Wextra -Wunused -Wformat=2 -Winit-self -Wmissing-include-dirs -Wstrict-overflow=4 -Wfloat-equal -Wwrite-strings -Wconversion -Wundef -Wtrigraphs -Wunused-parameter -Wunknown-pragmas -Wcast-align -Wswitch-enum -Waggregate-return -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Wunreachable-code -Winline -Winvalid-pch -Wdisabled-optimization -Wsystem-headers -Wbad-function-cast -Wunused-function -Werror=implicit-function-declarationx -m32 -gdwarf-2 -pedantic-errors
 
 override LDFLAGS += -nostdlib -g -melf_i386
 
@@ -35,10 +35,10 @@ config.mk:
 	@false
 
 kernel.exe: kernel-libs $(filter src/kernel/%, ${OBJFILES})
-	@${LD} -o src/kernel/kernel.exe ${LDFLAGS} -T src/kernel/boot/link.ld src/kernel/boot/start.o $(filter-out kernel-libs src/kernel/boot/start.o, $^) src/lib/libc/libc.lib
+	@${LD} -o src/kernel/kernel.exe ${LDFLAGS} -T src/kernel/boot/link.ld src/kernel/boot/start.o $(filter-out kernel-libs src/kernel/boot/start.o, $^) src/lib/hal/hal.lib src/lib/libc/libc.lib
 #	@/bin/echo $^
 
-kernel-libs: libc.lib userland.exe
+kernel-libs: hal.lib libc.lib userland.exe
 
 userland.exe: krnllib.lib libc.lib $(filter src/userland/%.o, ${OBJFILES})
 	@${LD} -o src/userland/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/userland/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
@@ -53,9 +53,9 @@ libc.lib: $(filter src/lib/libc/%.o, ${OBJFILES})
 	@${AR} rc src/lib/libc/libc.lib $^
 	@${RANLIB} src/lib/libc/libc.lib
 
-hal.lib: $(filter src/kernel/hal/%.o, ${OBJFILES})
-	@${AR} rc  src/kernel/hal/hal.lib $^
-	@${RANLIB} src/kernel/hal/hal.lib
+hal.lib: $(filter src/lib/hal/%.o, ${OBJFILES})
+	@${AR} rc  src/lib/hal/hal.lib $^
+	@${RANLIB} src/lib/hal/hal.lib
 
 
 -include $(find ./src -name '*.d')
