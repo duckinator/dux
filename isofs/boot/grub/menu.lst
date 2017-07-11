@@ -2,20 +2,20 @@ default 1
 timeout 3
 
 title Dux
-kernel /System/kernel.exe
+kernel /system/kernel.exe
 
 title Dux with Userland
-kernel /System/kernel.exe
-module /System/userland.exe
+kernel /system/kernel.exe
+module /system/userland.exe
 
 title Dux with all modules (no userland)
-kernel /System/kernel.exe
-module /Modules/uart.exe
-module /Modules/test_module.exe
+kernel /system/kernel.exe
+module /modules/uart.exe
+module /modules/test_module.exe
 
 title Dux with all modules and Userland
-kernel /System/kernel.exe
-module /System/userland.exe
-module /Modules/uart.exe
-module /Modules/test_module.exe
+kernel /system/kernel.exe
+module /system/userland.exe
+module /modules/uart.exe
+module /modules/test_module.exe
 

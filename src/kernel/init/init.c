@@ -11,15 +11,15 @@ noreturn init_kernel(uint32_t magic, void *arg)
 		stop(STOP_BAD_BOOTLOADER_MAGIC);
 	}
 
-	mmap_init(mbd);    // Set up memory map first
-	hal_init();         // Start HAL (GDT, Display, IDT, etc).
-	test_init();        // Configure tests.
+	mmap_init(mbd); // Set up memory map first
+	hal_init();     // Start HAL (GDT, Display, IDT, etc).
+	test_init();    // Configure tests.
 
-	test_run_all();      // Run tests.
+	test_run_all(); // Run tests.
 
 	load_modules(); // Load all kernel modules
 
-	userland = get_module("/System/userland.exe");
+	userland = get_module("/system/userland.exe");
 
 	/* Initialize pseudo-user mode */
 	if (userland != NULL) {

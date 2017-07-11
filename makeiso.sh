@@ -2,7 +2,7 @@
 
 isocmd="genisoimage"
 
-rm -rf isofs/System/
+rm -rf isofs/system/
 
 mkdir -p isofs/boot/grub
 
@@ -11,13 +11,13 @@ then
 	isocmd="mkisofs"
 fi
 
-mkdir -p isofs/System isofs/Modules
+mkdir -p isofs/system isofs/modules
 
-cp src/kernel/kernel.exe isofs/System
-cp src/userland/userland.exe isofs/System
+cp src/kernel/kernel.exe isofs/system
+cp src/userland/userland.exe isofs/system
 
 for x in `find src -name '*.lib'`; do
-  cp $x isofs/System
+  cp $x isofs/system
 done
 
 ./copymodules.sh

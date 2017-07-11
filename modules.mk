@@ -1,6 +1,6 @@
 #modules: kernel.exe test_module.exe uart.exe
 modules: kernel.exe
-	@mkdir -p isofs/Modules
+	@mkdir -p isofs/modules
 	./copymodules.sh
 
 test_module.exe: krnllib.lib libc.lib src/modules/test_module/test_module.o

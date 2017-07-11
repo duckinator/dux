@@ -42,7 +42,7 @@ void load_modules()
 
 			module_ptr = get_module((char*)(module->string));
 
-			if (module_ptr != NULL && (strncmp((char*)(module->string), "/Modules/", 10) == 0)) {
+			if (module_ptr != NULL && (strncmp((char*)(module->string), "/modules/", 10) == 0)) {
 				printf("Initalizing %s...\n", (char*)(module->string));
 				run_elf_exe(module_ptr);
 			}
