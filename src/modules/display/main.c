@@ -111,7 +111,7 @@ void DisplayCursorPosition(uint8_t _row, uint8_t _col)
 	row = _row;
 }
 
-void DisplayInit(void)
+int main(int argc, char* argv[])
 {
 	VideoMemory = (uint16_t*) VIDEO_MEMORY;
 	col = 0;
