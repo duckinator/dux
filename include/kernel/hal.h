@@ -28,6 +28,6 @@ void HalEnableNMI(void);
 //#include <driver/timer.h>
 //#include <driver/keyboard/keyboard.h>
 
-void HalInit(void);
+void hal_init(void);
 
 #endif /* end of include guard: HAL_H */

@@ -1,4 +1,5 @@
 #include <system.h>
+#include <hal/ports.h>
 #include <api/display.h>
 
 #define COLS (80)

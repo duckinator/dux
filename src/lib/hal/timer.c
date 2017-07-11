@@ -1,4 +1,5 @@
 #include <hal/timer.h>
+#include <hal/irqs.h>
 #include <kernel/core/scheduler.h>
 
 unsigned int ticks = 0;
@@ -18,5 +19,5 @@ unsigned int HalGetTicks()
 
 void HalTimerInit()
 {
-	HalIrqHandler_Install(0, (void*)HalTimerHandler);
+	HalIrqHandler_Install(0, (void (*)())HalTimerHandler);
 }
