@@ -87,17 +87,8 @@ qemu: iso
 qemu-monitor: iso
 	${QEMU} -monitor stdio -cdrom iso/dux.iso
 
-bochs: iso
-	./run.sh
-
 vbox: iso
 	VirtualBox --startvm dux --debug-statistics --debug-command-line --start-running
-
-todo:
-	@./tools/todo.sh
-
-sloc:
-	@sloccount ./src ./include | grep "(SLOC)"
 
 clean:
 	@find ./src -name '*.o'   -delete
