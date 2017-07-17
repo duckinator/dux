@@ -1,6 +1,12 @@
-# not dux
+# Dux
 
-DOING A THING. STAY TUNED.
+Dux is an operating system in the process of becoming a microkernel. It was
+started in 2008.
+
+
+**NOTE:** If you cloned this repository before July 11th 2017, you will
+need to re-clone it. I (@duckinator) modified the commit history to
+correct my name.
 
 ## Requirements
 
