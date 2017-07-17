@@ -19,6 +19,31 @@ static uint8_t row;
 static uint8_t escape;
 static uint8_t escape_attr;
 
+void _start(void)
+{
+	//clear_screen();
+	const char *argv[1] = {
+		"user"
+	};
+	main(1, argv);
+	return;
+}
+
+int main(int argc, char* argv[])
+{
+	VideoMemory = (uint16_t*) VIDEO_MEMORY;
+	col = 0;
+	row = 0;
+	attr = 0x1f;
+	escape = 0;
+	escape_attr = 0;
+	disp_init = 1;
+	DisplayHideCursor();
+	DisplayClear();
+}
+
+
+
 void DisplaySetAttr(uint8_t lattr)
 {
 	attr = lattr;
@@ -109,19 +134,6 @@ void DisplayCursorPosition(uint8_t _row, uint8_t _col)
 {
 	col = _col;
 	row = _row;
-}
-
-int main(int argc, char* argv[])
-{
-	VideoMemory = (uint16_t*) VIDEO_MEMORY;
-	col = 0;
-	row = 0;
-	attr = 0x1f;
-	escape = 0;
-	escape_attr = 0;
-	disp_init = 1;
-	DisplayHideCursor();
-	DisplayClear();
 }
 
 void DisableDisplay(void)

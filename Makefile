@@ -38,10 +38,11 @@ kernel.exe: kernel-libs $(filter src/kernel/%, ${OBJFILES})
 	@${LD} -o src/kernel/kernel.exe ${LDFLAGS} -T src/kernel/boot/link.ld src/kernel/boot/start.o $(filter-out kernel-libs src/kernel/boot/start.o, $^) src/lib/hal/hal.lib src/lib/libc/libc.lib
 #	@/bin/echo $^
 
-kernel-libs: hal.lib libc.lib userland.exe
+kernel-libs: hal.lib krnllib.lib libc.lib
+modules: userland.exe
 
-userland.exe: krnllib.lib libc.lib $(filter src/userland/%.o, ${OBJFILES})
-	@${LD} -o src/userland/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/userland/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
+userland.exe: krnllib.lib libc.lib $(filter src/modules/userland/%.o, ${OBJFILES})
+	@${LD} -o src/modules/userland/userland.exe ${LDFLAGS} -Ttext 0x200000 $(sort $(filter src/modules/userland/%.o, ${OBJFILES})) -Lsrc/lib/krnllib src/lib/krnllib/krnllib.lib -Lsrc/lib/libc src/lib/libc/libc.lib
 
 #this needs to take advantage of static rules to apply for all of:
 # <libname>: src/lib/<libname>/*.o
