@@ -1,3 +1,8 @@
+# !!!!! NO LONGER MAINTAINED !!!!!
+
+See [awooOS](https://github.com/duckinator/awoos) for my current
+operating system related shenanigans!
+
 # Dux
 
 Dux is an operating system in the process of becoming a microkernel. It was
