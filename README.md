@@ -1,6 +1,6 @@
 # !!!!! NO LONGER MAINTAINED !!!!!
 
-See [awooOS](https://github.com/duckinator/awoos) for my current
+See [awooOS](https://github.com/duckinator/awooos) for my current
 operating system related shenanigans!
 
 # Dux
